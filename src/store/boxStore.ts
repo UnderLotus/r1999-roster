@@ -166,7 +166,7 @@ export const useBoxStore = create<BoxStore>()(
     }),
     {
       name: "reverse1999-box-state",
-      version: 3,
+      version: 4,
       // 持久化收藏狀態 + 語系偏好；不存瀏覽情境（搜尋/篩選）
       partialize: (state) => ({
         characters: state.characters,

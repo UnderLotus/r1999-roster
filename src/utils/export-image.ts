@@ -51,8 +51,8 @@ export async function exportJpeg(exportElement: HTMLElement): Promise<void> {
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
-  // 釋放 object URL（延遲確保下載觸發）
-  setTimeout(() => URL.revokeObjectURL(anchor.href), 100);
+  // 釋放 object URL（延遲確保下載觸發，iOS Safari 可能較慢）
+  setTimeout(() => URL.revokeObjectURL(anchor.href), 10000);
 }
 
 function dataURLtoBlob(dataUrl: string): Blob {
