@@ -45,9 +45,23 @@ export async function exportJpeg(exportElement: HTMLElement): Promise<void> {
   });
 
   const anchor = document.createElement("a");
-  anchor.href = dataUrl;
+  const blob = dataURLtoBlob(dataUrl);
+  anchor.href = URL.createObjectURL(blob);
   anchor.download = `reverse-1999-box-${getDateString()}.jpg`;
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
+  // 釋放 object URL（延遲確保下載觸發）
+  setTimeout(() => URL.revokeObjectURL(anchor.href), 100);
+}
+
+function dataURLtoBlob(dataUrl: string): Blob {
+  const [header, data] = dataUrl.split(",");
+  const mime = header.match(/:(.*?);/)?.[1] ?? "image/jpeg";
+  const bytes = atob(data);
+  const buf = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) {
+    buf[i] = bytes.charCodeAt(i);
+  }
+  return new Blob([buf], { type: mime });
 }
