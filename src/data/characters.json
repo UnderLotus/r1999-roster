@@ -6,7 +6,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314901/full.webp",
-      "avatar": "/assets/characters/314901/avatar.png"
+      "avatar": "/assets/characters/314901/avatar.png",
+      "insight": "/assets/characters/314901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8F%8C%E7%94%9F%E8%88%9E%E4%BC%B6",
@@ -31,7 +32,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314701/full.webp",
-      "avatar": "/assets/characters/314701/avatar.png"
+      "avatar": "/assets/characters/314701/avatar.png",
+      "insight": "/assets/characters/314701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E5%90%8D%E8%80%85",
@@ -51,7 +53,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314601/full.webp",
-      "avatar": "/assets/characters/314601/avatar.png"
+      "avatar": "/assets/characters/314601/avatar.png",
+      "insight": "/assets/characters/314601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E7%91%9E%E5%AE%89%E4%BE%AC",
@@ -71,7 +74,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314501/full.webp",
-      "avatar": "/assets/characters/314501/avatar.png"
+      "avatar": "/assets/characters/314501/avatar.png",
+      "insight": "/assets/characters/314501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%9E%E5%A3%B0%E8%B0%A3",
@@ -90,7 +94,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314401/full.webp",
-      "avatar": "/assets/characters/314401/avatar.png"
+      "avatar": "/assets/characters/314401/avatar.png",
+      "insight": "/assets/characters/314401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8F%90%E7%90%85%E7%9C%BC",
@@ -110,7 +115,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314301/full.webp",
-      "avatar": "/assets/characters/314301/avatar.png"
+      "avatar": "/assets/characters/314301/avatar.png",
+      "insight": "/assets/characters/314301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%91%E8%B0%9C",
@@ -130,7 +136,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314201/full.webp",
-      "avatar": "/assets/characters/314201/avatar.png"
+      "avatar": "/assets/characters/314201/avatar.png",
+      "insight": "/assets/characters/314201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E8%8E%AB%E7%BA%B3",
@@ -151,7 +158,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314101/full.webp",
-      "avatar": "/assets/characters/314101/avatar.png"
+      "avatar": "/assets/characters/314101/avatar.png",
+      "insight": "/assets/characters/314101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%B9%AD%E9%B8%B6%E5%89%AA",
@@ -171,7 +179,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/314001/full.webp",
-      "avatar": "/assets/characters/314001/avatar.png"
+      "avatar": "/assets/characters/314001/avatar.png",
+      "insight": "/assets/characters/314001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A5%A0%E5%9F%BA%E7%9F%B3",
@@ -190,7 +199,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/313901/full.webp",
-      "avatar": "/assets/characters/313901/avatar.png"
+      "avatar": "/assets/characters/313901/avatar.png",
+      "insight": "/assets/characters/313901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BC%A6%E5%85%B9%E8%9D%B4%E8%9D%B6",
@@ -211,7 +221,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/313701/full.webp",
-      "avatar": "/assets/characters/313701/avatar.png"
+      "avatar": "/assets/characters/313701/avatar.png",
+      "insight": "/assets/characters/313701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A8%8B%E5%92%8C%E5%85%89",
@@ -231,7 +242,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/313501/full.webp",
-      "avatar": "/assets/characters/313501/avatar.png"
+      "avatar": "/assets/characters/313501/avatar.png",
+      "insight": "/assets/characters/313501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%81%B0%E8%B0%83%E8%93%9D",
@@ -252,7 +264,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/313401/full.webp",
-      "avatar": "/assets/characters/313401/avatar.png"
+      "avatar": "/assets/characters/313401/avatar.png",
+      "insight": "/assets/characters/313401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B4%9D%E4%B8%BD%E5%B0%94",
@@ -273,7 +286,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/313201/full.webp",
-      "avatar": "/assets/characters/313201/avatar.png"
+      "avatar": "/assets/characters/313201/avatar.png",
+      "insight": "/assets/characters/313201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%8A%E6%AD%BB%E9%B8%9F",
@@ -294,7 +308,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312801/full.webp",
-      "avatar": "/assets/characters/312801/avatar.png"
+      "avatar": "/assets/characters/312801/avatar.png",
+      "insight": "/assets/characters/312801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E6%88%8E",
@@ -315,7 +330,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312701/full.webp",
-      "avatar": "/assets/characters/312701/avatar.png"
+      "avatar": "/assets/characters/312701/avatar.png",
+      "insight": "/assets/characters/312701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E5%B0%94%E7%BA%B1",
@@ -336,7 +352,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312601/full.webp",
-      "avatar": "/assets/characters/312601/avatar.png"
+      "avatar": "/assets/characters/312601/avatar.png",
+      "insight": "/assets/characters/312601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E5%AE%89%E5%A8%9C",
@@ -357,7 +374,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312501/full.webp",
-      "avatar": "/assets/characters/312501/avatar.png"
+      "avatar": "/assets/characters/312501/avatar.png",
+      "insight": "/assets/characters/312501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%8E%E6%A0%91%E8%8E%93",
@@ -377,7 +395,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312401/full.webp",
-      "avatar": "/assets/characters/312401/avatar.png"
+      "avatar": "/assets/characters/312401/avatar.png",
+      "insight": "/assets/characters/312401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E7%8F%8A%E5%BE%B7%E6%8B%89",
@@ -397,7 +416,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312301/full.webp",
-      "avatar": "/assets/characters/312301/avatar.png"
+      "avatar": "/assets/characters/312301/avatar.png",
+      "insight": "/assets/characters/312301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%89%BE%E5%90%89%E5%A5%A5%C2%B7%E5%A5%A5%E8%BF%AA%E6%89%98%E9%9B%B7",
@@ -417,7 +437,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312101/full.webp",
-      "avatar": "/assets/characters/312101/avatar.png"
+      "avatar": "/assets/characters/312101/avatar.png",
+      "insight": "/assets/characters/312101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E8%8E%89%E5%BE%B7%E5%B0%94",
@@ -438,7 +459,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312001/full.webp",
-      "avatar": "/assets/characters/312001/avatar.png"
+      "avatar": "/assets/characters/312001/avatar.png",
+      "insight": "/assets/characters/312001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E8%B0%9B%E5%8D%A1",
@@ -459,7 +481,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311701/full.webp",
-      "avatar": "/assets/characters/311701/avatar.png"
+      "avatar": "/assets/characters/311701/avatar.png",
+      "insight": "/assets/characters/311701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BA%93%E7%8F%80%E8%8A%B1%E7%8E%AF",
@@ -480,7 +503,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311601/full.webp",
-      "avatar": "/assets/characters/311601/avatar.png"
+      "avatar": "/assets/characters/311601/avatar.png",
+      "insight": "/assets/characters/311601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%B7%E5%91%A8%E5%85%AD",
@@ -501,7 +525,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311401/full.webp",
-      "avatar": "/assets/characters/311401/avatar.png"
+      "avatar": "/assets/characters/311401/avatar.png",
+      "insight": "/assets/characters/311401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%99%9A%E6%9E%84%E9%9B%86",
@@ -522,7 +547,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311301/full.webp",
-      "avatar": "/assets/characters/311301/avatar.png"
+      "avatar": "/assets/characters/311301/avatar.png",
+      "insight": "/assets/characters/311301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E8%8E%B1%E5%A4%AB",
@@ -543,7 +569,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311101/full.webp",
-      "avatar": "/assets/characters/311101/avatar.png"
+      "avatar": "/assets/characters/311101/avatar.png",
+      "insight": "/assets/characters/311101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8F%B2%E6%9E%97%E5%A3%AB%E5%A4%9A",
@@ -564,7 +591,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311001/full.webp",
-      "avatar": "/assets/characters/311001/avatar.png"
+      "avatar": "/assets/characters/311001/avatar.png",
+      "insight": "/assets/characters/311001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%81%E6%9C%88",
@@ -585,7 +613,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310901/full.webp",
-      "avatar": "/assets/characters/310901/avatar.png"
+      "avatar": "/assets/characters/310901/avatar.png",
+      "insight": "/assets/characters/310901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%BE%E5%9B%BE%E7%9F%B3%E5%AD%90",
@@ -606,7 +635,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310801/full.webp",
-      "avatar": "/assets/characters/310801/avatar.png"
+      "avatar": "/assets/characters/310801/avatar.png",
+      "insight": "/assets/characters/310801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%8D%A1%E6%B4%9B%E5%84%BF",
@@ -627,7 +657,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310701/full.webp",
-      "avatar": "/assets/characters/310701/avatar.png"
+      "avatar": "/assets/characters/310701/avatar.png",
+      "insight": "/assets/characters/310701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B9%8C%E5%B0%94%E9%87%8C%E5%B8%8C",
@@ -647,7 +678,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310501/full.webp",
-      "avatar": "/assets/characters/310501/avatar.png"
+      "avatar": "/assets/characters/310501/avatar.png",
+      "insight": "/assets/characters/310501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%B8%E4%BF%A1%E5%9C%88%E5%84%BF",
@@ -668,7 +700,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310401/full.webp",
-      "avatar": "/assets/characters/310401/avatar.png"
+      "avatar": "/assets/characters/310401/avatar.png",
+      "insight": "/assets/characters/310401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%AC%83%E7%AC%83%E9%AA%A8",
@@ -689,7 +722,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310201/full.webp",
-      "avatar": "/assets/characters/310201/avatar.png"
+      "avatar": "/assets/characters/310201/avatar.png",
+      "insight": "/assets/characters/310201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BD%A9%E6%8B%89",
@@ -710,7 +744,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310001/full.webp",
-      "avatar": "/assets/characters/310001/avatar.png"
+      "avatar": "/assets/characters/310001/avatar.png",
+      "insight": "/assets/characters/310001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%A9%E4%BD%BF%E5%A8%9C%E5%A8%9C",
@@ -731,7 +766,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309801/full.webp",
-      "avatar": "/assets/characters/309801/avatar.png"
+      "avatar": "/assets/characters/309801/avatar.png",
+      "insight": "/assets/characters/309801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%93%9D%E6%89%8B%E5%B8%95",
@@ -752,7 +788,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309701/full.webp",
-      "avatar": "/assets/characters/309701/avatar.png"
+      "avatar": "/assets/characters/309701/avatar.png",
+      "insight": "/assets/characters/309701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%B0%94%E5%8F%A4%E6%96%AF",
@@ -773,7 +810,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309501/full.webp",
-      "avatar": "/assets/characters/309501/avatar.png"
+      "avatar": "/assets/characters/309501/avatar.png",
+      "insight": "/assets/characters/309501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%AF%E7%8A%B6%E6%B0%B4%E6%98%9F",
@@ -794,7 +832,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309401/full.webp",
-      "avatar": "/assets/characters/309401/avatar.png"
+      "avatar": "/assets/characters/309401/avatar.png",
+      "insight": "/assets/characters/309401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/J",
@@ -815,7 +854,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309201/full.webp",
-      "avatar": "/assets/characters/309201/avatar.png"
+      "avatar": "/assets/characters/309201/avatar.png",
+      "insight": "/assets/characters/309201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E6%88%88%E5%B0%94",
@@ -836,7 +876,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308801/full.webp",
-      "avatar": "/assets/characters/308801/avatar.png"
+      "avatar": "/assets/characters/308801/avatar.png",
+      "insight": "/assets/characters/308801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A1%9E%E6%A2%85%E5%B0%94%E7%BB%B4%E6%96%AF",
@@ -857,7 +898,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308701/full.webp",
-      "avatar": "/assets/characters/308701/avatar.png"
+      "avatar": "/assets/characters/308701/avatar.png",
+      "insight": "/assets/characters/308701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BB%B4%E6%8B%89",
@@ -878,7 +920,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308601/full.webp",
-      "avatar": "/assets/characters/308601/avatar.png"
+      "avatar": "/assets/characters/308601/avatar.png",
+      "insight": "/assets/characters/308601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9C%B2%E8%A5%BF",
@@ -899,7 +942,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308401/full.webp",
-      "avatar": "/assets/characters/308401/avatar.png"
+      "avatar": "/assets/characters/308401/avatar.png",
+      "insight": "/assets/characters/308401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%91%9B%E5%A4%A9",
@@ -920,7 +964,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308301/full.webp",
-      "avatar": "/assets/characters/308301/avatar.png"
+      "avatar": "/assets/characters/308301/avatar.png",
+      "insight": "/assets/characters/308301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9B%B2%E5%A8%98",
@@ -941,7 +986,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308101/full.webp",
-      "avatar": "/assets/characters/308101/avatar.png"
+      "avatar": "/assets/characters/308101/avatar.png",
+      "insight": "/assets/characters/308101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E7%B4%A2%E5%B0%94%E5%BE%B7",
@@ -962,7 +1008,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308001/full.webp",
-      "avatar": "/assets/characters/308001/avatar.png"
+      "avatar": "/assets/characters/308001/avatar.png",
+      "insight": "/assets/characters/308001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E5%8D%A1%E5%B0%BC%E4%BA%9A",
@@ -983,7 +1030,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307901/full.webp",
-      "avatar": "/assets/characters/307901/avatar.png"
+      "avatar": "/assets/characters/307901/avatar.png",
+      "insight": "/assets/characters/307901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/6",
@@ -1004,7 +1052,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307701/full.webp",
-      "avatar": "/assets/characters/307701/avatar.png"
+      "avatar": "/assets/characters/307701/avatar.png",
+      "insight": "/assets/characters/307701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8C%97%E6%96%B9%E5%93%A8%E6%AD%8C",
@@ -1025,7 +1074,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307401/full.webp",
-      "avatar": "/assets/characters/307401/avatar.png"
+      "avatar": "/assets/characters/307401/avatar.png",
+      "insight": "/assets/characters/307401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%85%B9%E6%8B%89",
@@ -1046,7 +1096,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307301/full.webp",
-      "avatar": "/assets/characters/307301/avatar.png"
+      "avatar": "/assets/characters/307301/avatar.png",
+      "insight": "/assets/characters/307301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8F%AF%E7%87%83%E7%82%B9",
@@ -1067,7 +1118,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307201/full.webp",
-      "avatar": "/assets/characters/307201/avatar.png"
+      "avatar": "/assets/characters/307201/avatar.png",
+      "insight": "/assets/characters/307201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%AC%83%E6%AF%9B%E6%B2%99%E7%A0%BE",
@@ -1088,7 +1140,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307001/full.webp",
-      "avatar": "/assets/characters/307001/avatar.png"
+      "avatar": "/assets/characters/307001/avatar.png",
+      "insight": "/assets/characters/307001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%BD%E8%8F%88%E6%B3%A2%E9%82%A3",
@@ -1109,7 +1162,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/306601/full.webp",
-      "avatar": "/assets/characters/306601/avatar.png"
+      "avatar": "/assets/characters/306601/avatar.png",
+      "insight": "/assets/characters/306601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/37",
@@ -1130,7 +1184,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/306501/full.webp",
-      "avatar": "/assets/characters/306501/avatar.png"
+      "avatar": "/assets/characters/306501/avatar.png",
+      "insight": "/assets/characters/306501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%A9%AC%E5%BA%93%E6%96%AF",
@@ -1151,7 +1206,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/306301/full.webp",
-      "avatar": "/assets/characters/306301/avatar.png"
+      "avatar": "/assets/characters/306301/avatar.png",
+      "insight": "/assets/characters/306301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%9A%AE%E5%85%8B%E5%8B%92%E6%96%AF",
@@ -1172,7 +1228,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/306201/full.webp",
-      "avatar": "/assets/characters/306201/avatar.png"
+      "avatar": "/assets/characters/306201/avatar.png",
+      "insight": "/assets/characters/306201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%85%E5%85%B0%E5%A6%AE",
@@ -1193,7 +1250,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305601/full.webp",
-      "avatar": "/assets/characters/305601/avatar.png"
+      "avatar": "/assets/characters/305601/avatar.png",
+      "insight": "/assets/characters/305601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%81%E8%A5%BF%E5%8D%A1",
@@ -1214,7 +1272,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305301/full.webp",
-      "avatar": "/assets/characters/305301/avatar.png"
+      "avatar": "/assets/characters/305301/avatar.png",
+      "insight": "/assets/characters/305301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%89%99%E4%BB%99",
@@ -1235,7 +1294,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305201/full.webp",
-      "avatar": "/assets/characters/305201/avatar.png"
+      "avatar": "/assets/characters/305201/avatar.png",
+      "insight": "/assets/characters/305201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%B0%E5%B7%B4%E5%88%AB%E5%A1%94",
@@ -1256,7 +1316,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305101/full.webp",
-      "avatar": "/assets/characters/305101/avatar.png"
+      "avatar": "/assets/characters/305101/avatar.png",
+      "insight": "/assets/characters/305101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B8%A9%E5%A6%AE%E5%BC%97%E9%9B%B7%E5%BE%B7",
@@ -1277,7 +1338,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304801/full.webp",
-      "avatar": "/assets/characters/304801/avatar.png"
+      "avatar": "/assets/characters/304801/avatar.png",
+      "insight": "/assets/characters/304801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%BF%9C%E6%97%85",
@@ -1298,7 +1360,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304701/full.webp",
-      "avatar": "/assets/characters/304701/avatar.png"
+      "avatar": "/assets/characters/304701/avatar.png",
+      "insight": "/assets/characters/304701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%94%E6%AF%9B%E6%89%8B%E8%A2%8B",
@@ -1319,7 +1382,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303901/full.webp",
-      "avatar": "/assets/characters/303901/avatar.png"
+      "avatar": "/assets/characters/303901/avatar.png",
+      "insight": "/assets/characters/303901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B3%A5%E9%AF%AD%E7%9A%84%E5%A3%AB",
@@ -1340,7 +1404,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303201/full.webp",
-      "avatar": "/assets/characters/303201/avatar.png"
+      "avatar": "/assets/characters/303201/avatar.png",
+      "insight": "/assets/characters/303201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BE%E5%A4%AB%E9%95%BF",
@@ -1361,7 +1426,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/302501/full.webp",
-      "avatar": "/assets/characters/302501/avatar.png"
+      "avatar": "/assets/characters/302501/avatar.png",
+      "insight": "/assets/characters/302501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%98%9F%E9%94%91",
@@ -1382,7 +1448,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/300901/full.webp",
-      "avatar": "/assets/characters/300901/avatar.png"
+      "avatar": "/assets/characters/300901/avatar.png",
+      "insight": "/assets/characters/300901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8B%8F%E8%8A%99%E6%AF%94",
@@ -1403,7 +1470,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/300701/full.webp",
-      "avatar": "/assets/characters/300701/avatar.png"
+      "avatar": "/assets/characters/300701/avatar.png",
+      "insight": "/assets/characters/300701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9C%AA%E9%94%88%E9%93%A0",
@@ -1424,7 +1492,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/300401/full.webp",
-      "avatar": "/assets/characters/300401/avatar.png"
+      "avatar": "/assets/characters/300401/avatar.png",
+      "insight": "/assets/characters/300401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E5%BC%A9%E7%AE%AD",
@@ -1445,7 +1514,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/300301/full.webp",
-      "avatar": "/assets/characters/300301/avatar.png"
+      "avatar": "/assets/characters/300301/avatar.png",
+      "insight": "/assets/characters/300301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A7%B2%E5%AF%84%E7%94%9F",
@@ -1466,7 +1536,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/315401/full.webp",
-      "avatar": "/assets/characters/315401/avatar.png"
+      "avatar": "/assets/characters/315401/avatar.png",
+      "insight": "/assets/characters/315401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%B6%E8%A3%85%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
@@ -1485,7 +1556,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/312201/full.webp",
-      "avatar": "/assets/characters/312201/avatar.png"
+      "avatar": "/assets/characters/312201/avatar.png",
+      "insight": "/assets/characters/312201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%88%A9%E5%85%8B%E8%A5%BF%E6%AC%A7%E6%96%AF",
@@ -1505,7 +1577,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311801/full.webp",
-      "avatar": "/assets/characters/311801/avatar.png"
+      "avatar": "/assets/characters/311801/avatar.png",
+      "insight": "/assets/characters/311801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%BD%E5%90%8D%E6%97%A5",
@@ -1526,7 +1599,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311501/full.webp",
-      "avatar": "/assets/characters/311501/avatar.png"
+      "avatar": "/assets/characters/311501/avatar.png",
+      "insight": "/assets/characters/311501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9A%BC%E5%9A%BC%E6%9D%BE%E6%9E%9C",
@@ -1547,7 +1621,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/311201/full.webp",
-      "avatar": "/assets/characters/311201/avatar.png"
+      "avatar": "/assets/characters/311201/avatar.png",
+      "insight": "/assets/characters/311201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A9%BA%E8%84%91%E8%A2%8B",
@@ -1568,7 +1643,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310601/full.webp",
-      "avatar": "/assets/characters/310601/avatar.png"
+      "avatar": "/assets/characters/310601/avatar.png",
+      "insight": "/assets/characters/310601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%AE%BD%E6%AA%90%E5%B8%BD",
@@ -1589,7 +1665,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310301/full.webp",
-      "avatar": "/assets/characters/310301/avatar.png"
+      "avatar": "/assets/characters/310301/avatar.png",
+      "insight": "/assets/characters/310301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%82%93%E8%82%AF%E5%85%88%E7%94%9F",
@@ -1610,7 +1687,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309901/full.webp",
-      "avatar": "/assets/characters/309901/avatar.png"
+      "avatar": "/assets/characters/309901/avatar.png",
+      "insight": "/assets/characters/309901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%95%B0%E7%BE%8A%E7%BE%94",
@@ -1631,7 +1709,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309101/full.webp",
-      "avatar": "/assets/characters/309101/avatar.png"
+      "avatar": "/assets/characters/309101/avatar.png",
+      "insight": "/assets/characters/309101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BD%97%E8%95%BE%E8%8E%B1",
@@ -1652,7 +1731,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/308201/full.webp",
-      "avatar": "/assets/characters/308201/avatar.png"
+      "avatar": "/assets/characters/308201/avatar.png",
+      "insight": "/assets/characters/308201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E5%8F%B6%E5%B0%BC%E5%A1%9E",
@@ -1673,7 +1753,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307801/full.webp",
-      "avatar": "/assets/characters/307801/avatar.png"
+      "avatar": "/assets/characters/307801/avatar.png",
+      "insight": "/assets/characters/307801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%A4%AB%E8%A5%BF%E7%BB%B4",
@@ -1694,7 +1775,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307601/full.webp",
-      "avatar": "/assets/characters/307601/avatar.png"
+      "avatar": "/assets/characters/307601/avatar.png",
+      "insight": "/assets/characters/307601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%92%8C%E5%B9%B3%E4%B9%8C%E9%B2%81",
@@ -1715,7 +1797,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307501/full.webp",
-      "avatar": "/assets/characters/307501/avatar.png"
+      "avatar": "/assets/characters/307501/avatar.png",
+      "insight": "/assets/characters/307501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B2%99%E4%B8%9D%E7%BB%92",
@@ -1736,7 +1819,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/307101/full.webp",
-      "avatar": "/assets/characters/307101/avatar.png"
+      "avatar": "/assets/characters/307101/avatar.png",
+      "insight": "/assets/characters/307101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%8E%E5%90%89%E6%8B%89",
@@ -1757,7 +1841,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/306401/full.webp",
-      "avatar": "/assets/characters/306401/avatar.png"
+      "avatar": "/assets/characters/306401/avatar.png",
+      "insight": "/assets/characters/306401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8C%96%E6%8E%98%E8%89%BA%E6%9C%AF",
@@ -1778,7 +1863,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/306101/full.webp",
-      "avatar": "/assets/characters/306101/avatar.png"
+      "avatar": "/assets/characters/306101/avatar.png",
+      "insight": "/assets/characters/306101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%81%90%E6%80%96%E9%80%9A",
@@ -1799,7 +1885,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/306001/full.webp",
-      "avatar": "/assets/characters/306001/avatar.png"
+      "avatar": "/assets/characters/306001/avatar.png",
+      "insight": "/assets/characters/306001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%91%E8%9C%9C%E5%84%BF",
@@ -1820,7 +1907,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304901/full.webp",
-      "avatar": "/assets/characters/304901/avatar.png"
+      "avatar": "/assets/characters/304901/avatar.png",
+      "insight": "/assets/characters/304901/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%96%80%E5%9A%93%E5%96%80%E5%9A%93",
@@ -1841,7 +1929,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304301/full.webp",
-      "avatar": "/assets/characters/304301/avatar.png"
+      "avatar": "/assets/characters/304301/avatar.png",
+      "insight": "/assets/characters/304301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%A6%E5%8D%97%E7%89%B9",
@@ -1862,7 +1951,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304101/full.webp",
-      "avatar": "/assets/characters/304101/avatar.png"
+      "avatar": "/assets/characters/304101/avatar.png",
+      "insight": "/assets/characters/304101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E8%92%82%E5%B0%94%E8%BE%BE",
@@ -1883,7 +1973,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303801/full.webp",
-      "avatar": "/assets/characters/303801/avatar.png"
+      "avatar": "/assets/characters/303801/avatar.png",
+      "insight": "/assets/characters/303801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BA%94%E8%89%B2%E6%9C%88",
@@ -1904,7 +1995,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303701/full.webp",
-      "avatar": "/assets/characters/303701/avatar.png"
+      "avatar": "/assets/characters/303701/avatar.png",
+      "insight": "/assets/characters/303701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AE%A3%E5%91%8A%E4%BA%BA",
@@ -1925,7 +2017,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/302401/full.webp",
-      "avatar": "/assets/characters/302401/avatar.png"
+      "avatar": "/assets/characters/302401/avatar.png",
+      "insight": "/assets/characters/302401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B0%94%E7%90%83%E6%B4%BE%E5%AF%B9",
@@ -1967,7 +2060,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/302201/full.webp",
-      "avatar": "/assets/characters/302201/avatar.png"
+      "avatar": "/assets/characters/302201/avatar.png",
+      "insight": "/assets/characters/302201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B8%95%E7%B1%B3%E5%9F%83",
@@ -1988,7 +2082,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/302001/full.webp",
-      "avatar": "/assets/characters/302001/avatar.png"
+      "avatar": "/assets/characters/302001/avatar.png",
+      "insight": "/assets/characters/302001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9F%8F%E6%9E%97%E4%BB%A5%E4%B8%9C",
@@ -2009,7 +2104,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301701/full.webp",
-      "avatar": "/assets/characters/301701/avatar.png"
+      "avatar": "/assets/characters/301701/avatar.png",
+      "insight": "/assets/characters/301701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%8F%E5%88%A9",
@@ -2030,7 +2126,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301601/full.webp",
-      "avatar": "/assets/characters/301601/avatar.png"
+      "avatar": "/assets/characters/301601/avatar.png",
+      "insight": "/assets/characters/301601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A9%B4%E5%84%BF%E8%93%9D",
@@ -2051,7 +2148,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301101/full.webp",
-      "avatar": "/assets/characters/301101/avatar.png"
+      "avatar": "/assets/characters/301101/avatar.png",
+      "insight": "/assets/characters/301101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E8%8E%B2",
@@ -2072,7 +2170,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301001/full.webp",
-      "avatar": "/assets/characters/301001/avatar.png"
+      "avatar": "/assets/characters/301001/avatar.png",
+      "insight": "/assets/characters/301001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/X",
@@ -2093,7 +2192,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/315101/full.webp",
-      "avatar": "/assets/characters/315101/avatar.png"
+      "avatar": "/assets/characters/315101/avatar.png",
+      "insight": "/assets/characters/315101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E6%8B%89",
@@ -2113,7 +2213,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/313801/full.webp",
-      "avatar": "/assets/characters/313801/avatar.png"
+      "avatar": "/assets/characters/313801/avatar.png",
+      "insight": "/assets/characters/313801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%A6%E8%8D%89%E7%BB%93",
@@ -2133,7 +2234,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/313601/full.webp",
-      "avatar": "/assets/characters/313601/avatar.png"
+      "avatar": "/assets/characters/313601/avatar.png",
+      "insight": "/assets/characters/313601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E3%80%8A%E6%B9%96%E8%BE%B9%E7%9A%84%E5%A5%B3%E4%BA%BA%E3%80%8B",
@@ -2152,7 +2254,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/310101/full.webp",
-      "avatar": "/assets/characters/310101/avatar.png"
+      "avatar": "/assets/characters/310101/avatar.png",
+      "insight": "/assets/characters/310101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BD%E6%9C%97%E5%A7%86",
@@ -2173,7 +2276,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305801/full.webp",
-      "avatar": "/assets/characters/305801/avatar.png"
+      "avatar": "/assets/characters/305801/avatar.png",
+      "insight": "/assets/characters/305801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9F%83%E9%87%8C%E5%85%8B",
@@ -2194,7 +2298,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305701/full.webp",
-      "avatar": "/assets/characters/305701/avatar.png"
+      "avatar": "/assets/characters/305701/avatar.png",
+      "insight": "/assets/characters/305701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%A2%85%E6%96%AF%E6%A2%85%E5%B0%94",
@@ -2215,7 +2320,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304601/full.webp",
-      "avatar": "/assets/characters/304601/avatar.png"
+      "avatar": "/assets/characters/304601/avatar.png",
+      "insight": "/assets/characters/304601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%90%B5%E9%97%B9%E9%AC%BC",
@@ -2236,7 +2342,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304401/full.webp",
-      "avatar": "/assets/characters/304401/avatar.png"
+      "avatar": "/assets/characters/304401/avatar.png",
+      "insight": "/assets/characters/304401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E6%A1%91%E5%A5%B3%E5%A3%AB",
@@ -2257,7 +2364,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304201/full.webp",
-      "avatar": "/assets/characters/304201/avatar.png"
+      "avatar": "/assets/characters/304201/avatar.png",
+      "insight": "/assets/characters/304201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%AE%A0",
@@ -2278,7 +2386,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303301/full.webp",
-      "avatar": "/assets/characters/303301/avatar.png"
+      "avatar": "/assets/characters/303301/avatar.png",
+      "insight": "/assets/characters/303301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/TTT",
@@ -2299,7 +2408,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303101/full.webp",
-      "avatar": "/assets/characters/303101/avatar.png"
+      "avatar": "/assets/characters/303101/avatar.png",
+      "insight": "/assets/characters/303101/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%85%E7%8E%BB%E7%92%83",
@@ -2320,7 +2430,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/302801/full.webp",
-      "avatar": "/assets/characters/302801/avatar.png"
+      "avatar": "/assets/characters/302801/avatar.png",
+      "insight": "/assets/characters/302801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/APPLe",
@@ -2341,7 +2452,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/302601/full.webp",
-      "avatar": "/assets/characters/302601/avatar.png"
+      "avatar": "/assets/characters/302601/avatar.png",
+      "insight": "/assets/characters/302601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E6%96%97%E7%AF%B7",
@@ -2362,7 +2474,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301801/full.webp",
-      "avatar": "/assets/characters/301801/avatar.png"
+      "avatar": "/assets/characters/301801/avatar.png",
+      "insight": "/assets/characters/301801/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9B%BE%E8%A1%8C%E8%80%85",
@@ -2383,7 +2496,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301501/full.webp",
-      "avatar": "/assets/characters/301501/avatar.png"
+      "avatar": "/assets/characters/301501/avatar.png",
+      "insight": "/assets/characters/301501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8B%BC%E7%BE%A4",
@@ -2404,7 +2518,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301401/full.webp",
-      "avatar": "/assets/characters/301401/avatar.png"
+      "avatar": "/assets/characters/301401/avatar.png",
+      "insight": "/assets/characters/301401/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%A6%AE%E8%8A%AD%E5%A6%AE",
@@ -2425,7 +2540,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301301/full.webp",
-      "avatar": "/assets/characters/301301/avatar.png"
+      "avatar": "/assets/characters/301301/avatar.png",
+      "insight": "/assets/characters/301301/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%AC",
@@ -2446,7 +2562,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/300601/full.webp",
-      "avatar": "/assets/characters/300601/avatar.png"
+      "avatar": "/assets/characters/300601/avatar.png",
+      "insight": "/assets/characters/300601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
@@ -2467,7 +2584,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/300501/full.webp",
-      "avatar": "/assets/characters/300501/avatar.png"
+      "avatar": "/assets/characters/300501/avatar.png",
+      "insight": "/assets/characters/300501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%BC%E5%85%8B%C2%B7%E6%B3%A2%E9%A1%BF",
@@ -2488,7 +2606,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/309601/full.webp",
-      "avatar": "/assets/characters/309601/avatar.png"
+      "avatar": "/assets/characters/309601/avatar.png",
+      "insight": "/assets/characters/309601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%88%E9%A9%B1%E8%80%85",
@@ -2509,7 +2628,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305501/full.webp",
-      "avatar": "/assets/characters/305501/avatar.png"
+      "avatar": "/assets/characters/305501/avatar.png",
+      "insight": "/assets/characters/305501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%AF%E6%99%AE%E7%89%B9%E5%B0%BC%E5%85%8B",
@@ -2551,7 +2671,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/305001/full.webp",
-      "avatar": "/assets/characters/305001/avatar.png"
+      "avatar": "/assets/characters/305001/avatar.png",
+      "insight": "/assets/characters/305001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%92%E5%93%92%E8%BE%BE%E5%88%A9",
@@ -2593,7 +2714,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/304001/full.webp",
-      "avatar": "/assets/characters/304001/avatar.png"
+      "avatar": "/assets/characters/304001/avatar.png",
+      "insight": "/assets/characters/304001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B8%BD%E8%8E%8E%26%E8%B7%AF%E6%98%93%E6%96%AF",
@@ -2614,7 +2736,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303601/full.webp",
-      "avatar": "/assets/characters/303601/avatar.png"
+      "avatar": "/assets/characters/303601/avatar.png",
+      "insight": "/assets/characters/303601/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A6%E7%BF%B0%C2%B7%E6%8F%90%E6%89%98",
@@ -2635,7 +2758,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303501/full.webp",
-      "avatar": "/assets/characters/303501/avatar.png"
+      "avatar": "/assets/characters/303501/avatar.png",
+      "insight": "/assets/characters/303501/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%89%E6%8B%89%E5%A6%AE",
@@ -2677,7 +2801,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/303001/full.webp",
-      "avatar": "/assets/characters/303001/avatar.png"
+      "avatar": "/assets/characters/303001/avatar.png",
+      "insight": "/assets/characters/303001/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E6%8B%89%E6%B3%89",
@@ -2698,7 +2823,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/301201/full.webp",
-      "avatar": "/assets/characters/301201/avatar.png"
+      "avatar": "/assets/characters/301201/avatar.png",
+      "insight": "/assets/characters/301201/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BC%84%E8%87%A3",
@@ -2740,7 +2866,8 @@
     "enabled": true,
     "images": {
       "full": "/assets/characters/302701/full.webp",
-      "avatar": "/assets/characters/302701/avatar.png"
+      "avatar": "/assets/characters/302701/avatar.png",
+      "insight": "/assets/characters/302701/insight.webp"
     },
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%B0%8F%E5%A7%90",

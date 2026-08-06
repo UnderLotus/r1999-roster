@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Sparkles } from "lucide-react";
 
 import { AppHeader } from "./components/AppHeader";
 import { CharacterGrid } from "./components/CharacterGrid";
@@ -24,9 +24,11 @@ export default function App() {
   const filterMode = useBoxStore((s) => s.filterMode);
   const search = useBoxStore((s) => s.search);
   const displayLang = useBoxStore((s) => s.displayLang);
+  const skinMode = useBoxStore((s) => s.skinMode);
   const setFilterMode = useBoxStore((s) => s.setFilterMode);
   const setSearch = useBoxStore((s) => s.setSearch);
   const setDisplayLang = useBoxStore((s) => s.setDisplayLang);
+  const setSkinMode = useBoxStore((s) => s.setSkinMode);
   const activateCharacter = useBoxStore((s) => s.activateCharacter);
   const decreasePortray = useBoxStore((s) => s.decreasePortray);
   const removeCharacter = useBoxStore((s) => s.removeCharacter);
@@ -105,15 +107,29 @@ export default function App() {
     <main className="box-page">
       <div className="page-topbar">
         <LangSwitcher value={displayLang} onChange={setDisplayLang} />
-        <button
-          type="button"
-          className="button-reset-all"
-          aria-label={t.resetAll}
-          title={t.resetAll}
-          onClick={() => setShowResetConfirm(true)}
-        >
-          <RotateCcw size={15} />
-        </button>
+        <div className="page-topbar__right">
+          <button
+            type="button"
+            className="button-skin-toggle"
+            data-active={skinMode === "insight"}
+            aria-label="切換洞悉立繪"
+            title="切換洞悉立繪"
+            onClick={() =>
+              setSkinMode(skinMode === "default" ? "insight" : "default")
+            }
+          >
+            <Sparkles size={15} />
+          </button>
+          <button
+            type="button"
+            className="button-reset-all"
+            aria-label={t.resetAll}
+            title={t.resetAll}
+            onClick={() => setShowResetConfirm(true)}
+          >
+            <RotateCcw size={15} />
+          </button>
+        </div>
       </div>
 
       <AppHeader total={characters.length} states={states} lang={displayLang} />
@@ -132,6 +148,7 @@ export default function App() {
         characters={visibleCharacters}
         states={states}
         lang={displayLang}
+        skinMode={skinMode}
         onActivate={activateCharacter}
         onDecrease={decreasePortray}
         onRemove={removeCharacter}
@@ -153,6 +170,7 @@ export default function App() {
           characters={characters}
           states={exportSnapshot?.states ?? states}
           lang={exportSnapshot?.lang ?? displayLang}
+          skinMode={skinMode}
         />
       </div>
     </main>

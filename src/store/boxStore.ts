@@ -6,12 +6,14 @@ import { loadJSON, removeKey, saveJSON } from "../utils/storage";
 
 export type FilterMode = "all" | "owned" | "unowned";
 export type LangCode = "zh-CN" | "zh-TW" | "en-US" | "ja-JP" | "ko-KR";
+export type SkinMode = "default" | "insight";
 
 export interface BoxStore {
   characters: Record<string, CharacterState>;
   filterMode: FilterMode;
   search: string;
   displayLang: LangCode;
+  skinMode: SkinMode;
 
   activateCharacter: (id: string) => void;
   decreasePortray: (id: string) => void;
@@ -20,6 +22,7 @@ export interface BoxStore {
   setFilterMode: (mode: FilterMode) => void;
   setSearch: (text: string) => void;
   setDisplayLang: (lang: LangCode) => void;
+  setSkinMode: (mode: SkinMode) => void;
 }
 
 const emptyState: CharacterState = { owned: false, portray: 0 };
@@ -99,6 +102,7 @@ export const useBoxStore = create<BoxStore>()(
       filterMode: "all",
       search: "",
       displayLang: "en-US",
+      skinMode: "default",
 
       activateCharacter: (id) => {
         const current = get().characters[id];
@@ -152,6 +156,7 @@ export const useBoxStore = create<BoxStore>()(
       setFilterMode: (mode) => set({ filterMode: mode }),
       setSearch: (text) => set({ search: text }),
       setDisplayLang: (lang) => set({ displayLang: lang }),
+      setSkinMode: (mode) => set({ skinMode: mode }),
     }),
     {
       name: "reverse1999-box-state",
@@ -160,6 +165,7 @@ export const useBoxStore = create<BoxStore>()(
       partialize: (state) => ({
         characters: state.characters,
         displayLang: state.displayLang,
+        skinMode: state.skinMode,
       }),
       migrate: (persisted) => {
         const { characters, displayLang } = migratePersistedState(persisted);

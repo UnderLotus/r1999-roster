@@ -79,6 +79,44 @@ function deriveAvatarOriginalUrl(thumbUrl: string): string {
   return `https://huiji-public.huijistatic.com/res1999/uploads/${a}/${ab}/${filename}`;
 }
 
+/** 動態分批查詢洞悉版頭像 URL（Headicon_large-{id+1}.webp） */
+async function fetchInsightUrls(
+  ids: string[]
+): Promise<Map<string, string>> {
+  const result = new Map<string, string>();
+
+  for (let i = 0; i < ids.length; i += PORTRAIT_BATCH_SIZE) {
+    const batch = ids.slice(i, i + PORTRAIT_BATCH_SIZE);
+    const titles = batch
+      .map((id) => `File:Headicon_large-${Number(id) + 1}.webp`)
+      .join("|");
+    const url =
+      `${API_URL}?action=query&titles=${encodeURIComponent(titles)}` +
+      `&prop=imageinfo&iiprop=url&format=json`;
+
+    const raw = await fetchJina(url);
+    const jsonStart = raw.indexOf("{");
+    if (jsonStart < 0) {
+      throw new Error(`api.php 回傳非 JSON（洞悉版批次 ${i / PORTRAIT_BATCH_SIZE + 1}）`);
+    }
+    const data = JSON.parse(raw.slice(jsonStart)) as {
+      query?: { pages?: Record<string, { title?: string; imageinfo?: { url?: string }[] }> };
+    };
+    const pages = data.query?.pages ?? {};
+    for (const page of Object.values(pages)) {
+      const imageUrl = page.imageinfo?.[0]?.url;
+      if (imageUrl && page.title) {
+        const m = page.title.match(/Headicon large-(\d+)\.webp$/i);
+        if (m) {
+          const sourceId = String(Number(m[1]) - 1);
+          result.set(sourceId, imageUrl);
+        }
+      }
+    }
+  }
+  return result;
+}
+
 /** 動態分批查詢立繪原圖 URL（批次 50 上限） */
 async function fetchPortraitUrls(
   ids: string[]
@@ -119,6 +157,7 @@ async function downloadImages(
     id: string;
     full: string;
     avatar: string;
+    insight?: string;
     outputDir: string;
   }[]
 ): Promise<{ succeeded: string[]; failed: Record<string, string> }> {
@@ -206,8 +245,7 @@ async function main(): Promise<void> {
 
   if (newCharacters.length === 0) {
     printSummary(summary);
-    console.log("沒有新角色，完成。");
-    return;
+    console.log("沒有新角色。");
   }
 
   // 3. 分批查立繪 URL
@@ -216,6 +254,46 @@ async function main(): Promise<void> {
     newCharacters.map((c) => c.id)
   );
   console.log(`取得立繪 URL: ${portraitUrls.size} 個`);
+
+  // 3.5 洞悉版頭像：一次查全部 source 角色，解決既有角色缺 insight.webp 的問題
+  const needsInsight = source.filter(
+    (c) => !existsSync(path.join(ASSETS_DIR, c.id, "insight.webp"))
+  );
+  let insightUrls = new Map<string, string>();
+  if (needsInsight.length > 0) {
+    console.log(`查詢洞悉版頭像 URL (${needsInsight.length} 名角色)...`);
+    insightUrls = await fetchInsightUrls(needsInsight.map((c) => c.id));
+    console.log(`取得洞悉版頭像 URL: ${insightUrls.size} 個`);
+
+    if (insightUrls.size > 0) {
+      const insightItems = Array.from(insightUrls.entries()).map(([id, url]) => ({
+        id,
+        full: "",
+        avatar: "",
+        insight: url,
+        outputDir: path.join(ASSETS_DIR, id),
+      }));
+      const { succeeded, failed } = await downloadImages(insightItems);
+      console.log(`洞悉版下載: +${succeeded.length} 名，失敗 ${Object.keys(failed).length} 名`);
+      for (const [id, reason] of Object.entries(failed)) {
+        summary.failedCharacters.push(`${id} (洞悉版: ${reason})`);
+      }
+      // 為既有角色補入 insight 路徑
+      const existingById = new Map(existing.map((c) => [c.id, c]));
+      let insightWritten = 0;
+      for (const id of succeeded) {
+        const entry = existingById.get(id);
+        if (entry && !entry.images.insight) {
+          entry.images.insight = `/assets/characters/${id}/insight.webp`;
+          insightWritten++;
+        }
+      }
+      if (insightWritten > 0) {
+        saveAll(existing);
+        console.log(`洞悉版路徑已寫入 ${insightWritten} 名角色`);
+      }
+    }
+  }
 
   // 4. 下載圖片
   // 缺立繪 URL 的角色提前紀錄（不中斷，讓有 URL 的角色繼續下載）
@@ -226,12 +304,24 @@ async function main(): Promise<void> {
 
   const downloadItems = newCharacters
     .filter((c) => portraitUrls.has(c.id))
-    .map((c) => ({
-      id: c.id,
-      full: portraitUrls.get(c.id)!,
-      avatar: deriveAvatarOriginalUrl(c.avatarThumbUrl),
-      outputDir: path.join(ASSETS_DIR, c.id),
-    }));
+    .map((c) => {
+      const item: {
+        id: string;
+        full: string;
+        avatar: string;
+        outputDir: string;
+        insight?: string;
+      } = {
+        id: c.id,
+        full: portraitUrls.get(c.id)!,
+        avatar: deriveAvatarOriginalUrl(c.avatarThumbUrl),
+        outputDir: path.join(ASSETS_DIR, c.id),
+      };
+      if (insightUrls.has(c.id)) {
+        item.insight = insightUrls.get(c.id)!;
+      }
+      return item;
+    });
 
   console.log(`下載圖片 (${downloadItems.length} 名角色)...`);
   const dl = await downloadImages(downloadItems);
@@ -270,17 +360,26 @@ async function main(): Promise<void> {
         imageUrl: portraitUrls.get(c.id),
       },
     };
+    if (insightUrls.has(c.id)) {
+      entry.images.insight = `/assets/characters/${c.id}/insight.webp`;
+    }
 
     const existingEntry = existingById.get(c.id);
     if (existingEntry) {
       // 保留既有所有人工調整欄位（names、avatarPosition、rarity 等），只更新 sync 負責的部分
+      const images: Character["images"] = {
+        full: `/assets/characters/${c.id}/full.webp`,
+        avatar: `/assets/characters/${c.id}/avatar.png`,
+      };
+      if (insightUrls.has(c.id) || existingEntry.images.insight) {
+        images.insight = insightUrls.has(c.id)
+          ? `/assets/characters/${c.id}/insight.webp`
+          : existingEntry.images.insight;
+      }
       updated[updated.indexOf(existingEntry)] = {
         ...existingEntry,
         name: c.name,
-        images: {
-          full: `/assets/characters/${c.id}/full.webp`,
-          avatar: `/assets/characters/${c.id}/avatar.png`,
-        },
+        images,
         source: {
           pageUrl: c.pageUrl,
           imageUrl: portraitUrls.get(c.id),

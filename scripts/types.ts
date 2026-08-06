@@ -7,6 +7,7 @@ export interface Character {
   images: {
     full: string;
     avatar: string;
+    insight?: string;
   };
   avatarPosition?: {
     x: number;
