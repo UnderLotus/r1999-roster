@@ -165,12 +165,12 @@
   }
 }
 
-/* ---------- 塑造標記（名字中間上方橫條小字） ---------- */
+/* ---------- 塑造標記（圖片區底部、名稱上方） ---------- */
 
 .portray-badge {
   position: absolute;
   left: 50%;
-  bottom: 28px;
+  bottom: 0;
   transform: translateX(-50%);
   z-index: 3;
 
@@ -384,6 +384,49 @@
 }
 
 .button-reset-all:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.page-topbar__right {
+  display: flex;
+  gap: 6px;
+}
+
+/* Skin 切換按鈕（洞悉立繪） */
+.button-skin-toggle {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--ink-secondary);
+  background: var(--surface-muted);
+
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-control);
+
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.button-skin-toggle:hover {
+  color: var(--ink-inverse);
+  background: var(--surface-dark);
+  border-color: var(--border-dark);
+}
+
+.button-skin-toggle[data-active="true"] {
+  color: var(--ink-inverse);
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.button-skin-toggle:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
 }

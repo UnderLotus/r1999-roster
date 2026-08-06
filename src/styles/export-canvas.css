@@ -42,9 +42,10 @@
 .export-canvas__title {
   margin: 4px 0 0;
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 600;
   letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
 .export-canvas__stats {

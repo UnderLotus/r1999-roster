@@ -3,10 +3,13 @@ import type { LangCode } from "../store/boxStore";
 import { CharacterCard } from "./CharacterCard";
 import { EmptyState } from "./EmptyState";
 
+import type { SkinMode } from "../store/boxStore";
+
 interface CharacterGridProps {
   characters: Character[];
   states: Record<string, CharacterState>;
   lang: LangCode;
+  skinMode: SkinMode;
 
   onActivate: (id: string) => void;
   onDecrease: (id: string) => void;
@@ -17,6 +20,7 @@ export function CharacterGrid({
   characters,
   states,
   lang,
+  skinMode,
   onActivate,
   onDecrease,
   onRemove,
@@ -33,6 +37,7 @@ export function CharacterGrid({
           character={character}
           state={states[character.id] ?? { owned: false, portray: 0 }}
           lang={lang}
+          skinMode={skinMode}
           onActivate={onActivate}
           onDecrease={onDecrease}
           onRemove={onRemove}

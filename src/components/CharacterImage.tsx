@@ -1,17 +1,23 @@
 import { useState } from "react";
 
 import type { Character } from "../types/character";
-import type { LangCode } from "../store/boxStore";
+import type { LangCode, SkinMode } from "../store/boxStore";
 import { getUiText } from "../i18n/ui";
 
 interface CharacterImageProps {
   character: Character;
   lang: LangCode;
+  skinMode: SkinMode;
 }
 
-export function CharacterImage({ character, lang }: CharacterImageProps) {
+export function CharacterImage({ character, lang, skinMode }: CharacterImageProps) {
   const [hasError, setHasError] = useState(false);
   const t = getUiText(lang);
+
+  const src =
+    skinMode === "insight" && character.images.insight
+      ? import.meta.env.BASE_URL + character.images.insight.replace(/^\//, "")
+      : import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "");
 
   if (hasError) {
     return (
@@ -28,7 +34,7 @@ export function CharacterImage({ character, lang }: CharacterImageProps) {
   return (
     <img
       className="character-card__image"
-      src={import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "")}
+      src={src}
       alt={character.name}
       loading="lazy"
       decoding="async"

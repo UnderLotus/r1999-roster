@@ -6,12 +6,14 @@ import { loadJSON, removeKey, saveJSON } from "../utils/storage";
 
 export type FilterMode = "all" | "owned" | "unowned";
 export type LangCode = "zh-CN" | "zh-TW" | "en-US" | "ja-JP" | "ko-KR";
+export type SkinMode = "default" | "insight";
 
 export interface BoxStore {
   characters: Record<string, CharacterState>;
   filterMode: FilterMode;
   search: string;
   displayLang: LangCode;
+  skinMode: SkinMode;
 
   activateCharacter: (id: string) => void;
   decreasePortray: (id: string) => void;
@@ -20,6 +22,7 @@ export interface BoxStore {
   setFilterMode: (mode: FilterMode) => void;
   setSearch: (text: string) => void;
   setDisplayLang: (lang: LangCode) => void;
+  setSkinMode: (mode: SkinMode) => void;
 }
 
 const emptyState: CharacterState = { owned: false, portray: 0 };
@@ -29,6 +32,7 @@ const emptyState: CharacterState = { owned: false, portray: 0 };
 export interface PersistedBoxState {
   characters?: Record<string, CharacterState>;
   displayLang?: unknown;
+  skinMode?: unknown;
 }
 
 const LANG_CODES: LangCode[] = [
@@ -44,6 +48,10 @@ function normalizeDisplayLang(value: unknown): LangCode {
     (LANG_CODES as string[]).includes(value)
     ? (value as LangCode)
     : "en-US";
+}
+
+function normalizeSkinMode(value: unknown): SkinMode {
+  return value === "insight" ? "insight" : "default";
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -77,6 +85,7 @@ export function migratePersistedState(raw: unknown): PersistedBoxState {
   return {
     characters,
     displayLang: normalizeDisplayLang(data.displayLang),
+    skinMode: normalizeSkinMode(data.skinMode),
   };
 }
 
@@ -99,6 +108,7 @@ export const useBoxStore = create<BoxStore>()(
       filterMode: "all",
       search: "",
       displayLang: "en-US",
+      skinMode: "insight",
 
       activateCharacter: (id) => {
         const current = get().characters[id];
@@ -152,18 +162,20 @@ export const useBoxStore = create<BoxStore>()(
       setFilterMode: (mode) => set({ filterMode: mode }),
       setSearch: (text) => set({ search: text }),
       setDisplayLang: (lang) => set({ displayLang: lang }),
+      setSkinMode: (mode) => set({ skinMode: mode }),
     }),
     {
       name: "reverse1999-box-state",
-      version: 3,
+      version: 4,
       // 持久化收藏狀態 + 語系偏好；不存瀏覽情境（搜尋/篩選）
       partialize: (state) => ({
         characters: state.characters,
         displayLang: state.displayLang,
+        skinMode: state.skinMode,
       }),
       migrate: (persisted) => {
-        const { characters, displayLang } = migratePersistedState(persisted);
-        return { characters, displayLang };
+        const { characters, displayLang, skinMode } = migratePersistedState(persisted);
+        return { characters, displayLang, skinMode };
       },
       // 用安全 storage helper 取代預設 localStorage 直接操作
       storage: createJSONStorage(() => ({

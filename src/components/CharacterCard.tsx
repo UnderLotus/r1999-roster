@@ -1,5 +1,5 @@
 import type { Character, CharacterState } from "../types/character";
-import type { LangCode } from "../store/boxStore";
+import type { LangCode, SkinMode } from "../store/boxStore";
 import { getDisplayName } from "../utils/i18n";
 import { CharacterImage } from "./CharacterImage";
 import { CharacterQuickActions } from "./CharacterQuickActions";
@@ -9,6 +9,7 @@ interface CharacterCardProps {
   character: Character;
   state: CharacterState;
   lang: LangCode;
+  skinMode: SkinMode;
 
   onActivate: (id: string) => void;
   onDecrease: (id: string) => void;
@@ -19,6 +20,7 @@ export function CharacterCard({
   character,
   state,
   lang,
+  skinMode,
   onActivate,
   onDecrease,
   onRemove,
@@ -38,7 +40,7 @@ export function CharacterCard({
       >
         <span className="character-card__image-area">
           <span className="character-card__image-frame">
-            <CharacterImage character={character} lang={lang} />
+            <CharacterImage character={character} lang={lang} skinMode={skinMode} />
           </span>
           <PortrayBadge level={state.portray} lang={lang} />
         </span>

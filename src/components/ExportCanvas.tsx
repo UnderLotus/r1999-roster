@@ -1,5 +1,5 @@
 import type { Character, CharacterState } from "../types/character";
-import type { LangCode } from "../store/boxStore";
+import type { LangCode, SkinMode } from "../store/boxStore";
 import { getDisplayName } from "../utils/i18n";
 import { getUiText } from "../i18n/ui";
 import { PortrayBadge } from "./PortrayBadge";
@@ -8,10 +8,11 @@ interface ExportCanvasProps {
   characters: Character[];
   states: Record<string, CharacterState>;
   lang: LangCode;
+  skinMode: SkinMode;
 }
 
 /** 離屏匯出層：畫布寬度依欄數精算，不含任何操作介面（spec §24.2、§24.4） */
-export function ExportCanvas({ characters, states, lang }: ExportCanvasProps) {
+export function ExportCanvas({ characters, states, lang, skinMode }: ExportCanvasProps) {
   const t = getUiText(lang);
   const owned = characters.filter((c) => states[c.id]?.owned);
   const fullPortray = owned.filter((c) => states[c.id]?.portray === 5).length;
@@ -42,7 +43,11 @@ export function ExportCanvas({ characters, states, lang }: ExportCanvasProps) {
             <div className="export-card__image-frame">
               <img
                 className="export-card__image"
-                src={import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "")}
+                src={
+                  skinMode === "insight" && character.images.insight
+                    ? import.meta.env.BASE_URL + character.images.insight.replace(/^\//, "")
+                    : import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "")
+                }
                 alt={getDisplayName(character, lang)}
               />
               <PortrayBadge
