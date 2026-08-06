@@ -360,7 +360,7 @@ async function main(): Promise<void> {
         imageUrl: portraitUrls.get(c.id),
       },
     };
-    if (insightUrls.has(c.id)) {
+    if (insightUrls.has(c.id) || existsSync(path.join(ASSETS_DIR, c.id, "insight.webp"))) {
       entry.images.insight = `/assets/characters/${c.id}/insight.webp`;
     }
 

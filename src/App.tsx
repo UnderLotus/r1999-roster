@@ -41,6 +41,7 @@ export default function App() {
   const [exportSnapshot, setExportSnapshot] = useState<{
     states: typeof states;
     lang: typeof displayLang;
+    skinMode: typeof skinMode;
   } | null>(null);
   const exportLayerRef = useRef<HTMLDivElement>(null);
   const t = getUiText(displayLang);
@@ -80,8 +81,8 @@ export default function App() {
       clearTimeout(exportErrorTimerRef.current);
       exportErrorTimerRef.current = null;
     }
-    // 凍結匯出快照（states + 語系），避免等待期間內容變動
-    setExportSnapshot({ states: { ...states }, lang: displayLang });
+    // 凍結匯出快照（states + lang + skinMode），避免等待期間內容變動
+    setExportSnapshot({ states: { ...states }, lang: displayLang, skinMode });
     setExportStatus("exporting");
     try {
       // 等 React commit + 離屏層渲染（兩個 frame 較可靠）
@@ -170,7 +171,7 @@ export default function App() {
           characters={characters}
           states={exportSnapshot?.states ?? states}
           lang={exportSnapshot?.lang ?? displayLang}
-          skinMode={skinMode}
+          skinMode={exportSnapshot?.skinMode ?? skinMode}
         />
       </div>
     </main>
