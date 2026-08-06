@@ -61,6 +61,11 @@
 
 /* ---------- 圖片區域（avatar 長圖 228x524 ≈ 0.435） ---------- */
 
+.character-card__image-area {
+  position: relative;
+  display: block;
+}
+
 .character-card__image-frame {
   position: relative;
   display: block;

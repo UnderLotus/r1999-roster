@@ -1,18 +1,15 @@
 # r1999-roster
 
-《重返未來：1999》的角色持有追蹤工具。記錄你有哪些角色、追蹤塑造等級、跨語系搜尋，最後匯出收藏圖片。
+快速分享《重返未來：1999》持有角色 Box 的圖片生產工具。
 
 **[English](README.md)**
 
 ---
 
-點擊角色可以標記為已持有，黑白會變成彩色。再點就升塑，從 0 一路到 5 塑。每張卡片上有 − 和 × 按鈕，讓你降塑或直接取消持有。
+點一下角色即會變成持有狀態（0 塑），再點就會升塑（1 塑 → 2 塑 → ... → 5 塑）；
+用角色卡上方的 − 來降塑造、或直接點 × 變回未持有。
 
-搜尋欄跨五種語言（中 / 英 / 日 / 韓），用哪種語言打名字都找得到。左上角的語系切換會同時改變介面文字跟角色名稱顯示。
-
-按**輸出 JPG**就能下載一張乾淨的當前收藏截圖，不含任何操作介面。
-
-所有資料存在你瀏覽器的 local storage 裡，不用登入、也不靠任何後端。
+支援全語系角色名稱搜尋，若資料庫沒抓到角色名稱會優先顯示英文名稱。
 
 ---
 
@@ -29,4 +26,17 @@ React + TypeScript + Vite + Zustand。資料同步腳本說明請見
 
 ---
 
-玩家自製工具。角色素材版權歸屬 Bluepoch Co., Ltd.（深藍互動）。
+## 資料來源
+
+角色資料與圖片來源：
+
+- [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
+- [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)
+- [wikiru (reverse1999.wikiru.jp)](https://reverse1999.wikiru.jp)
+- [Reverse: 1999 Fandom Wiki](https://reverse1999.fandom.com)
+
+所有角色素材版權歸屬 Bluepoch Co., Ltd.（深藍互動）。
+
+---
+
+MIT License

@@ -36,11 +36,13 @@ export function CharacterCard({
         className="character-card__main"
         onClick={() => onActivate(character.id)}
       >
-        <span className="character-card__image-frame">
-          <CharacterImage character={character} lang={lang} />
+        <span className="character-card__image-area">
+          <span className="character-card__image-frame">
+            <CharacterImage character={character} lang={lang} />
+          </span>
+          <PortrayBadge level={state.portray} lang={lang} />
         </span>
         <span className="character-card__name">{displayName}</span>
-        <PortrayBadge level={state.portray} lang={lang} />
       </button>
 
       {state.owned && (

@@ -1,26 +1,16 @@
 # r1999-roster
 
-A character collection tracker for ***Reverse: 1999***. Keep tabs on who you own,
-track Portray levels, search across languages, and export your roster as an image.
+A quick character Box image generator for ***Reverse: 1999***.
 
 **[繁體中文](README_tw.md)**
 
 ---
 
-Click a character to mark it as owned — it goes from grayscale to full color.
-Click again to increase its Portray level, from 0 all the way up to 5. Each card
-has quick − and × buttons to decrease Portray or remove the character outright.
+Tap a character to mark it as owned (0 Portray), tap again to increase Portray
+(1 → 2 → … → 5). Use the − button to decrease Portray or × to un-own.
 
-The search bar works across all five supported languages (CN / TW / EN / JP / KR),
-so you can type a name in whichever language you're most comfortable with. The
-language switcher in the top-left changes both the UI text and how character names
-are displayed.
-
-Hit **Export JPG** when you want a clean snapshot of your current roster — no UI
-elements, just the collection.
-
-All of your data stays in your browser's local storage. No accounts or servers
-involved.
+Search works across all supported languages. If a character's name is missing
+in the current language, the English name is shown as fallback.
 
 ---
 
@@ -32,9 +22,22 @@ npm run dev       # Start dev server
 npm run build     # Production build
 ```
 
-React + TypeScript + Vite + Zustand. For data sync scripts, see
-[docs/scripts.md](docs/scripts.md).
+React + TypeScript + Vite + Zustand. See
+[docs/scripts.md](docs/scripts.md) for data sync scripts.
 
 ---
 
-Fan-made project. All character assets belong to Bluepoch Co., Ltd.
+## Credits
+
+Character data and images sourced from:
+
+- [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
+- [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)
+- [wikiru (reverse1999.wikiru.jp)](https://reverse1999.wikiru.jp)
+- [Reverse: 1999 Fandom Wiki](https://reverse1999.fandom.com)
+
+All character assets © Bluepoch Co., Ltd.
+
+---
+
+MIT License

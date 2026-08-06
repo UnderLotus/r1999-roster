@@ -50,9 +50,14 @@
 .export-canvas__stats {
   display: flex;
   gap: 20px;
+  flex-shrink: 0;
   font-family: var(--font-display);
   font-size: 20px;
   color: var(--ink-secondary);
+}
+
+.export-canvas__stats span {
+  white-space: nowrap;
 }
 
 /* ---------- 角色 Grid（動態欄數：≤50 名 5 欄、>50 名 10 欄） ---------- */
