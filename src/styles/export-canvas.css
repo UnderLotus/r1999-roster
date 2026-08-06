@@ -1,0 +1,152 @@
+/* ============================================================
+   Export Canvas — 離屏匯出層（保守 CSS，避免 DOM 截圖失真）
+   ============================================================ */
+
+.export-layer {
+  position: fixed;
+  left: -100000px;
+  top: 0;
+  width: max-content;
+  pointer-events: none;
+}
+
+.export-canvas {
+  min-width: 640px;
+  padding: 50px;
+  background: var(--surface-main);
+  color: var(--ink-primary);
+  font-family: var(--font-ui);
+}
+
+/* ---------- 頂部標題（雜誌式排版） ---------- */
+
+.export-canvas__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.export-canvas__eyebrow {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--ink-secondary);
+}
+
+.export-canvas__title {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.export-canvas__stats {
+  display: flex;
+  gap: 20px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ink-secondary);
+}
+
+/* ---------- 角色 Grid（動態欄數：≤50 名 5 欄、>50 名 10 欄） ---------- */
+
+.export-grid {
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* 匯出標記：貼圖片底部（不跳高） */
+.export-card .portray-badge--bottom {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  transform: translateX(-50%);
+
+  min-width: 30px;
+  height: 20px;
+  padding: 0 6px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  background: rgba(42, 36, 31, 0.85);
+  border: 1px solid rgba(231, 215, 179, 0.7);
+
+  color: #f1e5ca;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.export-card .portray-badge--bottom small {
+  font-size: 8px;
+}
+
+.export-card {
+  min-width: 0;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-card);
+  background: var(--surface-muted);
+}
+
+/* 角色圖維持網頁顯示的尺寸比例：固定寬度、不因格子放大 */
+.export-card__image-frame {
+  position: relative;
+  width: 112px; /* 固定圖寬（接近網頁卡片 92px 的顯示比例） */
+  overflow: hidden;
+  background: var(--surface-muted);
+}
+
+.export-card__image-frame::before {
+  content: "";
+  display: block;
+  padding-bottom: 229.9%; /* 長圖比例 228×524 */
+}
+
+.export-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+
+.export-card__name {
+  min-height: 30px;
+  padding: 5px 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-top: 1px solid var(--border-light);
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ---------- 底部 ---------- */
+
+.export-canvas__footer {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  text-align: center;
+}

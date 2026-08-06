@@ -1,0 +1,162 @@
+/* ============================================================
+   Control Bar — 搜尋、持有篩選、輸出（spec §12）
+   ============================================================ */
+
+.control-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 18px;
+
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* ---------- 搜尋框 ---------- */
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  height: 34px;
+  max-width: 240px;
+  width: 100%;
+  padding: 0 10px;
+
+  color: var(--ink-muted);
+  background: var(--surface-main);
+
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-control);
+}
+
+.search-field input {
+  flex: 1;
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink-primary);
+  font-size: 13px;
+}
+
+.search-field input::placeholder {
+  color: var(--ink-muted);
+}
+
+/* ---------- Segmented Control（平面小按鈕群） ---------- */
+
+.segmented-control {
+  display: inline-flex;
+  border: 1px solid var(--border-primary);
+  background: var(--surface-muted);
+  border-radius: var(--radius-control);
+}
+
+.segmented-control button {
+  min-height: 32px;
+  padding: 0 11px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  border: 0;
+  border-right: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--ink-secondary);
+  font-size: 13px;
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.segmented-control button:last-child {
+  border-right: 0;
+}
+
+.segmented-control button[data-active="true"] {
+  background: var(--surface-dark);
+  color: var(--ink-inverse);
+}
+
+.segmented-control button:hover:not([data-active="true"]) {
+  color: var(--ink-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* ---------- 輸出按鈕（工具列唯一主色） ---------- */
+
+.control-bar__spacer {
+  flex: 1;
+}
+
+.control-bar__export {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.control-bar__export-error {
+  margin-top: 4px;
+
+  font-size: 11px;
+  color: var(--accent-primary);
+}
+
+@media (max-width: 640px) {
+  .control-bar__export {
+    align-items: flex-start;
+  }
+
+  .control-bar__export-error {
+    white-space: normal;
+    font-size: 10.5px;
+  }
+}
+
+.control-bar .button--primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- 平板：允許換行（spec §25） ---------- */
+
+@media (max-width: 1199px) {
+  .control-bar {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- 手機換行（spec §12.1、§25） ---------- */
+
+@media (max-width: 640px) {
+  .control-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .search-field {
+    max-width: none;
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .control-bar__spacer {
+    display: none;
+  }
+}
+
+/* ---------- focus ---------- */
+
+.control-bar button:focus-visible,
+.control-bar input:focus-visible,
+.search-field:focus-within {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}

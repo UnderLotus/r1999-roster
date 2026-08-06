@@ -1,0 +1,60 @@
+/* ============================================================
+   Design Tokens — 重返未來：1999 英倫復古風格
+   基底依 spec §9，擴充遊戲美學的紙張/印刷質感變數
+   ============================================================ */
+
+:root {
+  /* --- 色彩：紙張與墨水 --- */
+  --page-bg: #d8d0c0;
+  --surface-main: #eee8da;
+  --surface-muted: #e4ddcf;
+  --surface-dark: #292521;
+
+  --ink-primary: #292621;
+  --ink-secondary: #625c52;
+  --ink-muted: #8a8275;
+  --ink-inverse: #f4efe5;
+
+  /* --- 邊框 --- */
+  --border-primary: #62584c;
+  --border-light: rgba(66, 58, 49, 0.24);
+  --border-dark: #292521;
+
+  /* --- 強調色：暗紅（主操作）＋舊金（收藏/持有） --- */
+  --accent-primary: #7c302e;
+  --accent-hover: #642321;
+  --accent-gold: #a8894e;
+
+  /* --- 持有狀態 --- */
+  --owned-opacity: 1;
+  --unowned-opacity: 0.38;
+
+  /* --- 圓角（克制：紙本檔案感，接近直角） --- */
+  --radius-card: 2px;
+  --radius-control: 3px;
+
+  /* --- 陰影：細、紙張厚度感 --- */
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 1px 3px rgba(30, 24, 18, 0.18);
+  --shadow-page:
+    0 0 0 3px rgba(238, 232, 218, 0.75),
+    0 0 0 4px var(--border-light);
+
+  /* --- 字體 --- */
+  --font-display:
+    "Noto Serif TC",
+    "Songti TC",
+    serif;
+  --font-ui:
+    "Noto Sans TC",
+    system-ui,
+    sans-serif;
+
+  /* --- 紙張質感（只放一層，見 global.css） --- */
+  --paper-noise-opacity: 0.06;
+
+  /* --- 過渡（克制、輕快） --- */
+  --transition-fast: 110ms ease;
+  --transition-medium: 160ms ease;
+}

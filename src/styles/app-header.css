@@ -1,0 +1,97 @@
+/* ============================================================
+   App Header — 雜誌式標題 + 統計（spec §11）
+   ============================================================ */
+
+.app-header {
+  min-height: 96px;
+  padding: 20px 24px 16px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+
+  position: relative;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+/* 第二條裝飾線移除（與小三角衝突，只留主線 + 三角） */
+
+/* 小三角飾（1999 遊戲的三角粒子元素，克制點綴） */
+.app-header::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  bottom: -8px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid var(--accent-gold);
+  opacity: 0.8;
+}
+
+.app-header__title h1 {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(25px, 3vw, 38px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink-primary);
+}
+
+.app-header__eyebrow {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--ink-secondary);
+}
+
+.app-header__summary {
+  display: flex;
+  gap: 18px;
+  align-items: flex-end;
+  padding-bottom: 4px;
+}
+
+.app-header__summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.app-header__summary-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+}
+
+.app-header__summary-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink-primary);
+}
+
+/* 手機：上下排列、統計移標題下方（spec §25） */
+@media (max-width: 640px) {
+  .app-header {
+    min-height: 0;
+    padding: 14px 16px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .app-header__summary {
+    align-items: flex-start;
+  }
+
+  .app-header__summary-item {
+    align-items: flex-start;
+  }
+}

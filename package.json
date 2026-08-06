@@ -1,0 +1,31 @@
+{
+  "name": "r1999-roster",
+  "private": true,
+  "version": "1.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "test:store": "tsx scripts/test-store.ts",
+    "build:names": "tsx scripts/build-names.ts",
+    "preview": "vite preview",
+    "sync": "tsx scripts/sync-characters.ts"
+  },
+  "dependencies": {
+    "lucide-react": "^0.469.0",
+    "modern-screenshot": "^4.4.33",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

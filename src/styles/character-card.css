@@ -1,0 +1,487 @@
+/* ============================================================
+   Character Card & Grid — 紙本角色檔案風格（avatar 長圖單一模式）
+   ============================================================ */
+
+/* ---------- Grid（高密度收藏表） ---------- */
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px 8px;
+  padding: 18px;
+}
+
+@media (max-width: 960px) {
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px 6px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .character-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px 5px;
+    padding: 8px;
+  }
+}
+
+/* ---------- Card ---------- */
+
+.character-card {
+  position: relative;
+  min-width: 0;
+}
+
+.character-card__main {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+
+  color: inherit;
+  background: var(--surface-muted);
+
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-card);
+
+  box-shadow: var(--shadow-card);
+
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    filter 140ms ease;
+}
+
+.character-card__main:active {
+  transform: scale(0.975);
+}
+
+/* ---------- 圖片區域（avatar 長圖 228x524 ≈ 0.435） ---------- */
+
+.character-card__image-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.28),
+      rgba(99, 87, 72, 0.08)
+    ),
+    var(--surface-muted);
+}
+
+.character-card__image-frame {
+  aspect-ratio: 0.435;
+}
+
+.character-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+
+.character-card__image--error {
+  display: grid;
+  place-items: center;
+  color: var(--ink-muted);
+  font-size: 11px;
+
+  /* 覆寫未持有狀態的淡化，確保文字可讀 */
+  filter: none;
+  opacity: 1;
+}
+
+/* ---------- 未持有 / 已持有狀態 ---------- */
+
+.character-card[data-owned="false"] .character-card__image {
+  filter: grayscale(1) contrast(0.92);
+  opacity: var(--unowned-opacity);
+}
+
+.character-card[data-owned="false"] .character-card__main {
+  background: #d7d0c3;
+  border-color: rgba(70, 63, 54, 0.38);
+}
+
+.character-card[data-owned="false"] .character-card__name {
+  color: var(--ink-muted);
+}
+
+.character-card[data-owned="true"] .character-card__image {
+  filter: none;
+  opacity: var(--owned-opacity);
+}
+
+.character-card[data-owned="true"] .character-card__main {
+  border-color: var(--border-dark);
+}
+
+/* 已持有輕微內框 */
+.character-card[data-owned="true"] .character-card__image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(255, 245, 220, 0.38);
+  pointer-events: none;
+}
+
+/* ---------- 名稱區（雜誌欄位分隔） ---------- */
+
+.character-card__name {
+  min-height: 30px;
+  padding: 6px 4px 5px;
+
+  border-top: 1px solid var(--border-light);
+
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--ink-primary);
+
+  /* 最多兩行 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .character-card__name {
+    min-height: 27px;
+    padding: 4px 2px;
+    font-size: 10.5px;
+  }
+}
+
+/* ---------- 塑造標記（名字中間上方橫條小字） ---------- */
+
+.portray-badge {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 3;
+
+  min-width: 30px;
+  height: 20px;
+  padding: 0 6px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  background: rgba(42, 36, 31, 0.85);
+  border: 1px solid rgba(231, 215, 179, 0.7);
+
+  color: #f1e5ca;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.portray-badge small {
+  font-size: 8px;
+}
+
+/* ---------- 快速操作按鈕（− 左上、× 右上） ---------- */
+
+.character-action {
+  position: absolute;
+  top: 5px;
+  z-index: 4;
+
+  width: 26px;
+  height: 26px;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: rgba(245, 239, 226, 0.92);
+  background: rgba(40, 35, 30, 0.76);
+
+  border: 1px solid rgba(242, 228, 199, 0.46);
+  border-radius: 2px;
+
+  backdrop-filter: blur(2px);
+}
+
+.character-action--decrease {
+  left: 5px;
+}
+
+.character-action--remove {
+  right: 5px;
+}
+
+/* 桌面：hover/focus 才顯示 */
+@media (hover: hover) {
+  .character-card .character-action--decrease,
+  .character-card .character-action--remove {
+    opacity: 0;
+    transform: translateY(-2px);
+    pointer-events: none;
+
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .character-card:hover .character-action--decrease,
+  .character-card:hover .character-action--remove,
+  .character-card:focus-within .character-action--decrease,
+  .character-card:focus-within .character-action--remove {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* 觸控：常駐半透明 */
+@media (hover: none) {
+  .character-action--decrease,
+  .character-action--remove {
+    opacity: 0.72;
+  }
+
+  .character-action {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ---------- 桌面 hover / focus ---------- */
+
+@media (hover: hover) {
+  .character-card:hover .character-card__main {
+    transform: translateY(-2px);
+    border-color: var(--accent-primary);
+    /* 紙感提亮（保留底色，疊加微亮） */
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
+  .character-card[data-owned="true"]:hover .character-card__main {
+    border-color: var(--accent-gold);
+  }
+}
+
+.character-card__main:focus-visible,
+.character-action:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 頁面右上角「全部取消持有」按鈕 ---------- */
+
+.page-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 8px 14px;
+}
+
+/* 手機：語系切換與重置按鈕間距 */
+@media (max-width: 640px) {
+  .page-topbar {
+    padding: 6px 10px;
+  }
+}
+
+/* 語系切換（左上角） */
+.lang-switcher {
+  display: inline-flex;
+  border: 1px solid var(--border-primary);
+  background: var(--surface-muted);
+  border-radius: var(--radius-control);
+}
+
+.lang-switcher button {
+  min-height: 26px;
+  padding: 0 9px;
+
+  border: 0;
+  border-right: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--ink-secondary);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.lang-switcher button:last-child {
+  border-right: 0;
+}
+
+.lang-switcher button[data-active="true"] {
+  background: var(--surface-dark);
+  color: var(--ink-inverse);
+}
+
+.lang-switcher button:hover:not([data-active="true"]) {
+  color: var(--ink-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.lang-switcher button:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
+}
+
+.page-topbar__stats {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--ink-secondary);
+  letter-spacing: 0.03em;
+}
+
+.button-reset-all {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--ink-secondary);
+  background: var(--surface-muted);
+
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-control);
+
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.button-reset-all:hover {
+  color: var(--ink-inverse);
+  background: var(--surface-dark);
+  border-color: var(--border-dark);
+}
+
+.button-reset-all:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 確認 dialog（spec §23） ---------- */
+
+.confirm-dialog {
+  min-width: 300px;
+  max-width: 90vw;
+  padding: 20px 22px;
+
+  background: var(--surface-main);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-page);
+
+  color: var(--ink-primary);
+  font-family: var(--font-ui);
+}
+
+.confirm-dialog::backdrop {
+  background: rgba(41, 37, 33, 0.45);
+}
+
+.confirm-dialog__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 17px;
+  letter-spacing: 0.04em;
+}
+
+.confirm-dialog__message {
+  margin: 8px 0 18px;
+  font-size: 13px;
+  color: var(--ink-secondary);
+}
+
+.confirm-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.button {
+  min-height: 32px;
+  padding: 0 14px;
+
+  font-size: 13px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border-primary);
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.button--quiet {
+  color: var(--ink-secondary);
+  background: transparent;
+}
+
+.button--quiet:hover {
+  color: var(--ink-primary);
+  background: var(--surface-muted);
+}
+
+.button--primary {
+  color: var(--ink-inverse);
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.button--primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 空狀態（spec §22） ---------- */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  min-height: 120px;
+  padding: 24px;
+
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+
+.empty-state strong {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  letter-spacing: 0.04em;
+}
