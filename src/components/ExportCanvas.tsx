@@ -42,7 +42,7 @@ export function ExportCanvas({ characters, states, lang }: ExportCanvasProps) {
             <div className="export-card__image-frame">
               <img
                 className="export-card__image"
-                src={character.images.avatar}
+                src={import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "")}
                 alt={getDisplayName(character, lang)}
               />
               <PortrayBadge

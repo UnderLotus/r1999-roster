@@ -28,7 +28,7 @@ export function CharacterImage({ character, lang }: CharacterImageProps) {
   return (
     <img
       className="character-card__image"
-      src={character.images.avatar}
+      src={import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "")}
       alt={character.name}
       loading="lazy"
       decoding="async"
