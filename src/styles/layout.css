@@ -31,6 +31,29 @@
   z-index: 1;
 }
 
+/* ---------- 頁尾：儲存庫連結（統一紙本印刷風） ---------- */
+
+.page-footer {
+  padding: 14px 18px 16px;
+
+  border-top: 1px solid var(--border-light);
+
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.page-footer a {
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.page-footer a:hover {
+  color: var(--accent-gold);
+  text-decoration: underline;
+}
+
 /* 手機：縮小留白；防止 box-shadow 外溢造成橫向捲軸 */
 @media (max-width: 640px) {
   .box-page {

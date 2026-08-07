@@ -19,6 +19,9 @@ import "./styles/export-canvas.css";
 
 type ExportStatus = "idle" | "exporting" | "error";
 
+/** 專案儲存庫網址（頁尾顯示與連結） */
+const REPO_URL = "https://github.com/UnderLotus/r1999-roster";
+
 export default function App() {
   const states = useBoxStore((s) => s.characters);
   const filterMode = useBoxStore((s) => s.filterMode);
@@ -154,6 +157,17 @@ export default function App() {
         onDecrease={decreasePortray}
         onRemove={removeCharacter}
       />
+
+      <footer className="page-footer">
+        <a
+          href={REPO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="GitHub"
+        >
+          {REPO_URL}
+        </a>
+      </footer>
 
       <ConfirmDialog
         open={showResetConfirm}
