@@ -6,14 +6,13 @@ import { loadJSON, removeKey, saveJSON } from "../utils/storage";
 
 export type FilterMode = "all" | "owned" | "unowned";
 export type LangCode = "zh-CN" | "zh-TW" | "en-US" | "ja-JP" | "ko-KR";
-export type SkinMode = "default" | "insight";
 
 export interface BoxStore {
   characters: Record<string, CharacterState>;
+  activeVariant: Record<string, string>;
   filterMode: FilterMode;
   search: string;
   displayLang: LangCode;
-  skinMode: SkinMode;
 
   activateCharacter: (id: string) => void;
   decreasePortray: (id: string) => void;
@@ -22,7 +21,7 @@ export interface BoxStore {
   setFilterMode: (mode: FilterMode) => void;
   setSearch: (text: string) => void;
   setDisplayLang: (lang: LangCode) => void;
-  setSkinMode: (mode: SkinMode) => void;
+  setActiveVariant: (id: string, variantId: string) => void;
 }
 
 const emptyState: CharacterState = { owned: false, portray: 0 };
@@ -32,7 +31,7 @@ const emptyState: CharacterState = { owned: false, portray: 0 };
 export interface PersistedBoxState {
   characters?: Record<string, CharacterState>;
   displayLang?: unknown;
-  skinMode?: unknown;
+  activeVariant?: unknown;
 }
 
 const LANG_CODES: LangCode[] = [
@@ -50,10 +49,6 @@ function normalizeDisplayLang(value: unknown): LangCode {
     : "en-US";
 }
 
-function normalizeSkinMode(value: unknown): SkinMode {
-  return value === "insight" ? "insight" : "default";
-}
-
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -69,7 +64,18 @@ function normalizePortray(value: unknown): PortrayLevel {
   return Math.min(5, Math.max(0, value)) as PortrayLevel;
 }
 
-/** 清理持久化狀態：owned 嚴格 true、portray 限 0~5 整數；未持有項目不保留 */
+function normalizeActiveVariant(value: unknown): Record<string, string> {
+  if (!isRecord(value)) return {};
+  const result: Record<string, string> = {};
+  for (const [k, v] of Object.entries(value)) {
+    if (typeof v === "string" && v.length > 0) {
+      result[k] = v;
+    }
+  }
+  return result;
+}
+
+/** 清理持久化狀態 */
 export function migratePersistedState(raw: unknown): PersistedBoxState {
   const data = isRecord(raw) ? raw : {};
   const rawCharacters = isRecord(data.characters) ? data.characters : {};
@@ -77,15 +83,15 @@ export function migratePersistedState(raw: unknown): PersistedBoxState {
   const characters: Record<string, CharacterState> = {};
   for (const [id, state] of Object.entries(rawCharacters)) {
     if (!isRecord(state)) continue;
-    const owned = state.owned === true; // 只有真正的 true 才算持有
-    if (!owned) continue; // 未持有角色不存入 characters
+    const owned = state.owned === true;
+    if (!owned) continue;
     characters[id] = { owned: true, portray: normalizePortray(state.portray) };
   }
 
   return {
     characters,
     displayLang: normalizeDisplayLang(data.displayLang),
-    skinMode: normalizeSkinMode(data.skinMode),
+    activeVariant: normalizeActiveVariant(data.activeVariant),
   };
 }
 
@@ -105,10 +111,10 @@ export const useBoxStore = create<BoxStore>()(
   persist(
     (set, get) => ({
       characters: {},
+      activeVariant: {},
       filterMode: "all",
       search: "",
       displayLang: "en-US",
-      skinMode: "insight",
 
       activateCharacter: (id) => {
         const current = get().characters[id];
@@ -124,7 +130,6 @@ export const useBoxStore = create<BoxStore>()(
             portray: (current.portray + 1) as PortrayLevel,
           });
         }
-        // 5 塑後再次點擊維持 5 塑，不循環
       },
 
       decreasePortray: (id) => {
@@ -137,47 +142,62 @@ export const useBoxStore = create<BoxStore>()(
             portray: (current.portray - 1) as PortrayLevel,
           });
         } else {
-          // 0 塑再按 − → 取消持有
           set((state) => {
             const next = { ...state.characters };
+            const nextVariant = { ...state.activeVariant };
             delete next[id];
-            return { characters: next };
+            delete nextVariant[id];
+            return { characters: next, activeVariant: nextVariant };
           });
         }
       },
 
-      // 未持有角色不存入 characters（讀取時由 getCharacterState 視為空狀態）
       removeCharacter: (id) => {
         set((state) => {
           const next = { ...state.characters };
+          const nextVariant = { ...state.activeVariant };
           delete next[id];
-          return { characters: next };
+          delete nextVariant[id];
+          return { characters: next, activeVariant: nextVariant };
         });
       },
 
       resetAll: () => {
-        set({ characters: {} });
+        set({ characters: {}, activeVariant: {} });
       },
 
       setFilterMode: (mode) => set({ filterMode: mode }),
       setSearch: (text) => set({ search: text }),
       setDisplayLang: (lang) => set({ displayLang: lang }),
-      setSkinMode: (mode) => set({ skinMode: mode }),
+      setActiveVariant: (id, variantId) =>
+        set((state) => ({
+          activeVariant: { ...state.activeVariant, [id]: variantId },
+        })),
     }),
     {
       name: "reverse1999-box-state",
-      version: 4,
-      // 持久化收藏狀態 + 語系偏好；不存瀏覽情境（搜尋/篩選）
+      version: 5,
       partialize: (state) => ({
         characters: state.characters,
         displayLang: state.displayLang,
-        skinMode: state.skinMode,
+        activeVariant: state.activeVariant,
       }),
-      migrate: (persisted) => {
-        const { characters, displayLang, skinMode } = migratePersistedState(persisted);
-        return { characters, displayLang, skinMode };
+      migrate: (persisted, version) => {
+        const migrated = migratePersistedState(persisted);
+
+        // v4 → v5: old skinMode global toggle is deprecated.
+        // activeVariant starts empty; App.tsx fills defaults from
+        // characters.defaultVariant on first load.
+        // Old skinMode: "insight" matches new default (02).
+        // Old skinMode: "default" is lost (per-char variant is now the model).
+        return {
+          characters: migrated.characters,
+          displayLang: migrated.displayLang,
+          activeVariant: version && version >= 5
+            ? migrated.activeVariant
+            : {},
+        };
       },
-      // 用安全 storage helper 取代預設 localStorage 直接操作
       storage: createJSONStorage(() => ({
         getItem: (key) => loadJSON<string>(key),
         setItem: (key, value) => saveJSON(key, value),

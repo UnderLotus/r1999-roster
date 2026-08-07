@@ -198,7 +198,7 @@
   font-size: 8px;
 }
 
-/* ---------- 快速操作按鈕（− 左上、× 右上） ---------- */
+/* ---------- 快速操作按鈕（− 左上、👕 右上） ---------- */
 
 .character-action {
   position: absolute;
@@ -225,14 +225,14 @@
   left: 5px;
 }
 
-.character-action--remove {
+.character-action--skin {
   right: 5px;
 }
 
 /* 桌面：hover/focus 才顯示 */
 @media (hover: hover) {
   .character-card .character-action--decrease,
-  .character-card .character-action--remove {
+  .character-card .character-action--skin {
     opacity: 0;
     transform: translateY(-2px);
     pointer-events: none;
@@ -243,9 +243,9 @@
   }
 
   .character-card:hover .character-action--decrease,
-  .character-card:hover .character-action--remove,
+  .character-card:hover .character-action--skin,
   .character-card:focus-within .character-action--decrease,
-  .character-card:focus-within .character-action--remove {
+  .character-card:focus-within .character-action--skin {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -255,7 +255,7 @@
 /* 觸控：常駐半透明 */
 @media (hover: none) {
   .character-action--decrease,
-  .character-action--remove {
+  .character-action--skin {
     opacity: 0.72;
   }
 
@@ -390,45 +390,70 @@
 
 .page-topbar__right {
   display: flex;
+  align-items: center;
   gap: 6px;
 }
 
-/* Skin 切換按鈕（洞悉立繪） */
-.button-skin-toggle {
-  width: 30px;
-  height: 30px;
-  padding: 0;
+.button-kofi {
+  display: flex;
+  align-items: center;
+}
 
-  display: grid;
-  place-items: center;
+/* ---------- Skin 彈窗 ---------- */
 
-  color: var(--ink-secondary);
-  background: var(--surface-muted);
+.skin-picker {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(calc(-50% + var(--picker-shift, 0px)));
+  z-index: 10;
 
+  margin-bottom: 4px;
+  padding: 6px;
+
+  background: var(--surface-main);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-control);
-
-  transition:
-    color var(--transition-fast),
-    border-color var(--transition-fast),
-    background var(--transition-fast);
+  box-shadow: var(--shadow-page);
 }
 
-.button-skin-toggle:hover {
-  color: var(--ink-inverse);
-  background: var(--surface-dark);
-  border-color: var(--border-dark);
+.skin-picker__grid {
+  display: flex;
+  gap: 4px;
+  max-height: 280px;
+  overflow-y: auto;
 }
 
-.button-skin-toggle[data-active="true"] {
-  color: var(--ink-inverse);
-  background: var(--accent-primary);
+.skin-picker__thumb {
+  flex-shrink: 0;
+  width: 52px;
+  padding: 0;
+  border: 2px solid var(--border-light);
+  border-radius: 2px;
+  background: var(--surface-muted);
+  cursor: pointer;
+  overflow: hidden;
+
+  transition: border-color var(--transition-fast);
+}
+
+.skin-picker__thumb[data-active="true"] {
   border-color: var(--accent-primary);
 }
 
-.button-skin-toggle:focus-visible {
+.skin-picker__thumb:hover {
+  border-color: var(--border-primary);
+}
+
+.skin-picker__thumb:focus-visible {
   outline: 2px solid var(--accent-primary);
-  outline-offset: 2px;
+  outline-offset: 1px;
+}
+
+.skin-picker__thumb-img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ---------- 確認 dialog（spec §23） ---------- */

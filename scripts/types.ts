@@ -1,3 +1,9 @@
+/**
+ * Legacy types (v0.4) — kept for reference.
+ * v0.5 scripts define their own inline types matching the new schema.
+ * See docs/spec.md §4.6.6 for the current Character interface.
+ */
+
 export interface Character {
   id: string;
   name: string;

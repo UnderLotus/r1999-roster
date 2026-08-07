@@ -1,7 +1,7 @@
 {
   "name": "r1999-roster",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +9,10 @@
     "typecheck": "tsc -b --pretty false",
     "test:store": "tsx scripts/test-store.ts",
     "build:names": "tsx scripts/build-names.ts",
+    "build:id-map": "tsx scripts/build-id-map.ts",
+    "build:characters": "tsx scripts/build-characters.ts",
     "preview": "vite preview",
-    "sync": "tsx scripts/sync-characters.ts"
+    "sync": "tsx scripts/sync-assets.ts"
   },
   "dependencies": {
     "lucide-react": "^0.469.0",

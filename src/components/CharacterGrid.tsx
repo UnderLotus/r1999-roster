@@ -3,27 +3,25 @@ import type { LangCode } from "../store/boxStore";
 import { CharacterCard } from "./CharacterCard";
 import { EmptyState } from "./EmptyState";
 
-import type { SkinMode } from "../store/boxStore";
-
 interface CharacterGridProps {
   characters: Character[];
   states: Record<string, CharacterState>;
   lang: LangCode;
-  skinMode: SkinMode;
+  activeVariant: Record<string, string>;
 
   onActivate: (id: string) => void;
   onDecrease: (id: string) => void;
-  onRemove: (id: string) => void;
+  onSkinSelect: (id: string, variantId: string) => void;
 }
 
 export function CharacterGrid({
   characters,
   states,
   lang,
-  skinMode,
+  activeVariant,
   onActivate,
   onDecrease,
-  onRemove,
+  onSkinSelect,
 }: CharacterGridProps) {
   if (characters.length === 0) {
     return <EmptyState lang={lang} />;
@@ -37,10 +35,12 @@ export function CharacterGrid({
           character={character}
           state={states[character.id] ?? { owned: false, portray: 0 }}
           lang={lang}
-          skinMode={skinMode}
+          activeVariant={
+            activeVariant[character.id] ?? character.defaultVariant
+          }
           onActivate={onActivate}
           onDecrease={onDecrease}
-          onRemove={onRemove}
+          onSkinSelect={onSkinSelect}
         />
       ))}
     </div>

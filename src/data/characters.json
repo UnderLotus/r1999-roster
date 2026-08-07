@@ -2,2883 +2,5126 @@
   {
     "id": "314901",
     "name": "双生舞伶",
+    "baseId": 3149,
     "releaseOrder": 1,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314901/full.webp",
-      "avatar": "/assets/characters/314901/avatar.png",
-      "insight": "/assets/characters/314901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8F%8C%E7%94%9F%E8%88%9E%E4%BC%B6",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2a/Portrait-314901.webp"
-    },
-    "avatarPosition": {
-      "x": 50,
-      "y": 22
-    },
     "names": {
       "zh-CN": "双生舞伶",
       "zh-TW": "雙生舞伶",
       "en-US": "The Twins",
       "ja-JP": "双子",
       "ko-KR": "쌍둥이"
+    },
+    "skins": [
+      {
+        "variantId": "314901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314902",
+        "type": "insight",
+        "skinName": "异托邦来客",
+        "skinNameEng": "Visitors from \"Utopia\""
+      },
+      {
+        "variantId": "314903",
+        "type": "skin",
+        "skinName": "可编程挽歌",
+        "skinNameEng": "Programmed Eulogy"
+      }
+    ],
+    "defaultVariant": "314902",
+    "avatarPosition": {
+      "x": 50,
+      "y": 22
+    },
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8F%8C%E7%94%9F%E8%88%9E%E4%BC%B6",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2a/Portrait-314901.webp"
     }
   },
   {
     "id": "314701",
     "name": "无名者",
+    "baseId": 3147,
     "releaseOrder": 2,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314701/full.webp",
-      "avatar": "/assets/characters/314701/avatar.png",
-      "insight": "/assets/characters/314701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E5%90%8D%E8%80%85",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8b/Portrait-314701.webp"
-    },
     "names": {
       "zh-CN": "无名者",
       "zh-TW": "無名者",
       "en-US": "Ms. Stranger",
       "ko-KR": "미스 스트레인저"
+    },
+    "skins": [
+      {
+        "variantId": "314701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314702",
+        "type": "insight",
+        "skinName": "无尽且唯一的路",
+        "skinNameEng": "Down a Dark Path"
+      }
+    ],
+    "defaultVariant": "314702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E5%90%8D%E8%80%85",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8b/Portrait-314701.webp"
     }
   },
   {
     "id": "314601",
     "name": "小瑞安侬",
+    "baseId": 3146,
     "releaseOrder": 3,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314601/full.webp",
-      "avatar": "/assets/characters/314601/avatar.png",
-      "insight": "/assets/characters/314601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E7%91%9E%E5%AE%89%E4%BE%AC",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/42/Portrait-314601.webp"
-    },
     "names": {
       "zh-CN": "小瑞安侬",
       "zh-TW": "小瑞安儂",
       "en-US": "Rhiannon",
       "ko-KR": "리아논"
+    },
+    "skins": [
+      {
+        "variantId": "314601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314602",
+        "type": "insight",
+        "skinName": "心灵迁徙",
+        "skinNameEng": "The Migration of Her Heart"
+      }
+    ],
+    "defaultVariant": "314602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E7%91%9E%E5%AE%89%E4%BE%AC",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/42/Portrait-314601.webp"
     }
   },
   {
     "id": "314501",
     "name": "回声谣",
+    "baseId": 3145,
     "releaseOrder": 4,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314501/full.webp",
-      "avatar": "/assets/characters/314501/avatar.png",
-      "insight": "/assets/characters/314501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%9E%E5%A3%B0%E8%B0%A3",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/db/Portrait-314501.webp"
-    },
     "names": {
       "zh-CN": "回声谣",
       "zh-TW": "回聲謠",
       "en-US": "Everecho"
+    },
+    "skins": [
+      {
+        "variantId": "314501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314502",
+        "type": "insight",
+        "skinName": "静谧与光明",
+        "skinNameEng": "Silence and Light"
+      }
+    ],
+    "defaultVariant": "314502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%9E%E5%A3%B0%E8%B0%A3",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/db/Portrait-314501.webp"
     }
   },
   {
     "id": "314401",
     "name": "珐琅眼",
+    "baseId": 3144,
     "releaseOrder": 5,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314401/full.webp",
-      "avatar": "/assets/characters/314401/avatar.png",
-      "insight": "/assets/characters/314401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8F%90%E7%90%85%E7%9C%BC",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9b/Portrait-314401.webp"
-    },
     "names": {
       "zh-CN": "珐琅眼",
       "zh-TW": "琺琅眼",
       "en-US": "Coppélia",
       "ko-KR": "코펠리아"
+    },
+    "skins": [
+      {
+        "variantId": "314401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314402",
+        "type": "insight",
+        "skinName": "自鸣乐器之歌",
+        "skinNameEng": "Song of the Self-Playing Instrument"
+      },
+      {
+        "variantId": "314403",
+        "type": "skin",
+        "skinName": "醒时声",
+        "skinNameEng": "Sounds that Wake Her"
+      }
+    ],
+    "defaultVariant": "314402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8F%90%E7%90%85%E7%9C%BC",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9b/Portrait-314401.webp"
     }
   },
   {
     "id": "314301",
     "name": "哑谜",
+    "baseId": 3143,
     "releaseOrder": 6,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314301/full.webp",
-      "avatar": "/assets/characters/314301/avatar.png",
-      "insight": "/assets/characters/314301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%91%E8%B0%9C",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f2/Portrait-314301.webp"
-    },
     "names": {
       "zh-CN": "哑谜",
       "zh-TW": "啞謎",
       "en-US": "Enigma",
       "ja-JP": "エニグマ"
+    },
+    "skins": [
+      {
+        "variantId": "314301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314302",
+        "type": "insight",
+        "skinName": "填空题",
+        "skinNameEng": "Cloze Testing"
+      }
+    ],
+    "defaultVariant": "314302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%91%E8%B0%9C",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f2/Portrait-314301.webp"
     }
   },
   {
     "id": "314201",
     "name": "拉莫纳",
+    "baseId": 3142,
     "releaseOrder": 7,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314201/full.webp",
-      "avatar": "/assets/characters/314201/avatar.png",
-      "insight": "/assets/characters/314201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E8%8E%AB%E7%BA%B3",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a1/Portrait-314201.webp"
-    },
     "names": {
       "zh-CN": "拉莫纳",
       "zh-TW": "拉莫納",
       "en-US": "Ramona",
       "ja-JP": "ラモナ",
       "ko-KR": "라모나"
+    },
+    "skins": [
+      {
+        "variantId": "314201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314202",
+        "type": "insight",
+        "skinName": "灵与花之间",
+        "skinNameEng": "Between Spirits and Blossoms"
+      }
+    ],
+    "defaultVariant": "314202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E8%8E%AB%E7%BA%B3",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a1/Portrait-314201.webp"
     }
   },
   {
     "id": "314101",
     "name": "鹭鸶剪",
+    "baseId": 3141,
     "releaseOrder": 8,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314101/full.webp",
-      "avatar": "/assets/characters/314101/avatar.png",
-      "insight": "/assets/characters/314101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%B9%AD%E9%B8%B6%E5%89%AA",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7d/Portrait-314101.webp"
-    },
     "names": {
       "zh-CN": "鹭鸶剪",
       "zh-TW": "鷺鷥剪",
       "en-US": "Paper Heron",
       "ja-JP": "鷺切"
+    },
+    "skins": [
+      {
+        "variantId": "314101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314102",
+        "type": "insight",
+        "skinName": "新花故吾",
+        "skinNameEng": "Downstream of Letting Go"
+      }
+    ],
+    "defaultVariant": "314102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%B9%AD%E9%B8%B6%E5%89%AA",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7d/Portrait-314101.webp"
     }
   },
   {
     "id": "314001",
     "name": "奠基石",
+    "baseId": 3140,
     "releaseOrder": 9,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/314001/full.webp",
-      "avatar": "/assets/characters/314001/avatar.png",
-      "insight": "/assets/characters/314001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A5%A0%E5%9F%BA%E7%9F%B3",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1a/Portrait-314001.webp"
-    },
     "names": {
       "zh-CN": "奠基石",
       "zh-TW": "奠基石",
       "en-US": "Cornerstone"
+    },
+    "skins": [
+      {
+        "variantId": "314001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "314002",
+        "type": "insight",
+        "skinName": "基桩嵌于构想",
+        "skinNameEng": "Grounded in Imagination"
+      }
+    ],
+    "defaultVariant": "314002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A5%A0%E5%9F%BA%E7%9F%B3",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1a/Portrait-314001.webp"
     }
   },
   {
     "id": "313901",
     "name": "洛伦兹蝴蝶",
+    "baseId": 3139,
     "releaseOrder": 10,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/313901/full.webp",
-      "avatar": "/assets/characters/313901/avatar.png",
-      "insight": "/assets/characters/313901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BC%A6%E5%85%B9%E8%9D%B4%E8%9D%B6",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bc/Portrait-313901.webp"
-    },
     "names": {
       "zh-CN": "洛伦兹蝴蝶",
       "zh-TW": "洛倫茲蝴蝶",
       "en-US": "Lorentz Butterfly",
       "ja-JP": "ローレンツバタフライ",
       "ko-KR": "로렌츠 버터플라이"
+    },
+    "skins": [
+      {
+        "variantId": "313901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "313902",
+        "type": "insight",
+        "skinName": "雨、混沌、翅震颤",
+        "skinNameEng": "Rain, Chaos and Fluttering"
+      },
+      {
+        "variantId": "313903",
+        "type": "skin",
+        "skinName": "致命银弦",
+        "skinNameEng": "Finale in Silver"
+      }
+    ],
+    "defaultVariant": "313902",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BC%A6%E5%85%B9%E8%9D%B4%E8%9D%B6",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bc/Portrait-313901.webp"
     }
   },
   {
     "id": "313701",
     "name": "程和光",
+    "baseId": 3137,
     "releaseOrder": 11,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/313701/full.webp",
-      "avatar": "/assets/characters/313701/avatar.png",
-      "insight": "/assets/characters/313701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A8%8B%E5%92%8C%E5%85%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8f/Portrait-313701.webp"
-    },
     "names": {
       "zh-CN": "程和光",
       "zh-TW": "程和光",
       "en-US": "Cheng Heguang",
       "ja-JP": "程和光"
+    },
+    "skins": [
+      {
+        "variantId": "313701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "313702",
+        "type": "insight",
+        "skinName": "檐外鹭",
+        "skinNameEng": "Breaking Free from a Burning Cage"
+      }
+    ],
+    "defaultVariant": "313702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A8%8B%E5%92%8C%E5%85%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8f/Portrait-313701.webp"
     }
   },
   {
     "id": "313501",
     "name": "灰调蓝",
+    "baseId": 3135,
     "releaseOrder": 12,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/313501/full.webp",
-      "avatar": "/assets/characters/313501/avatar.png",
-      "insight": "/assets/characters/313501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%81%B0%E8%B0%83%E8%93%9D",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/6c/Portrait-313501.webp"
-    },
     "names": {
       "zh-CN": "灰调蓝",
       "zh-TW": "灰調藍",
       "en-US": "Brume",
       "ja-JP": "グレイッシュブルー",
       "ko-KR": "브룸"
+    },
+    "skins": [
+      {
+        "variantId": "313501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "313502",
+        "type": "insight",
+        "skinName": "意外停靠",
+        "skinNameEng": "A Wayward Intermission"
+      }
+    ],
+    "defaultVariant": "313502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%81%B0%E8%B0%83%E8%93%9D",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/6c/Portrait-313501.webp"
     }
   },
   {
     "id": "313401",
     "name": "贝丽尔",
+    "baseId": 3134,
     "releaseOrder": 13,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/313401/full.webp",
-      "avatar": "/assets/characters/313401/avatar.png",
-      "insight": "/assets/characters/313401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B4%9D%E4%B8%BD%E5%B0%94",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/00/Portrait-313401.webp"
-    },
     "names": {
       "zh-CN": "贝丽尔",
       "zh-TW": "貝麗爾",
       "en-US": "Beryl",
       "ja-JP": "ベリル",
       "ko-KR": "베릴"
+    },
+    "skins": [
+      {
+        "variantId": "313401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "313402",
+        "type": "insight",
+        "skinName": "水上浮光",
+        "skinNameEng": "The Flowing Stream's Luster"
+      }
+    ],
+    "defaultVariant": "313402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B4%9D%E4%B8%BD%E5%B0%94",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/00/Portrait-313401.webp"
     }
   },
   {
     "id": "313201",
     "name": "告死鸟",
+    "baseId": 3132,
     "releaseOrder": 14,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/313201/full.webp",
-      "avatar": "/assets/characters/313201/avatar.png",
-      "insight": "/assets/characters/313201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%8A%E6%AD%BB%E9%B8%9F",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fb/Portrait-313201.webp"
-    },
     "names": {
       "zh-CN": "告死鸟",
       "zh-TW": "告死鳥",
       "en-US": "Corvus",
       "ja-JP": "コルヴス",
       "ko-KR": "코르부스"
+    },
+    "skins": [
+      {
+        "variantId": "313201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "313202",
+        "type": "insight",
+        "skinName": "编织一寸温暖",
+        "skinNameEng": "The Warmth She Knitted"
+      },
+      {
+        "variantId": "313203",
+        "type": "skin",
+        "skinName": "将哀啼也燃尽",
+        "skinNameEng": "Burning Away Tears"
+      }
+    ],
+    "defaultVariant": "313202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%8A%E6%AD%BB%E9%B8%9F",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fb/Portrait-313201.webp"
     }
   },
   {
     "id": "312801",
     "name": "卡戎",
+    "baseId": 3128,
     "releaseOrder": 15,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312801/full.webp",
-      "avatar": "/assets/characters/312801/avatar.png",
-      "insight": "/assets/characters/312801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E6%88%8E",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f5/Portrait-312801.webp"
-    },
     "names": {
       "zh-CN": "卡戎",
       "zh-TW": "卡戎",
       "en-US": "Charon",
       "ja-JP": "カローン",
       "ko-KR": "카론"
+    },
+    "skins": [
+      {
+        "variantId": "312801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312802",
+        "type": "insight",
+        "skinName": "沉默与悲鸣",
+        "skinNameEng": "Wailing Silence"
+      },
+      {
+        "variantId": "312803",
+        "type": "skin",
+        "skinName": "亡者的恩赐",
+        "skinNameEng": "Gift of the Dead"
+      }
+    ],
+    "defaultVariant": "312802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E6%88%8E",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f5/Portrait-312801.webp"
     }
   },
   {
     "id": "312701",
     "name": "玛尔纱",
+    "baseId": 3127,
     "releaseOrder": 16,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312701/full.webp",
-      "avatar": "/assets/characters/312701/avatar.png",
-      "insight": "/assets/characters/312701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E5%B0%94%E7%BA%B1",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-312701.webp"
-    },
     "names": {
       "zh-CN": "玛尔纱",
       "zh-TW": "瑪爾紗",
       "en-US": "Marsha",
       "ja-JP": "マルシャ",
       "ko-KR": "마샤"
+    },
+    "skins": [
+      {
+        "variantId": "312701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312702",
+        "type": "insight",
+        "skinName": "我曾如此宣誓——",
+        "skinNameEng": "And This I Swear"
+      },
+      {
+        "variantId": "312703",
+        "type": "skin",
+        "skinName": "不熄的怀抱",
+        "skinNameEng": "The Ever-Burning Embrace"
+      }
+    ],
+    "defaultVariant": "312702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E5%B0%94%E7%BA%B1",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-312701.webp"
     }
   },
   {
     "id": "312601",
     "name": "玛丽安娜",
+    "baseId": 3126,
     "releaseOrder": 17,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312601/full.webp",
-      "avatar": "/assets/characters/312601/avatar.png",
-      "insight": "/assets/characters/312601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E5%AE%89%E5%A8%9C",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7e/Portrait-312601.webp"
-    },
     "names": {
       "zh-CN": "玛丽安娜",
       "zh-TW": "瑪麗安娜",
       "en-US": "Sentinel",
       "ja-JP": "センティネル",
       "ko-KR": "센티널"
+    },
+    "skins": [
+      {
+        "variantId": "312601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312602",
+        "type": "insight",
+        "skinName": "孽的锁链",
+        "skinNameEng": "The Shackles of Sin"
+      },
+      {
+        "variantId": "312603",
+        "type": "skin",
+        "skinName": "镜廊宣言",
+        "skinNameEng": "By Reflections Witnessed"
+      },
+      {
+        "variantId": "312606",
+        "type": "skin",
+        "skinName": "称量罪与理",
+        "skinNameEng": "Weighing Sin and Justice"
+      }
+    ],
+    "defaultVariant": "312602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E5%AE%89%E5%A8%9C",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7e/Portrait-312601.webp"
     }
   },
   {
     "id": "312501",
     "name": "野树莓",
+    "baseId": 3125,
     "releaseOrder": 18,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312501/full.webp",
-      "avatar": "/assets/characters/312501/avatar.png",
-      "insight": "/assets/characters/312501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%8E%E6%A0%91%E8%8E%93",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/64/Portrait-312501.webp"
-    },
     "names": {
       "zh-CN": "野树莓",
       "zh-TW": "野樹莓",
       "en-US": "Rubuska",
       "ja-JP": "ルブシカ"
+    },
+    "skins": [
+      {
+        "variantId": "312501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312502",
+        "type": "insight",
+        "skinName": "魔笛手之梦",
+        "skinNameEng": "The Piper's Dream"
+      },
+      {
+        "variantId": "312503",
+        "type": "skin",
+        "skinName": "踏影歌",
+        "skinNameEng": "Song of the Shadow Dancer"
+      }
+    ],
+    "defaultVariant": "312502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%8E%E6%A0%91%E8%8E%93",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/64/Portrait-312501.webp"
     }
   },
   {
     "id": "312401",
     "name": "卡珊德拉",
+    "baseId": 3124,
     "releaseOrder": 19,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312401/full.webp",
-      "avatar": "/assets/characters/312401/avatar.png",
-      "insight": "/assets/characters/312401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E7%8F%8A%E5%BE%B7%E6%8B%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bc/Portrait-312401.webp"
-    },
     "names": {
       "zh-CN": "卡珊德拉",
       "zh-TW": "卡珊德拉",
       "en-US": "Kassandra",
       "ja-JP": "カサンドラ"
+    },
+    "skins": [
+      {
+        "variantId": "312401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312402",
+        "type": "insight",
+        "skinName": "湛蓝而闪耀",
+        "skinNameEng": "Radiant in Blue"
+      }
+    ],
+    "defaultVariant": "312402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E7%8F%8A%E5%BE%B7%E6%8B%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bc/Portrait-312401.webp"
     }
   },
   {
     "id": "312301",
     "name": "艾吉奥·奥迪托雷",
+    "baseId": 3123,
     "releaseOrder": 20,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312301/full.webp",
-      "avatar": "/assets/characters/312301/avatar.png",
-      "insight": "/assets/characters/312301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%89%BE%E5%90%89%E5%A5%A5%C2%B7%E5%A5%A5%E8%BF%AA%E6%89%98%E9%9B%B7",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/38/Portrait-312301.webp"
-    },
     "names": {
       "zh-CN": "艾吉奥·奥迪托雷",
       "zh-TW": "艾吉奧·奧迪託雷",
       "en-US": "Ezio Auditore",
       "ja-JP": "エツィオ"
+    },
+    "skins": [
+      {
+        "variantId": "312301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312302",
+        "type": "insight",
+        "skinName": "信仰，于此跃下",
+        "skinNameEng": "Leap of Faith"
+      }
+    ],
+    "defaultVariant": "312302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%89%BE%E5%90%89%E5%A5%A5%C2%B7%E5%A5%A5%E8%BF%AA%E6%89%98%E9%9B%B7",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/38/Portrait-312301.webp"
     }
   },
   {
     "id": "312101",
     "name": "莫莉德尔",
+    "baseId": 3121,
     "releaseOrder": 21,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312101/full.webp",
-      "avatar": "/assets/characters/312101/avatar.png",
-      "insight": "/assets/characters/312101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E8%8E%89%E5%BE%B7%E5%B0%94",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f5/Portrait-312101.webp"
-    },
     "names": {
       "zh-CN": "莫莉德尔",
       "zh-TW": "莫莉德爾",
       "en-US": "Moldir",
       "ja-JP": "モルダー",
       "ko-KR": "Moldir"
+    },
+    "skins": [
+      {
+        "variantId": "312101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312102",
+        "type": "insight",
+        "skinName": "永不遗忘的",
+        "skinNameEng": "Things Never Forgotten"
+      },
+      {
+        "variantId": "312103",
+        "type": "skin",
+        "skinName": "石头城挽歌",
+        "skinNameEng": "Idyll of the Luberon"
+      }
+    ],
+    "defaultVariant": "312102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E8%8E%89%E5%BE%B7%E5%B0%94",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f5/Portrait-312101.webp"
     }
   },
   {
     "id": "312001",
     "name": "诺谛卡",
+    "baseId": 3120,
     "releaseOrder": 22,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312001/full.webp",
-      "avatar": "/assets/characters/312001/avatar.png",
-      "insight": "/assets/characters/312001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E8%B0%9B%E5%8D%A1",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3c/Portrait-312001.webp"
-    },
     "names": {
       "zh-CN": "诺谛卡",
       "zh-TW": "諾諦卡",
       "en-US": "Nautika",
       "ja-JP": "ノーティカ",
       "ko-KR": "Nautika"
+    },
+    "skins": [
+      {
+        "variantId": "312001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312002",
+        "type": "insight",
+        "skinName": "“未知”的背面",
+        "skinNameEng": "Behind the \"Unknown\""
+      },
+      {
+        "variantId": "312003",
+        "type": "skin",
+        "skinName": "名以光辉",
+        "skinNameEng": "From Darkness, Light"
+      }
+    ],
+    "defaultVariant": "312002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E8%B0%9B%E5%8D%A1",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3c/Portrait-312001.webp"
     }
   },
   {
     "id": "311701",
     "name": "库珀花环",
+    "baseId": 3117,
     "releaseOrder": 23,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311701/full.webp",
-      "avatar": "/assets/characters/311701/avatar.png",
-      "insight": "/assets/characters/311701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BA%93%E7%8F%80%E8%8A%B1%E7%8E%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/47/Portrait-311701.webp"
-    },
     "names": {
       "zh-CN": "库珀花环",
       "zh-TW": "庫珀花環",
       "en-US": "Kiperina",
       "ja-JP": "カイパリーナ",
       "ko-KR": "Kiperina"
+    },
+    "skins": [
+      {
+        "variantId": "311701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311702",
+        "type": "insight",
+        "skinName": "弹珠匣",
+        "skinNameEng": "A Box of Marbles"
+      },
+      {
+        "variantId": "311703",
+        "type": "skin",
+        "skinName": "宇宙之壳",
+        "skinNameEng": "The Universe in the Rook's Shell"
+      },
+      {
+        "variantId": "311704",
+        "type": "skin",
+        "skinName": "玻璃乌托邦",
+        "skinNameEng": "A Utopia in Painted Glass"
+      }
+    ],
+    "defaultVariant": "311702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BA%93%E7%8F%80%E8%8A%B1%E7%8E%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/47/Portrait-311701.webp"
     }
   },
   {
     "id": "311601",
     "name": "冷周六",
+    "baseId": 3116,
     "releaseOrder": 24,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311601/full.webp",
-      "avatar": "/assets/characters/311601/avatar.png",
-      "insight": "/assets/characters/311601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%B7%E5%91%A8%E5%85%AD",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-311601.webp"
-    },
     "names": {
       "zh-CN": "冷周六",
       "zh-TW": "冷週六",
       "en-US": "Hissabeth",
       "ja-JP": "サーベス",
       "ko-KR": "Hissabeth"
+    },
+    "skins": [
+      {
+        "variantId": "311601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311602",
+        "type": "insight",
+        "skinName": "电子丛林发展史",
+        "skinNameEng": "Digital Jungle"
+      },
+      {
+        "variantId": "311603",
+        "type": "skin",
+        "skinName": "群蛇的春祭",
+        "skinNameEng": "Serpentine Primavera"
+      },
+      {
+        "variantId": "311604",
+        "type": "skin",
+        "skinName": "巫阳抚彗歌",
+        "skinNameEng": "Verses to Heaven"
+      }
+    ],
+    "defaultVariant": "311602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%B7%E5%91%A8%E5%85%AD",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-311601.webp"
     }
   },
   {
     "id": "311401",
     "name": "虚构集",
+    "baseId": 3114,
     "releaseOrder": 25,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311401/full.webp",
-      "avatar": "/assets/characters/311401/avatar.png",
-      "insight": "/assets/characters/311401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%99%9A%E6%9E%84%E9%9B%86",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/73/Portrait-311401.webp"
-    },
     "names": {
       "zh-CN": "虚构集",
       "zh-TW": "虛構集",
       "en-US": "Recoleta",
       "ja-JP": "レコレータ",
       "ko-KR": "레콜레타"
+    },
+    "skins": [
+      {
+        "variantId": "311401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311402",
+        "type": "insight",
+        "skinName": "卷首语",
+        "skinNameEng": "Foreword"
+      },
+      {
+        "variantId": "311403",
+        "type": "skin",
+        "skinName": "拉曼却幻想",
+        "skinNameEng": "The Knight of La Mancha"
+      },
+      {
+        "variantId": "311404",
+        "type": "skin",
+        "skinName": "文字，自始至终",
+        "skinNameEng": "The Weight of Words"
+      }
+    ],
+    "defaultVariant": "311402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%99%9A%E6%9E%84%E9%9B%86",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/73/Portrait-311401.webp"
     }
   },
   {
     "id": "311301",
     "name": "阿莱夫",
+    "baseId": 3113,
     "releaseOrder": 26,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311301/full.webp",
-      "avatar": "/assets/characters/311301/avatar.png",
-      "insight": "/assets/characters/311301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E8%8E%B1%E5%A4%AB",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f0/Portrait-311301.webp"
-    },
     "names": {
       "zh-CN": "阿莱夫",
       "zh-TW": "阿萊夫",
       "en-US": "Aleph",
       "ja-JP": "エル・アレフ",
       "ko-KR": "알레프"
+    },
+    "skins": [
+      {
+        "variantId": "311301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311302",
+        "type": "insight",
+        "skinName": "无限议题",
+        "skinNameEng": "Infinitude"
+      },
+      {
+        "variantId": "311303",
+        "type": "skin",
+        "skinName": "意象的欢宴",
+        "skinNameEng": "A Feast of Imagery"
+      }
+    ],
+    "defaultVariant": "311302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E8%8E%B1%E5%A4%AB",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f0/Portrait-311301.webp"
     }
   },
   {
     "id": "311101",
     "name": "菲林士多",
+    "baseId": 3111,
     "releaseOrder": 27,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311101/full.webp",
-      "avatar": "/assets/characters/311101/avatar.png",
-      "insight": "/assets/characters/311101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8F%B2%E6%9E%97%E5%A3%AB%E5%A4%9A",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-311101.webp"
-    },
     "names": {
       "zh-CN": "菲林士多",
       "zh-TW": "菲林士多",
       "en-US": "Noire",
       "ja-JP": "ノワール",
       "ko-KR": "느와르"
+    },
+    "skins": [
+      {
+        "variantId": "311101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311102",
+        "type": "insight",
+        "skinName": "红毯嘉宾",
+        "skinNameEng": "On the Red Carpet"
+      },
+      {
+        "variantId": "311103",
+        "type": "skin",
+        "skinName": "算尘寰",
+        "skinNameEng": "The Trapped Trapmaster"
+      }
+    ],
+    "defaultVariant": "311102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8F%B2%E6%9E%97%E5%A3%AB%E5%A4%9A",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-311101.webp"
     }
   },
   {
     "id": "311001",
     "name": "梁月",
+    "baseId": 3110,
     "releaseOrder": 28,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311001/full.webp",
-      "avatar": "/assets/characters/311001/avatar.png",
-      "insight": "/assets/characters/311001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%81%E6%9C%88",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/95/Portrait-311001.webp"
-    },
     "names": {
       "zh-CN": "梁月",
       "zh-TW": "梁月",
       "en-US": "Liang Yue",
       "ja-JP": "梁月",
       "ko-KR": "양월"
+    },
+    "skins": [
+      {
+        "variantId": "311001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311002",
+        "type": "insight",
+        "skinName": "青瓦之上",
+        "skinNameEng": "Above the Green Tiles"
+      },
+      {
+        "variantId": "311003",
+        "type": "skin",
+        "skinName": "照雪明",
+        "skinNameEng": "The Moon's Reflection"
+      }
+    ],
+    "defaultVariant": "311002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%81%E6%9C%88",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/95/Portrait-311001.webp"
     }
   },
   {
     "id": "310901",
     "name": "图图石子",
+    "baseId": 3109,
     "releaseOrder": 29,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310901/full.webp",
-      "avatar": "/assets/characters/310901/avatar.png",
-      "insight": "/assets/characters/310901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%BE%E5%9B%BE%E7%9F%B3%E5%AD%90",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/24/Portrait-310901.webp"
-    },
     "names": {
       "zh-CN": "图图石子",
       "zh-TW": "圖圖石子",
       "en-US": "Fatutu",
       "ja-JP": "トゥトゥイ",
       "ko-KR": "파투투"
+    },
+    "skins": [
+      {
+        "variantId": "310901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310902",
+        "type": "insight",
+        "skinName": "消逝的涟漪",
+        "skinNameEng": "Fading Ripples"
+      },
+      {
+        "variantId": "310903",
+        "type": "skin",
+        "skinName": "曲线的居所",
+        "skinNameEng": "Casa of the Curved Lines"
+      },
+      {
+        "variantId": "310905",
+        "type": "skin",
+        "skinName": "故梦罅隙间",
+        "skinNameEng": "Fragments of An Old Dream"
+      }
+    ],
+    "defaultVariant": "310902",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%BE%E5%9B%BE%E7%9F%B3%E5%AD%90",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/24/Portrait-310901.webp"
     }
   },
   {
     "id": "310801",
     "name": "芭卡洛儿",
+    "baseId": 3108,
     "releaseOrder": 30,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310801/full.webp",
-      "avatar": "/assets/characters/310801/avatar.png",
-      "insight": "/assets/characters/310801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%8D%A1%E6%B4%9B%E5%84%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e3/Portrait-310801.webp"
-    },
     "names": {
       "zh-CN": "芭卡洛儿",
       "zh-TW": "芭卡洛兒",
       "en-US": "Barcarola",
       "ja-JP": "バルカローラ",
       "ko-KR": "바르카롤라"
+    },
+    "skins": [
+      {
+        "variantId": "310801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310802",
+        "type": "insight",
+        "skinName": "海风领奏",
+        "skinNameEng": "As the Sea Breeze Leads"
+      },
+      {
+        "variantId": "310803",
+        "type": "skin",
+        "skinName": "飞越行星带",
+        "skinNameEng": "Asteroid Allegro"
+      }
+    ],
+    "defaultVariant": "310802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%8D%A1%E6%B4%9B%E5%84%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e3/Portrait-310801.webp"
     }
   },
   {
     "id": "310701",
     "name": "乌尔里希",
+    "baseId": 3107,
     "releaseOrder": 31,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310701/full.webp",
-      "avatar": "/assets/characters/310701/avatar.png",
-      "insight": "/assets/characters/310701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B9%8C%E5%B0%94%E9%87%8C%E5%B8%8C",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/78/Portrait-310701.webp"
-    },
     "names": {
       "zh-CN": "乌尔里希",
       "zh-TW": "烏爾裡希",
       "en-US": "Ulrich",
       "ja-JP": "ウルリッヒ"
+    },
+    "skins": [
+      {
+        "variantId": "310701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310702",
+        "type": "insight",
+        "skinName": "缸中宇宙",
+        "skinNameEng": "Universe in the Tank"
+      },
+      {
+        "variantId": "310703",
+        "type": "skin",
+        "skinName": "叩响天宇一角",
+        "skinNameEng": "A Glimpse of the Cosmos"
+      }
+    ],
+    "defaultVariant": "310702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B9%8C%E5%B0%94%E9%87%8C%E5%B8%8C",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/78/Portrait-310701.webp"
     }
   },
   {
     "id": "310501",
     "name": "纸信圈儿",
+    "baseId": 3105,
     "releaseOrder": 32,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310501/full.webp",
-      "avatar": "/assets/characters/310501/avatar.png",
-      "insight": "/assets/characters/310501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%B8%E4%BF%A1%E5%9C%88%E5%84%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2e/Portrait-310501.webp"
-    },
     "names": {
       "zh-CN": "纸信圈儿",
       "zh-TW": "紙信圈兒",
       "en-US": "Flutterpage",
       "ja-JP": "パタパタペーパー",
       "ko-KR": "플러터 페이지"
+    },
+    "skins": [
+      {
+        "variantId": "310501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310502",
+        "type": "insight",
+        "skinName": "啁啾来访日",
+        "skinNameEng": "Chirpy Morning Ringer"
+      },
+      {
+        "variantId": "310503",
+        "type": "skin",
+        "skinName": "明日的春风",
+        "skinNameEng": "Gently Comes the Thawing Breeze"
+      },
+      {
+        "variantId": "310504",
+        "type": "skin",
+        "skinName": "原子时报晓",
+        "skinNameEng": "Atomic Alarm"
+      }
+    ],
+    "defaultVariant": "310502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%B8%E4%BF%A1%E5%9C%88%E5%84%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2e/Portrait-310501.webp"
     }
   },
   {
     "id": "310401",
     "name": "笃笃骨",
+    "baseId": 3104,
     "releaseOrder": 33,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310401/full.webp",
-      "avatar": "/assets/characters/310401/avatar.png",
-      "insight": "/assets/characters/310401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%AC%83%E7%AC%83%E9%AA%A8",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ed/Portrait-310401.webp"
-    },
     "names": {
       "zh-CN": "笃笃骨",
       "zh-TW": "篤篤骨",
       "en-US": "Willow",
       "ja-JP": "ヴィロー",
       "ko-KR": "윌로우"
+    },
+    "skins": [
+      {
+        "variantId": "310401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310402",
+        "type": "insight",
+        "skinName": "旷然独舞",
+        "skinNameEng": "Lone Dancer"
+      },
+      {
+        "variantId": "310403",
+        "type": "skin",
+        "skinName": "第二枚预兆",
+        "skinNameEng": "The Last Portent"
+      },
+      {
+        "variantId": "310404",
+        "type": "skin",
+        "skinName": "裁春衫",
+        "skinNameEng": "Reborn and Restored"
+      }
+    ],
+    "defaultVariant": "310402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%AC%83%E7%AC%83%E9%AA%A8",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ed/Portrait-310401.webp"
     }
   },
   {
     "id": "310201",
     "name": "洛佩拉",
+    "baseId": 3102,
     "releaseOrder": 34,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310201/full.webp",
-      "avatar": "/assets/characters/310201/avatar.png",
-      "insight": "/assets/characters/310201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BD%A9%E6%8B%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3d/Portrait-310201.webp"
-    },
     "names": {
       "zh-CN": "洛佩拉",
       "zh-TW": "洛佩拉",
       "en-US": "Lopera",
       "ja-JP": "ロペラ",
       "ko-KR": "로페라"
+    },
+    "skins": [
+      {
+        "variantId": "310201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310202",
+        "type": "insight",
+        "skinName": "落日归途",
+        "skinNameEng": "The Wayward Soul Returns"
+      },
+      {
+        "variantId": "310203",
+        "type": "skin",
+        "skinName": "与风暴同行",
+        "skinNameEng": "Friend of the Splintercat"
+      }
+    ],
+    "defaultVariant": "310202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BD%A9%E6%8B%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3d/Portrait-310201.webp"
     }
   },
   {
     "id": "310001",
     "name": "天使娜娜",
+    "baseId": 3100,
     "releaseOrder": 35,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310001/full.webp",
-      "avatar": "/assets/characters/310001/avatar.png",
-      "insight": "/assets/characters/310001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%A9%E4%BD%BF%E5%A8%9C%E5%A8%9C",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/5d/Portrait-310001.webp"
-    },
     "names": {
       "zh-CN": "天使娜娜",
       "zh-TW": "天使娜娜",
       "en-US": "Anjo Nala",
       "ja-JP": "アンジョナナ",
       "ko-KR": "안조 날라"
+    },
+    "skins": [
+      {
+        "variantId": "310001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310002",
+        "type": "insight",
+        "skinName": "无忧年代",
+        "skinNameEng": "Carefree Days"
+      },
+      {
+        "variantId": "310003",
+        "type": "skin",
+        "skinName": "恶之果",
+        "skinNameEng": "Forbidden Fruit"
+      }
+    ],
+    "defaultVariant": "310002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%A9%E4%BD%BF%E5%A8%9C%E5%A8%9C",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/5d/Portrait-310001.webp"
     }
   },
   {
     "id": "309801",
     "name": "蓝手帕",
+    "baseId": 3098,
     "releaseOrder": 36,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309801/full.webp",
-      "avatar": "/assets/characters/309801/avatar.png",
-      "insight": "/assets/characters/309801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%93%9D%E6%89%8B%E5%B8%95",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/76/Portrait-309801.webp"
-    },
     "names": {
       "zh-CN": "蓝手帕",
       "zh-TW": "藍手帕",
       "en-US": "Tuesday",
       "ja-JP": "チューズデー",
       "ko-KR": "튜즈데이"
+    },
+    "skins": [
+      {
+        "variantId": "309801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309802",
+        "type": "insight",
+        "skinName": "恐惧女主人",
+        "skinNameEng": "Miss Horror"
+      },
+      {
+        "variantId": "309803",
+        "type": "skin",
+        "skinName": "玉瓶宝鉴",
+        "skinNameEng": "Story of the Jade Vase"
+      },
+      {
+        "variantId": "309804",
+        "type": "skin",
+        "skinName": "冷襁褓",
+        "skinNameEng": "Cold Cradle"
+      }
+    ],
+    "defaultVariant": "309802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%93%9D%E6%89%8B%E5%B8%95",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/76/Portrait-309801.webp"
     }
   },
   {
     "id": "309701",
     "name": "阿尔古斯",
+    "baseId": 3097,
     "releaseOrder": 37,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309701/full.webp",
-      "avatar": "/assets/characters/309701/avatar.png",
-      "insight": "/assets/characters/309701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%B0%94%E5%8F%A4%E6%96%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/56/Portrait-309701.webp"
-    },
     "names": {
       "zh-CN": "阿尔古斯",
       "zh-TW": "阿爾古斯",
       "en-US": "Argus",
       "ja-JP": "アルゴス",
       "ko-KR": "아르고스"
+    },
+    "skins": [
+      {
+        "variantId": "309701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309702",
+        "type": "insight",
+        "skinName": "百眼燃烧",
+        "skinNameEng": "All Seeing Light"
+      },
+      {
+        "variantId": "309703",
+        "type": "skin",
+        "skinName": "星间追猎秀",
+        "skinNameEng": "Starbound Bounty Hunter"
+      }
+    ],
+    "defaultVariant": "309702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%B0%94%E5%8F%A4%E6%96%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/56/Portrait-309701.webp"
     }
   },
   {
     "id": "309501",
     "name": "环状水星",
+    "baseId": 3095,
     "releaseOrder": 38,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309501/full.webp",
-      "avatar": "/assets/characters/309501/avatar.png",
-      "insight": "/assets/characters/309501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%AF%E7%8A%B6%E6%B0%B4%E6%98%9F",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-309501.webp"
-    },
     "names": {
       "zh-CN": "环状水星",
       "zh-TW": "環狀水星",
       "en-US": "Mercuria",
       "ja-JP": "マーキュリア",
       "ko-KR": "머큐리아"
+    },
+    "skins": [
+      {
+        "variantId": "309501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309502",
+        "type": "insight",
+        "skinName": "宇宙屏息时",
+        "skinNameEng": "The Universe Holds Its Breath"
+      },
+      {
+        "variantId": "309503",
+        "type": "skin",
+        "skinName": "午夜曼波",
+        "skinNameEng": "Midnight Mistmancer"
+      },
+      {
+        "variantId": "309504",
+        "type": "skin",
+        "skinName": "惊魂夜颂歌",
+        "skinNameEng": "The Nightmare's Carol"
+      }
+    ],
+    "defaultVariant": "309502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%AF%E7%8A%B6%E6%B0%B4%E6%98%9F",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-309501.webp"
     }
   },
   {
     "id": "309401",
     "name": "J",
+    "baseId": 3094,
     "releaseOrder": 39,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309401/full.webp",
-      "avatar": "/assets/characters/309401/avatar.png",
-      "insight": "/assets/characters/309401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/J",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2e/Portrait-309401.webp"
-    },
     "names": {
       "zh-CN": "J",
       "zh-TW": "J",
       "en-US": "J",
       "ja-JP": "J",
       "ko-KR": "J"
+    },
+    "skins": [
+      {
+        "variantId": "309401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309402",
+        "type": "insight",
+        "skinName": "极速前线",
+        "skinNameEng": "Top Speed Rider"
+      },
+      {
+        "variantId": "309403",
+        "type": "skin",
+        "skinName": "野嗥",
+        "skinNameEng": "The Lone Wolf's Howl"
+      }
+    ],
+    "defaultVariant": "309402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/J",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2e/Portrait-309401.webp"
     }
   },
   {
     "id": "309201",
     "name": "伊戈尔",
+    "baseId": 3092,
     "releaseOrder": 40,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309201/full.webp",
-      "avatar": "/assets/characters/309201/avatar.png",
-      "insight": "/assets/characters/309201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E6%88%88%E5%B0%94",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-309201.webp"
-    },
     "names": {
       "zh-CN": "伊戈尔",
       "zh-TW": "伊戈爾",
       "en-US": "Igor",
       "ja-JP": "イゴール",
       "ko-KR": "이고르"
+    },
+    "skins": [
+      {
+        "variantId": "309201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309202",
+        "type": "insight",
+        "skinName": "旗帜所指向的",
+        "skinNameEng": "Where the Banner Points"
+      },
+      {
+        "variantId": "309203",
+        "type": "skin",
+        "skinName": "幽冥无归",
+        "skinNameEng": "Returning Nevermore"
+      }
+    ],
+    "defaultVariant": "309202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E6%88%88%E5%B0%94",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-309201.webp"
     }
   },
   {
     "id": "308801",
     "name": "塞梅尔维斯",
+    "baseId": 3088,
     "releaseOrder": 41,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308801/full.webp",
-      "avatar": "/assets/characters/308801/avatar.png",
-      "insight": "/assets/characters/308801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A1%9E%E6%A2%85%E5%B0%94%E7%BB%B4%E6%96%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-308801.webp"
-    },
     "names": {
       "zh-CN": "塞梅尔维斯",
       "zh-TW": "塞梅爾維斯",
       "en-US": "Semmelweis",
       "ja-JP": "センメルワイス",
       "ko-KR": "제멜바이스"
+    },
+    "skins": [
+      {
+        "variantId": "308801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308802",
+        "type": "insight",
+        "skinName": "镜",
+        "skinNameEng": "The Mirror"
+      },
+      {
+        "variantId": "308803",
+        "type": "skin",
+        "skinName": "叩门礼仪",
+        "skinNameEng": "A Knock on the Door"
+      },
+      {
+        "variantId": "308804",
+        "type": "skin",
+        "skinName": "心之盈亏",
+        "skinNameEng": "The Wax and Wane of the Heart"
+      }
+    ],
+    "defaultVariant": "308802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A1%9E%E6%A2%85%E5%B0%94%E7%BB%B4%E6%96%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-308801.webp"
     }
   },
   {
     "id": "308701",
     "name": "维拉",
+    "baseId": 3087,
     "releaseOrder": 42,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308701/full.webp",
-      "avatar": "/assets/characters/308701/avatar.png",
-      "insight": "/assets/characters/308701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BB%B4%E6%8B%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/85/Portrait-308701.webp"
-    },
     "names": {
       "zh-CN": "维拉",
       "zh-TW": "維拉",
       "en-US": "Vila",
       "ja-JP": "ヴィラ",
       "ko-KR": "빌라"
+    },
+    "skins": [
+      {
+        "variantId": "308701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308702",
+        "type": "insight",
+        "skinName": "向理想，向生活",
+        "skinNameEng": "Towards the Ideal Life"
+      },
+      {
+        "variantId": "308703",
+        "type": "skin",
+        "skinName": "远眺色彩",
+        "skinNameEng": "By the Painted City"
+      },
+      {
+        "variantId": "308704",
+        "type": "skin",
+        "skinName": "酒色之海的女儿",
+        "skinNameEng": "Daughter of the Wine-Dark Sea"
+      }
+    ],
+    "defaultVariant": "308702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BB%B4%E6%8B%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/85/Portrait-308701.webp"
     }
   },
   {
     "id": "308601",
     "name": "露西",
+    "baseId": 3086,
     "releaseOrder": 43,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308601/full.webp",
-      "avatar": "/assets/characters/308601/avatar.png",
-      "insight": "/assets/characters/308601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9C%B2%E8%A5%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/07/Portrait-308601.webp"
-    },
     "names": {
       "zh-CN": "露西",
       "zh-TW": "露西",
       "en-US": "Lucy",
       "ja-JP": "ルーシー",
       "ko-KR": "루시"
+    },
+    "skins": [
+      {
+        "variantId": "308601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308602",
+        "type": "insight",
+        "skinName": "一个机器人的诞生",
+        "skinNameEng": "A Robot Is Born"
+      },
+      {
+        "variantId": "308603",
+        "type": "skin",
+        "skinName": "生如行棋",
+        "skinNameEng": "The Queen's Game"
+      }
+    ],
+    "defaultVariant": "308602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9C%B2%E8%A5%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/07/Portrait-308601.webp"
     }
   },
   {
     "id": "308401",
     "name": "葛天",
+    "baseId": 3084,
     "releaseOrder": 44,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308401/full.webp",
-      "avatar": "/assets/characters/308401/avatar.png",
-      "insight": "/assets/characters/308401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%91%9B%E5%A4%A9",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/4e/Portrait-308401.webp"
-    },
     "names": {
       "zh-CN": "葛天",
       "zh-TW": "葛天",
       "en-US": "Getian",
       "ja-JP": "葛天",
       "ko-KR": "갈천"
+    },
+    "skins": [
+      {
+        "variantId": "308401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308402",
+        "type": "insight",
+        "skinName": "清风吹我襟",
+        "skinNameEng": "The Breeze of Ease"
+      },
+      {
+        "variantId": "308404",
+        "type": "skin",
+        "skinName": "入埃及记",
+        "skinNameEng": "Herald of Horus"
+      }
+    ],
+    "defaultVariant": "308402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%91%9B%E5%A4%A9",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/4e/Portrait-308401.webp"
     }
   },
   {
     "id": "308301",
     "name": "曲娘",
+    "baseId": 3083,
     "releaseOrder": 45,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308301/full.webp",
-      "avatar": "/assets/characters/308301/avatar.png",
-      "insight": "/assets/characters/308301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9B%B2%E5%A8%98",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/51/Portrait-308301.webp"
-    },
     "names": {
       "zh-CN": "曲娘",
       "zh-TW": "曲娘",
       "en-US": "Jiu Niangzi",
       "ja-JP": "曲娘",
       "ko-KR": "곡랑"
+    },
+    "skins": [
+      {
+        "variantId": "308301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308302",
+        "type": "insight",
+        "skinName": "天光照衣",
+        "skinNameEng": "Let There Be Way Out"
+      },
+      {
+        "variantId": "308303",
+        "type": "skin",
+        "skinName": "壁上桃源",
+        "skinNameEng": "Blossom Spring Fairy"
+      }
+    ],
+    "defaultVariant": "308302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9B%B2%E5%A8%98",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/51/Portrait-308301.webp"
     }
   },
   {
     "id": "308101",
     "name": "伊索尔德",
+    "baseId": 3081,
     "releaseOrder": 46,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308101/full.webp",
-      "avatar": "/assets/characters/308101/avatar.png",
-      "insight": "/assets/characters/308101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E7%B4%A2%E5%B0%94%E5%BE%B7",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/cf/Portrait-308101.webp"
-    },
     "names": {
       "zh-CN": "伊索尔德",
       "zh-TW": "伊索爾德",
       "en-US": "Isolde",
       "ja-JP": "イゾルデ",
       "ko-KR": "이졸데"
+    },
+    "skins": [
+      {
+        "variantId": "308101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308102",
+        "type": "insight",
+        "skinName": "多重唱",
+        "skinNameEng": "Polyphony"
+      },
+      {
+        "variantId": "308103",
+        "type": "skin",
+        "skinName": "爵士春秋",
+        "skinNameEng": "And All That Jazz"
+      },
+      {
+        "variantId": "308104",
+        "type": "skin",
+        "skinName": "若向死振翅",
+        "skinNameEng": "The Last Fluttering Beat"
+      }
+    ],
+    "defaultVariant": "308102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E7%B4%A2%E5%B0%94%E5%BE%B7",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/cf/Portrait-308101.webp"
     }
   },
   {
     "id": "308001",
     "name": "卡卡尼亚",
+    "baseId": 3080,
     "releaseOrder": 47,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308001/full.webp",
-      "avatar": "/assets/characters/308001/avatar.png",
-      "insight": "/assets/characters/308001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E5%8D%A1%E5%B0%BC%E4%BA%9A",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/91/Portrait-308001.webp"
-    },
     "names": {
       "zh-CN": "卡卡尼亚",
       "zh-TW": "卡卡尼亞",
       "en-US": "Kakania",
       "ja-JP": "カカニア",
       "ko-KR": "카카니아"
+    },
+    "skins": [
+      {
+        "variantId": "308001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308002",
+        "type": "insight",
+        "skinName": "映像之映像",
+        "skinNameEng": "Reflections within Reflections"
+      },
+      {
+        "variantId": "308003",
+        "type": "skin",
+        "skinName": "心曲沙龙",
+        "skinNameEng": "Seminars on Serenity"
+      },
+      {
+        "variantId": "308004",
+        "type": "skin",
+        "skinName": "时代病陪护",
+        "skinNameEng": "Guardian of the Broken"
+      }
+    ],
+    "defaultVariant": "308002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E5%8D%A1%E5%B0%BC%E4%BA%9A",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/91/Portrait-308001.webp"
     }
   },
   {
     "id": "307901",
     "name": "6",
+    "baseId": 3079,
     "releaseOrder": 48,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307901/full.webp",
-      "avatar": "/assets/characters/307901/avatar.png",
-      "insight": "/assets/characters/307901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/6",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-307901.webp"
-    },
     "names": {
       "zh-CN": "6",
       "zh-TW": "6",
       "en-US": "6",
       "ja-JP": "6",
       "ko-KR": "6"
+    },
+    "skins": [
+      {
+        "variantId": "307901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307902",
+        "type": "insight",
+        "skinName": "完备者",
+        "skinNameEng": "The Perfect Number"
+      },
+      {
+        "variantId": "307903",
+        "type": "skin",
+        "skinName": "何时何地",
+        "skinNameEng": "Time and Location"
+      },
+      {
+        "variantId": "307904",
+        "type": "skin",
+        "skinName": "于火中得见",
+        "skinNameEng": "By the Razed Polis"
+      },
+      {
+        "variantId": "307905",
+        "type": "skin",
+        "skinName": "孤独赞美诗",
+        "skinNameEng": "A Hymn to Seclusion"
+      }
+    ],
+    "defaultVariant": "307902",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/6",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-307901.webp"
     }
   },
   {
     "id": "307701",
     "name": "北方哨歌",
+    "baseId": 3077,
     "releaseOrder": 49,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307701/full.webp",
-      "avatar": "/assets/characters/307701/avatar.png",
-      "insight": "/assets/characters/307701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8C%97%E6%96%B9%E5%93%A8%E6%AD%8C",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/23/Portrait-307701.webp"
-    },
     "names": {
       "zh-CN": "北方哨歌",
       "zh-TW": "北方哨歌",
       "en-US": "Windsong",
       "ja-JP": "スヴィスティ",
       "ko-KR": "윈드송"
+    },
+    "skins": [
+      {
+        "variantId": "307701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307702",
+        "type": "insight",
+        "skinName": "于此丈量",
+        "skinNameEng": "Measuring the World"
+      },
+      {
+        "variantId": "307703",
+        "type": "skin",
+        "skinName": "凿玉记",
+        "skinNameEng": "Records from the Jade Hunt"
+      },
+      {
+        "variantId": "307704",
+        "type": "skin",
+        "skinName": "魇与夜",
+        "skinNameEng": "The Nightmare's Trespasser"
+      },
+      {
+        "variantId": "307705",
+        "type": "skin",
+        "skinName": "银色等高线",
+        "skinNameEng": "Silver Isoheight"
+      }
+    ],
+    "defaultVariant": "307702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8C%97%E6%96%B9%E5%93%A8%E6%AD%8C",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/23/Portrait-307701.webp"
     }
   },
   {
     "id": "307401",
     "name": "爱兹拉",
+    "baseId": 3074,
     "releaseOrder": 50,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307401/full.webp",
-      "avatar": "/assets/characters/307401/avatar.png",
-      "insight": "/assets/characters/307401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%85%B9%E6%8B%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/89/Portrait-307401.webp"
-    },
     "names": {
       "zh-CN": "爱兹拉",
       "zh-TW": "愛茲拉",
       "en-US": "Ezra Theodore",
       "ja-JP": "エズラ",
       "ko-KR": "에즈라"
+    },
+    "skins": [
+      {
+        "variantId": "307401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307402",
+        "type": "insight",
+        "skinName": "菌伞的启示",
+        "skinNameEng": "Enlightened by Mushrooms"
+      },
+      {
+        "variantId": "307403",
+        "type": "skin",
+        "skinName": "噫～嗬！",
+        "skinNameEng": "Yee-Haw!"
+      }
+    ],
+    "defaultVariant": "307402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%85%B9%E6%8B%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/89/Portrait-307401.webp"
     }
   },
   {
     "id": "307301",
     "name": "可燃点",
+    "baseId": 3073,
     "releaseOrder": 51,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307301/full.webp",
-      "avatar": "/assets/characters/307301/avatar.png",
-      "insight": "/assets/characters/307301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8F%AF%E7%87%83%E7%82%B9",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/31/Portrait-307301.webp"
-    },
     "names": {
       "zh-CN": "可燃点",
       "zh-TW": "可燃點",
       "en-US": "Spathodea",
       "ja-JP": "カエンボク",
       "ko-KR": "스파토데아"
+    },
+    "skins": [
+      {
+        "variantId": "307301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307302",
+        "type": "insight",
+        "skinName": "雀儿、火焰、花",
+        "skinNameEng": "Sparrow, Hummingbird, Flower"
+      },
+      {
+        "variantId": "307303",
+        "type": "skin",
+        "skinName": "胜利冲刺",
+        "skinNameEng": "Onwards, To Victory!"
+      },
+      {
+        "variantId": "307304",
+        "type": "skin",
+        "skinName": "火芙蕖",
+        "skinNameEng": "Fire Lotus"
+      }
+    ],
+    "defaultVariant": "307302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8F%AF%E7%87%83%E7%82%B9",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/31/Portrait-307301.webp"
     }
   },
   {
     "id": "307201",
     "name": "鬃毛沙砾",
+    "baseId": 3072,
     "releaseOrder": 52,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307201/full.webp",
-      "avatar": "/assets/characters/307201/avatar.png",
-      "insight": "/assets/characters/307201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%AC%83%E6%AF%9B%E6%B2%99%E7%A0%BE",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-307201.webp"
-    },
     "names": {
       "zh-CN": "鬃毛沙砾",
       "zh-TW": "鬃毛沙礫",
       "en-US": "Shamane",
       "ja-JP": "シャーマィン",
       "ko-KR": "갈기모래"
+    },
+    "skins": [
+      {
+        "variantId": "307201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307202",
+        "type": "insight",
+        "skinName": "山麓以南",
+        "skinNameEng": "South of the Mountain"
+      },
+      {
+        "variantId": "307203",
+        "type": "skin",
+        "skinName": "玛瑙斯印迹",
+        "skinNameEng": "Beneath the Jungle Canopy"
+      }
+    ],
+    "defaultVariant": "307202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%AC%83%E6%AF%9B%E6%B2%99%E7%A0%BE",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-307201.webp"
     }
   },
   {
     "id": "307001",
     "name": "伽菈波那",
+    "baseId": 3070,
     "releaseOrder": 53,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307001/full.webp",
-      "avatar": "/assets/characters/307001/avatar.png",
-      "insight": "/assets/characters/307001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%BD%E8%8F%88%E6%B3%A2%E9%82%A3",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/aa/Portrait-307001.webp"
-    },
     "names": {
       "zh-CN": "伽菈波那",
       "zh-TW": "伽菈波那",
       "en-US": "Kaalaa Baunaa",
       "ja-JP": "カーラ・ボナー",
       "ko-KR": "갈라보나"
+    },
+    "skins": [
+      {
+        "variantId": "307001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307002",
+        "type": "insight",
+        "skinName": "仰望者",
+        "skinNameEng": "The Star Reader"
+      },
+      {
+        "variantId": "307003",
+        "type": "skin",
+        "skinName": "勾手，起跳，悬停",
+        "skinNameEng": "Swing, Rise, Suspend"
+      },
+      {
+        "variantId": "307004",
+        "type": "skin",
+        "skinName": "太阳何时瞑目",
+        "skinNameEng": "Till the Sun Falls"
+      }
+    ],
+    "defaultVariant": "307002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%BD%E8%8F%88%E6%B3%A2%E9%82%A3",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/aa/Portrait-307001.webp"
     }
   },
   {
     "id": "306601",
     "name": "37",
+    "baseId": 3066,
     "releaseOrder": 54,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/306601/full.webp",
-      "avatar": "/assets/characters/306601/avatar.png",
-      "insight": "/assets/characters/306601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/37",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8a/Portrait-306601.webp"
-    },
     "names": {
       "zh-CN": "37",
       "zh-TW": "37",
       "en-US": "37",
       "ja-JP": "37",
       "ko-KR": "37"
+    },
+    "skins": [
+      {
+        "variantId": "306601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "306602",
+        "type": "insight",
+        "skinName": "一位质数",
+        "skinNameEng": "A Prime Number"
+      },
+      {
+        "variantId": "306603",
+        "type": "skin",
+        "skinName": "快乐的捕鸟人",
+        "skinNameEng": "Happy Bird Catcher"
+      },
+      {
+        "variantId": "306604",
+        "type": "skin",
+        "skinName": "泉眼深处",
+        "skinNameEng": "Down in the Grotto"
+      },
+      {
+        "variantId": "306605",
+        "type": "skin",
+        "skinName": "完美的流体",
+        "skinNameEng": "A Gift of Nourishment"
+      }
+    ],
+    "defaultVariant": "306602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/37",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8a/Portrait-306601.webp"
     }
   },
   {
     "id": "306501",
     "name": "马库斯",
+    "baseId": 3065,
     "releaseOrder": 55,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/306501/full.webp",
-      "avatar": "/assets/characters/306501/avatar.png",
-      "insight": "/assets/characters/306501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%A9%AC%E5%BA%93%E6%96%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/21/Portrait-306501.webp"
-    },
     "names": {
       "zh-CN": "马库斯",
       "zh-TW": "馬庫斯",
       "en-US": "Marcus",
       "ja-JP": "マーカス",
       "ko-KR": "마커스"
+    },
+    "skins": [
+      {
+        "variantId": "306501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "306502",
+        "type": "insight",
+        "skinName": "风儿吹回那日",
+        "skinNameEng": "A Returning Wind"
+      },
+      {
+        "variantId": "306503",
+        "type": "skin",
+        "skinName": "白沙与风",
+        "skinNameEng": "On the White Sand"
+      },
+      {
+        "variantId": "306504",
+        "type": "skin",
+        "skinName": "致冥府的门扉",
+        "skinNameEng": "To the Gates of the Underworld"
+      }
+    ],
+    "defaultVariant": "306502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%A9%AC%E5%BA%93%E6%96%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/21/Portrait-306501.webp"
     }
   },
   {
     "id": "306301",
     "name": "皮克勒斯",
+    "baseId": 3063,
     "releaseOrder": 56,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/306301/full.webp",
-      "avatar": "/assets/characters/306301/avatar.png",
-      "insight": "/assets/characters/306301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%9A%AE%E5%85%8B%E5%8B%92%E6%96%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/eb/Portrait-306301.webp"
-    },
     "names": {
       "zh-CN": "皮克勒斯",
       "zh-TW": "皮克勒斯",
       "en-US": "Pickles",
       "ja-JP": "ピクルス",
       "ko-KR": "피클즈"
+    },
+    "skins": [
+      {
+        "variantId": "306301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "306302",
+        "type": "insight",
+        "skinName": "靛色毛茸茸",
+        "skinNameEng": "An Indigo Fluff"
+      },
+      {
+        "variantId": "306303",
+        "type": "skin",
+        "skinName": "狗狗与海",
+        "skinNameEng": "The Young Dog and The Sea"
+      }
+    ],
+    "defaultVariant": "306302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%9A%AE%E5%85%8B%E5%8B%92%E6%96%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/eb/Portrait-306301.webp"
     }
   },
   {
     "id": "306201",
     "name": "梅兰妮",
+    "baseId": 3062,
     "releaseOrder": 57,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/306201/full.webp",
-      "avatar": "/assets/characters/306201/avatar.png",
-      "insight": "/assets/characters/306201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%85%E5%85%B0%E5%A6%AE",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/41/Portrait-306201.webp"
-    },
     "names": {
       "zh-CN": "梅兰妮",
       "zh-TW": "梅蘭妮",
       "en-US": "Melania",
       "ja-JP": "メラニア",
       "ko-KR": "멜라니아"
+    },
+    "skins": [
+      {
+        "variantId": "306201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "306202",
+        "type": "insight",
+        "skinName": "拉米雷斯风格",
+        "skinNameEng": "The Ramirez Style"
+      },
+      {
+        "variantId": "306203",
+        "type": "skin",
+        "skinName": "夜晚如此祥和",
+        "skinNameEng": "A Peaceful Night"
+      },
+      {
+        "variantId": "306204",
+        "type": "skin",
+        "skinName": "红与白",
+        "skinNameEng": "Red and White"
+      }
+    ],
+    "defaultVariant": "306202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%85%E5%85%B0%E5%A6%AE",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/41/Portrait-306201.webp"
     }
   },
   {
     "id": "305601",
     "name": "洁西卡",
+    "baseId": 3056,
     "releaseOrder": 58,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305601/full.webp",
-      "avatar": "/assets/characters/305601/avatar.png",
-      "insight": "/assets/characters/305601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%81%E8%A5%BF%E5%8D%A1",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/4a/Portrait-305601.webp"
-    },
     "names": {
       "zh-CN": "洁西卡",
       "zh-TW": "潔西卡",
       "en-US": "Jessica",
       "ja-JP": "ジェシカ",
       "ko-KR": "제시카"
+    },
+    "skins": [
+      {
+        "variantId": "305601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305602",
+        "type": "insight",
+        "skinName": "捉迷藏",
+        "skinNameEng": "Hide and Seek"
+      },
+      {
+        "variantId": "305603",
+        "type": "skin",
+        "skinName": "午后曳航",
+        "skinNameEng": "Voyage from your Bed"
+      },
+      {
+        "variantId": "305604",
+        "type": "skin",
+        "skinName": "乐园之声",
+        "skinNameEng": "The Sound of Paradise"
+      }
+    ],
+    "defaultVariant": "305602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%81%E8%A5%BF%E5%8D%A1",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/4a/Portrait-305601.webp"
     }
   },
   {
     "id": "305301",
     "name": "牙仙",
+    "baseId": 3053,
     "releaseOrder": 59,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305301/full.webp",
-      "avatar": "/assets/characters/305301/avatar.png",
-      "insight": "/assets/characters/305301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%89%99%E4%BB%99",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a5/Portrait-305301.webp"
-    },
     "names": {
       "zh-CN": "牙仙",
       "zh-TW": "牙仙",
       "en-US": "Tooth Fairy",
       "ja-JP": "トゥースフェアリー",
       "ko-KR": "투스 페어리"
+    },
+    "skins": [
+      {
+        "variantId": "305301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305302",
+        "type": "insight",
+        "skinName": "“甜美的梦”",
+        "skinNameEng": "Sweet Dream"
+      },
+      {
+        "variantId": "305303",
+        "type": "skin",
+        "skinName": "贝果核",
+        "skinNameEng": "Bagel"
+      },
+      {
+        "variantId": "305304",
+        "type": "skin",
+        "skinName": "妖精蹈足于晨",
+        "skinNameEng": "Fairies Dancing at Dawn"
+      },
+      {
+        "variantId": "305305",
+        "type": "skin",
+        "skinName": "彩衣曲",
+        "skinNameEng": "The Woven Legend"
+      }
+    ],
+    "defaultVariant": "305302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%89%99%E4%BB%99",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a5/Portrait-305301.webp"
     }
   },
   {
     "id": "305201",
     "name": "新巴别塔",
+    "baseId": 3052,
     "releaseOrder": 60,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305201/full.webp",
-      "avatar": "/assets/characters/305201/avatar.png",
-      "insight": "/assets/characters/305201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%B0%E5%B7%B4%E5%88%AB%E5%A1%94",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-305201.webp"
-    },
     "names": {
       "zh-CN": "新巴别塔",
       "zh-TW": "新巴別塔",
       "en-US": "Ms. NewBabel",
       "ja-JP": "ニューバベル",
       "ko-KR": "뉴바벨"
+    },
+    "skins": [
+      {
+        "variantId": "305201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305202",
+        "type": "insight",
+        "skinName": "时代的缔造者",
+        "skinNameEng": "Creator of the New Era"
+      },
+      {
+        "variantId": "305203",
+        "type": "skin",
+        "skinName": "以善意加码",
+        "skinNameEng": "Raise the Bid"
+      }
+    ],
+    "defaultVariant": "305202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%B0%E5%B7%B4%E5%88%AB%E5%A1%94",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-305201.webp"
     }
   },
   {
     "id": "305101",
     "name": "温妮弗雷德",
+    "baseId": 3051,
     "releaseOrder": 61,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305101/full.webp",
-      "avatar": "/assets/characters/305101/avatar.png",
-      "insight": "/assets/characters/305101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B8%A9%E5%A6%AE%E5%BC%97%E9%9B%B7%E5%BE%B7",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/59/Portrait-305101.webp"
-    },
     "names": {
       "zh-CN": "温妮弗雷德",
       "zh-TW": "溫妮弗雷德",
       "en-US": "Eternity",
       "ja-JP": "エターニティ",
       "ko-KR": "이터니티"
+    },
+    "skins": [
+      {
+        "variantId": "305101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305102",
+        "type": "insight",
+        "skinName": "永夜的淑女",
+        "skinNameEng": "Lady of the Evernight"
+      },
+      {
+        "variantId": "305103",
+        "type": "skin",
+        "skinName": "极地远望",
+        "skinNameEng": "A Visit to the Arctic"
+      },
+      {
+        "variantId": "305104",
+        "type": "skin",
+        "skinName": "以黄金哺育",
+        "skinNameEng": "The Golden Nurturer"
+      }
+    ],
+    "defaultVariant": "305102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B8%A9%E5%A6%AE%E5%BC%97%E9%9B%B7%E5%BE%B7",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/59/Portrait-305101.webp"
     }
   },
   {
     "id": "304801",
     "name": "远旅",
+    "baseId": 3048,
     "releaseOrder": 62,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304801/full.webp",
-      "avatar": "/assets/characters/304801/avatar.png",
-      "insight": "/assets/characters/304801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%BF%9C%E6%97%85",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-304801.webp"
-    },
     "names": {
       "zh-CN": "远旅",
       "zh-TW": "遠旅",
       "en-US": "Voyager",
       "ja-JP": "ボイジャー",
       "ko-KR": "보이저"
+    },
+    "skins": [
+      {
+        "variantId": "304801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304802",
+        "type": "insight",
+        "skinName": "少言的信",
+        "skinNameEng": "A Wordless Letter"
+      },
+      {
+        "variantId": "304803",
+        "type": "skin",
+        "skinName": "再一次上路",
+        "skinNameEng": "New Journey"
+      },
+      {
+        "variantId": "304804",
+        "type": "skin",
+        "skinName": "群星齐唱时",
+        "skinNameEng": "Choir of the Stars"
+      }
+    ],
+    "defaultVariant": "304802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%BF%9C%E6%97%85",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-304801.webp"
     }
   },
   {
     "id": "304701",
     "name": "兔毛手袋",
+    "baseId": 3047,
     "releaseOrder": 63,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304701/full.webp",
-      "avatar": "/assets/characters/304701/avatar.png",
-      "insight": "/assets/characters/304701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%94%E6%AF%9B%E6%89%8B%E8%A2%8B",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/da/Portrait-304701.webp"
-    },
     "names": {
       "zh-CN": "兔毛手袋",
       "zh-TW": "兔毛手袋",
       "en-US": "Medicine Pocket",
       "ja-JP": "メディスンポケット",
       "ko-KR": "메디슨 포켓"
+    },
+    "skins": [
+      {
+        "variantId": "304701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304702",
+        "type": "insight",
+        "skinName": "内有恶犬",
+        "skinNameEng": "Beware of Dog"
+      },
+      {
+        "variantId": "304703",
+        "type": "skin",
+        "skinName": "宇宙写真者",
+        "skinNameEng": "The Cosmos Photographer "
+      },
+      {
+        "variantId": "304704",
+        "type": "skin",
+        "skinName": "永生苦短",
+        "skinNameEng": "Forever Is Too Short"
+      }
+    ],
+    "defaultVariant": "304702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%94%E6%AF%9B%E6%89%8B%E8%A2%8B",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/da/Portrait-304701.webp"
     }
   },
   {
     "id": "303901",
     "name": "泥鯭的士",
+    "baseId": 3039,
     "releaseOrder": 64,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303901/full.webp",
-      "avatar": "/assets/characters/303901/avatar.png",
-      "insight": "/assets/characters/303901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B3%A5%E9%AF%AD%E7%9A%84%E5%A3%AB",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a8/Portrait-303901.webp"
-    },
     "names": {
       "zh-CN": "泥鯭的士",
       "zh-TW": "泥鯭的士",
       "en-US": "An-an Lee",
       "ja-JP": "リー・アンアン",
       "ko-KR": "안안 리"
+    },
+    "skins": [
+      {
+        "variantId": "303901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303902",
+        "type": "insight",
+        "skinName": "HK鬼见愁",
+        "skinNameEng": "Ghost Predator of HK"
+      },
+      {
+        "variantId": "303903",
+        "type": "skin",
+        "skinName": "松云之间",
+        "skinNameEng": "Between Clouds and Pine Trees"
+      },
+      {
+        "variantId": "303904",
+        "type": "skin",
+        "skinName": "共生花",
+        "skinNameEng": "Symbiotic Lee-ly"
+      }
+    ],
+    "defaultVariant": "303902",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B3%A5%E9%AF%AD%E7%9A%84%E5%A3%AB",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a8/Portrait-303901.webp"
     }
   },
   {
     "id": "303201",
     "name": "百夫长",
+    "baseId": 3032,
     "releaseOrder": 65,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303201/full.webp",
-      "avatar": "/assets/characters/303201/avatar.png",
-      "insight": "/assets/characters/303201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BE%E5%A4%AB%E9%95%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-303201.webp"
-    },
     "names": {
       "zh-CN": "百夫长",
       "zh-TW": "百夫長",
       "en-US": "Centurion",
       "ja-JP": "ケントゥリオン",
       "ko-KR": "센츄리온"
+    },
+    "skins": [
+      {
+        "variantId": "303201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303202",
+        "type": "insight",
+        "skinName": "伟大秀场",
+        "skinNameEng": "The Great Show"
+      },
+      {
+        "variantId": "303203",
+        "type": "skin",
+        "skinName": "环球之星",
+        "skinNameEng": "The Universal Star"
+      }
+    ],
+    "defaultVariant": "303202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BE%E5%A4%AB%E9%95%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-303201.webp"
     }
   },
   {
     "id": "302501",
     "name": "星锑",
+    "baseId": 3025,
     "releaseOrder": 66,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302501/full.webp",
-      "avatar": "/assets/characters/302501/avatar.png",
-      "insight": "/assets/characters/302501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%98%9F%E9%94%91",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/ce/Portrait-302501.webp"
-    },
     "names": {
       "zh-CN": "星锑",
       "zh-TW": "星銻",
       "en-US": "Regulus",
       "ja-JP": "レグルス",
       "ko-KR": "레굴루스"
+    },
+    "skins": [
+      {
+        "variantId": "302501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302502",
+        "type": "insight",
+        "skinName": "灼热闪耀之星",
+        "skinNameEng": "A Flaring Star"
+      },
+      {
+        "variantId": "302503",
+        "type": "skin",
+        "skinName": "狂热分子",
+        "skinNameEng": "The Fierce Fan"
+      },
+      {
+        "variantId": "302504",
+        "type": "skin",
+        "skinName": "启航！向明日",
+        "skinNameEng": "Take Off! To the Future"
+      }
+    ],
+    "defaultVariant": "302502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%98%9F%E9%94%91",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/ce/Portrait-302501.webp"
     }
   },
   {
     "id": "300901",
     "name": "苏芙比",
+    "baseId": 3009,
     "releaseOrder": 67,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/300901/full.webp",
-      "avatar": "/assets/characters/300901/avatar.png",
-      "insight": "/assets/characters/300901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8B%8F%E8%8A%99%E6%AF%94",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/32/Portrait-300901.webp"
-    },
     "names": {
       "zh-CN": "苏芙比",
       "zh-TW": "蘇芙比",
       "en-US": "Sotheby",
       "ja-JP": "サザビー",
       "ko-KR": "소더비"
+    },
+    "skins": [
+      {
+        "variantId": "300901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "300902",
+        "type": "insight",
+        "skinName": "另一侧的世界",
+        "skinNameEng": "World on the Other Side"
+      },
+      {
+        "variantId": "300903",
+        "type": "skin",
+        "skinName": "帷幔深处",
+        "skinNameEng": "Suspiriorum"
+      },
+      {
+        "variantId": "300904",
+        "type": "skin",
+        "skinName": "红线缘",
+        "skinNameEng": "The Red Thread of Fate"
+      }
+    ],
+    "defaultVariant": "300902",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8B%8F%E8%8A%99%E6%AF%94",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/32/Portrait-300901.webp"
     }
   },
   {
     "id": "300701",
     "name": "未锈铠",
+    "baseId": 3007,
     "releaseOrder": 68,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/300701/full.webp",
-      "avatar": "/assets/characters/300701/avatar.png",
-      "insight": "/assets/characters/300701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9C%AA%E9%94%88%E9%93%A0",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9f/Portrait-300701.webp"
-    },
     "names": {
       "zh-CN": "未锈铠",
       "zh-TW": "未鏽鎧",
       "en-US": "A Knight",
       "ja-JP": "ナイト",
       "ko-KR": "A 나이트"
+    },
+    "skins": [
+      {
+        "variantId": "300701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "300702",
+        "type": "insight",
+        "skinName": "加百列圣勋",
+        "skinNameEng": "Order of St. Gabriel"
+      },
+      {
+        "variantId": "300703",
+        "type": "skin",
+        "skinName": "策马行山河",
+        "skinNameEng": "Galloping Across the Times"
+      },
+      {
+        "variantId": "300731",
+        "type": "skin",
+        "skinName": "魂灵长青",
+        "skinNameEng": "The Evergreen Soul"
+      }
+    ],
+    "defaultVariant": "300702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9C%AA%E9%94%88%E9%93%A0",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9f/Portrait-300701.webp"
     }
   },
   {
     "id": "300401",
     "name": "红弩箭",
+    "baseId": 3004,
     "releaseOrder": 69,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/300401/full.webp",
-      "avatar": "/assets/characters/300401/avatar.png",
-      "insight": "/assets/characters/300401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E5%BC%A9%E7%AE%AD",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-300401.webp"
-    },
     "names": {
       "zh-CN": "红弩箭",
       "zh-TW": "紅弩箭",
       "en-US": "Lilya",
       "ja-JP": "リーリャ",
       "ko-KR": "릴리아"
+    },
+    "skins": [
+      {
+        "variantId": "300401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "300402",
+        "type": "insight",
+        "skinName": "巴伦支海女巫",
+        "skinNameEng": "The Barents Witch"
+      },
+      {
+        "variantId": "300403",
+        "type": "skin",
+        "skinName": "几何技艺",
+        "skinNameEng": "The Art of Destreza"
+      },
+      {
+        "variantId": "300404",
+        "type": "skin",
+        "skinName": "永不迟到的公正",
+        "skinNameEng": "Justice Cannot Be Delayed"
+      }
+    ],
+    "defaultVariant": "300402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E5%BC%A9%E7%AE%AD",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-300401.webp"
     }
   },
   {
     "id": "300301",
     "name": "槲寄生",
+    "baseId": 3003,
     "releaseOrder": 70,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/300301/full.webp",
-      "avatar": "/assets/characters/300301/avatar.png",
-      "insight": "/assets/characters/300301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A7%B2%E5%AF%84%E7%94%9F",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/42/Portrait-300301.webp"
-    },
     "names": {
       "zh-CN": "槲寄生",
       "zh-TW": "槲寄生",
       "en-US": "Druvis III",
       "ja-JP": "ドルーヴィスⅢ",
       "ko-KR": "드루비스"
+    },
+    "skins": [
+      {
+        "variantId": "300301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "300302",
+        "type": "insight",
+        "skinName": "熟识橡树之人",
+        "skinNameEng": "The Druid"
+      },
+      {
+        "variantId": "300305",
+        "type": "skin",
+        "skinName": "闹蛾儿",
+        "skinNameEng": "Lady With Nao'E"
+      },
+      {
+        "variantId": "300306",
+        "type": "skin",
+        "skinName": "荆棘环绕处",
+        "skinNameEng": "Shrouded in Thorns"
+      }
+    ],
+    "defaultVariant": "300302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A7%B2%E5%AF%84%E7%94%9F",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/42/Portrait-300301.webp"
     }
   },
   {
     "id": "315401",
     "name": "银装小春雀儿",
+    "baseId": 3154,
     "releaseOrder": 71,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/315401/full.webp",
-      "avatar": "/assets/characters/315401/avatar.png",
-      "insight": "/assets/characters/315401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%B6%E8%A3%85%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2b/Portrait-315401.webp"
-    },
     "names": {
       "zh-CN": "银装小春雀儿",
       "zh-TW": "銀裝小春雀兒",
       "en-US": "Silverwing Eagle"
+    },
+    "skins": [
+      {
+        "variantId": "315401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "315402",
+        "type": "insight",
+        "skinName": "科学地成为科学家",
+        "skinNameEng": "Becoming a Scientist, Scientifically"
+      }
+    ],
+    "defaultVariant": "315402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%B6%E8%A3%85%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2b/Portrait-315401.webp"
     }
   },
   {
     "id": "312201",
     "name": "阿利克西欧斯",
+    "baseId": 3122,
     "releaseOrder": 72,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/312201/full.webp",
-      "avatar": "/assets/characters/312201/avatar.png",
-      "insight": "/assets/characters/312201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%88%A9%E5%85%8B%E8%A5%BF%E6%AC%A7%E6%96%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/be/Portrait-312201.webp"
-    },
     "names": {
       "zh-CN": "阿利克西欧斯",
       "zh-TW": "阿利克西歐斯",
       "en-US": "Alexios",
       "ja-JP": "アレクシオス"
+    },
+    "skins": [
+      {
+        "variantId": "312201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "312202",
+        "type": "insight",
+        "skinName": "第二次征服",
+        "skinNameEng": "Second Conquest"
+      }
+    ],
+    "defaultVariant": "312202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%88%A9%E5%85%8B%E8%A5%BF%E6%AC%A7%E6%96%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/be/Portrait-312201.webp"
     }
   },
   {
     "id": "311801",
     "name": "命名日",
+    "baseId": 3118,
     "releaseOrder": 73,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311801/full.webp",
-      "avatar": "/assets/characters/311801/avatar.png",
-      "insight": "/assets/characters/311801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%BD%E5%90%8D%E6%97%A5",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1c/Portrait-311801.webp"
-    },
     "names": {
       "zh-CN": "命名日",
       "zh-TW": "命名日",
       "en-US": "Name Day",
       "ja-JP": "ネイムデー",
       "ko-KR": "Name Day"
+    },
+    "skins": [
+      {
+        "variantId": "311801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311802",
+        "type": "insight",
+        "skinName": "趁光线消融前",
+        "skinNameEng": "Before the Light Fades"
+      },
+      {
+        "variantId": "311803",
+        "type": "skin",
+        "skinName": "永恒的沉默",
+        "skinNameEng": "The Deathless Quiet"
+      }
+    ],
+    "defaultVariant": "311802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%BD%E5%90%8D%E6%97%A5",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1c/Portrait-311801.webp"
     }
   },
   {
     "id": "311501",
     "name": "嚼嚼松果",
+    "baseId": 3115,
     "releaseOrder": 74,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311501/full.webp",
-      "avatar": "/assets/characters/311501/avatar.png",
-      "insight": "/assets/characters/311501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9A%BC%E5%9A%BC%E6%9D%BE%E6%9E%9C",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-311501.webp"
-    },
     "names": {
       "zh-CN": "嚼嚼松果",
       "zh-TW": "嚼嚼松果",
       "en-US": "Buddy Fairchild",
       "ja-JP": "もぐナッツ",
       "ko-KR": "Buddy Fairchild"
+    },
+    "skins": [
+      {
+        "variantId": "311501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311502",
+        "type": "insight",
+        "skinName": "友情加冕",
+        "skinNameEng": "A Ceremony Among Friends"
+      }
+    ],
+    "defaultVariant": "311502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9A%BC%E5%9A%BC%E6%9D%BE%E6%9E%9C",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-311501.webp"
     }
   },
   {
     "id": "311201",
     "name": "空脑袋",
+    "baseId": 3112,
     "releaseOrder": 75,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/311201/full.webp",
-      "avatar": "/assets/characters/311201/avatar.png",
-      "insight": "/assets/characters/311201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A9%BA%E8%84%91%E8%A2%8B",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ec/Portrait-311201.webp"
-    },
     "names": {
       "zh-CN": "空脑袋",
       "zh-TW": "空腦袋",
       "en-US": "Loggerhead",
       "ja-JP": "ロガーヘッド",
       "ko-KR": "로거헤드"
+    },
+    "skins": [
+      {
+        "variantId": "311201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "311202",
+        "type": "insight",
+        "skinName": "偷闲日",
+        "skinNameEng": "A Moment of Leisure"
+      }
+    ],
+    "defaultVariant": "311202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A9%BA%E8%84%91%E8%A2%8B",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ec/Portrait-311201.webp"
     }
   },
   {
     "id": "310601",
     "name": "宽檐帽",
+    "baseId": 3106,
     "releaseOrder": 76,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310601/full.webp",
-      "avatar": "/assets/characters/310601/avatar.png",
-      "insight": "/assets/characters/310601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%AE%BD%E6%AA%90%E5%B8%BD",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b7/Portrait-310601.webp"
-    },
     "names": {
       "zh-CN": "宽檐帽",
       "zh-TW": "寬簷帽",
       "en-US": "Brimley",
       "ja-JP": "つば広ハット",
       "ko-KR": "슬라우치 햇"
+    },
+    "skins": [
+      {
+        "variantId": "310601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310602",
+        "type": "insight",
+        "skinName": "午后密密缝",
+        "skinNameEng": "Sunset Sartor"
+      },
+      {
+        "variantId": "310604",
+        "type": "skin",
+        "skinName": "思维驾驶者",
+        "skinNameEng": "THOUGHT Ranger"
+      }
+    ],
+    "defaultVariant": "310602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%AE%BD%E6%AA%90%E5%B8%BD",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b7/Portrait-310601.webp"
     }
   },
   {
     "id": "310301",
     "name": "邓肯先生",
+    "baseId": 3103,
     "releaseOrder": 77,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310301/full.webp",
-      "avatar": "/assets/characters/310301/avatar.png",
-      "insight": "/assets/characters/310301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%82%93%E8%82%AF%E5%85%88%E7%94%9F",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/51/Portrait-310301.webp"
-    },
     "names": {
       "zh-CN": "邓肯先生",
       "zh-TW": "鄧肯先生",
       "en-US": "Mr. Duncan",
       "ja-JP": "ダンカン",
       "ko-KR": "던컨"
+    },
+    "skins": [
+      {
+        "variantId": "310301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310302",
+        "type": "insight",
+        "skinName": "巷尾发明家",
+        "skinNameEng": "The Favela Inventor"
+      }
+    ],
+    "defaultVariant": "310302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%82%93%E8%82%AF%E5%85%88%E7%94%9F",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/51/Portrait-310301.webp"
     }
   },
   {
     "id": "309901",
     "name": "数羊羔",
+    "baseId": 3099,
     "releaseOrder": 78,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309901/full.webp",
-      "avatar": "/assets/characters/309901/avatar.png",
-      "insight": "/assets/characters/309901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%95%B0%E7%BE%8A%E7%BE%94",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c4/Portrait-309901.webp"
-    },
     "names": {
       "zh-CN": "数羊羔",
       "zh-TW": "數羊羔",
       "en-US": "Barbara",
       "ja-JP": "メェプル",
       "ko-KR": "바바라"
+    },
+    "skins": [
+      {
+        "variantId": "309901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309902",
+        "type": "insight",
+        "skinName": "梦中青草地",
+        "skinNameEng": "A Meadow in Her Dreams"
+      }
+    ],
+    "defaultVariant": "309902",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%95%B0%E7%BE%8A%E7%BE%94",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c4/Portrait-309901.webp"
     }
   },
   {
     "id": "309101",
     "name": "罗蕾莱",
+    "baseId": 3091,
     "releaseOrder": 79,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309101/full.webp",
-      "avatar": "/assets/characters/309101/avatar.png",
-      "insight": "/assets/characters/309101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BD%97%E8%95%BE%E8%8E%B1",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/69/Portrait-309101.webp"
-    },
     "names": {
       "zh-CN": "罗蕾莱",
       "zh-TW": "羅蕾萊",
       "en-US": "Lorelei",
       "ja-JP": "ローレライ",
       "ko-KR": "로렐라이"
+    },
+    "skins": [
+      {
+        "variantId": "309101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309102",
+        "type": "insight",
+        "skinName": "应祝祷之时",
+        "skinNameEng": "Time to Pray"
+      }
+    ],
+    "defaultVariant": "309102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BD%97%E8%95%BE%E8%8E%B1",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/69/Portrait-309101.webp"
     }
   },
   {
     "id": "308201",
     "name": "小叶尼塞",
+    "baseId": 3082,
     "releaseOrder": 80,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/308201/full.webp",
-      "avatar": "/assets/characters/308201/avatar.png",
-      "insight": "/assets/characters/308201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E5%8F%B6%E5%B0%BC%E5%A1%9E",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8a/Portrait-308201.webp"
-    },
     "names": {
       "zh-CN": "小叶尼塞",
       "zh-TW": "小葉尼塞",
       "en-US": "Yenisei",
       "ja-JP": "エニセイ",
       "ko-KR": "예니세이"
+    },
+    "skins": [
+      {
+        "variantId": "308201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "308202",
+        "type": "insight",
+        "skinName": "在同一条河中",
+        "skinNameEng": "In the Same River"
+      },
+      {
+        "variantId": "308203",
+        "type": "skin",
+        "skinName": "蓝河湾",
+        "skinNameEng": "Around the Riverbend"
+      }
+    ],
+    "defaultVariant": "308202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E5%8F%B6%E5%B0%BC%E5%A1%9E",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8a/Portrait-308201.webp"
     }
   },
   {
     "id": "307801",
     "name": "阿夫西维",
+    "baseId": 3078,
     "releaseOrder": 81,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307801/full.webp",
-      "avatar": "/assets/characters/307801/avatar.png",
-      "insight": "/assets/characters/307801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%A4%AB%E8%A5%BF%E7%BB%B4",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/50/Portrait-307801.webp"
-    },
     "names": {
       "zh-CN": "阿夫西维",
       "zh-TW": "阿夫西維",
       "en-US": "Avgust",
       "ja-JP": "アヴグスト",
       "ko-KR": "아브구스트"
+    },
+    "skins": [
+      {
+        "variantId": "307801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307802",
+        "type": "insight",
+        "skinName": "广场的小小天地",
+        "skinNameEng": "His Own Corner on the Square"
+      }
+    ],
+    "defaultVariant": "307802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%A4%AB%E8%A5%BF%E7%BB%B4",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/50/Portrait-307801.webp"
     }
   },
   {
     "id": "307601",
     "name": "和平乌鲁",
+    "baseId": 3076,
     "releaseOrder": 82,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307601/full.webp",
-      "avatar": "/assets/characters/307601/avatar.png",
-      "insight": "/assets/characters/307601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%92%8C%E5%B9%B3%E4%B9%8C%E9%B2%81",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/22/Portrait-307601.webp"
-    },
     "names": {
       "zh-CN": "和平乌鲁",
       "zh-TW": "和平烏魯",
       "en-US": "Ulu",
       "ja-JP": "ウル",
       "ko-KR": "울루"
+    },
+    "skins": [
+      {
+        "variantId": "307601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307602",
+        "type": "insight",
+        "skinName": "星火梦见之物",
+        "skinNameEng": "Flammy's Dream"
+      }
+    ],
+    "defaultVariant": "307602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%92%8C%E5%B9%B3%E4%B9%8C%E9%B2%81",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/22/Portrait-307601.webp"
     }
   },
   {
     "id": "307501",
     "name": "沙丝绒",
+    "baseId": 3075,
     "releaseOrder": 83,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307501/full.webp",
-      "avatar": "/assets/characters/307501/avatar.png",
-      "insight": "/assets/characters/307501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B2%99%E4%B8%9D%E7%BB%92",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/dd/Portrait-307501.webp"
-    },
     "names": {
       "zh-CN": "沙丝绒",
       "zh-TW": "沙絲絨",
       "en-US": "Desert Flannel",
       "ja-JP": "サンド・フランネル",
       "ko-KR": "데저트 플란넬"
+    },
+    "skins": [
+      {
+        "variantId": "307501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307502",
+        "type": "insight",
+        "skinName": "红沙特卖",
+        "skinNameEng": "Red Desert Special Offer"
+      },
+      {
+        "variantId": "307503",
+        "type": "skin",
+        "skinName": "野性的倾洒",
+        "skinNameEng": "Call of the Wild"
+      }
+    ],
+    "defaultVariant": "307502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B2%99%E4%B8%9D%E7%BB%92",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/dd/Portrait-307501.webp"
     }
   },
   {
     "id": "307101",
     "name": "坎吉拉",
+    "baseId": 3071,
     "releaseOrder": 84,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/307101/full.webp",
-      "avatar": "/assets/characters/307101/avatar.png",
-      "insight": "/assets/characters/307101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%8E%E5%90%89%E6%8B%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/36/Portrait-307101.webp"
-    },
     "names": {
       "zh-CN": "坎吉拉",
       "zh-TW": "坎吉拉",
       "en-US": "Kanjira",
       "ja-JP": "カンジーラ",
       "ko-KR": "칸지라"
+    },
+    "skins": [
+      {
+        "variantId": "307101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "307102",
+        "type": "insight",
+        "skinName": "小铃鼓",
+        "skinNameEng": "Tambourine"
+      },
+      {
+        "variantId": "307103",
+        "type": "skin",
+        "skinName": "午夜来客",
+        "skinNameEng": "The Night Visitor"
+      }
+    ],
+    "defaultVariant": "307102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%8E%E5%90%89%E6%8B%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/36/Portrait-307101.webp"
     }
   },
   {
     "id": "306401",
     "name": "挖掘艺术",
+    "baseId": 3064,
     "releaseOrder": 85,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/306401/full.webp",
-      "avatar": "/assets/characters/306401/avatar.png",
-      "insight": "/assets/characters/306401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8C%96%E6%8E%98%E8%89%BA%E6%9C%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9a/Portrait-306401.webp"
-    },
     "names": {
       "zh-CN": "挖掘艺术",
       "zh-TW": "挖掘藝術",
       "en-US": "Diggers",
       "ja-JP": "ディガー",
       "ko-KR": "디거스"
+    },
+    "skins": [
+      {
+        "variantId": "306401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "306402",
+        "type": "insight",
+        "skinName": "艺术挖掘者",
+        "skinNameEng": "The Digger of Art"
+      },
+      {
+        "variantId": "306403",
+        "type": "skin",
+        "skinName": "第三种假设",
+        "skinNameEng": "Another Assumption"
+      }
+    ],
+    "defaultVariant": "306402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8C%96%E6%8E%98%E8%89%BA%E6%9C%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9a/Portrait-306401.webp"
     }
   },
   {
     "id": "306101",
     "name": "恐怖通",
+    "baseId": 3061,
     "releaseOrder": 86,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/306101/full.webp",
-      "avatar": "/assets/characters/306101/avatar.png",
-      "insight": "/assets/characters/306101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%81%90%E6%80%96%E9%80%9A",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a5/Portrait-306101.webp"
-    },
     "names": {
       "zh-CN": "恐怖通",
       "zh-TW": "恐怖通",
       "en-US": "Horropedia",
       "ja-JP": "ホラーペディア",
       "ko-KR": "호러피디아"
+    },
+    "skins": [
+      {
+        "variantId": "306101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "306102",
+        "type": "insight",
+        "skinName": "惊叫主义",
+        "skinNameEng": "Scarysm"
+      },
+      {
+        "variantId": "306103",
+        "type": "skin",
+        "skinName": "疯道人",
+        "skinNameEng": "A Daoist's Madness"
+      }
+    ],
+    "defaultVariant": "306102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%81%90%E6%80%96%E9%80%9A",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a5/Portrait-306101.webp"
     }
   },
   {
     "id": "306001",
     "name": "金蜜儿",
+    "baseId": 3060,
     "releaseOrder": 87,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/306001/full.webp",
-      "avatar": "/assets/characters/306001/avatar.png",
-      "insight": "/assets/characters/306001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%91%E8%9C%9C%E5%84%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/63/Portrait-306001.webp"
-    },
     "names": {
       "zh-CN": "金蜜儿",
       "zh-TW": "金蜜兒",
       "en-US": "Blonney",
       "ja-JP": "ジェイミー",
       "ko-KR": "블로니"
+    },
+    "skins": [
+      {
+        "variantId": "306001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "306002",
+        "type": "insight",
+        "skinName": "粉-粉-粉色女郎",
+        "skinNameEng": "P-P-Pink Lady"
+      },
+      {
+        "variantId": "306003",
+        "type": "skin",
+        "skinName": "铅黄色磨坊",
+        "skinNameEng": "The Giallo Grind"
+      }
+    ],
+    "defaultVariant": "306002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%91%E8%9C%9C%E5%84%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/63/Portrait-306001.webp"
     }
   },
   {
     "id": "304901",
     "name": "喀嚓喀嚓",
+    "baseId": 3049,
     "releaseOrder": 88,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304901/full.webp",
-      "avatar": "/assets/characters/304901/avatar.png",
-      "insight": "/assets/characters/304901/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%96%80%E5%9A%93%E5%96%80%E5%9A%93",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1a/Portrait-304901.webp"
-    },
     "names": {
       "zh-CN": "喀嚓喀嚓",
       "zh-TW": "喀嚓喀嚓",
       "en-US": "Click",
       "ja-JP": "カシャパシャ",
       "ko-KR": "클릭"
+    },
+    "skins": [
+      {
+        "variantId": "304901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304902",
+        "type": "insight",
+        "skinName": "绝妙的角度",
+        "skinNameEng": "The Best Angle"
+      }
+    ],
+    "defaultVariant": "304902",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%96%80%E5%9A%93%E5%96%80%E5%9A%93",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1a/Portrait-304901.webp"
     }
   },
   {
     "id": "304301",
     "name": "坦南特",
+    "baseId": 3043,
     "releaseOrder": 89,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304301/full.webp",
-      "avatar": "/assets/characters/304301/avatar.png",
-      "insight": "/assets/characters/304301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%A6%E5%8D%97%E7%89%B9",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a7/Portrait-304301.webp"
-    },
     "names": {
       "zh-CN": "坦南特",
       "zh-TW": "坦南特",
       "en-US": "Tennant",
       "ja-JP": "テナント",
       "ko-KR": "테넌트"
+    },
+    "skins": [
+      {
+        "variantId": "304301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304302",
+        "type": "insight",
+        "skinName": "库里南绅士",
+        "skinNameEng": "Gent Cullinan"
+      },
+      {
+        "variantId": "304303",
+        "type": "skin",
+        "skinName": "德里漫步",
+        "skinNameEng": "Roaming in Delhi"
+      },
+      {
+        "variantId": "304304",
+        "type": "skin",
+        "skinName": "鉴赏家之战",
+        "skinNameEng": "Dueling Connoisseurs"
+      }
+    ],
+    "defaultVariant": "304302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%A6%E5%8D%97%E7%89%B9",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a7/Portrait-304301.webp"
     }
   },
   {
     "id": "304101",
     "name": "玛蒂尔达",
+    "baseId": 3041,
     "releaseOrder": 90,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304101/full.webp",
-      "avatar": "/assets/characters/304101/avatar.png",
-      "insight": "/assets/characters/304101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E8%92%82%E5%B0%94%E8%BE%BE",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/97/Portrait-304101.webp"
-    },
     "names": {
       "zh-CN": "玛蒂尔达",
       "zh-TW": "瑪蒂爾達",
       "en-US": "Matilda",
       "ja-JP": "マチルダ",
       "ko-KR": "마틸다"
+    },
+    "skins": [
+      {
+        "variantId": "304101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304102",
+        "type": "insight",
+        "skinName": "首席淑女",
+        "skinNameEng": "Élève Hyperdouée"
+      },
+      {
+        "variantId": "304103",
+        "type": "skin",
+        "skinName": "天才假日",
+        "skinNameEng": "The Genius's Holiday"
+      },
+      {
+        "variantId": "304104",
+        "type": "skin",
+        "skinName": "尝鲜调查员",
+        "skinNameEng": "The Great Taste Investigator"
+      }
+    ],
+    "defaultVariant": "304102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E8%92%82%E5%B0%94%E8%BE%BE",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/97/Portrait-304101.webp"
     }
   },
   {
     "id": "303801",
     "name": "五色月",
+    "baseId": 3038,
     "releaseOrder": 91,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303801/full.webp",
-      "avatar": "/assets/characters/303801/avatar.png",
-      "insight": "/assets/characters/303801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BA%94%E8%89%B2%E6%9C%88",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c3/Portrait-303801.webp"
-    },
     "names": {
       "zh-CN": "五色月",
       "zh-TW": "五色月",
       "en-US": "Satsuki",
       "ja-JP": "五色月",
       "ko-KR": "사츠키"
+    },
+    "skins": [
+      {
+        "variantId": "303801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303802",
+        "type": "insight",
+        "skinName": "苇中花",
+        "skinNameEng": "Reed Bloom"
+      },
+      {
+        "variantId": "303803",
+        "type": "skin",
+        "skinName": "银玫瑰",
+        "skinNameEng": "Silver Rose"
+      }
+    ],
+    "defaultVariant": "303802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BA%94%E8%89%B2%E6%9C%88",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c3/Portrait-303801.webp"
     }
   },
   {
     "id": "303701",
     "name": "讣告人",
+    "baseId": 3037,
     "releaseOrder": 92,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303701/full.webp",
-      "avatar": "/assets/characters/303701/avatar.png",
-      "insight": "/assets/characters/303701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AE%A3%E5%91%8A%E4%BA%BA",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c1/Portrait-303701.webp"
-    },
     "names": {
       "zh-CN": "讣告人",
       "zh-TW": "訃告人",
       "en-US": "Necrologist",
       "ja-JP": "ネクロ・ロギスト",
       "ko-KR": "네크롤로지스트"
+    },
+    "skins": [
+      {
+        "variantId": "303701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303702",
+        "type": "insight",
+        "skinName": "最后的诉说",
+        "skinNameEng": "Last Words"
+      },
+      {
+        "variantId": "303703",
+        "type": "skin",
+        "skinName": "永不返航",
+        "skinNameEng": "A Voyage with No Return"
+      }
+    ],
+    "defaultVariant": "303702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AE%A3%E5%91%8A%E4%BA%BA",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c1/Portrait-303701.webp"
     }
   },
   {
     "id": "302401",
     "name": "气球派对",
+    "baseId": 3024,
     "releaseOrder": 93,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302401/full.webp",
-      "avatar": "/assets/characters/302401/avatar.png",
-      "insight": "/assets/characters/302401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B0%94%E7%90%83%E6%B4%BE%E5%AF%B9",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b2/Portrait-302401.webp"
-    },
     "names": {
       "zh-CN": "气球派对",
       "zh-TW": "氣球派對",
       "en-US": "Balloon Party",
       "ja-JP": "バルーンパーティー",
       "ko-KR": "벌룬 파티"
+    },
+    "skins": [
+      {
+        "variantId": "302401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302402",
+        "type": "insight",
+        "skinName": "不请自来的客人",
+        "skinNameEng": "An Uninvited Guest"
+      },
+      {
+        "variantId": "302403",
+        "type": "skin",
+        "skinName": "银翅谣",
+        "skinNameEng": "The Folk Song of Silver Butterfly"
+      }
+    ],
+    "defaultVariant": "302402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B0%94%E7%90%83%E6%B4%BE%E5%AF%B9",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b2/Portrait-302401.webp"
     }
   },
   {
     "id": "302301",
     "name": "十四行诗",
+    "baseId": 3023,
     "releaseOrder": 94,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302301/full.webp",
-      "avatar": "/assets/characters/302301/avatar.png"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%81%E5%9B%9B%E8%A1%8C%E8%AF%97",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fd/Portrait-302301.webp"
-    },
     "names": {
       "zh-CN": "十四行诗",
       "zh-TW": "十四行詩",
       "en-US": "Sonetto",
       "ja-JP": "ソネット",
       "ko-KR": "소네트"
+    },
+    "skins": [
+      {
+        "variantId": "302301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302303",
+        "type": "skin",
+        "skinName": "巡礼颂",
+        "skinNameEng": "Parade Anthem"
+      },
+      {
+        "variantId": "302304",
+        "type": "skin",
+        "skinName": "重叠的词句",
+        "skinNameEng": "Emotion in Tranquility"
+      },
+      {
+        "variantId": "302306",
+        "type": "skin",
+        "skinName": "诗的礼赞",
+        "skinNameEng": "In Praise of Poetry"
+      }
+    ],
+    "defaultVariant": "302301",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%81%E5%9B%9B%E8%A1%8C%E8%AF%97",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fd/Portrait-302301.webp"
     }
   },
   {
     "id": "302201",
     "name": "帕米埃",
+    "baseId": 3022,
     "releaseOrder": 95,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302201/full.webp",
-      "avatar": "/assets/characters/302201/avatar.png",
-      "insight": "/assets/characters/302201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B8%95%E7%B1%B3%E5%9F%83",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e4/Portrait-302201.webp"
-    },
     "names": {
       "zh-CN": "帕米埃",
       "zh-TW": "帕米埃",
       "en-US": "Dikke",
       "ja-JP": "パミエ",
       "ko-KR": "디케"
+    },
+    "skins": [
+      {
+        "variantId": "302201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302202",
+        "type": "insight",
+        "skinName": "汉谟拉比之剑",
+        "skinNameEng": "Sword of Hammurabi"
+      },
+      {
+        "variantId": "302203",
+        "type": "skin",
+        "skinName": "枪尖向上",
+        "skinNameEng": "The Pointy End Up"
+      }
+    ],
+    "defaultVariant": "302202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B8%95%E7%B1%B3%E5%9F%83",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e4/Portrait-302201.webp"
     }
   },
   {
     "id": "302001",
     "name": "柏林以东",
+    "baseId": 3020,
     "releaseOrder": 96,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302001/full.webp",
-      "avatar": "/assets/characters/302001/avatar.png",
-      "insight": "/assets/characters/302001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9F%8F%E6%9E%97%E4%BB%A5%E4%B8%9C",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c0/Portrait-302001.webp"
-    },
     "names": {
       "zh-CN": "柏林以东",
       "zh-TW": "柏林以東",
       "en-US": "Bkornblume",
       "ja-JP": "コーンブルメ",
       "ko-KR": "콘블룸"
+    },
+    "skins": [
+      {
+        "variantId": "302001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302002",
+        "type": "insight",
+        "skinName": "不合时宜者",
+        "skinNameEng": "The Misfit"
+      },
+      {
+        "variantId": "302003",
+        "type": "skin",
+        "skinName": "铅红的真相",
+        "skinNameEng": "Truth of the Dark Red"
+      }
+    ],
+    "defaultVariant": "302002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9F%8F%E6%9E%97%E4%BB%A5%E4%B8%9C",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c0/Portrait-302001.webp"
     }
   },
   {
     "id": "301701",
     "name": "夏利",
+    "baseId": 3017,
     "releaseOrder": 97,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301701/full.webp",
-      "avatar": "/assets/characters/301701/avatar.png",
-      "insight": "/assets/characters/301701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%8F%E5%88%A9",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2f/Portrait-301701.webp"
-    },
     "names": {
       "zh-CN": "夏利",
       "zh-TW": "夏利",
       "en-US": "Charlie",
       "ja-JP": "チャーリー",
       "ko-KR": "찰리"
+    },
+    "skins": [
+      {
+        "variantId": "301701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301702",
+        "type": "insight",
+        "skinName": "幻影中的国王",
+        "skinNameEng": "The Tyrant in Illusion"
+      },
+      {
+        "variantId": "301703",
+        "type": "skin",
+        "skinName": "镜中幕间",
+        "skinNameEng": "Through Mirrors and Curtains"
+      }
+    ],
+    "defaultVariant": "301702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%8F%E5%88%A9",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2f/Portrait-301701.webp"
     }
   },
   {
     "id": "301601",
     "name": "婴儿蓝",
+    "baseId": 3016,
     "releaseOrder": 98,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301601/full.webp",
-      "avatar": "/assets/characters/301601/avatar.png",
-      "insight": "/assets/characters/301601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A9%B4%E5%84%BF%E8%93%9D",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-301601.webp"
-    },
     "names": {
       "zh-CN": "婴儿蓝",
       "zh-TW": "嬰兒藍",
       "en-US": "Baby Blue",
       "ja-JP": "ベビーブルー",
       "ko-KR": "베이비 블루"
+    },
+    "skins": [
+      {
+        "variantId": "301601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301602",
+        "type": "insight",
+        "skinName": "新“红皇后”",
+        "skinNameEng": "The New \"Red Queen\""
+      },
+      {
+        "variantId": "301603",
+        "type": "skin",
+        "skinName": "于麻雀山上",
+        "skinNameEng": "On the Sparrow Hills "
+      }
+    ],
+    "defaultVariant": "301602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A9%B4%E5%84%BF%E8%93%9D",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-301601.webp"
     }
   },
   {
     "id": "301101",
     "name": "玛丽莲",
+    "baseId": 3011,
     "releaseOrder": 99,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301101/full.webp",
-      "avatar": "/assets/characters/301101/avatar.png",
-      "insight": "/assets/characters/301101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E8%8E%B2",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3d/Portrait-301101.webp"
-    },
     "names": {
       "zh-CN": "玛丽莲",
       "zh-TW": "瑪麗蓮",
       "en-US": "Sweetheart",
       "ja-JP": "スイートハート",
       "ko-KR": "마릴린"
+    },
+    "skins": [
+      {
+        "variantId": "301101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301102",
+        "type": "insight",
+        "skinName": "甜蜜的晚安",
+        "skinNameEng": "Sweet Nighty Night"
+      },
+      {
+        "variantId": "301103",
+        "type": "skin",
+        "skinName": "维纳斯的传道",
+        "skinNameEng": "The Preaching of Venus"
+      }
+    ],
+    "defaultVariant": "301102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E8%8E%B2",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3d/Portrait-301101.webp"
     }
   },
   {
     "id": "301001",
     "name": "X",
+    "baseId": 3010,
     "releaseOrder": 100,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301001/full.webp",
-      "avatar": "/assets/characters/301001/avatar.png",
-      "insight": "/assets/characters/301001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/X",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bf/Portrait-301001.webp"
-    },
     "names": {
       "zh-CN": "X",
       "zh-TW": "X",
       "en-US": "X",
       "ja-JP": "X",
       "ko-KR": "X"
+    },
+    "skins": [
+      {
+        "variantId": "301001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301002",
+        "type": "insight",
+        "skinName": "“无用”的天才",
+        "skinNameEng": "Genius of Useless Inventions"
+      },
+      {
+        "variantId": "301003",
+        "type": "skin",
+        "skinName": "沉默的呼吸",
+        "skinNameEng": "Silent Breath"
+      }
+    ],
+    "defaultVariant": "301002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/X",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bf/Portrait-301001.webp"
     }
   },
   {
     "id": "315101",
     "name": "诺拉",
+    "baseId": 3151,
     "releaseOrder": 101,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/315101/full.webp",
-      "avatar": "/assets/characters/315101/avatar.png",
-      "insight": "/assets/characters/315101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E6%8B%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9b/Portrait-315101.webp"
-    },
     "names": {
       "zh-CN": "诺拉",
       "zh-TW": "諾拉",
       "en-US": "NORA",
       "ja-JP": "ノラ"
+    },
+    "skins": [
+      {
+        "variantId": "315101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "315102",
+        "type": "insight",
+        "skinName": "缱绻的心巢",
+        "skinNameEng": "Nest of Love"
+      }
+    ],
+    "defaultVariant": "315102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E6%8B%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9b/Portrait-315101.webp"
     }
   },
   {
     "id": "313801",
     "name": "芦草结",
+    "baseId": 3138,
     "releaseOrder": 102,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/313801/full.webp",
-      "avatar": "/assets/characters/313801/avatar.png",
-      "insight": "/assets/characters/313801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%A6%E8%8D%89%E7%BB%93",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/69/Portrait-313801.webp"
-    },
     "names": {
       "zh-CN": "芦草结",
       "zh-TW": "蘆草結",
       "en-US": "Reed",
       "ja-JP": "リードノット"
+    },
+    "skins": [
+      {
+        "variantId": "313801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "313802",
+        "type": "insight",
+        "skinName": "不息的沙沙声",
+        "skinNameEng": "The Everlasting Scribbler"
+      }
+    ],
+    "defaultVariant": "313802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%A6%E8%8D%89%E7%BB%93",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/69/Portrait-313801.webp"
     }
   },
   {
     "id": "313601",
     "name": "《湖边的女人》",
+    "baseId": 3136,
     "releaseOrder": 103,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/313601/full.webp",
-      "avatar": "/assets/characters/313601/avatar.png",
-      "insight": "/assets/characters/313601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E3%80%8A%E6%B9%96%E8%BE%B9%E7%9A%84%E5%A5%B3%E4%BA%BA%E3%80%8B",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f6/Portrait-313601.webp"
-    },
     "names": {
       "zh-CN": "《湖边的女人》",
       "zh-TW": "《湖邊的女人》",
       "en-US": "Lady by the Lake"
+    },
+    "skins": [
+      {
+        "variantId": "313601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "313602",
+        "type": "insight",
+        "skinName": "一个春日的记忆",
+        "skinNameEng": "Memories of Spring"
+      }
+    ],
+    "defaultVariant": "313602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E3%80%8A%E6%B9%96%E8%BE%B9%E7%9A%84%E5%A5%B3%E4%BA%BA%E3%80%8B",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f6/Portrait-313601.webp"
     }
   },
   {
     "id": "310101",
     "name": "白朗姆",
+    "baseId": 3101,
     "releaseOrder": 104,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/310101/full.webp",
-      "avatar": "/assets/characters/310101/avatar.png",
-      "insight": "/assets/characters/310101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BD%E6%9C%97%E5%A7%86",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b2/Portrait-310101.webp"
-    },
     "names": {
       "zh-CN": "白朗姆",
       "zh-TW": "白朗姆",
       "en-US": "White Rum",
       "ja-JP": "ホワイトラム",
       "ko-KR": "화이트 럼"
+    },
+    "skins": [
+      {
+        "variantId": "310101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "310102",
+        "type": "insight",
+        "skinName": "瓶中小世界",
+        "skinNameEng": "Big World in a Small Bottle"
+      },
+      {
+        "variantId": "310103",
+        "type": "skin",
+        "skinName": "寰宇行舟",
+        "skinNameEng": "Sailing Around the World"
+      }
+    ],
+    "defaultVariant": "310102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BD%E6%9C%97%E5%A7%86",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b2/Portrait-310101.webp"
     }
   },
   {
     "id": "305801",
     "name": "埃里克",
+    "baseId": 3058,
     "releaseOrder": 105,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305801/full.webp",
-      "avatar": "/assets/characters/305801/avatar.png",
-      "insight": "/assets/characters/305801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9F%83%E9%87%8C%E5%85%8B",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b7/Portrait-305801.webp"
-    },
     "names": {
       "zh-CN": "埃里克",
       "zh-TW": "埃里克",
       "en-US": "Erick",
       "ja-JP": "エリック",
       "ko-KR": "에릭"
+    },
+    "skins": [
+      {
+        "variantId": "305801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305802",
+        "type": "insight",
+        "skinName": "孩子王",
+        "skinNameEng": "The Great Jarl Erick"
+      },
+      {
+        "variantId": "305803",
+        "type": "skin",
+        "skinName": "誓言与加值",
+        "skinNameEng": "Oaths and Bonuses"
+      }
+    ],
+    "defaultVariant": "305802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9F%83%E9%87%8C%E5%85%8B",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b7/Portrait-305801.webp"
     }
   },
   {
     "id": "305701",
     "name": "小梅斯梅尔",
+    "baseId": 3057,
     "releaseOrder": 106,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305701/full.webp",
-      "avatar": "/assets/characters/305701/avatar.png",
-      "insight": "/assets/characters/305701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%A2%85%E6%96%AF%E6%A2%85%E5%B0%94",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ed/Portrait-305701.webp"
-    },
     "names": {
       "zh-CN": "小梅斯梅尔",
       "zh-TW": "小梅斯梅爾",
       "en-US": "Mesmer Jr.",
       "ja-JP": "メスメル・Jr.",
       "ko-KR": "메스머 주니어"
+    },
+    "skins": [
+      {
+        "variantId": "305701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305702",
+        "type": "insight",
+        "skinName": "工具理性主义者",
+        "skinNameEng": "The Instrumentalist & Rationalist"
+      },
+      {
+        "variantId": "305703",
+        "type": "skin",
+        "skinName": "休假日",
+        "skinNameEng": "A Day to Rest"
+      }
+    ],
+    "defaultVariant": "305702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%A2%85%E6%96%AF%E6%A2%85%E5%B0%94",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ed/Portrait-305701.webp"
     }
   },
   {
     "id": "304601",
     "name": "吵闹鬼",
+    "baseId": 3046,
     "releaseOrder": 107,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304601/full.webp",
-      "avatar": "/assets/characters/304601/avatar.png",
-      "insight": "/assets/characters/304601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%90%B5%E9%97%B9%E9%AC%BC",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a7/Portrait-304601.webp"
-    },
     "names": {
       "zh-CN": "吵闹鬼",
       "zh-TW": "吵鬧鬼",
       "en-US": "Poltergeist",
       "ja-JP": "ポルターガイスト",
       "ko-KR": "폴터 가이스트"
+    },
+    "skins": [
+      {
+        "variantId": "304601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304602",
+        "type": "insight",
+        "skinName": "羞怯的夏日",
+        "skinNameEng": "Summertime Shyness"
+      },
+      {
+        "variantId": "304603",
+        "type": "skin",
+        "skinName": "另一个夏日",
+        "skinNameEng": "Under a Different Sea"
+      }
+    ],
+    "defaultVariant": "304602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%90%B5%E9%97%B9%E9%AC%BC",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a7/Portrait-304601.webp"
     }
   },
   {
     "id": "304401",
     "name": "莫桑女士",
+    "baseId": 3044,
     "releaseOrder": 108,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304401/full.webp",
-      "avatar": "/assets/characters/304401/avatar.png",
-      "insight": "/assets/characters/304401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E6%A1%91%E5%A5%B3%E5%A3%AB",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7e/Portrait-304401.webp"
-    },
     "names": {
       "zh-CN": "莫桑女士",
       "zh-TW": "莫桑女士",
       "en-US": "Ms. Moissan",
       "ja-JP": "ミス・モアッサン",
       "ko-KR": "무아상"
+    },
+    "skins": [
+      {
+        "variantId": "304401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304402",
+        "type": "insight",
+        "skinName": "另一种答案",
+        "skinNameEng": "Another Answer"
+      },
+      {
+        "variantId": "304403",
+        "type": "skin",
+        "skinName": "教堂之外",
+        "skinNameEng": "Outside the Church"
+      }
+    ],
+    "defaultVariant": "304402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E6%A1%91%E5%A5%B3%E5%A3%AB",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7e/Portrait-304401.webp"
     }
   },
   {
     "id": "304201",
     "name": "爱宠",
+    "baseId": 3042,
     "releaseOrder": 109,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304201/full.webp",
-      "avatar": "/assets/characters/304201/avatar.png",
-      "insight": "/assets/characters/304201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%AE%A0",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e5/Portrait-304201.webp"
-    },
     "names": {
       "zh-CN": "爱宠",
       "zh-TW": "愛寵",
       "en-US": "Rabies",
       "ja-JP": "レイビーズ",
       "ko-KR": "레이비스"
+    },
+    "skins": [
+      {
+        "variantId": "304201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304202",
+        "type": "insight",
+        "skinName": "麦田守望者",
+        "skinNameEng": "Catcher in the Rye"
+      },
+      {
+        "variantId": "304203",
+        "type": "skin",
+        "skinName": "深空环游记",
+        "skinNameEng": "Space Traveler"
+      }
+    ],
+    "defaultVariant": "304202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%AE%A0",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e5/Portrait-304201.webp"
     }
   },
   {
     "id": "303301",
     "name": "TTT",
+    "baseId": 3033,
     "releaseOrder": 110,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303301/full.webp",
-      "avatar": "/assets/characters/303301/avatar.png",
-      "insight": "/assets/characters/303301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/TTT",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/46/Portrait-303301.webp"
-    },
     "names": {
       "zh-CN": "TTT",
       "zh-TW": "TTT",
       "en-US": "TTT",
       "ja-JP": "TTT",
       "ko-KR": "TTT"
+    },
+    "skins": [
+      {
+        "variantId": "303301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303302",
+        "type": "insight",
+        "skinName": "新时代镜中人",
+        "skinNameEng": "The Girl in the Frame"
+      },
+      {
+        "variantId": "303303",
+        "type": "skin",
+        "skinName": "周六特别秀",
+        "skinNameEng": "Saturday Special"
+      }
+    ],
+    "defaultVariant": "303302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/TTT",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/46/Portrait-303301.webp"
     }
   },
   {
     "id": "303101",
     "name": "铅玻璃",
+    "baseId": 3031,
     "releaseOrder": 111,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303101/full.webp",
-      "avatar": "/assets/characters/303101/avatar.png",
-      "insight": "/assets/characters/303101/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%85%E7%8E%BB%E7%92%83",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3e/Portrait-303101.webp"
-    },
     "names": {
       "zh-CN": "铅玻璃",
       "zh-TW": "鉛玻璃",
       "en-US": "Cristallo",
       "ja-JP": "クリスタッロ",
       "ko-KR": "크리스탈로"
+    },
+    "skins": [
+      {
+        "variantId": "303101",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303102",
+        "type": "insight",
+        "skinName": "赠与勇敢者的花束",
+        "skinNameEng": "Bouquet for the Bold"
+      },
+      {
+        "variantId": "303103",
+        "type": "skin",
+        "skinName": "玻璃窗前的梦",
+        "skinNameEng": "A Dream in Stained Glass"
+      }
+    ],
+    "defaultVariant": "303102",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%85%E7%8E%BB%E7%92%83",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3e/Portrait-303101.webp"
     }
   },
   {
     "id": "302801",
     "name": "APPLe",
+    "baseId": 3028,
     "releaseOrder": 112,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302801/full.webp",
-      "avatar": "/assets/characters/302801/avatar.png",
-      "insight": "/assets/characters/302801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/APPLe",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/44/Portrait-302801.webp"
-    },
     "names": {
       "zh-CN": "APPLe",
       "zh-TW": "APPLe",
       "en-US": "APPLe",
       "ja-JP": "APPLe",
       "ko-KR": "APPLe"
+    },
+    "skins": [
+      {
+        "variantId": "302801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302802",
+        "type": "insight",
+        "skinName": "博学而多汁",
+        "skinNameEng": "Erudite and Juicy"
+      },
+      {
+        "variantId": "302803",
+        "type": "skin",
+        "skinName": "胡士托的回声",
+        "skinNameEng": "Echoing to Woodstock"
+      },
+      {
+        "variantId": "302804",
+        "type": "skin",
+        "skinName": "智慧尽头",
+        "skinNameEng": "The Fruit of Wisdom"
+      }
+    ],
+    "defaultVariant": "302802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/APPLe",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/44/Portrait-302801.webp"
     }
   },
   {
     "id": "302601",
     "name": "红斗篷",
+    "baseId": 3026,
     "releaseOrder": 113,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302601/full.webp",
-      "avatar": "/assets/characters/302601/avatar.png",
-      "insight": "/assets/characters/302601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E6%96%97%E7%AF%B7",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/34/Portrait-302601.webp"
-    },
     "names": {
       "zh-CN": "红斗篷",
       "zh-TW": "紅斗篷",
       "en-US": "Mondlicht",
       "ja-JP": "モントリヒト",
       "ko-KR": "빨간 망토"
+    },
+    "skins": [
+      {
+        "variantId": "302601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302602",
+        "type": "insight",
+        "skinName": "黑猎枪",
+        "skinNameEng": "Black Rifle"
+      },
+      {
+        "variantId": "302603",
+        "type": "skin",
+        "skinName": "银枪管",
+        "skinNameEng": "Silver Schirm"
+      }
+    ],
+    "defaultVariant": "302602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E6%96%97%E7%AF%B7",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/34/Portrait-302601.webp"
     }
   },
   {
     "id": "301801",
     "name": "雾行者",
+    "baseId": 3018,
     "releaseOrder": 114,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301801/full.webp",
-      "avatar": "/assets/characters/301801/avatar.png",
-      "insight": "/assets/characters/301801/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9B%BE%E8%A1%8C%E8%80%85",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7c/Portrait-301801.webp"
-    },
     "names": {
       "zh-CN": "雾行者",
       "zh-TW": "霧行者",
       "en-US": "Oliver Fog",
       "ja-JP": "オリバー・フォッグ",
       "ko-KR": "올리버 포그"
+    },
+    "skins": [
+      {
+        "variantId": "301801",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301802",
+        "type": "insight",
+        "skinName": "钟声响起",
+        "skinNameEng": "When the Bell Rings"
+      },
+      {
+        "variantId": "301803",
+        "type": "skin",
+        "skinName": "在俱乐部见",
+        "skinNameEng": "See You at the Workers' Club"
+      }
+    ],
+    "defaultVariant": "301802",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9B%BE%E8%A1%8C%E8%80%85",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7c/Portrait-301801.webp"
     }
   },
   {
     "id": "301501",
     "name": "狼群",
+    "baseId": 3015,
     "releaseOrder": 115,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301501/full.webp",
-      "avatar": "/assets/characters/301501/avatar.png",
-      "insight": "/assets/characters/301501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8B%BC%E7%BE%A4",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1d/Portrait-301501.webp"
-    },
     "names": {
       "zh-CN": "狼群",
       "zh-TW": "狼群",
       "en-US": "Pavia",
       "ja-JP": "パヴィア",
       "ko-KR": "파비아"
+    },
+    "skins": [
+      {
+        "variantId": "301501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301502",
+        "type": "insight",
+        "skinName": "我亲爱的好朋友们",
+        "skinNameEng": "My Dear Good friends"
+      },
+      {
+        "variantId": "301503",
+        "type": "skin",
+        "skinName": "狼之跃",
+        "skinNameEng": "The Wolf's Leap"
+      }
+    ],
+    "defaultVariant": "301502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8B%BC%E7%BE%A4",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1d/Portrait-301501.webp"
     }
   },
   {
     "id": "301401",
     "name": "芭妮芭妮",
+    "baseId": 3014,
     "releaseOrder": 116,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301401/full.webp",
-      "avatar": "/assets/characters/301401/avatar.png",
-      "insight": "/assets/characters/301401/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%A6%AE%E8%8A%AD%E5%A6%AE",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/11/Portrait-301401.webp"
-    },
     "names": {
       "zh-CN": "芭妮芭妮",
       "zh-TW": "芭妮芭妮",
       "en-US": "Bunny Bunny",
       "ja-JP": "バニーバニー",
       "ko-KR": "바니바니"
+    },
+    "skins": [
+      {
+        "variantId": "301401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301402",
+        "type": "insight",
+        "skinName": "最优兔女郎",
+        "skinNameEng": "Bunny Girl of the Year"
+      },
+      {
+        "variantId": "301403",
+        "type": "skin",
+        "skinName": "侍者的一天",
+        "skinNameEng": "Service Fit for Royalty"
+      }
+    ],
+    "defaultVariant": "301402",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%A6%AE%E8%8A%AD%E5%A6%AE",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/11/Portrait-301401.webp"
     }
   },
   {
     "id": "301301",
     "name": "冬",
+    "baseId": 3013,
     "releaseOrder": 117,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301301/full.webp",
-      "avatar": "/assets/characters/301301/avatar.png",
-      "insight": "/assets/characters/301301/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%AC",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bb/Portrait-301301.webp"
-    },
     "names": {
       "zh-CN": "冬",
       "zh-TW": "冬",
       "en-US": "Зима",
       "ja-JP": "ズィマー",
       "ko-KR": "겨울"
+    },
+    "skins": [
+      {
+        "variantId": "301301",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301302",
+        "type": "insight",
+        "skinName": "无人问津",
+        "skinNameEng": "The Loner"
+      },
+      {
+        "variantId": "301303",
+        "type": "skin",
+        "skinName": "山中一日",
+        "skinNameEng": "A Day in the Mountain"
+      }
+    ],
+    "defaultVariant": "301302",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%AC",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bb/Portrait-301301.webp"
     }
   },
   {
     "id": "300601",
     "name": "小春雀儿",
+    "baseId": 3006,
     "releaseOrder": 118,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/300601/full.webp",
-      "avatar": "/assets/characters/300601/avatar.png",
-      "insight": "/assets/characters/300601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8f/Portrait-300601.webp"
-    },
     "names": {
       "zh-CN": "小春雀儿",
       "zh-TW": "小春雀兒",
       "en-US": "Eagle",
       "ja-JP": "リトルイーグル",
       "ko-KR": "이글"
+    },
+    "skins": [
+      {
+        "variantId": "300601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "300602",
+        "type": "insight",
+        "skinName": "另一条路",
+        "skinNameEng": "The Other Path"
+      },
+      {
+        "variantId": "300603",
+        "type": "skin",
+        "skinName": "第六感",
+        "skinNameEng": "Redrum"
+      },
+      {
+        "variantId": "300604",
+        "type": "skin",
+        "skinName": "周末探险小队",
+        "skinNameEng": "Weekend Excursion"
+      }
+    ],
+    "defaultVariant": "300602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8f/Portrait-300601.webp"
     }
   },
   {
     "id": "300501",
     "name": "尼克·波顿",
+    "baseId": 3005,
     "releaseOrder": 119,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/300501/full.webp",
-      "avatar": "/assets/characters/300501/avatar.png",
-      "insight": "/assets/characters/300501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%BC%E5%85%8B%C2%B7%E6%B3%A2%E9%A1%BF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3a/Portrait-300501.webp"
-    },
     "names": {
       "zh-CN": "尼克·波顿",
       "zh-TW": "尼克·波頓",
       "en-US": "Nick Bottom",
       "ja-JP": "ニック・ボトム",
       "ko-KR": "닉 보텀"
+    },
+    "skins": [
+      {
+        "variantId": "300501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "300502",
+        "type": "insight",
+        "skinName": "仲夏夜之梦",
+        "skinNameEng": "A Midsummer Night's Dream"
+      },
+      {
+        "variantId": "300503",
+        "type": "skin",
+        "skinName": "“波顿的梦”",
+        "skinNameEng": "\"Bottom's Dream\""
+      }
+    ],
+    "defaultVariant": "300502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%BC%E5%85%8B%C2%B7%E6%B3%A2%E9%A1%BF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3a/Portrait-300501.webp"
     }
   },
   {
     "id": "309601",
     "name": "先驱者",
+    "baseId": 3096,
     "releaseOrder": 120,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/309601/full.webp",
-      "avatar": "/assets/characters/309601/avatar.png",
-      "insight": "/assets/characters/309601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%88%E9%A9%B1%E8%80%85",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/28/Portrait-309601.webp"
-    },
     "names": {
       "zh-CN": "先驱者",
       "zh-TW": "先驅者",
       "en-US": "Pioneer",
       "ja-JP": "パイオニア",
       "ko-KR": "파이오니어"
+    },
+    "skins": [
+      {
+        "variantId": "309601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "309602",
+        "type": "insight",
+        "skinName": "肌肤矫饰物",
+        "skinNameEng": "Idol Fascinations"
+      }
+    ],
+    "defaultVariant": "309602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%88%E9%A9%B1%E8%80%85",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/28/Portrait-309601.webp"
     }
   },
   {
     "id": "305501",
     "name": "斯普特尼克",
+    "baseId": 3055,
     "releaseOrder": 121,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305501/full.webp",
-      "avatar": "/assets/characters/305501/avatar.png",
-      "insight": "/assets/characters/305501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%AF%E6%99%AE%E7%89%B9%E5%B0%BC%E5%85%8B",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/39/Portrait-305501.webp"
-    },
     "names": {
       "zh-CN": "斯普特尼克",
       "zh-TW": "斯普特尼克",
       "en-US": "Sputnik",
       "ja-JP": "スプートニク",
       "ko-KR": "스푸트니크"
+    },
+    "skins": [
+      {
+        "variantId": "305501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305502",
+        "type": "insight",
+        "skinName": "吱，吱吱？！",
+        "skinNameEng": "Eek, Eek!"
+      }
+    ],
+    "defaultVariant": "305502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%AF%E6%99%AE%E7%89%B9%E5%B0%BC%E5%85%8B",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/39/Portrait-305501.webp"
     }
   },
   {
     "id": "305401",
     "name": "洋葱头",
+    "baseId": 3054,
     "releaseOrder": 122,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305401/full.webp",
-      "avatar": "/assets/characters/305401/avatar.png"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%8B%E8%91%B1%E5%A4%B4",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-305401.webp"
-    },
     "names": {
       "zh-CN": "洋葱头",
       "zh-TW": "洋蔥頭",
       "en-US": "ONiON",
       "ja-JP": "オニオン",
       "ko-KR": "어니언"
+    },
+    "skins": [
+      {
+        "variantId": "305401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      }
+    ],
+    "defaultVariant": "305401",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%8B%E8%91%B1%E5%A4%B4",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-305401.webp"
     }
   },
   {
     "id": "305001",
     "name": "哒哒达利",
+    "baseId": 3050,
     "releaseOrder": 123,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305001/full.webp",
-      "avatar": "/assets/characters/305001/avatar.png",
-      "insight": "/assets/characters/305001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%92%E5%93%92%E8%BE%BE%E5%88%A9",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/aa/Portrait-305001.webp"
-    },
     "names": {
       "zh-CN": "哒哒达利",
       "zh-TW": "噠噠達利",
       "en-US": "Darley Clatter",
       "ja-JP": "ダーレータッタ",
       "ko-KR": "다그닥 달리"
+    },
+    "skins": [
+      {
+        "variantId": "305001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "305002",
+        "type": "insight",
+        "skinName": "盛装舞步",
+        "skinNameEng": "Elegant Dance Steps"
+      }
+    ],
+    "defaultVariant": "305002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%92%E5%93%92%E8%BE%BE%E5%88%A9",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/aa/Portrait-305001.webp"
     }
   },
   {
     "id": "304501",
     "name": "贝蒂",
+    "baseId": 3045,
     "releaseOrder": 124,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304501/full.webp",
-      "avatar": "/assets/characters/304501/avatar.png"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B4%9D%E8%92%82",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a8/Portrait-304501.webp"
-    },
     "names": {
       "zh-CN": "贝蒂",
       "zh-TW": "貝蒂",
       "en-US": "Bette",
       "ja-JP": "ベティ",
       "ko-KR": "베티"
+    },
+    "skins": [
+      {
+        "variantId": "304501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304504",
+        "type": "skin",
+        "skinName": "人生填色格",
+        "skinNameEng": "A Life in Frames"
+      }
+    ],
+    "defaultVariant": "304501",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B4%9D%E8%92%82",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a8/Portrait-304501.webp"
     }
   },
   {
     "id": "304001",
     "name": "丽莎&路易斯",
+    "baseId": 3040,
     "releaseOrder": 125,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/304001/full.webp",
-      "avatar": "/assets/characters/304001/avatar.png",
-      "insight": "/assets/characters/304001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B8%BD%E8%8E%8E%26%E8%B7%AF%E6%98%93%E6%96%AF",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/82/Portrait-304001.webp"
-    },
     "names": {
       "zh-CN": "丽莎&路易斯",
       "zh-TW": "麗莎&路易斯",
       "en-US": "Twins Sleep",
       "ja-JP": "リサ＆ルイス",
       "ko-KR": "리사&루이스"
+    },
+    "skins": [
+      {
+        "variantId": "304001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "304002",
+        "type": "insight",
+        "skinName": "升变华尔兹",
+        "skinNameEng": "The Pawn's Promotional Waltz"
+      }
+    ],
+    "defaultVariant": "304002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B8%BD%E8%8E%8E%26%E8%B7%AF%E6%98%93%E6%96%AF",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/82/Portrait-304001.webp"
     }
   },
   {
     "id": "303601",
     "name": "约翰·提托",
+    "baseId": 3036,
     "releaseOrder": 126,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303601/full.webp",
-      "avatar": "/assets/characters/303601/avatar.png",
-      "insight": "/assets/characters/303601/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A6%E7%BF%B0%C2%B7%E6%8F%90%E6%89%98",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/06/Portrait-303601.webp"
-    },
     "names": {
       "zh-CN": "约翰·提托",
       "zh-TW": "約翰·提托",
       "en-US": "John Titor",
       "ja-JP": "ジョン・タイター",
       "ko-KR": "존 티토"
+    },
+    "skins": [
+      {
+        "variantId": "303601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303602",
+        "type": "insight",
+        "skinName": "疾步向前",
+        "skinNameEng": "Race to the Finish Line"
+      }
+    ],
+    "defaultVariant": "303602",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A6%E7%BF%B0%C2%B7%E6%8F%90%E6%89%98",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/06/Portrait-303601.webp"
     }
   },
   {
     "id": "303501",
     "name": "莉拉妮",
+    "baseId": 3035,
     "releaseOrder": 127,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303501/full.webp",
-      "avatar": "/assets/characters/303501/avatar.png",
-      "insight": "/assets/characters/303501/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%89%E6%8B%89%E5%A6%AE",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/28/Portrait-303501.webp"
-    },
     "names": {
       "zh-CN": "莉拉妮",
       "zh-TW": "莉拉妮",
       "en-US": "Leilani",
       "ja-JP": "レイラニ",
       "ko-KR": "레일라니"
+    },
+    "skins": [
+      {
+        "variantId": "303501",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303502",
+        "type": "insight",
+        "skinName": "远峰的巡游",
+        "skinNameEng": "The Adventure on The Mountains"
+      }
+    ],
+    "defaultVariant": "303502",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%89%E6%8B%89%E5%A6%AE",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/28/Portrait-303501.webp"
     }
   },
   {
     "id": "303401",
     "name": "星之眼",
+    "baseId": 3034,
     "releaseOrder": 128,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303401/full.webp",
-      "avatar": "/assets/characters/303401/avatar.png"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%98%9F%E4%B9%8B%E7%9C%BC",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/41/Portrait-303401.webp"
-    },
     "names": {
       "zh-CN": "星之眼",
       "zh-TW": "星之眼",
       "en-US": "aliEn T",
       "ja-JP": "ギベオンズアイ",
       "ko-KR": "에일리언 T"
+    },
+    "skins": [
+      {
+        "variantId": "303401",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      }
+    ],
+    "defaultVariant": "303401",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%98%9F%E4%B9%8B%E7%9C%BC",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/41/Portrait-303401.webp"
     }
   },
   {
     "id": "303001",
     "name": "拉拉泉",
+    "baseId": 3030,
     "releaseOrder": 129,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/303001/full.webp",
-      "avatar": "/assets/characters/303001/avatar.png",
-      "insight": "/assets/characters/303001/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E6%8B%89%E6%B3%89",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7d/Portrait-303001.webp"
-    },
     "names": {
       "zh-CN": "拉拉泉",
       "zh-TW": "拉拉泉",
       "en-US": "La Source",
       "ja-JP": "ララ・ファウンテン",
       "ko-KR": "라 수르스"
+    },
+    "skins": [
+      {
+        "variantId": "303001",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "303002",
+        "type": "insight",
+        "skinName": "二律背反",
+        "skinNameEng": "Antinomies"
+      }
+    ],
+    "defaultVariant": "303002",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E6%8B%89%E6%B3%89",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7d/Portrait-303001.webp"
     }
   },
   {
     "id": "301201",
     "name": "弄臣",
+    "baseId": 3012,
     "releaseOrder": 130,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/301201/full.webp",
-      "avatar": "/assets/characters/301201/avatar.png",
-      "insight": "/assets/characters/301201/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BC%84%E8%87%A3",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/68/Portrait-301201.webp"
-    },
     "names": {
       "zh-CN": "弄臣",
       "zh-TW": "弄臣",
       "en-US": "The Fool",
       "ja-JP": "ジェスター",
       "ko-KR": "광대"
+    },
+    "skins": [
+      {
+        "variantId": "301201",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "301202",
+        "type": "insight",
+        "skinName": "影子巧挑班",
+        "skinNameEng": "The Shadow Play Master"
+      }
+    ],
+    "defaultVariant": "301202",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BC%84%E8%87%A3",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/68/Portrait-301201.webp"
     }
   },
   {
     "id": "305901",
     "name": "门",
+    "baseId": 3059,
     "releaseOrder": 131,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/305901/full.webp",
-      "avatar": "/assets/characters/305901/avatar.png"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%97%A8",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e2/Portrait-305901.webp"
-    },
     "names": {
       "zh-CN": "门",
       "zh-TW": "門",
       "en-US": "Door",
       "ja-JP": "ドア",
       "ko-KR": "문"
+    },
+    "skins": [
+      {
+        "variantId": "305901",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      }
+    ],
+    "defaultVariant": "305901",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%97%A8",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e2/Portrait-305901.webp"
     }
   },
   {
     "id": "302701",
     "name": "无线电小姐",
+    "baseId": 3027,
     "releaseOrder": 132,
     "enabled": true,
-    "images": {
-      "full": "/assets/characters/302701/full.webp",
-      "avatar": "/assets/characters/302701/avatar.png",
-      "insight": "/assets/characters/302701/insight.webp"
-    },
-    "source": {
-      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%B0%8F%E5%A7%90",
-      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-302701.webp"
-    },
     "names": {
       "zh-CN": "无线电小姐",
       "zh-TW": "無線電小姐",
       "en-US": "Ms. Radio",
       "ja-JP": "ミス・ラジオ",
       "ko-KR": "미스 라디오"
+    },
+    "skins": [
+      {
+        "variantId": "302701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "302702",
+        "type": "insight",
+        "skinName": "战地生命线",
+        "skinNameEng": "Lifeline of the Battlefield"
+      }
+    ],
+    "defaultVariant": "302702",
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%B0%8F%E5%A7%90",
+      "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-302701.webp"
     }
   }
 ]

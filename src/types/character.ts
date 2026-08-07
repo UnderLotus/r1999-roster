@@ -1,8 +1,17 @@
+export interface CharacterSkin {
+  variantId: string;
+  type: "default" | "insight" | "skin";
+  skinName: string | null;
+  skinNameEng: string | null;
+}
+
 export interface Character {
   id: string;
   name: string;
+  baseId: number;
+  releaseOrder: number;
+  enabled: boolean;
 
-  // 多語系名稱（§4.5）：key 為語系代碼
   names?: {
     "zh-CN"?: string;
     "zh-TW"?: string;
@@ -11,18 +20,10 @@ export interface Character {
     "ko-KR"?: string;
   };
 
-  // MVP 暫緩：由同步腳本取得或留空，UI 不提供對應篩選器
   rarity?: number;
 
-  releaseOrder: number;
-
-  enabled: boolean;
-
-  images: {
-    full: string;
-    avatar: string;
-    insight?: string;
-  };
+  skins: CharacterSkin[];
+  defaultVariant: string;
 
   avatarPosition?: {
     x: number;

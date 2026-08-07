@@ -1,23 +1,21 @@
 import { useState } from "react";
 
 import type { Character } from "../types/character";
-import type { LangCode, SkinMode } from "../store/boxStore";
+import type { LangCode } from "../store/boxStore";
 import { getUiText } from "../i18n/ui";
+import { prefixedAvatarPath } from "../utils/assets";
 
 interface CharacterImageProps {
   character: Character;
   lang: LangCode;
-  skinMode: SkinMode;
+  variantId: string;
 }
 
-export function CharacterImage({ character, lang, skinMode }: CharacterImageProps) {
+export function CharacterImage({ character, lang, variantId }: CharacterImageProps) {
   const [hasError, setHasError] = useState(false);
   const t = getUiText(lang);
 
-  const src =
-    skinMode === "insight" && character.images.insight
-      ? import.meta.env.BASE_URL + character.images.insight.replace(/^\//, "")
-      : import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "");
+  const src = prefixedAvatarPath(variantId);
 
   if (hasError) {
     return (

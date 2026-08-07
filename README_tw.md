@@ -7,9 +7,10 @@
 ---
 
 點一下角色即會變成持有狀態（0 塑），再點就會升塑（1 塑 → 2 塑 → ... → 5 塑）；
-用角色卡上方的 − 來降塑造、或直接點 × 變回未持有。
+用角色卡上方的 − 來降塑造，零宿再點就會變回未持有。
+點選衣服Icon來切換Skin。
 
-支援全語系角色名稱搜尋，若資料庫沒抓到角色名稱會優先顯示英文名稱。
+支援全語系角色名稱搜尋，若該語系資料庫未有角色名稱、會優先顯示英文名稱。
 
 ---
 
@@ -30,6 +31,7 @@ React + TypeScript + Vite + Zustand。資料同步腳本說明請見
 
 角色資料與圖片來源：
 
+- [CN 客戶端素材 (myssal/Reverse-1999-CN-Asset)](https://github.com/myssal/Reverse-1999-CN-Asset)
 - [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
 - [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)
 - [wikiru (reverse1999.wikiru.jp)](https://reverse1999.wikiru.jp)

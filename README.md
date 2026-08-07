@@ -7,7 +7,9 @@ A quick character Box image generator for ***Reverse: 1999***.
 ---
 
 Tap a character to mark it as owned (0 Portray), tap again to increase Portray
-(1 → 2 → … → 5). Use the − button to decrease Portray or × to un-own.
+(1 → 2 → … → 5). Use the − button on the top-left of a card to decrease
+Portray; reducing from 0 un-owns the character. Click the clothing icon to
+switch skins.
 
 Search works across all supported languages. If a character's name is missing
 in the current language, the English name is shown as fallback.
@@ -31,6 +33,7 @@ React + TypeScript + Vite + Zustand. See
 
 Character data and images sourced from:
 
+- [CN Client Assets (myssal/Reverse-1999-CN-Asset)](https://github.com/myssal/Reverse-1999-CN-Asset)
 - [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
 - [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)
 - [wikiru (reverse1999.wikiru.jp)](https://reverse1999.wikiru.jp)

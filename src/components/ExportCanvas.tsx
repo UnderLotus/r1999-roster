@@ -1,23 +1,30 @@
 import type { Character, CharacterState } from "../types/character";
-import type { LangCode, SkinMode } from "../store/boxStore";
+import type { LangCode } from "../store/boxStore";
 import { getDisplayName } from "../utils/i18n";
 import { getUiText } from "../i18n/ui";
+import { prefixedAvatarPath } from "../utils/assets";
 import { PortrayBadge } from "./PortrayBadge";
 
 interface ExportCanvasProps {
   characters: Character[];
   states: Record<string, CharacterState>;
+  activeVariant: Record<string, string>;
   lang: LangCode;
-  skinMode: SkinMode;
 }
 
-/** 離屏匯出層：畫布寬度依欄數精算，不含任何操作介面（spec §24.2、§24.4） */
-export function ExportCanvas({ characters, states, lang, skinMode }: ExportCanvasProps) {
+/** 離屏匯出層 */
+export function ExportCanvas({
+  characters,
+  states,
+  activeVariant,
+  lang,
+}: ExportCanvasProps) {
   const t = getUiText(lang);
   const owned = characters.filter((c) => states[c.id]?.owned);
-  const fullPortray = owned.filter((c) => states[c.id]?.portray === 5).length;
+  const fullPortray = owned.filter(
+    (c) => states[c.id]?.portray === 5
+  ).length;
   const columns = owned.length > 50 ? 10 : Math.min(owned.length, 5) || 1;
-  // 卡片 112px + 邊框 2px = 114px，間距 10px
   const gridWidth = columns * 114 + (columns - 1) * 10;
 
   return (
@@ -37,30 +44,35 @@ export function ExportCanvas({ characters, states, lang, skinMode }: ExportCanva
         </div>
       </div>
 
-      <div className="export-grid" style={{ gridTemplateColumns: `repeat(${columns}, auto)` }}>
-        {owned.map((character) => (
-          <div key={character.id} className="export-card">
-            <div className="export-card__image-frame">
-              <img
-                className="export-card__image"
-                src={
-                  skinMode === "insight" && character.images.insight
-                    ? import.meta.env.BASE_URL + character.images.insight.replace(/^\//, "")
-                    : import.meta.env.BASE_URL + character.images.avatar.replace(/^\//, "")
-                }
-                alt={getDisplayName(character, lang)}
-              />
-              <PortrayBadge
-                level={states[character.id]?.portray ?? 0}
-                lang={lang}
-                position="bottom"
-              />
+      <div
+        className="export-grid"
+        style={{ gridTemplateColumns: `repeat(${columns}, auto)` }}
+      >
+        {owned.map((character) => {
+          const variantId =
+            activeVariant[character.id] ?? character.defaultVariant;
+          const src = prefixedAvatarPath(variantId);
+
+          return (
+            <div key={character.id} className="export-card">
+              <div className="export-card__image-frame">
+                <img
+                  className="export-card__image"
+                  src={src}
+                  alt={getDisplayName(character, lang)}
+                />
+                <PortrayBadge
+                  level={states[character.id]?.portray ?? 0}
+                  lang={lang}
+                  position="bottom"
+                />
+              </div>
+              <div className="export-card__name">
+                {getDisplayName(character, lang)}
+              </div>
             </div>
-            <div className="export-card__name">
-              {getDisplayName(character, lang)}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="export-canvas__footer">
