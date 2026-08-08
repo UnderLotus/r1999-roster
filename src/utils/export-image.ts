@@ -1,8 +1,22 @@
 import { domToJpeg } from "modern-screenshot";
 
-/** 等待區域內所有圖片載入完成（spec §24.3） */
-async function waitForImages(root: HTMLElement): Promise<void> {
+interface ExportProgress {
+  loaded: number;
+  total: number;
+}
+
+/** 等待區域內所有圖片載入完成，回報進度 */
+async function waitForImages(
+  root: HTMLElement,
+  onProgress?: (p: ExportProgress) => void
+): Promise<void> {
   const images = Array.from(root.querySelectorAll("img"));
+  const total = images.length;
+  let loaded = 0;
+
+  if (total === 0) return;
+
+  onProgress?.({ loaded: 0, total });
 
   await Promise.all(
     images.map(async (image) => {
@@ -11,17 +25,17 @@ async function waitForImages(root: HTMLElement): Promise<void> {
           const done = () => resolve();
           image.addEventListener("load", done, { once: true });
           image.addEventListener("error", done, { once: true });
-          // 註冊後再檢查一次，避免漏接事件
           if (image.complete) done();
         });
       }
 
-      // 載入失敗（broken image）時 naturalWidth 為 0，直接報錯避免缺圖輸出
       if (image.naturalWidth === 0) {
         throw new Error(`圖片載入失敗：${image.currentSrc || image.src}`);
       }
 
       await image.decode().catch(() => undefined);
+      loaded++;
+      onProgress?.({ loaded, total });
     })
   );
 }
@@ -33,15 +47,18 @@ function getDateString(): string {
   return `${d.getFullYear()}${mm}${dd}`;
 }
 
-/** 匯出 ExportCanvas 為 JPG 並下載（spec §24） */
-export async function exportJpeg(exportElement: HTMLElement): Promise<void> {
+/** 匯出 ExportCanvas 為 JPG 並下載 */
+export async function exportJpeg(
+  exportElement: HTMLElement,
+  onProgress?: (p: ExportProgress) => void
+): Promise<void> {
   await document.fonts.ready;
-  await waitForImages(exportElement);
+  await waitForImages(exportElement, onProgress);
 
   const dataUrl = await domToJpeg(exportElement, {
     quality: 0.92,
     backgroundColor: "#eee8da",
-    scale: 1,
+    scale: 1.5,
   });
 
   const anchor = document.createElement("a");
@@ -51,7 +68,6 @@ export async function exportJpeg(exportElement: HTMLElement): Promise<void> {
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
-  // 釋放 object URL（延遲確保下載觸發，iOS Safari 可能較慢）
   setTimeout(() => URL.revokeObjectURL(anchor.href), 10000);
 }
 

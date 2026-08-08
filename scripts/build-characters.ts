@@ -1,11 +1,12 @@
 /**
- * Phase 2 — 根據 id-map.json 與 ArcanistMap.json 重建 characters.json。
+ * build-characters — 增量維護 characters.json。
  *
- * 將舊的 wiki-based schema 轉換為 v0.5 variant-based schema：
- * - id → 預設 variant ID ({baseId}01)
- * - 新增 baseId、skins[]、defaultVariant
- * - 砍掉 images 欄位
- * - 保留 names、releaseOrder、enabled、avatarPosition、rarity
+ * v0.6：動態增量模式：
+ * 1. 既有角色 skins[] 每次以 ArcanistMap 權威覆寫（含 type/name）
+ * 2. 偵測 ArcanistMap 中尚未在 characters.json 的新角色
+ * 3. 新角色有 headicon 圖片 → 加入 JSON（stage: "pending-names"）
+ * 4. 新角色無圖片 → 寫入 pending-characters.json
+ * 5. 重算全部角色的 releaseOrder（依 §4.7.3 規則）
  *
  * 執行：npm run build:characters
  */
@@ -14,180 +15,145 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import type { Character, PendingCharacter } from "./types";
+import { recalculateReleaseOrder } from "./recalculate-order";
+import { buildSkins, type ArcanistEntryFull } from "./skin-utils";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const DATA_FILE = path.join(ROOT, "src/data/characters.json");
-const BACKUP_FILE = path.join(ROOT, "src/data/characters-v0.4-backup.json");
-const ID_MAP = path.join(__dirname, "data/id-map.json");
 const ARCANIST_MAP = path.join(__dirname, "data/ArcanistMap.json");
-
-/* ---------- ArcanistMap types ---------- */
-
-interface ArcanistSkin {
-  id: number;
-  des: string;
-  characterSkin: string;
-  characterSkinNameEng: string;
-}
-
-interface ArcanistEntry {
-  id: number;
-  name: string;
-  nameEng: string;
-  live2d: ArcanistSkin[];
-}
-
-/* ---------- Old character ---------- */
-
-interface OldCharacter {
-  id: string;
-  name: string;
-  names?: Record<string, string>;
-  rarity?: number;
-  releaseOrder: number;
-  enabled: boolean;
-  images: {
-    full: string;
-    avatar: string;
-    insight?: string;
-  };
-  avatarPosition?: { x: number; y: number };
-  source?: { pageUrl?: string; imageUrl?: string };
-}
-
-/* ---------- New character ---------- */
-
-type SkinType = "default" | "insight" | "skin";
-
-interface CharacterSkinNew {
-  variantId: string;
-  type: SkinType;
-  skinName: string | null;
-  skinNameEng: string | null;
-}
-
-interface NewCharacter {
-  id: string;
-  name: string;
-  baseId: number;
-  releaseOrder: number;
-  enabled: boolean;
-  names?: Record<string, string>;
-  rarity?: number;
-  skins: CharacterSkinNew[];
-  defaultVariant: string;
-  avatarPosition?: { x: number; y: number };
-  source?: { pageUrl?: string; imageUrl?: string };
-}
+const PENDING_FILE = path.join(__dirname, "data/pending-characters.json");
+const AVATARS_DIR = path.join(ROOT, "public/assets/characters/avatars");
 
 function loadJSON<T>(file: string): T {
   return JSON.parse(readFileSync(file, "utf-8")) as T;
 }
 
-function skinTypeFromId(variantId: number, _des: string): SkinType {
-  const suffix = variantId % 100;
-  if (suffix === 1) return "default";
-  if (suffix === 2) return "insight";
-  return "skin";
+/** Fingerprint skins for change detection (variantId + type + names) */
+function skinFingerprint(skins: Character["skins"]): string {
+  return JSON.stringify(
+    skins.map((s) => ({ id: s.variantId, type: s.type, name: s.skinName, eng: s.skinNameEng }))
+  );
+}
+
+function hasAvatarImage(variantId: string): boolean {
+  return existsSync(path.join(AVATARS_DIR, `${variantId}.png`));
 }
 
 function main(): void {
-  console.log("Phase 2: build-characters\n");
+  console.log("build-characters (v0.6 incremental)\n");
 
-  if (!existsSync(ID_MAP)) {
-    console.error("✗ id-map.json not found — run Phase 1 first (npm run build:id-map)");
+  if (!existsSync(DATA_FILE)) {
+    console.error("✗ characters.json not found — run sync first");
     process.exit(1);
   }
   if (!existsSync(ARCANIST_MAP)) {
-    console.error("✗ ArcanistMap.json not found in scripts/data/");
-    process.exit(1);
-  }
-  if (!existsSync(DATA_FILE)) {
-    console.error(`✗ ${DATA_FILE} not found`);
+    console.error("✗ ArcanistMap.json not found");
     process.exit(1);
   }
 
-  const oldChars = loadJSON<OldCharacter[]>(DATA_FILE);
-  const idMap = loadJSON<Record<string, string>>(ID_MAP);
-  const arcanists = loadJSON<ArcanistEntry[]>(ARCANIST_MAP);
+  const arcanists = loadJSON<ArcanistEntryFull[]>(ARCANIST_MAP);
+  const arcanistByBase = new Map<number, ArcanistEntryFull>();
+  for (const a of arcanists) arcanistByBase.set(a.id, a);
 
-  // Build lookup: baseId → ArcanistEntry
-  const arcanistByBase = new Map<number, ArcanistEntry>();
-  for (const a of arcanists) {
-    arcanistByBase.set(a.id, a);
-  }
+  const characters = loadJSON<Character[]>(DATA_FILE);
+  const existingBaseIds = new Set(characters.map((c) => c.baseId));
 
-  const newChars: NewCharacter[] = [];
-  const warnings: string[] = [];
-  let skinTotal = 0;
+  let skinsUpdated = 0;
+  let skinsTotal = 0;
 
-  for (const old of oldChars) {
-    const variantId = idMap[old.id];
-    if (!variantId || variantId.startsWith("UNMAPPED_")) {
-      warnings.push(`${old.id} ${old.name}: no mapping — skipped`);
-      continue;
+  // 1. Update existing: always overwrite skins[] from ArcanistMap (authority)
+  for (const character of characters) {
+    const entry = arcanistByBase.get(character.baseId);
+    if (!entry) continue;
+
+    const newSkins = buildSkins(entry);
+    skinsTotal += newSkins.length;
+
+    const oldPrint = skinFingerprint(character.skins);
+    const newPrint = skinFingerprint(newSkins);
+    if (oldPrint !== newPrint) {
+      character.skins = newSkins;
+      skinsUpdated++;
     }
+  }
 
-    const baseId = Math.floor(Number(variantId) / 100);
-    const arcanist = arcanistByBase.get(baseId);
+  // 2. Detect new characters from ArcanistMap
+  const pending: PendingCharacter[] = [];
+  let added = 0;
 
-    if (!arcanist) {
-      warnings.push(`${variantId} (${old.name}): baseId ${baseId} not in ArcanistMap — skipped`);
-      continue;
+  for (const entry of arcanists) {
+    if (existingBaseIds.has(entry.id)) continue;
+
+    const defaultVariantId = `${entry.id}01`;
+    const hasInsight = entry.live2d.some((s) => s.id === entry.id * 100 + 2);
+    const defaultVariant = hasInsight ? `${entry.id}02` : defaultVariantId;
+
+    if (hasAvatarImage(defaultVariantId)) {
+      const newChar: Character = {
+        id: defaultVariantId,
+        name: entry.name,
+        baseId: entry.id,
+        releaseOrder: 0,
+        enabled: true,
+        skins: buildSkins(entry),
+        defaultVariant,
+        stage: "pending-names",
+      };
+      characters.push(newChar);
+      added++;
+    } else {
+      pending.push({
+        baseId: entry.id,
+        variantId: defaultVariantId,
+        name: entry.name,
+        nameEng: entry.nameEng,
+        reason: "headicon not yet in CN asset repo",
+      });
     }
-
-    // Build skins[]
-    const skins: CharacterSkinNew[] = arcanist.live2d.map((s) => ({
-      variantId: String(s.id),
-      type: skinTypeFromId(s.id, s.des),
-      skinName: s.characterSkin || null,
-      skinNameEng: s.characterSkinNameEng || null,
-    }));
-
-    // Default to 02 if available, else 01
-    const hasInsight = skins.some((s) => s.variantId === `${baseId}02`);
-    const defaultVariant = hasInsight ? `${baseId}02` : `${baseId}01`;
-
-    const newChar: NewCharacter = {
-      id: `${baseId}01`,
-      name: old.name,
-      baseId,
-      releaseOrder: old.releaseOrder,
-      enabled: old.enabled,
-      names: old.names,
-      rarity: old.rarity,
-      skins,
-      defaultVariant,
-      avatarPosition: old.avatarPosition,
-      source: old.source,
-    };
-
-    newChars.push(newChar);
-    skinTotal += skins.length;
   }
 
-  // Sort by releaseOrder
-  newChars.sort((a, b) => a.releaseOrder - b.releaseOrder);
-
-  // Warn
-  if (warnings.length > 0) {
-    console.warn(`⚠ ${warnings.length} characters could not be mapped:`);
-    for (const w of warnings) console.warn(`  ${w}`);
+  // 3. Restore _kbId for Kornblume-group characters
+  for (const character of characters) {
+    if (character.rarity !== undefined && !character.source?.pageUrl) {
+      character._kbId = character._kbId ?? character.baseId;
+    }
   }
 
-  // Backup old
-  writeFileSync(BACKUP_FILE, JSON.stringify(oldChars, null, 2) + "\n", "utf-8");
-  console.log(`Backup: ${BACKUP_FILE}`);
+  // 4. Recalculate releaseOrder (multi-source rules)
+  const ordered = recalculateReleaseOrder(characters);
 
-  // Write new
-  writeFileSync(DATA_FILE, JSON.stringify(newChars, null, 2) + "\n", "utf-8");
+  // 5. Count groups
+  const wikiCount = ordered.filter((c) => c.source?.pageUrl).length;
+  const kbCount = ordered.filter(
+    (c) => !c.source?.pageUrl && c.rarity !== undefined
+  ).length;
+  const assetCount = ordered.length - wikiCount - kbCount;
 
-  console.log(`\nOld characters: ${oldChars.length}`);
-  console.log(`New characters: ${newChars.length}`);
-  console.log(`Total skins: ${skinTotal} (avg ${(skinTotal / newChars.length).toFixed(1)}/char)`);
-  console.log(`Default variant: 02 (insight) where available, else 01`);
+  // 6. Clean temporary fields + write
+  for (const c of ordered) delete c._kbId;
+
+  writeFileSync(DATA_FILE, JSON.stringify(ordered, null, 2) + "\n", "utf-8");
+
+  if (pending.length > 0) {
+    writeFileSync(PENDING_FILE, JSON.stringify(pending, null, 2) + "\n", "utf-8");
+  }
+
+  console.log(`=== 摘要 ===`);
+  console.log(`現有角色: ${existingBaseIds.size} 名`);
+  console.log(`Skins 更新: ${skinsUpdated}/${existingBaseIds.size} 名`);
+  console.log(`Skin 總數: ${skinsTotal}`);
+  console.log(`新增角色: ${added} 名`);
+  console.log(`待定角色: ${pending.length} 名（見 pending-characters.json）`);
+  console.log(`排序分配: Wiki ${wikiCount} / Kornblume ${kbCount} / CN Asset ${assetCount}`);
+  if (pending.length > 0) {
+    console.log(`\n⚠ ${pending.length} characters pending — headicon not yet available`);
+    for (const p of pending) {
+      console.log(`  ${p.variantId} ${p.name} (${p.nameEng})`);
+    }
+  }
   console.log(`\n✓ Written: ${DATA_FILE}`);
-  console.log("⚠ characters.ts may need updating for new schema");
 }
 
 main();

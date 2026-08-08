@@ -6,20 +6,26 @@ import { getUiText } from "../i18n/ui";
 interface ControlBarProps {
   search: string;
   filterMode: FilterMode;
+  rarityFilter: number[];
   lang: LangCode;
   exportStatus: "idle" | "exporting" | "error";
+  exportProgress: { loaded: number; total: number } | null;
   onSearchChange: (text: string) => void;
   onFilterChange: (mode: FilterMode) => void;
+  onRarityFilterChange: (rarities: number[]) => void;
   onExport: () => void;
 }
 
 export function ControlBar({
   search,
   filterMode,
+  rarityFilter,
   lang,
   exportStatus,
+  exportProgress,
   onSearchChange,
   onFilterChange,
+  onRarityFilterChange,
   onExport,
 }: ControlBarProps) {
   const t = getUiText(lang);
@@ -60,6 +66,33 @@ export function ControlBar({
 
       <div className="control-bar__spacer" />
 
+      <div className="control-bar__rarity-row">
+        <div className="segmented-control" role="group" aria-label={t.rarityFilterLabel}>
+          {[6, 5, 4, 3, 2].map((rarity) => {
+            const active = rarityFilter.includes(rarity);
+            return (
+              <button
+                key={rarity}
+                type="button"
+                data-active={active}
+                aria-pressed={active}
+                onClick={() => {
+                  if (active) {
+                    onRarityFilterChange(rarityFilter.filter((r) => r !== rarity));
+                  } else {
+                    onRarityFilterChange([...rarityFilter, rarity]);
+                  }
+                }}
+              >
+                ★{rarity}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="control-bar__spacer" />
+
       <div className="control-bar__export">
         <button
           type="button"
@@ -68,7 +101,11 @@ export function ControlBar({
           disabled={exportStatus === "exporting"}
         >
           <ImageDown size={15} />
-          {exportStatus === "exporting" ? t.exporting : t.export}
+          {exportStatus === "exporting" && exportProgress
+            ? `${t.exporting} (${exportProgress.loaded}/${exportProgress.total})`
+            : exportStatus === "exporting"
+              ? t.exporting
+              : t.export}
         </button>
         {exportStatus === "error" && (
           <span className="control-bar__export-error" role="alert">

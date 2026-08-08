@@ -150,6 +150,10 @@
   .control-bar__spacer {
     display: none;
   }
+
+  .control-bar__rarity-row {
+    flex-basis: 100%;
+  }
 }
 
 /* ---------- focus ---------- */

@@ -22,6 +22,8 @@ export interface Character {
 
   rarity?: number;
 
+  stage: "live" | "pending-names";
+
   skins: CharacterSkin[];
   defaultVariant: string;
 

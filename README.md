@@ -7,9 +7,9 @@ A quick character Box image generator for ***Reverse: 1999***.
 ---
 
 Tap a character to mark it as owned (0 Portray), tap again to increase Portray
-(1 → 2 → … → 5). Use the − button on the top-left of a card to decrease
-Portray; reducing from 0 un-owns the character. Click the clothing icon to
-switch skins.
+(1 → 2 → … → 5). Use the − button on the top-left to decrease Portray;
+reducing from 0 un-owns the character. Click the clothing icon on the
+top-right to switch skins (default, insight, costumes).
 
 Search works across all supported languages. If a character's name is missing
 in the current language, the English name is shown as fallback.
