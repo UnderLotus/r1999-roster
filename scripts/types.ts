@@ -1,35 +1,41 @@
 /**
- * Legacy types (v0.4) — kept for reference.
- * v0.5 scripts define their own inline types matching the new schema.
- * See docs/spec.md §4.6.6 for the current Character interface.
+ * Shared script types (v0.6).
+ * Mirrors src/types/character.ts for Node-side scripts.
  */
+
+export interface CharacterSkin {
+  variantId: string;
+  type: "default" | "insight" | "skin";
+  skinName: string | null;
+  skinNameEng: string | null;
+}
 
 export interface Character {
   id: string;
   name: string;
-  rarity?: number;
+  baseId: number;
   releaseOrder: number;
   enabled: boolean;
-  images: {
-    full: string;
-    avatar: string;
-    insight?: string;
-  };
-  avatarPosition?: {
-    x: number;
-    y: number;
-  };
-  source?: {
-    pageUrl?: string;
-    imageUrl?: string;
-  };
+
+  names?: Record<string, string>;
+
+  rarity?: number;
+  stage: "live" | "pending-names";
+
+  skins: CharacterSkin[];
+  defaultVariant: string;
+
+  avatarPosition?: { x: number; y: number };
+  source?: { pageUrl?: string; imageUrl?: string };
+
+  // Temporary: Kornblume Id for same-rarity ordering (not persisted)
+  _kbId?: number;
 }
 
-export interface SyncSummary {
-  existing: number;
-  foundFromSource: number;
-  newCharacters: number;
-  skipped: number;
-  failedImages: number;
-  failedCharacters: string[];
+export interface PendingCharacter {
+  baseId: number;
+  variantId: string;
+  name: string;
+  nameEng: string;
+  reason: string;
 }

@@ -105,6 +105,7 @@
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-card);
   background: var(--surface-muted);
+  box-shadow: var(--shadow-card);
 }
 
 /* 角色圖維持網頁顯示的尺寸比例：固定寬度、不因格子放大 */
@@ -112,7 +113,22 @@
   position: relative;
   width: 112px; /* 固定圖寬（接近網頁卡片 92px 的顯示比例） */
   overflow: hidden;
-  background: var(--surface-muted);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.28),
+      rgba(99, 87, 72, 0.08)
+    ),
+    var(--surface-muted);
+}
+
+/* 已持有金色內框 */
+.export-card__image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(255, 245, 220, 0.38);
+  pointer-events: none;
 }
 
 .export-card__image-frame::before {

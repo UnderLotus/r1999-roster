@@ -6,20 +6,24 @@ import { getUiText } from "../i18n/ui";
 interface ControlBarProps {
   search: string;
   filterMode: FilterMode;
+  rarityFilter: number[];
   lang: LangCode;
   exportStatus: "idle" | "exporting" | "error";
   onSearchChange: (text: string) => void;
   onFilterChange: (mode: FilterMode) => void;
+  onRarityFilterChange: (rarities: number[]) => void;
   onExport: () => void;
 }
 
 export function ControlBar({
   search,
   filterMode,
+  rarityFilter,
   lang,
   exportStatus,
   onSearchChange,
   onFilterChange,
+  onRarityFilterChange,
   onExport,
 }: ControlBarProps) {
   const t = getUiText(lang);
@@ -56,6 +60,33 @@ export function ControlBar({
             {label}
           </button>
         ))}
+      </div>
+
+      <div className="control-bar__spacer" />
+
+      <div className="control-bar__rarity-row">
+        <div className="segmented-control" role="group" aria-label={t.rarityFilterLabel}>
+          {[6, 5, 4, 3, 2].map((rarity) => {
+            const active = rarityFilter.includes(rarity);
+            return (
+              <button
+                key={rarity}
+                type="button"
+                data-active={active}
+                aria-pressed={active}
+                onClick={() => {
+                  if (active) {
+                    onRarityFilterChange(rarityFilter.filter((r) => r !== rarity));
+                  } else {
+                    onRarityFilterChange([...rarityFilter, rarity]);
+                  }
+                }}
+              >
+                ★{rarity}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div className="control-bar__spacer" />

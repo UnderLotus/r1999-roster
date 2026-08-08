@@ -10,6 +10,7 @@ import { LangSwitcher } from "./components/LangSwitcher";
 import { characters } from "./data/characters";
 import { getUiText } from "./i18n/ui";
 import { useBoxStore } from "./store/boxStore";
+import type { LangCode } from "./store/boxStore";
 import { exportJpeg } from "./utils/export-image";
 import { getAllNames } from "./utils/i18n";
 import "./styles/character-card.css";
@@ -27,9 +28,11 @@ export default function App() {
   const activeVariant = useBoxStore((s) => s.activeVariant);
   const filterMode = useBoxStore((s) => s.filterMode);
   const search = useBoxStore((s) => s.search);
+  const rarityFilter = useBoxStore((s) => s.rarityFilter);
   const displayLang = useBoxStore((s) => s.displayLang);
   const setFilterMode = useBoxStore((s) => s.setFilterMode);
   const setSearch = useBoxStore((s) => s.setSearch);
+  const setRarityFilter = useBoxStore((s) => s.setRarityFilter);
   const setDisplayLang = useBoxStore((s) => s.setDisplayLang);
   const setActiveVariant = useBoxStore((s) => s.setActiveVariant);
   const activateCharacter = useBoxStore((s) => s.activateCharacter);
@@ -54,6 +57,21 @@ export default function App() {
       if (initDone.current) return;
       initDone.current = true;
       const store = useBoxStore.getState();
+
+      // Auto-detect language from browser locale on first-ever visit
+      // (only when displayLang is still the default — user hasn't manually chosen one)
+      if (store.displayLang === "en-US") {
+        const locale = navigator.language;
+        const langMap: Record<string, LangCode> = {
+          "zh-CN": "zh-CN", "zh-SG": "zh-CN", "zh": "zh-CN",
+          "zh-TW": "zh-TW", "zh-HK": "zh-TW",
+          "ja": "ja-JP", "ko": "ko-KR",
+        };
+        const autoLang = langMap[locale] ?? langMap[locale.split("-")[0]] ?? "en-US";
+        store.displayLang = autoLang;
+        useBoxStore.setState({ displayLang: autoLang });
+      }
+
       let changed = false;
       const next = { ...store.activeVariant };
       for (const c of characters) {
@@ -92,9 +110,16 @@ export default function App() {
       ) {
         return false;
       }
+      if (
+        rarityFilter.length > 0 &&
+        c.rarity !== undefined &&
+        !rarityFilter.includes(c.rarity)
+      ) {
+        return false;
+      }
       return true;
     });
-  }, [states, filterMode, search]);
+  }, [states, filterMode, search, rarityFilter]);
 
   const handleExport = async () => {
     if (exportStatus === "exporting" || !exportLayerRef.current) return;
@@ -164,9 +189,11 @@ export default function App() {
       <ControlBar
         search={search}
         filterMode={filterMode}
+        rarityFilter={rarityFilter}
         lang={displayLang}
         onSearchChange={setSearch}
         onFilterChange={setFilterMode}
+        onRarityFilterChange={setRarityFilter}
         onExport={handleExport}
         exportStatus={exportStatus}
       />

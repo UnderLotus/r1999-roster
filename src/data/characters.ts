@@ -10,6 +10,7 @@ function validateCharacter(c: unknown): c is Character {
     typeof ch.name === "string" &&
     typeof ch.baseId === "number" &&
     typeof ch.releaseOrder === "number" &&
+    typeof ch.stage === "string" &&
     Array.isArray(ch.skins) &&
     typeof ch.defaultVariant === "string"
   );

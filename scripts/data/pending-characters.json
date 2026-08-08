@@ -1,0 +1,16 @@
+[
+  {
+    "baseId": 3029,
+    "variantId": "302901",
+    "name": "斯奈德",
+    "nameEng": "Schneider",
+    "reason": "headicon not yet in CN asset repo"
+  },
+  {
+    "baseId": 9998,
+    "variantId": "999801",
+    "name": "???",
+    "nameEng": "Machine D III",
+    "reason": "headicon not yet in CN asset repo"
+  }
+]
