@@ -1,4 +1,14 @@
 [
-  { "nameEng": "Ramona", "isReleased": true },
-  { "nameEng": "Cheng Heguang", "isReleased": true }
+  {
+    "nameEng": "Ramona",
+    "isReleased": true
+  },
+  {
+    "nameEng": "Cheng Heguang",
+    "isReleased": true
+  },
+  {
+    "nameEng": "Lady by the Lake",
+    "isReleased": false
+  }
 ]
