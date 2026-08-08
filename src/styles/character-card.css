@@ -300,10 +300,22 @@
   padding: 8px 14px;
 }
 
-/* 手機：語系切換與重置按鈕間距 */
+/* 手機：topbar 改兩行
+   行1: [語系切換]  ←space-between→  [Ko-fi][Reset]
+   行2: [👁 未來視] （靠左、自然寬度） */
 @media (max-width: 640px) {
   .page-topbar {
+    flex-wrap: wrap;
+    row-gap: 4px;
     padding: 6px 10px;
+  }
+
+  /* 偽元素當換行符：order 1 + flex-basis 100% 強制把未來視擠到下一行 */
+  .page-topbar::after {
+    content: "";
+    order: 1;
+    flex-basis: 100%;
+    height: 0;
   }
 }
 
@@ -348,6 +360,46 @@
 .lang-switcher button:focus-visible {
   outline: 2px solid var(--accent-primary);
   outline-offset: 1px;
+}
+
+/* 未來視按鈕（topbar 中央） */
+.button-future-sight {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 11px;
+  border: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--ink-secondary);
+  font-size: 12px;
+  font-family: var(--font-ui);
+  cursor: pointer;
+  margin: 0 auto;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.button-future-sight:hover {
+  color: var(--ink-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.button-future-sight:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
+}
+
+/* 手機：未來視按鈕縮小，並排到第二行、靠左自然寬度 */
+@media (max-width: 640px) {
+  .button-future-sight {
+    order: 2;
+    margin: 0;
+    min-height: 26px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
 }
 
 .page-topbar__stats {

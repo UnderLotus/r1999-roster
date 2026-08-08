@@ -1,6 +1,6 @@
 import { ImageDown, Search, UserCheck, UserX, Users } from "lucide-react";
 
-import type { FilterMode, LangCode } from "../store/boxStore";
+import type { FilterMode, LangCode, SkinMode } from "../store/boxStore";
 import { getUiText } from "../i18n/ui";
 
 interface ControlBarProps {
@@ -8,12 +8,14 @@ interface ControlBarProps {
   filterMode: FilterMode;
   rarityFilter: number[];
   lang: LangCode;
+  skinMode: SkinMode;
   exportStatus: "idle" | "exporting" | "error";
   exportProgress: { loaded: number; total: number } | null;
   userId: string;
   onSearchChange: (text: string) => void;
   onFilterChange: (mode: FilterMode) => void;
   onRarityFilterChange: (rarities: number[]) => void;
+  onSkinModeChange: (mode: SkinMode) => void;
   onUserIdChange: (id: string) => void;
   onExport: () => void;
 }
@@ -23,12 +25,14 @@ export function ControlBar({
   filterMode,
   rarityFilter,
   lang,
+  skinMode,
   exportStatus,
   exportProgress,
   userId,
   onSearchChange,
   onFilterChange,
   onRarityFilterChange,
+  onSkinModeChange,
   onUserIdChange,
   onExport,
 }: ControlBarProps) {
@@ -102,6 +106,26 @@ export function ControlBar({
               </button>
             );
           })}
+        </div>
+      </div>
+
+      <div className="control-bar__skinmode-row">
+        <div className="segmented-control" role="group" aria-label={t.skinModeLabel}>
+          <span className="skin-mode-label">{t.skinModeLabel}</span>
+          {([
+            { mode: "initial" as SkinMode, label: t.skinModeInitial },
+            { mode: "insight" as SkinMode, label: t.skinModeInsight },
+          ]).map(({ mode, label }) => (
+            <button
+              key={mode}
+              type="button"
+              data-active={skinMode === mode}
+              aria-pressed={skinMode === mode}
+              onClick={() => onSkinModeChange(mode)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
 

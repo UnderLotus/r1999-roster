@@ -29,6 +29,7 @@ const ROOT = path.resolve(__dirname, "..");
 const DATA_FILE = path.join(ROOT, "src/data/characters.json");
 const ARCANIST_MAP = path.join(__dirname, "data/ArcanistMap.json");
 const JP_OVERRIDES_FILE = path.join(__dirname, "data/jp-name-overrides.json");
+const RELEASED_OVERRIDES_FILE = path.join(__dirname, "data/released-overrides.json");
 
 const LANGS = ["zh-CN", "zh-TW", "en-US", "ja-JP", "ko-KR"] as const;
 type Lang = (typeof LANGS)[number];
@@ -42,6 +43,12 @@ interface KornblumeArcanist {
   Id: number;
   Name: string;
   Rarity: number;
+  IsReleased: boolean;
+}
+
+interface ReleasedOverride {
+  nameEng: string;
+  isReleased: boolean;
 }
 
 interface ArcanistMapEntry {
@@ -219,6 +226,14 @@ async function main(): Promise<void> {
   }
   console.log(`  Fandom 補齊 ko-KR: +${fandomAdded} 名`);
 
+  // 3.5. Load released-overrides for future sight
+  const releasedOverrides = new Map<string, boolean>();
+  const releaseList = loadJSON<ReleasedOverride[]>(RELEASED_OVERRIDES_FILE);
+  for (const o of releaseList) {
+    releasedOverrides.set(o.nameEng, o.isReleased);
+  }
+  console.log(`  released overrides: ${releaseList.length} 筆`);
+
   // 4. Build Kornblume slug → arcanist lookup
   const kbBySlug = new Map<string, KornblumeArcanist>();
   for (const kb of arcanists) {
@@ -277,6 +292,9 @@ async function main(): Promise<void> {
       character._kbId = kb.Id;
       rarityApplied++;
     }
+
+    character.isReleased =
+      releasedOverrides.get(kb.Name) ?? kb.IsReleased;
 
     if (character.stage === "pending-names") {
       character.stage = "live";

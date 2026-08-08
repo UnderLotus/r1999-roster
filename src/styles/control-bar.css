@@ -83,6 +83,24 @@
   color: var(--ink-inverse);
 }
 
+.skin-mode-label {
+  min-height: 32px;
+  padding: 0 8px 0 11px;
+
+  display: inline-flex;
+  align-items: center;
+
+  background: var(--page-bg, #d8d0c0);
+  color: var(--ink-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  border-right: 1px solid var(--border-light);
+  user-select: none;
+}
+
 .segmented-control button:hover:not([data-active="true"]) {
   color: var(--ink-primary);
   background: rgba(0, 0, 0, 0.04);
@@ -152,6 +170,10 @@
   }
 
   .control-bar__rarity-row {
+    flex-basis: 100%;
+  }
+
+  .control-bar__skinmode-row {
     flex-basis: 100%;
   }
 }

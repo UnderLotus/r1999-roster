@@ -69,9 +69,11 @@ Or combined: `npm run sync && npm run build:characters && npm run build:names`.
 
 1. Downloads 5-language names from Kornblume + wikiru JP supplement + Fandom KR supplement
 2. Matches characters via ArcanistMap's `nameEng` → slug → Kornblume Name bridge
-3. Writes `names` and `rarity` to matching characters
-4. Upgrades `stage` from `"pending-names"` to `"live"` when names are applied
-5. Recalculates `releaseOrder` (characters with new rarity get reordered)
+3. Reads character release status from Kornblume's `IsReleased` field, merged with
+   manual overrides in `scripts/data/released-overrides.json`
+4. Writes `names`, `rarity`, and `isReleased` to matching characters
+5. Upgrades `stage` from `"pending-names"` to `"live"` when names are applied
+6. Recalculates `releaseOrder` (characters with new rarity get reordered)
 
 ---
 
@@ -83,6 +85,34 @@ Or combined: `npm run sync && npm run build:characters && npm run build:names`.
 | `scripts/data/id-map.json` | Generated (one-shot) | wiki→variant ID mapping |
 | `scripts/data/pending-characters.json` | Generated | Characters without headicon images |
 | `scripts/data/jp-name-overrides.json` | Manual | Kornblume JP name gaps |
+| `scripts/data/released-overrides.json` | Manual | Override Kornblume `IsReleased` for late updates |
+
+---
+
+## `released-overrides.json` — Release Status Override
+
+Kornblume's `IsReleased` tracks CN server release. When Kornblume is slow to update
+after a character releases on CN, the data lags behind. This file lets you manually
+override the status without waiting for Kornblume to catch up.
+
+Format:
+
+```json
+[
+  { "nameEng": "Ramona", "isReleased": true },
+  { "nameEng": "Cheng Heguang", "isReleased": true }
+]
+```
+
+- `nameEng` matches the Kornblume `Name` field (equivalent to `ArcanistMap.nameEng`).
+- `isReleased: true` forces the character to appear even if Kornblume says otherwise.
+- `build-names.ts` reads this file and merges it over Kornblume's data before writing
+  `isReleased` into `characters.json`.
+
+**When to update**: after a character releases on CN, check Kornblume's data. If the
+character still shows `IsReleased: false`, add an entry here. Remove entries once
+Kornblume catches up (running `build-names` with a stale override is harmless — the
+override wins).
 
 ---
 

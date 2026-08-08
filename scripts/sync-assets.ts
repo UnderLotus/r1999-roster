@@ -170,8 +170,7 @@ function main(): void {
   for (const entry of arcanists) {
     if (existingBaseIds.has(entry.id)) continue;
     const defaultVariantId = `${entry.id}01`;
-    const hasInsight = entry.live2d.some((s) => s.id === entry.id * 100 + 2);
-    const defaultVariant = hasInsight ? `${entry.id}02` : defaultVariantId;
+    const defaultVariant = defaultVariantId;
 
     if (existsSync(path.join(AVATARS_DIR, `${defaultVariantId}.png`))) {
       const newChar: Character = {
@@ -183,6 +182,7 @@ function main(): void {
         skins: buildSkins(entry),
         defaultVariant,
         stage: "pending-names",
+        isReleased: false,
       };
       chars.push(newChar);
       autoAdded++;

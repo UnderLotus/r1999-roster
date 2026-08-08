@@ -11,6 +11,7 @@ interface ExportCanvasProps {
   activeVariant: Record<string, string>;
   lang: LangCode;
   userId: string;
+  total: number;
 }
 
 /** 離屏匯出層 */
@@ -20,6 +21,7 @@ export function ExportCanvas({
   activeVariant,
   lang,
   userId,
+  total,
 }: ExportCanvasProps) {
   const t = getUiText(lang);
   const owned = characters.filter((c) => states[c.id]?.owned);
@@ -43,7 +45,7 @@ export function ExportCanvas({
         </div>
         <div className="export-canvas__stats">
           <span>
-            {t.owned} {owned.length} / {characters.length}
+            {t.owned} {owned.length} / {total}
           </span>
           <span>
             {t.fullPortray} {fullPortray}

@@ -1,6 +1,7 @@
 # r1999-roster
 
-A quick character Box image generator for ***Reverse: 1999***.
+A quick tool for generating a shareable image of your owned character Box
+for ***Reverse: 1999***.
 
 **[繁體中文](README_tw.md)**
 
@@ -8,11 +9,18 @@ A quick character Box image generator for ***Reverse: 1999***.
 
 Tap a character to mark it as owned (0 Portray), tap again to increase Portray
 (1 → 2 → … → 5). Use the − button on the top-left to decrease Portray;
-reducing from 0 un-owns the character. Click the clothing icon on the
-top-right to switch skins (default, insight, costumes).
+decreasing from 0 un-owns the character. Click the clothing icon on the
+top-right to switch skins (Default, Insight, Costumes).
 
 Search works across all supported languages. If a character's name is missing
 in the current language, the English name is shown as fallback.
+The ID field accepts any free-form text, shown at the top-center of the
+exported image. Next to the rarity filter is the default-portrait toggle,
+switching the default skin between Initial and Insight.
+
+Different servers are on different progressions, so the list defaults to the
+global progress. The Future Sight button, at the top of the page, is for
+users who want the latest CN-first characters.
 
 ---
 

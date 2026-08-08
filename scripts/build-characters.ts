@@ -87,8 +87,7 @@ function main(): void {
     if (existingBaseIds.has(entry.id)) continue;
 
     const defaultVariantId = `${entry.id}01`;
-    const hasInsight = entry.live2d.some((s) => s.id === entry.id * 100 + 2);
-    const defaultVariant = hasInsight ? `${entry.id}02` : defaultVariantId;
+    const defaultVariant = defaultVariantId;
 
     if (hasAvatarImage(defaultVariantId)) {
       const newChar: Character = {
@@ -100,6 +99,7 @@ function main(): void {
         skins: buildSkins(entry),
         defaultVariant,
         stage: "pending-names",
+        isReleased: false,
       };
       characters.push(newChar);
       added++;

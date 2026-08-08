@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { Eye, EyeOff, RotateCcw } from "lucide-react";
 
 import { AppHeader } from "./components/AppHeader";
 import { CharacterGrid } from "./components/CharacterGrid";
@@ -12,6 +12,7 @@ import { getUiText } from "./i18n/ui";
 import { useBoxStore } from "./store/boxStore";
 import type { LangCode } from "./store/boxStore";
 import { getAllNames } from "./utils/i18n";
+import { resolveModeVariant } from "./utils/skins";
 import "./styles/character-card.css";
 import "./styles/app-header.css";
 import "./styles/control-bar.css";
@@ -39,8 +40,13 @@ export default function App() {
   const activateCharacter = useBoxStore((s) => s.activateCharacter);
   const decreasePortray = useBoxStore((s) => s.decreasePortray);
   const resetAll = useBoxStore((s) => s.resetAll);
+  const showFutureSight = useBoxStore((s) => s.showFutureSight);
+  const setShowFutureSight = useBoxStore((s) => s.setShowFutureSight);
+  const defaultSkinMode = useBoxStore((s) => s.defaultSkinMode);
+  const setSkinMode = useBoxStore((s) => s.setSkinMode);
 
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showFutureSightConfirm, setShowFutureSightConfirm] = useState(false);
   const [exportStatus, setExportStatus] = useState<ExportStatus>("idle");
   const [exportProgress, setExportProgress] = useState<{ loaded: number; total: number } | null>(null);
   const [exportSnapshot, setExportSnapshot] = useState<{
@@ -48,13 +54,14 @@ export default function App() {
     lang: typeof displayLang;
     activeVariant: typeof activeVariant;
     userId: string;
+    total: number;
   } | null>(null);
   const isExportingRef = useRef(false);
   const exportLayerElRef = useRef<HTMLElement | null>(null);
   const exportAttemptRef = useRef(0);
   const t = getUiText(displayLang);
 
-  // 初始化 activeVariant：hydrate 後補上漏掉的 defaultVariant
+  // 初始化 activeVariant：hydrate 後依 defaultSkinMode 補上缺漏的角色
   const initDone = useRef(false);
   useEffect(() => {
     const unsub = useBoxStore.persist.onFinishHydration(() => {
@@ -79,7 +86,7 @@ export default function App() {
       const next = { ...store.activeVariant };
       for (const c of characters) {
         if (!next[c.id]) {
-          next[c.id] = c.defaultVariant;
+          next[c.id] = resolveModeVariant(c, store.defaultSkinMode);
           changed = true;
         }
       }
@@ -98,6 +105,7 @@ export default function App() {
   const visibleCharacters = useMemo(() => {
     const query = search.trim().toLowerCase();
     return characters.filter((c) => {
+      if (!showFutureSight && !c.isReleased) return false;
       if (filterMode === "owned" && !states[c.id]?.owned) return false;
       if (filterMode === "unowned" && states[c.id]?.owned) return false;
       if (
@@ -115,7 +123,12 @@ export default function App() {
       }
       return true;
     });
-  }, [states, filterMode, search, rarityFilter]);
+  }, [states, filterMode, search, rarityFilter, showFutureSight]);
+
+  const visibleTotal = useMemo(
+    () => characters.filter((c) => showFutureSight || c.isReleased).length,
+    [showFutureSight]
+  );
 
   const handleExport = () => {
     if (isExportingRef.current) return;
@@ -126,6 +139,7 @@ export default function App() {
       lang: displayLang,
       activeVariant: { ...activeVariant },
       userId,
+      total: visibleTotal,
     });
     setExportStatus("exporting");
     setExportProgress(null);
@@ -217,6 +231,34 @@ export default function App() {
     <main className="box-page">
       <div className="page-topbar">
         <LangSwitcher value={displayLang} onChange={setDisplayLang} />
+        <button
+          type="button"
+          className="button-future-sight"
+          aria-label={t.futureSightLabel}
+          title={showFutureSight ? t.futureSightOn : t.futureSightOff}
+          onClick={() => {
+            if (showFutureSight) {
+              setShowFutureSight(false);
+              const snap = useBoxStore.getState().characters;
+              let changed = false;
+              const next = { ...snap };
+              const nextVariant = { ...useBoxStore.getState().activeVariant };
+              for (const c of characters) {
+                if (!c.isReleased && snap[c.id]?.owned) {
+                  delete next[c.id];
+                  delete nextVariant[c.id];
+                  changed = true;
+                }
+              }
+              if (changed) useBoxStore.setState({ characters: next, activeVariant: nextVariant });
+            } else {
+              setShowFutureSightConfirm(true);
+            }
+          }}
+        >
+          {showFutureSight ? <Eye size={15} /> : <EyeOff size={15} />}
+          <span>{t.futureSightLabel}</span>
+        </button>
         <div className="page-topbar__right">
           <a
             href="https://ko-fi.com/H2Y624M8O8"
@@ -242,13 +284,15 @@ export default function App() {
         </div>
       </div>
 
-      <AppHeader total={characters.length} states={states} lang={displayLang} />
+      <AppHeader total={visibleTotal} states={states} lang={displayLang} />
 
       <ControlBar
         search={search}
         filterMode={filterMode}
         rarityFilter={rarityFilter}
         lang={displayLang}
+        skinMode={defaultSkinMode}
+        onSkinModeChange={setSkinMode}
         onSearchChange={setSearch}
         onFilterChange={setFilterMode}
         onRarityFilterChange={setRarityFilter}
@@ -290,6 +334,19 @@ export default function App() {
         onCancel={() => setShowResetConfirm(false)}
       />
 
+      <ConfirmDialog
+        open={showFutureSightConfirm}
+        title={t.spoilerLabel}
+        message={t.futureSightWarning}
+        confirmLabel={t.futureSightConfirm}
+        cancelLabel={t.futureSightCancel}
+        onConfirm={() => {
+          setShowFutureSight(true);
+          setShowFutureSightConfirm(false);
+        }}
+        onCancel={() => setShowFutureSightConfirm(false)}
+      />
+
       {/* 離屏匯出層（僅在匯出時 mount） */}
       {exportSnapshot && (
         <div
@@ -303,6 +360,7 @@ export default function App() {
             activeVariant={exportSnapshot.activeVariant}
             lang={exportSnapshot.lang}
             userId={exportSnapshot.userId}
+            total={exportSnapshot.total}
           />
         </div>
       )}

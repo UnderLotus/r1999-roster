@@ -32,7 +32,7 @@
         "skinNameEng": "Programmed Eulogy"
       }
     ],
-    "defaultVariant": "314902",
+    "defaultVariant": "314901",
     "avatarPosition": {
       "x": 50,
       "y": 22
@@ -42,7 +42,8 @@
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2a/Portrait-314901.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "314701",
@@ -70,13 +71,14 @@
         "skinNameEng": "Down a Dark Path"
       }
     ],
-    "defaultVariant": "314702",
+    "defaultVariant": "314701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E5%90%8D%E8%80%85",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8b/Portrait-314701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": false
   },
   {
     "id": "314601",
@@ -104,13 +106,14 @@
         "skinNameEng": "The Migration of Her Heart"
       }
     ],
-    "defaultVariant": "314602",
+    "defaultVariant": "314601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E7%91%9E%E5%AE%89%E4%BE%AC",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/42/Portrait-314601.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": false
   },
   {
     "id": "314501",
@@ -137,13 +140,14 @@
         "skinNameEng": "Silence and Light"
       }
     ],
-    "defaultVariant": "314502",
+    "defaultVariant": "314501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%9E%E5%A3%B0%E8%B0%A3",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/db/Portrait-314501.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": false
   },
   {
     "id": "314401",
@@ -177,13 +181,14 @@
         "skinNameEng": "Sounds that Wake Her"
       }
     ],
-    "defaultVariant": "314402",
+    "defaultVariant": "314401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8F%90%E7%90%85%E7%9C%BC",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9b/Portrait-314401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": false
   },
   {
     "id": "314301",
@@ -211,13 +216,14 @@
         "skinNameEng": "Cloze Testing"
       }
     ],
-    "defaultVariant": "314302",
+    "defaultVariant": "314301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%91%E8%B0%9C",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f2/Portrait-314301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "314201",
@@ -246,13 +252,14 @@
         "skinNameEng": "Between Spirits and Blossoms"
       }
     ],
-    "defaultVariant": "314202",
+    "defaultVariant": "314201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E8%8E%AB%E7%BA%B3",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a1/Portrait-314201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "314101",
@@ -280,13 +287,14 @@
         "skinNameEng": "Downstream of Letting Go"
       }
     ],
-    "defaultVariant": "314102",
+    "defaultVariant": "314101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%B9%AD%E9%B8%B6%E5%89%AA",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7d/Portrait-314101.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "314001",
@@ -313,13 +321,14 @@
         "skinNameEng": "Grounded in Imagination"
       }
     ],
-    "defaultVariant": "314002",
+    "defaultVariant": "314001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A5%A0%E5%9F%BA%E7%9F%B3",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1a/Portrait-314001.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": false
   },
   {
     "id": "313901",
@@ -354,13 +363,14 @@
         "skinNameEng": "Finale in Silver"
       }
     ],
-    "defaultVariant": "313902",
+    "defaultVariant": "313901",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BC%A6%E5%85%B9%E8%9D%B4%E8%9D%B6",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bc/Portrait-313901.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "313701",
@@ -388,13 +398,14 @@
         "skinNameEng": "Breaking Free from a Burning Cage"
       }
     ],
-    "defaultVariant": "313702",
+    "defaultVariant": "313701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A8%8B%E5%92%8C%E5%85%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8f/Portrait-313701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "313501",
@@ -423,13 +434,14 @@
         "skinNameEng": "A Wayward Intermission"
       }
     ],
-    "defaultVariant": "313502",
+    "defaultVariant": "313501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%81%B0%E8%B0%83%E8%93%9D",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/6c/Portrait-313501.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "313401",
@@ -458,13 +470,14 @@
         "skinNameEng": "The Flowing Stream's Luster"
       }
     ],
-    "defaultVariant": "313402",
+    "defaultVariant": "313401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B4%9D%E4%B8%BD%E5%B0%94",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/00/Portrait-313401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "313201",
@@ -499,13 +512,14 @@
         "skinNameEng": "Burning Away Tears"
       }
     ],
-    "defaultVariant": "313202",
+    "defaultVariant": "313201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%8A%E6%AD%BB%E9%B8%9F",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fb/Portrait-313201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312801",
@@ -540,13 +554,14 @@
         "skinNameEng": "Gift of the Dead"
       }
     ],
-    "defaultVariant": "312802",
+    "defaultVariant": "312801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E6%88%8E",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f5/Portrait-312801.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312701",
@@ -581,13 +596,14 @@
         "skinNameEng": "The Ever-Burning Embrace"
       }
     ],
-    "defaultVariant": "312702",
+    "defaultVariant": "312701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E5%B0%94%E7%BA%B1",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-312701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312601",
@@ -628,13 +644,14 @@
         "skinNameEng": "Weighing Sin and Justice"
       }
     ],
-    "defaultVariant": "312602",
+    "defaultVariant": "312601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E5%AE%89%E5%A8%9C",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7e/Portrait-312601.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312501",
@@ -668,13 +685,14 @@
         "skinNameEng": "Song of the Shadow Dancer"
       }
     ],
-    "defaultVariant": "312502",
+    "defaultVariant": "312501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%8E%E6%A0%91%E8%8E%93",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/64/Portrait-312501.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312401",
@@ -702,13 +720,14 @@
         "skinNameEng": "Radiant in Blue"
       }
     ],
-    "defaultVariant": "312402",
+    "defaultVariant": "312401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E7%8F%8A%E5%BE%B7%E6%8B%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bc/Portrait-312401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312301",
@@ -736,13 +755,14 @@
         "skinNameEng": "Leap of Faith"
       }
     ],
-    "defaultVariant": "312302",
+    "defaultVariant": "312301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%89%BE%E5%90%89%E5%A5%A5%C2%B7%E5%A5%A5%E8%BF%AA%E6%89%98%E9%9B%B7",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/38/Portrait-312301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312101",
@@ -777,13 +797,14 @@
         "skinNameEng": "Idyll of the Luberon"
       }
     ],
-    "defaultVariant": "312102",
+    "defaultVariant": "312101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E8%8E%89%E5%BE%B7%E5%B0%94",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f5/Portrait-312101.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "312001",
@@ -818,13 +839,14 @@
         "skinNameEng": "From Darkness, Light"
       }
     ],
-    "defaultVariant": "312002",
+    "defaultVariant": "312001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E8%B0%9B%E5%8D%A1",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3c/Portrait-312001.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "311701",
@@ -865,13 +887,14 @@
         "skinNameEng": "A Utopia in Painted Glass"
       }
     ],
-    "defaultVariant": "311702",
+    "defaultVariant": "311701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BA%93%E7%8F%80%E8%8A%B1%E7%8E%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/47/Portrait-311701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "311601",
@@ -912,13 +935,14 @@
         "skinNameEng": "Verses to Heaven"
       }
     ],
-    "defaultVariant": "311602",
+    "defaultVariant": "311601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%B7%E5%91%A8%E5%85%AD",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-311601.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "311401",
@@ -959,13 +983,14 @@
         "skinNameEng": "The Weight of Words"
       }
     ],
-    "defaultVariant": "311402",
+    "defaultVariant": "311401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%99%9A%E6%9E%84%E9%9B%86",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/73/Portrait-311401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "311301",
@@ -1000,13 +1025,14 @@
         "skinNameEng": "A Feast of Imagery"
       }
     ],
-    "defaultVariant": "311302",
+    "defaultVariant": "311301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E8%8E%B1%E5%A4%AB",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f0/Portrait-311301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "311101",
@@ -1041,13 +1067,14 @@
         "skinNameEng": "The Trapped Trapmaster"
       }
     ],
-    "defaultVariant": "311102",
+    "defaultVariant": "311101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8F%B2%E6%9E%97%E5%A3%AB%E5%A4%9A",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-311101.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "311001",
@@ -1082,13 +1109,14 @@
         "skinNameEng": "The Moon's Reflection"
       }
     ],
-    "defaultVariant": "311002",
+    "defaultVariant": "311001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%81%E6%9C%88",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/95/Portrait-311001.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "310901",
@@ -1129,13 +1157,14 @@
         "skinNameEng": "Fragments of An Old Dream"
       }
     ],
-    "defaultVariant": "310902",
+    "defaultVariant": "310901",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9B%BE%E5%9B%BE%E7%9F%B3%E5%AD%90",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/24/Portrait-310901.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "310801",
@@ -1170,13 +1199,14 @@
         "skinNameEng": "Asteroid Allegro"
       }
     ],
-    "defaultVariant": "310802",
+    "defaultVariant": "310801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%8D%A1%E6%B4%9B%E5%84%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e3/Portrait-310801.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "310701",
@@ -1210,13 +1240,14 @@
         "skinNameEng": "A Glimpse of the Cosmos"
       }
     ],
-    "defaultVariant": "310702",
+    "defaultVariant": "310701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B9%8C%E5%B0%94%E9%87%8C%E5%B8%8C",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/78/Portrait-310701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "310501",
@@ -1257,13 +1288,14 @@
         "skinNameEng": "Atomic Alarm"
       }
     ],
-    "defaultVariant": "310502",
+    "defaultVariant": "310501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%B8%E4%BF%A1%E5%9C%88%E5%84%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2e/Portrait-310501.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "310401",
@@ -1304,13 +1336,14 @@
         "skinNameEng": "Reborn and Restored"
       }
     ],
-    "defaultVariant": "310402",
+    "defaultVariant": "310401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%AC%83%E7%AC%83%E9%AA%A8",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ed/Portrait-310401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "310201",
@@ -1345,13 +1378,14 @@
         "skinNameEng": "Friend of the Splintercat"
       }
     ],
-    "defaultVariant": "310202",
+    "defaultVariant": "310201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%9B%E4%BD%A9%E6%8B%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3d/Portrait-310201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "310001",
@@ -1386,13 +1420,14 @@
         "skinNameEng": "Forbidden Fruit"
       }
     ],
-    "defaultVariant": "310002",
+    "defaultVariant": "310001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%A9%E4%BD%BF%E5%A8%9C%E5%A8%9C",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/5d/Portrait-310001.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "309801",
@@ -1433,13 +1468,14 @@
         "skinNameEng": "Cold Cradle"
       }
     ],
-    "defaultVariant": "309802",
+    "defaultVariant": "309801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%93%9D%E6%89%8B%E5%B8%95",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/76/Portrait-309801.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "309701",
@@ -1474,13 +1510,14 @@
         "skinNameEng": "Starbound Bounty Hunter"
       }
     ],
-    "defaultVariant": "309702",
+    "defaultVariant": "309701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%B0%94%E5%8F%A4%E6%96%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/56/Portrait-309701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "309501",
@@ -1521,13 +1558,14 @@
         "skinNameEng": "The Nightmare's Carol"
       }
     ],
-    "defaultVariant": "309502",
+    "defaultVariant": "309501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%AF%E7%8A%B6%E6%B0%B4%E6%98%9F",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/54/Portrait-309501.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "309401",
@@ -1562,13 +1600,14 @@
         "skinNameEng": "The Lone Wolf's Howl"
       }
     ],
-    "defaultVariant": "309402",
+    "defaultVariant": "309401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/J",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2e/Portrait-309401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "309201",
@@ -1603,13 +1642,14 @@
         "skinNameEng": "Returning Nevermore"
       }
     ],
-    "defaultVariant": "309202",
+    "defaultVariant": "309201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E6%88%88%E5%B0%94",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-309201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "308801",
@@ -1650,13 +1690,14 @@
         "skinNameEng": "The Wax and Wane of the Heart"
       }
     ],
-    "defaultVariant": "308802",
+    "defaultVariant": "308801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A1%9E%E6%A2%85%E5%B0%94%E7%BB%B4%E6%96%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-308801.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "308701",
@@ -1697,13 +1738,14 @@
         "skinNameEng": "Daughter of the Wine-Dark Sea"
       }
     ],
-    "defaultVariant": "308702",
+    "defaultVariant": "308701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BB%B4%E6%8B%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/85/Portrait-308701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "308601",
@@ -1738,13 +1780,14 @@
         "skinNameEng": "The Queen's Game"
       }
     ],
-    "defaultVariant": "308602",
+    "defaultVariant": "308601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9C%B2%E8%A5%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/07/Portrait-308601.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "308401",
@@ -1779,13 +1822,14 @@
         "skinNameEng": "Herald of Horus"
       }
     ],
-    "defaultVariant": "308402",
+    "defaultVariant": "308401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%91%9B%E5%A4%A9",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/4e/Portrait-308401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "308301",
@@ -1820,13 +1864,14 @@
         "skinNameEng": "Blossom Spring Fairy"
       }
     ],
-    "defaultVariant": "308302",
+    "defaultVariant": "308301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9B%B2%E5%A8%98",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/51/Portrait-308301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "308101",
@@ -1867,13 +1912,14 @@
         "skinNameEng": "The Last Fluttering Beat"
       }
     ],
-    "defaultVariant": "308102",
+    "defaultVariant": "308101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%8A%E7%B4%A2%E5%B0%94%E5%BE%B7",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/cf/Portrait-308101.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "308001",
@@ -1914,13 +1960,14 @@
         "skinNameEng": "Guardian of the Broken"
       }
     ],
-    "defaultVariant": "308002",
+    "defaultVariant": "308001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8D%A1%E5%8D%A1%E5%B0%BC%E4%BA%9A",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/91/Portrait-308001.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "307901",
@@ -1967,13 +2014,14 @@
         "skinNameEng": "A Hymn to Seclusion"
       }
     ],
-    "defaultVariant": "307902",
+    "defaultVariant": "307901",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/6",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-307901.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "307701",
@@ -2020,13 +2068,14 @@
         "skinNameEng": "Silver Isoheight"
       }
     ],
-    "defaultVariant": "307702",
+    "defaultVariant": "307701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8C%97%E6%96%B9%E5%93%A8%E6%AD%8C",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/23/Portrait-307701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "307401",
@@ -2061,13 +2110,14 @@
         "skinNameEng": "Yee-Haw!"
       }
     ],
-    "defaultVariant": "307402",
+    "defaultVariant": "307401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%85%B9%E6%8B%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/89/Portrait-307401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "307301",
@@ -2108,13 +2158,14 @@
         "skinNameEng": "Fire Lotus"
       }
     ],
-    "defaultVariant": "307302",
+    "defaultVariant": "307301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%8F%AF%E7%87%83%E7%82%B9",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/31/Portrait-307301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "307201",
@@ -2149,13 +2200,14 @@
         "skinNameEng": "Beneath the Jungle Canopy"
       }
     ],
-    "defaultVariant": "307202",
+    "defaultVariant": "307201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%AC%83%E6%AF%9B%E6%B2%99%E7%A0%BE",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-307201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "307001",
@@ -2196,13 +2248,14 @@
         "skinNameEng": "Till the Sun Falls"
       }
     ],
-    "defaultVariant": "307002",
+    "defaultVariant": "307001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BC%BD%E8%8F%88%E6%B3%A2%E9%82%A3",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/aa/Portrait-307001.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "306601",
@@ -2249,13 +2302,14 @@
         "skinNameEng": "A Gift of Nourishment"
       }
     ],
-    "defaultVariant": "306602",
+    "defaultVariant": "306601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/37",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8a/Portrait-306601.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "306501",
@@ -2296,13 +2350,14 @@
         "skinNameEng": "To the Gates of the Underworld"
       }
     ],
-    "defaultVariant": "306502",
+    "defaultVariant": "306501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%A9%AC%E5%BA%93%E6%96%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/21/Portrait-306501.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "306301",
@@ -2337,13 +2392,14 @@
         "skinNameEng": "The Young Dog and The Sea"
       }
     ],
-    "defaultVariant": "306302",
+    "defaultVariant": "306301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%9A%AE%E5%85%8B%E5%8B%92%E6%96%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/eb/Portrait-306301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "306201",
@@ -2384,13 +2440,14 @@
         "skinNameEng": "Red and White"
       }
     ],
-    "defaultVariant": "306202",
+    "defaultVariant": "306201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A2%85%E5%85%B0%E5%A6%AE",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/41/Portrait-306201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "305601",
@@ -2431,13 +2488,14 @@
         "skinNameEng": "The Sound of Paradise"
       }
     ],
-    "defaultVariant": "305602",
+    "defaultVariant": "305601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B4%81%E8%A5%BF%E5%8D%A1",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/4a/Portrait-305601.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "305301",
@@ -2484,13 +2542,14 @@
         "skinNameEng": "The Woven Legend"
       }
     ],
-    "defaultVariant": "305302",
+    "defaultVariant": "305301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%89%99%E4%BB%99",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a5/Portrait-305301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "305201",
@@ -2525,13 +2584,14 @@
         "skinNameEng": "Raise the Bid"
       }
     ],
-    "defaultVariant": "305202",
+    "defaultVariant": "305201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%B0%E5%B7%B4%E5%88%AB%E5%A1%94",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-305201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "305101",
@@ -2572,13 +2632,14 @@
         "skinNameEng": "The Golden Nurturer"
       }
     ],
-    "defaultVariant": "305102",
+    "defaultVariant": "305101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B8%A9%E5%A6%AE%E5%BC%97%E9%9B%B7%E5%BE%B7",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/59/Portrait-305101.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "304801",
@@ -2619,13 +2680,14 @@
         "skinNameEng": "Choir of the Stars"
       }
     ],
-    "defaultVariant": "304802",
+    "defaultVariant": "304801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%BF%9C%E6%97%85",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-304801.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "304701",
@@ -2666,13 +2728,14 @@
         "skinNameEng": "Forever Is Too Short"
       }
     ],
-    "defaultVariant": "304702",
+    "defaultVariant": "304701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%94%E6%AF%9B%E6%89%8B%E8%A2%8B",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/da/Portrait-304701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "303901",
@@ -2713,13 +2776,14 @@
         "skinNameEng": "Symbiotic Lee-ly"
       }
     ],
-    "defaultVariant": "303902",
+    "defaultVariant": "303901",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B3%A5%E9%AF%AD%E7%9A%84%E5%A3%AB",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a8/Portrait-303901.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "303201",
@@ -2754,13 +2818,14 @@
         "skinNameEng": "The Universal Star"
       }
     ],
-    "defaultVariant": "303202",
+    "defaultVariant": "303201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BE%E5%A4%AB%E9%95%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-303201.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "302501",
@@ -2801,13 +2866,14 @@
         "skinNameEng": "Take Off! To the Future"
       }
     ],
-    "defaultVariant": "302502",
+    "defaultVariant": "302501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%98%9F%E9%94%91",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/ce/Portrait-302501.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "300901",
@@ -2848,13 +2914,14 @@
         "skinNameEng": "The Red Thread of Fate"
       }
     ],
-    "defaultVariant": "300902",
+    "defaultVariant": "300901",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8B%8F%E8%8A%99%E6%AF%94",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/32/Portrait-300901.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "300701",
@@ -2895,13 +2962,14 @@
         "skinNameEng": "The Evergreen Soul"
       }
     ],
-    "defaultVariant": "300702",
+    "defaultVariant": "300701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9C%AA%E9%94%88%E9%93%A0",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9f/Portrait-300701.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "300401",
@@ -2942,13 +3010,14 @@
         "skinNameEng": "Justice Cannot Be Delayed"
       }
     ],
-    "defaultVariant": "300402",
+    "defaultVariant": "300401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E5%BC%A9%E7%AE%AD",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-300401.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "300301",
@@ -2989,13 +3058,14 @@
         "skinNameEng": "Shrouded in Thorns"
       }
     ],
-    "defaultVariant": "300302",
+    "defaultVariant": "300301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%A7%B2%E5%AF%84%E7%94%9F",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/42/Portrait-300301.webp"
     },
     "stage": "live",
-    "rarity": 6
+    "rarity": 6,
+    "isReleased": true
   },
   {
     "id": "315401",
@@ -3022,13 +3092,14 @@
         "skinNameEng": "Becoming a Scientist, Scientifically"
       }
     ],
-    "defaultVariant": "315402",
+    "defaultVariant": "315401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%B6%E8%A3%85%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2b/Portrait-315401.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": false
   },
   {
     "id": "312201",
@@ -3056,13 +3127,14 @@
         "skinNameEng": "Second Conquest"
       }
     ],
-    "defaultVariant": "312202",
+    "defaultVariant": "312201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%88%A9%E5%85%8B%E8%A5%BF%E6%AC%A7%E6%96%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/be/Portrait-312201.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "311801",
@@ -3097,13 +3169,14 @@
         "skinNameEng": "The Deathless Quiet"
       }
     ],
-    "defaultVariant": "311802",
+    "defaultVariant": "311801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%91%BD%E5%90%8D%E6%97%A5",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1c/Portrait-311801.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "311501",
@@ -3132,13 +3205,14 @@
         "skinNameEng": "A Ceremony Among Friends"
       }
     ],
-    "defaultVariant": "311502",
+    "defaultVariant": "311501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9A%BC%E5%9A%BC%E6%9D%BE%E6%9E%9C",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fc/Portrait-311501.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "311201",
@@ -3167,13 +3241,14 @@
         "skinNameEng": "A Moment of Leisure"
       }
     ],
-    "defaultVariant": "311202",
+    "defaultVariant": "311201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%A9%BA%E8%84%91%E8%A2%8B",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ec/Portrait-311201.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "310601",
@@ -3208,13 +3283,14 @@
         "skinNameEng": "THOUGHT Ranger"
       }
     ],
-    "defaultVariant": "310602",
+    "defaultVariant": "310601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%AE%BD%E6%AA%90%E5%B8%BD",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b7/Portrait-310601.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "310301",
@@ -3243,13 +3319,14 @@
         "skinNameEng": "The Favela Inventor"
       }
     ],
-    "defaultVariant": "310302",
+    "defaultVariant": "310301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%82%93%E8%82%AF%E5%85%88%E7%94%9F",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/51/Portrait-310301.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "309901",
@@ -3278,13 +3355,14 @@
         "skinNameEng": "A Meadow in Her Dreams"
       }
     ],
-    "defaultVariant": "309902",
+    "defaultVariant": "309901",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%95%B0%E7%BE%8A%E7%BE%94",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c4/Portrait-309901.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "309101",
@@ -3313,13 +3391,14 @@
         "skinNameEng": "Time to Pray"
       }
     ],
-    "defaultVariant": "309102",
+    "defaultVariant": "309101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BD%97%E8%95%BE%E8%8E%B1",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/69/Portrait-309101.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "308201",
@@ -3354,13 +3433,14 @@
         "skinNameEng": "Around the Riverbend"
       }
     ],
-    "defaultVariant": "308202",
+    "defaultVariant": "308201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E5%8F%B6%E5%B0%BC%E5%A1%9E",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8a/Portrait-308201.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "307801",
@@ -3389,13 +3469,14 @@
         "skinNameEng": "His Own Corner on the Square"
       }
     ],
-    "defaultVariant": "307802",
+    "defaultVariant": "307801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%98%BF%E5%A4%AB%E8%A5%BF%E7%BB%B4",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/5/50/Portrait-307801.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "307601",
@@ -3424,13 +3505,14 @@
         "skinNameEng": "Flammy's Dream"
       }
     ],
-    "defaultVariant": "307602",
+    "defaultVariant": "307601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%92%8C%E5%B9%B3%E4%B9%8C%E9%B2%81",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/22/Portrait-307601.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "307501",
@@ -3465,13 +3547,14 @@
         "skinNameEng": "Call of the Wild"
       }
     ],
-    "defaultVariant": "307502",
+    "defaultVariant": "307501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B2%99%E4%B8%9D%E7%BB%92",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/d/dd/Portrait-307501.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "307101",
@@ -3506,13 +3589,14 @@
         "skinNameEng": "The Night Visitor"
       }
     ],
-    "defaultVariant": "307102",
+    "defaultVariant": "307101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%8E%E5%90%89%E6%8B%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/36/Portrait-307101.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "306401",
@@ -3547,13 +3631,14 @@
         "skinNameEng": "Another Assumption"
       }
     ],
-    "defaultVariant": "306402",
+    "defaultVariant": "306401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8C%96%E6%8E%98%E8%89%BA%E6%9C%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9a/Portrait-306401.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "306101",
@@ -3588,13 +3673,14 @@
         "skinNameEng": "A Daoist's Madness"
       }
     ],
-    "defaultVariant": "306102",
+    "defaultVariant": "306101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%81%90%E6%80%96%E9%80%9A",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a5/Portrait-306101.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "306001",
@@ -3629,13 +3715,14 @@
         "skinNameEng": "The Giallo Grind"
       }
     ],
-    "defaultVariant": "306002",
+    "defaultVariant": "306001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%87%91%E8%9C%9C%E5%84%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/63/Portrait-306001.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "304901",
@@ -3664,13 +3751,14 @@
         "skinNameEng": "The Best Angle"
       }
     ],
-    "defaultVariant": "304902",
+    "defaultVariant": "304901",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%96%80%E5%9A%93%E5%96%80%E5%9A%93",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1a/Portrait-304901.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "304301",
@@ -3711,13 +3799,14 @@
         "skinNameEng": "Dueling Connoisseurs"
       }
     ],
-    "defaultVariant": "304302",
+    "defaultVariant": "304301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9D%A6%E5%8D%97%E7%89%B9",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a7/Portrait-304301.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "304101",
@@ -3758,13 +3847,14 @@
         "skinNameEng": "The Great Taste Investigator"
       }
     ],
-    "defaultVariant": "304102",
+    "defaultVariant": "304101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E8%92%82%E5%B0%94%E8%BE%BE",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/97/Portrait-304101.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "303801",
@@ -3799,13 +3889,14 @@
         "skinNameEng": "Silver Rose"
       }
     ],
-    "defaultVariant": "303802",
+    "defaultVariant": "303801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%BA%94%E8%89%B2%E6%9C%88",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c3/Portrait-303801.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "303701",
@@ -3840,13 +3931,14 @@
         "skinNameEng": "A Voyage with No Return"
       }
     ],
-    "defaultVariant": "303702",
+    "defaultVariant": "303701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AE%A3%E5%91%8A%E4%BA%BA",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c1/Portrait-303701.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "302401",
@@ -3881,13 +3973,14 @@
         "skinNameEng": "The Folk Song of Silver Butterfly"
       }
     ],
-    "defaultVariant": "302402",
+    "defaultVariant": "302401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%B0%94%E7%90%83%E6%B4%BE%E5%AF%B9",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b2/Portrait-302401.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "302301",
@@ -3934,7 +4027,8 @@
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/fd/Portrait-302301.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "302201",
@@ -3969,13 +4063,14 @@
         "skinNameEng": "The Pointy End Up"
       }
     ],
-    "defaultVariant": "302202",
+    "defaultVariant": "302201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B8%95%E7%B1%B3%E5%9F%83",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e4/Portrait-302201.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "302001",
@@ -4010,13 +4105,14 @@
         "skinNameEng": "Truth of the Dark Red"
       }
     ],
-    "defaultVariant": "302002",
+    "defaultVariant": "302001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%9F%8F%E6%9E%97%E4%BB%A5%E4%B8%9C",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/c/c0/Portrait-302001.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "301701",
@@ -4051,13 +4147,14 @@
         "skinNameEng": "Through Mirrors and Curtains"
       }
     ],
-    "defaultVariant": "301702",
+    "defaultVariant": "301701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A4%8F%E5%88%A9",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/2f/Portrait-301701.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "301601",
@@ -4092,13 +4189,14 @@
         "skinNameEng": "On the Sparrow Hills "
       }
     ],
-    "defaultVariant": "301602",
+    "defaultVariant": "301601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%A9%B4%E5%84%BF%E8%93%9D",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e9/Portrait-301601.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "301101",
@@ -4133,13 +4231,14 @@
         "skinNameEng": "The Preaching of Venus"
       }
     ],
-    "defaultVariant": "301102",
+    "defaultVariant": "301101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8E%9B%E4%B8%BD%E8%8E%B2",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3d/Portrait-301101.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "301001",
@@ -4174,13 +4273,14 @@
         "skinNameEng": "Silent Breath"
       }
     ],
-    "defaultVariant": "301002",
+    "defaultVariant": "301001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/X",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bf/Portrait-301001.webp"
     },
     "stage": "live",
-    "rarity": 5
+    "rarity": 5,
+    "isReleased": true
   },
   {
     "id": "315101",
@@ -4208,13 +4308,14 @@
         "skinNameEng": "Nest of Love"
       }
     ],
-    "defaultVariant": "315102",
+    "defaultVariant": "315101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%AF%BA%E6%8B%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/9/9b/Portrait-315101.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "313801",
@@ -4242,13 +4343,14 @@
         "skinNameEng": "The Everlasting Scribbler"
       }
     ],
-    "defaultVariant": "313802",
+    "defaultVariant": "313801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%A6%E8%8D%89%E7%BB%93",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/69/Portrait-313801.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "313601",
@@ -4275,13 +4377,14 @@
         "skinNameEng": "Memories of Spring"
       }
     ],
-    "defaultVariant": "313602",
+    "defaultVariant": "313601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E3%80%8A%E6%B9%96%E8%BE%B9%E7%9A%84%E5%A5%B3%E4%BA%BA%E3%80%8B",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/f/f6/Portrait-313601.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "310101",
@@ -4316,13 +4419,14 @@
         "skinNameEng": "Sailing Around the World"
       }
     ],
-    "defaultVariant": "310102",
+    "defaultVariant": "310101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%99%BD%E6%9C%97%E5%A7%86",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b2/Portrait-310101.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "305801",
@@ -4357,13 +4461,14 @@
         "skinNameEng": "Oaths and Bonuses"
       }
     ],
-    "defaultVariant": "305802",
+    "defaultVariant": "305801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%9F%83%E9%87%8C%E5%85%8B",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/b7/Portrait-305801.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "305701",
@@ -4398,13 +4503,14 @@
         "skinNameEng": "A Day to Rest"
       }
     ],
-    "defaultVariant": "305702",
+    "defaultVariant": "305701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%A2%85%E6%96%AF%E6%A2%85%E5%B0%94",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/ed/Portrait-305701.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "304601",
@@ -4439,13 +4545,14 @@
         "skinNameEng": "Under a Different Sea"
       }
     ],
-    "defaultVariant": "304602",
+    "defaultVariant": "304601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%90%B5%E9%97%B9%E9%AC%BC",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a7/Portrait-304601.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "304401",
@@ -4480,13 +4587,14 @@
         "skinNameEng": "Outside the Church"
       }
     ],
-    "defaultVariant": "304402",
+    "defaultVariant": "304401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%AB%E6%A1%91%E5%A5%B3%E5%A3%AB",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7e/Portrait-304401.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "304201",
@@ -4521,13 +4629,14 @@
         "skinNameEng": "Space Traveler"
       }
     ],
-    "defaultVariant": "304202",
+    "defaultVariant": "304201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%88%B1%E5%AE%A0",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e5/Portrait-304201.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "303301",
@@ -4562,13 +4671,14 @@
         "skinNameEng": "Saturday Special"
       }
     ],
-    "defaultVariant": "303302",
+    "defaultVariant": "303301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/TTT",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/46/Portrait-303301.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "303101",
@@ -4603,13 +4713,14 @@
         "skinNameEng": "A Dream in Stained Glass"
       }
     ],
-    "defaultVariant": "303102",
+    "defaultVariant": "303101",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%93%85%E7%8E%BB%E7%92%83",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3e/Portrait-303101.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "302801",
@@ -4650,13 +4761,14 @@
         "skinNameEng": "The Fruit of Wisdom"
       }
     ],
-    "defaultVariant": "302802",
+    "defaultVariant": "302801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/APPLe",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/44/Portrait-302801.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "302601",
@@ -4691,13 +4803,14 @@
         "skinNameEng": "Silver Schirm"
       }
     ],
-    "defaultVariant": "302602",
+    "defaultVariant": "302601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A2%E6%96%97%E7%AF%B7",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/34/Portrait-302601.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "301801",
@@ -4732,13 +4845,14 @@
         "skinNameEng": "See You at the Workers' Club"
       }
     ],
-    "defaultVariant": "301802",
+    "defaultVariant": "301801",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E9%9B%BE%E8%A1%8C%E8%80%85",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7c/Portrait-301801.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "301501",
@@ -4773,13 +4887,14 @@
         "skinNameEng": "The Wolf's Leap"
       }
     ],
-    "defaultVariant": "301502",
+    "defaultVariant": "301501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8B%BC%E7%BE%A4",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/1d/Portrait-301501.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "301401",
@@ -4814,13 +4929,14 @@
         "skinNameEng": "Service Fit for Royalty"
       }
     ],
-    "defaultVariant": "301402",
+    "defaultVariant": "301401",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8A%AD%E5%A6%AE%E8%8A%AD%E5%A6%AE",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/11/Portrait-301401.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "301301",
@@ -4855,13 +4971,14 @@
         "skinNameEng": "A Day in the Mountain"
       }
     ],
-    "defaultVariant": "301302",
+    "defaultVariant": "301301",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%86%AC",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/b/bb/Portrait-301301.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "300601",
@@ -4902,13 +5019,14 @@
         "skinNameEng": "Weekend Excursion"
       }
     ],
-    "defaultVariant": "300602",
+    "defaultVariant": "300601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%8F%E6%98%A5%E9%9B%80%E5%84%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8f/Portrait-300601.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "300501",
@@ -4943,13 +5061,14 @@
         "skinNameEng": "\"Bottom's Dream\""
       }
     ],
-    "defaultVariant": "300502",
+    "defaultVariant": "300501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%B0%BC%E5%85%8B%C2%B7%E6%B3%A2%E9%A1%BF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/3a/Portrait-300501.webp"
     },
     "stage": "live",
-    "rarity": 4
+    "rarity": 4,
+    "isReleased": true
   },
   {
     "id": "309601",
@@ -4978,13 +5097,14 @@
         "skinNameEng": "Idol Fascinations"
       }
     ],
-    "defaultVariant": "309602",
+    "defaultVariant": "309601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%85%88%E9%A9%B1%E8%80%85",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/28/Portrait-309601.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "305501",
@@ -5013,13 +5133,14 @@
         "skinNameEng": "Eek, Eek!"
       }
     ],
-    "defaultVariant": "305502",
+    "defaultVariant": "305501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%96%AF%E6%99%AE%E7%89%B9%E5%B0%BC%E5%85%8B",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/3/39/Portrait-305501.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "305401",
@@ -5048,7 +5169,8 @@
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/8e/Portrait-305401.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "305001",
@@ -5077,13 +5199,14 @@
         "skinNameEng": "Elegant Dance Steps"
       }
     ],
-    "defaultVariant": "305002",
+    "defaultVariant": "305001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%93%92%E5%93%92%E8%BE%BE%E5%88%A9",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/aa/Portrait-305001.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "304501",
@@ -5118,7 +5241,8 @@
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/a/a8/Portrait-304501.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "304001",
@@ -5147,13 +5271,14 @@
         "skinNameEng": "The Pawn's Promotional Waltz"
       }
     ],
-    "defaultVariant": "304002",
+    "defaultVariant": "304001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E4%B8%BD%E8%8E%8E%26%E8%B7%AF%E6%98%93%E6%96%AF",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/8/82/Portrait-304001.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "303601",
@@ -5182,13 +5307,14 @@
         "skinNameEng": "Race to the Finish Line"
       }
     ],
-    "defaultVariant": "303602",
+    "defaultVariant": "303601",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%A6%E7%BF%B0%C2%B7%E6%8F%90%E6%89%98",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/0/06/Portrait-303601.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "303501",
@@ -5217,13 +5343,14 @@
         "skinNameEng": "The Adventure on The Mountains"
       }
     ],
-    "defaultVariant": "303502",
+    "defaultVariant": "303501",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%8E%89%E6%8B%89%E5%A6%AE",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/2/28/Portrait-303501.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "303401",
@@ -5252,7 +5379,8 @@
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/4/41/Portrait-303401.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "303001",
@@ -5281,13 +5409,14 @@
         "skinNameEng": "Antinomies"
       }
     ],
-    "defaultVariant": "303002",
+    "defaultVariant": "303001",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%8B%89%E6%8B%89%E6%B3%89",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/7/7d/Portrait-303001.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "301201",
@@ -5316,13 +5445,14 @@
         "skinNameEng": "The Shadow Play Master"
       }
     ],
-    "defaultVariant": "301202",
+    "defaultVariant": "301201",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BC%84%E8%87%A3",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/6/68/Portrait-301201.webp"
     },
     "stage": "live",
-    "rarity": 3
+    "rarity": 3,
+    "isReleased": true
   },
   {
     "id": "305901",
@@ -5351,7 +5481,8 @@
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/e/e2/Portrait-305901.webp"
     },
     "stage": "live",
-    "rarity": 2
+    "rarity": 2,
+    "isReleased": true
   },
   {
     "id": "302701",
@@ -5380,12 +5511,13 @@
         "skinNameEng": "Lifeline of the Battlefield"
       }
     ],
-    "defaultVariant": "302702",
+    "defaultVariant": "302701",
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E6%97%A0%E7%BA%BF%E7%94%B5%E5%B0%8F%E5%A7%90",
       "imageUrl": "https://huiji-public.huijistatic.com/res1999/uploads/1/19/Portrait-302701.webp"
     },
     "stage": "live",
-    "rarity": 2
+    "rarity": 2,
+    "isReleased": true
   }
 ]
