@@ -36,6 +36,7 @@ export interface PersistedBoxState {
   characters?: Record<string, CharacterState>;
   displayLang?: unknown;
   activeVariant?: unknown;
+  userId?: unknown;
 }
 
 const LANG_CODES: LangCode[] = [
@@ -68,6 +69,10 @@ function normalizePortray(value: unknown): PortrayLevel {
   return Math.min(5, Math.max(0, value)) as PortrayLevel;
 }
 
+function normalizeUserId(value: unknown): string {
+  return typeof value === "string" ? value.trim().slice(0, 100) : "";
+}
+
 function normalizeActiveVariant(value: unknown): Record<string, string> {
   if (!isRecord(value)) return {};
   const result: Record<string, string> = {};
@@ -96,6 +101,7 @@ export function migratePersistedState(raw: unknown): PersistedBoxState {
     characters,
     displayLang: normalizeDisplayLang(data.displayLang),
     activeVariant: normalizeActiveVariant(data.activeVariant),
+    userId: normalizeUserId(data.userId),
   };
 }
 
@@ -206,6 +212,7 @@ export const useBoxStore = create<BoxStore>()(
           activeVariant: version && version >= 5
             ? migrated.activeVariant
             : {},
+          userId: migrated.userId ?? "",
         };
       },
       storage: createJSONStorage(() => ({

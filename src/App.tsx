@@ -11,7 +11,6 @@ import { characters } from "./data/characters";
 import { getUiText } from "./i18n/ui";
 import { useBoxStore } from "./store/boxStore";
 import type { LangCode } from "./store/boxStore";
-import { exportJpeg } from "./utils/export-image";
 import { getAllNames } from "./utils/i18n";
 import "./styles/character-card.css";
 import "./styles/app-header.css";
@@ -44,14 +43,15 @@ export default function App() {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [exportStatus, setExportStatus] = useState<ExportStatus>("idle");
   const [exportProgress, setExportProgress] = useState<{ loaded: number; total: number } | null>(null);
-  const exportErrorTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [exportSnapshot, setExportSnapshot] = useState<{
     states: typeof states;
     lang: typeof displayLang;
     activeVariant: typeof activeVariant;
     userId: string;
   } | null>(null);
-  const exportLayerRef = useRef<HTMLDivElement>(null);
+  const isExportingRef = useRef(false);
+  const exportLayerElRef = useRef<HTMLElement | null>(null);
+  const exportAttemptRef = useRef(0);
   const t = getUiText(displayLang);
 
   // 初始化 activeVariant：hydrate 後補上漏掉的 defaultVariant
@@ -72,7 +72,6 @@ export default function App() {
           "ja": "ja-JP", "ko": "ko-KR",
         };
         const autoLang = langMap[locale] ?? langMap[locale.split("-")[0]] ?? "en-US";
-        store.displayLang = autoLang;
         useBoxStore.setState({ displayLang: autoLang });
       }
 
@@ -96,13 +95,6 @@ export default function App() {
     document.title = `${t.appTitle} — Reverse: 1999`;
   }, [t.appTitle]);
 
-  // 卸載時清理匯出錯誤 timer
-  useEffect(() => {
-    return () => {
-      if (exportErrorTimerRef.current) clearTimeout(exportErrorTimerRef.current);
-    };
-  }, []);
-
   const visibleCharacters = useMemo(() => {
     const query = search.trim().toLowerCase();
     return characters.filter((c) => {
@@ -125,12 +117,10 @@ export default function App() {
     });
   }, [states, filterMode, search, rarityFilter]);
 
-  const handleExport = async () => {
-    if (exportStatus === "exporting" || !exportLayerRef.current) return;
-    if (exportErrorTimerRef.current) {
-      clearTimeout(exportErrorTimerRef.current);
-      exportErrorTimerRef.current = null;
-    }
+  const handleExport = () => {
+    if (isExportingRef.current) return;
+    isExportingRef.current = true;
+    exportAttemptRef.current += 1;
     setExportSnapshot({
       states: { ...states },
       lang: displayLang,
@@ -139,27 +129,85 @@ export default function App() {
     });
     setExportStatus("exporting");
     setExportProgress(null);
-    try {
+  };
+
+  // 匯出 lifecycle：mount ExportCanvas → 等 render → 截圖 → unmount
+  useEffect(() => {
+    if (!exportSnapshot) return;
+
+    let cancelled = false;
+    const attemptId = exportAttemptRef.current;
+    let errorTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const cleanup = () => {
+      cancelled = true;
+      isExportingRef.current = false;
+      if (errorTimer) clearTimeout(errorTimer);
+    };
+
+    const run = async () => {
       await new Promise<void>((resolve) => {
         requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
       });
-      await exportJpeg(exportLayerRef.current, (p) => {
-        setExportProgress(p);
-      });
-      setExportStatus("idle");
-      setExportSnapshot(null);
-      setExportProgress(null);
-    } catch (err) {
-      console.error("匯出失敗:", err);
-      setExportStatus("error");
-      setExportSnapshot(null);
-      setExportProgress(null);
-      if (exportErrorTimerRef.current) clearTimeout(exportErrorTimerRef.current);
-      exportErrorTimerRef.current = setTimeout(() => {
+      if (cancelled) return;
+
+      let exportJpeg: typeof import("./utils/export-image").exportJpeg;
+      try {
+        const mod = await import("./utils/export-image");
+        exportJpeg = mod.exportJpeg;
+      } catch {
+        if (!cancelled) {
+          setExportStatus("error");
+          isExportingRef.current = false;
+          errorTimer = setTimeout(() => {
+            if (exportAttemptRef.current !== attemptId) return;
+            setExportStatus("idle");
+            setExportSnapshot(null);
+            setExportProgress(null);
+          }, 3000);
+        }
+        return;
+      }
+      if (cancelled) return;
+
+      const el = exportLayerElRef.current;
+      if (!el) {
+        isExportingRef.current = false;
+        setExportSnapshot(null);
         setExportStatus("idle");
-      }, 3000);
-    }
-  };
+        setExportProgress(null);
+        return;
+      }
+
+      try {
+        await exportJpeg(el, (p) => {
+          if (!cancelled) setExportProgress(p);
+        });
+        if (!cancelled) {
+          setExportStatus("idle");
+          setExportSnapshot(null);
+          setExportProgress(null);
+          isExportingRef.current = false;
+        }
+      } catch (err) {
+        console.error("匯出失敗:", err);
+        if (!cancelled) {
+          setExportStatus("error");
+          isExportingRef.current = false;
+          errorTimer = setTimeout(() => {
+            if (exportAttemptRef.current !== attemptId) return;
+            setExportStatus("idle");
+            setExportSnapshot(null);
+            setExportProgress(null);
+          }, 3000);
+        }
+      }
+    };
+
+    void run();
+
+    return cleanup;
+  }, [exportSnapshot]);
 
   const handleSkinSelect = (charId: string, variantId: string) => {
     setActiveVariant(charId, variantId);
@@ -242,16 +290,22 @@ export default function App() {
         onCancel={() => setShowResetConfirm(false)}
       />
 
-      {/* 離屏匯出層 */}
-      <div className="export-layer" ref={exportLayerRef} aria-hidden="true">
-        <ExportCanvas
-          characters={characters}
-          states={exportSnapshot?.states ?? states}
-          activeVariant={exportSnapshot?.activeVariant ?? activeVariant}
-          lang={exportSnapshot?.lang ?? displayLang}
-          userId={exportSnapshot?.userId ?? userId}
-        />
-      </div>
+      {/* 離屏匯出層（僅在匯出時 mount） */}
+      {exportSnapshot && (
+        <div
+          className="export-layer"
+          ref={(el) => { exportLayerElRef.current = el; }}
+          aria-hidden="true"
+        >
+          <ExportCanvas
+            characters={characters}
+            states={exportSnapshot.states}
+            activeVariant={exportSnapshot.activeVariant}
+            lang={exportSnapshot.lang}
+            userId={exportSnapshot.userId}
+          />
+        </div>
+      )}
     </main>
   );
 }
