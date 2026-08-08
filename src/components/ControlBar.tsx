@@ -10,9 +10,11 @@ interface ControlBarProps {
   lang: LangCode;
   exportStatus: "idle" | "exporting" | "error";
   exportProgress: { loaded: number; total: number } | null;
+  userId: string;
   onSearchChange: (text: string) => void;
   onFilterChange: (mode: FilterMode) => void;
   onRarityFilterChange: (rarities: number[]) => void;
+  onUserIdChange: (id: string) => void;
   onExport: () => void;
 }
 
@@ -23,9 +25,11 @@ export function ControlBar({
   lang,
   exportStatus,
   exportProgress,
+  userId,
   onSearchChange,
   onFilterChange,
   onRarityFilterChange,
+  onUserIdChange,
   onExport,
 }: ControlBarProps) {
   const t = getUiText(lang);
@@ -48,6 +52,16 @@ export function ControlBar({
           aria-label={t.searchLabel}
         />
       </div>
+
+      <input
+        type="text"
+        className="search-field"
+        value={userId}
+        onChange={(event) => onUserIdChange(event.target.value)}
+        placeholder={t.userIdPlaceholder}
+        maxLength={20}
+        style={{ maxWidth: 160 }}
+      />
 
       <div className="segmented-control" role="group" aria-label={t.filterLabel}>
         {filters.map(({ mode, label, icon: Icon }) => (

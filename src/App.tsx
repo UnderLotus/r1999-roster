@@ -29,10 +29,12 @@ export default function App() {
   const filterMode = useBoxStore((s) => s.filterMode);
   const search = useBoxStore((s) => s.search);
   const rarityFilter = useBoxStore((s) => s.rarityFilter);
+  const userId = useBoxStore((s) => s.userId);
   const displayLang = useBoxStore((s) => s.displayLang);
   const setFilterMode = useBoxStore((s) => s.setFilterMode);
   const setSearch = useBoxStore((s) => s.setSearch);
   const setRarityFilter = useBoxStore((s) => s.setRarityFilter);
+  const setUserId = useBoxStore((s) => s.setUserId);
   const setDisplayLang = useBoxStore((s) => s.setDisplayLang);
   const setActiveVariant = useBoxStore((s) => s.setActiveVariant);
   const activateCharacter = useBoxStore((s) => s.activateCharacter);
@@ -47,6 +49,7 @@ export default function App() {
     states: typeof states;
     lang: typeof displayLang;
     activeVariant: typeof activeVariant;
+    userId: string;
   } | null>(null);
   const exportLayerRef = useRef<HTMLDivElement>(null);
   const t = getUiText(displayLang);
@@ -132,6 +135,7 @@ export default function App() {
       states: { ...states },
       lang: displayLang,
       activeVariant: { ...activeVariant },
+      userId,
     });
     setExportStatus("exporting");
     setExportProgress(null);
@@ -200,6 +204,8 @@ export default function App() {
         onSearchChange={setSearch}
         onFilterChange={setFilterMode}
         onRarityFilterChange={setRarityFilter}
+        userId={userId}
+        onUserIdChange={setUserId}
         onExport={handleExport}
         exportStatus={exportStatus}
         exportProgress={exportProgress}
@@ -243,6 +249,7 @@ export default function App() {
           states={exportSnapshot?.states ?? states}
           activeVariant={exportSnapshot?.activeVariant ?? activeVariant}
           lang={exportSnapshot?.lang ?? displayLang}
+          userId={exportSnapshot?.userId ?? userId}
         />
       </div>
     </main>

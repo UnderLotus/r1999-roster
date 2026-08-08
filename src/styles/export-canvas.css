@@ -18,6 +18,20 @@
   font-family: var(--font-ui);
 }
 
+/* ---------- 使用者 ID ---------- */
+
+.export-canvas__user-id {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #62584c;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-primary);
+}
+
 /* ---------- 頂部標題（雜誌式排版） ---------- */
 
 .export-canvas__header {
@@ -61,7 +75,7 @@
   white-space: nowrap;
 }
 
-/* ---------- 角色 Grid（動態欄數：≤50 名 5 欄、>50 名 10 欄） ---------- */
+/* ---------- 角色 Grid（動態欄數：≤30 名 5 欄、31～60 名 10 欄、61+ 名 15 欄） ---------- */
 
 .export-grid {
   display: grid;

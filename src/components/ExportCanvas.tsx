@@ -10,6 +10,7 @@ interface ExportCanvasProps {
   states: Record<string, CharacterState>;
   activeVariant: Record<string, string>;
   lang: LangCode;
+  userId: string;
 }
 
 /** 離屏匯出層 */
@@ -18,17 +19,23 @@ export function ExportCanvas({
   states,
   activeVariant,
   lang,
+  userId,
 }: ExportCanvasProps) {
   const t = getUiText(lang);
   const owned = characters.filter((c) => states[c.id]?.owned);
   const fullPortray = owned.filter(
     (c) => states[c.id]?.portray === 5
   ).length;
-  const columns = owned.length > 50 ? 10 : Math.min(owned.length, 5) || 1;
+  const columns = owned.length > 60 ? 15 : owned.length > 30 ? 10 : Math.min(owned.length, 5) || 1;
   const gridWidth = columns * 114 + (columns - 1) * 10;
 
   return (
     <div className="export-canvas" style={{ width: gridWidth + 100 }}>
+      {userId && (
+        <div className="export-canvas__user-id">
+          {userId.length > 20 ? userId.slice(0, 20) + "..." : userId}
+        </div>
+      )}
       <div className="export-canvas__header">
         <div>
           <span className="export-canvas__eyebrow">{t.eyebrow}</span>
