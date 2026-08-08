@@ -168,6 +168,7 @@ export const useBoxStore = create<BoxStore>()(
         });
       },
 
+      // 只重置角色資料；保留 userId、過濾、語系等使用者偏好
       resetAll: () => {
         set({ characters: {}, activeVariant: {} });
       },

@@ -26,7 +26,7 @@ export function ExportCanvas({
   const fullPortray = owned.filter(
     (c) => states[c.id]?.portray === 5
   ).length;
-  const columns = owned.length > 30 ? 10 : Math.min(owned.length, 5) || 1;
+  const columns = owned.length > 60 ? 15 : owned.length > 30 ? 10 : Math.min(owned.length, 5) || 1;
   const gridWidth = columns * 114 + (columns - 1) * 10;
 
   return (
