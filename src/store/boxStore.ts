@@ -13,6 +13,7 @@ export interface BoxStore {
   filterMode: FilterMode;
   search: string;
   rarityFilter: number[];
+  userId: string;
   displayLang: LangCode;
 
   activateCharacter: (id: string) => void;
@@ -22,6 +23,7 @@ export interface BoxStore {
   setFilterMode: (mode: FilterMode) => void;
   setSearch: (text: string) => void;
   setRarityFilter: (rarities: number[]) => void;
+  setUserId: (id: string) => void;
   setDisplayLang: (lang: LangCode) => void;
   setActiveVariant: (id: string, variantId: string) => void;
 }
@@ -117,6 +119,7 @@ export const useBoxStore = create<BoxStore>()(
       filterMode: "all",
       search: "",
       rarityFilter: [],
+      userId: "",
       displayLang: "en-US",
 
       activateCharacter: (id) => {
@@ -172,6 +175,7 @@ export const useBoxStore = create<BoxStore>()(
       setFilterMode: (mode) => set({ filterMode: mode }),
       setSearch: (text) => set({ search: text }),
       setRarityFilter: (rarities) => set({ rarityFilter: rarities }),
+      setUserId: (id) => set({ userId: id }),
       setDisplayLang: (lang) => set({ displayLang: lang }),
       setActiveVariant: (id, variantId) =>
         set((state) => ({
@@ -185,6 +189,7 @@ export const useBoxStore = create<BoxStore>()(
         characters: state.characters,
         displayLang: state.displayLang,
         activeVariant: state.activeVariant,
+        userId: state.userId,
       }),
       migrate: (persisted, version) => {
         const migrated = migratePersistedState(persisted);
