@@ -1,5 +1,6 @@
 import type { Character, CharacterState } from "../types/character";
-import type { LangCode } from "../store/boxStore";
+import type { LangCode, SkinMode } from "../store/boxStore";
+import { resolveModeVariant } from "../utils/skins";
 import { CharacterCard } from "./CharacterCard";
 import { EmptyState } from "./EmptyState";
 
@@ -11,6 +12,7 @@ interface CharacterGridProps {
   states: Record<string, CharacterState>;
   lang: LangCode;
   activeVariant: Record<string, string>;
+  skinMode: SkinMode;
   showFutureSight: boolean;
 
   onActivate: (id: string) => void;
@@ -23,6 +25,7 @@ export function CharacterGrid({
   states,
   lang,
   activeVariant,
+  skinMode,
   showFutureSight,
   onActivate,
   onDecrease,
@@ -41,7 +44,8 @@ export function CharacterGrid({
           state={states[character.id] ?? EMPTY_STATE}
           lang={lang}
           activeVariant={
-            activeVariant[character.id] ?? character.defaultVariant
+            activeVariant[character.id] ??
+            resolveModeVariant(character, skinMode)
           }
           onActivate={onActivate}
           onDecrease={onDecrease}

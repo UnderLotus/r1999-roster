@@ -1,9 +1,10 @@
 import type { Character, CharacterState } from "../types/character";
-import type { LangCode } from "../store/boxStore";
+import type { LangCode, SkinMode } from "../store/boxStore";
 import { USER_ID_MAX } from "../store/boxStore";
 import { getDisplayName } from "../utils/i18n";
 import { getUiText } from "../i18n/ui";
 import { prefixedAvatarPath } from "../utils/assets";
+import { resolveModeVariant } from "../utils/skins";
 import { PortrayBadge } from "./PortrayBadge";
 
 interface ExportCanvasProps {
@@ -11,6 +12,7 @@ interface ExportCanvasProps {
   characters: Character[];
   states: Record<string, CharacterState>;
   activeVariant: Record<string, string>;
+  skinMode: SkinMode;
   lang: LangCode;
   userId: string;
 }
@@ -20,6 +22,7 @@ export function ExportCanvas({
   characters,
   states,
   activeVariant,
+  skinMode,
   lang,
   userId,
 }: ExportCanvasProps) {
@@ -69,7 +72,8 @@ export function ExportCanvas({
         ) : (
           owned.map((character) => {
             const variantId =
-              activeVariant[character.id] ?? character.defaultVariant;
+              activeVariant[character.id] ??
+              resolveModeVariant(character, skinMode);
             const src = prefixedAvatarPath(variantId);
 
             return (

@@ -311,6 +311,7 @@ export default function App() {
         states={states}
         lang={displayLang}
         activeVariant={activeVariant}
+        skinMode={defaultSkinMode}
         showFutureSight={showFutureSight}
         onActivate={activateCharacter}
         onDecrease={decreasePortray}
@@ -362,6 +363,7 @@ export default function App() {
             characters={exportSnapshot.characters}
             states={exportSnapshot.states}
             activeVariant={exportSnapshot.activeVariant}
+            skinMode={defaultSkinMode}
             lang={exportSnapshot.lang}
             userId={exportSnapshot.userId}
           />
