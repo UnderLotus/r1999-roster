@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Eye, EyeOff, RotateCcw } from "lucide-react";
+import { Github, Eye, EyeOff, RotateCcw } from "lucide-react";
 
 import { AppHeader } from "./components/AppHeader";
 import { CharacterGrid } from "./components/CharacterGrid";
@@ -320,12 +320,19 @@ export default function App() {
 
       <footer className="page-footer">
         <a
+          className="repo-banner"
           href={REPO_URL}
           target="_blank"
           rel="noopener noreferrer"
-          title="GitHub"
+          title="GitHub Repository"
         >
-          {REPO_URL}
+          <Github size={22} strokeWidth={1.5} aria-hidden="true" />
+          <span className="repo-banner__text">
+            <span className="repo-banner__name">r1999-roster</span>
+            <span className="repo-banner__url">
+              {REPO_URL.replace("https://", "")}
+            </span>
+          </span>
         </a>
       </footer>
 

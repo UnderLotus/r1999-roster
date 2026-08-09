@@ -31,27 +31,73 @@
   z-index: 1;
 }
 
-/* ---------- 頁尾：儲存庫連結（統一紙本印刷風） ---------- */
+/* ---------- 頁尾：儲存庫連結 banner（約 8:3，紙本印刷風） ---------- */
 
 .page-footer {
-  padding: 14px 18px 16px;
+  padding: 18px 18px 22px;
 
   border-top: 1px solid var(--border-light);
 
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
-.page-footer a {
-  color: var(--ink-muted);
+.repo-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+
+  width: 360px;
+  max-width: 100%;
+  aspect-ratio: 5 / 1;
+
+  padding: 0 20px;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-card);
+  background: var(--surface-muted);
+  box-shadow: var(--shadow-card);
+
+  color: var(--ink-primary);
   text-decoration: none;
-  transition: color var(--transition-fast);
+
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
-.page-footer a:hover {
+.repo-banner:hover {
+  border-color: var(--accent-gold);
   color: var(--accent-gold);
-  text-decoration: underline;
+  transform: translateY(-1px);
+}
+
+.repo-banner:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.repo-banner__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.repo-banner__name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+}
+
+.repo-banner__url {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.repo-banner:hover .repo-banner__url {
+  color: inherit;
 }
 
 /* 手機：縮小留白；防止 box-shadow 外溢造成橫向捲軸 */
@@ -59,6 +105,25 @@
   .box-page {
     width: calc(100% - 16px);
     margin-top: 8px;
+  }
+
+  .repo-banner {
+    width: 240px;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .repo-banner svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .repo-banner__name {
+    font-size: 13px;
+  }
+
+  .repo-banner__url {
+    font-size: 8.5px;
   }
 
   html,
