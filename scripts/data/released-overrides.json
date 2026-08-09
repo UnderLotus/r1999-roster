@@ -1,14 +1,47 @@
 [
   {
-    "nameEng": "Ramona",
-    "isReleased": true
+    "nameEng": "Cheng Heguang",
+    "isReleased": true,
+    "source": "manual"
   },
   {
-    "nameEng": "Cheng Heguang",
-    "isReleased": true
+    "nameEng": "Coppélia",
+    "isReleased": false,
+    "source": "auto"
+  },
+  {
+    "nameEng": "Cornerstone",
+    "isReleased": false,
+    "source": "auto"
+  },
+  {
+    "nameEng": "Everecho",
+    "isReleased": false,
+    "source": "auto"
   },
   {
     "nameEng": "Lady by the Lake",
-    "isReleased": false
+    "isReleased": false,
+    "source": "manual"
+  },
+  {
+    "nameEng": "Ms. Stranger",
+    "isReleased": false,
+    "source": "auto"
+  },
+  {
+    "nameEng": "Ramona",
+    "isReleased": true,
+    "source": "manual"
+  },
+  {
+    "nameEng": "Rhiannon",
+    "isReleased": false,
+    "source": "auto"
+  },
+  {
+    "nameEng": "Silverwing Eagle",
+    "isReleased": false,
+    "source": "auto"
   }
 ]

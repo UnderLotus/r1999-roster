@@ -44,7 +44,7 @@ function getDateString(): string {
   const d = new Date();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
-  return `${d.getFullYear()}${mm}${dd}`;
+  return `${d.getFullYear()}-${mm}-${dd}`;
 }
 
 /** 匯出 ExportCanvas 為 JPG 並下載 */
@@ -73,6 +73,7 @@ export async function exportJpeg(
 
 function dataURLtoBlob(dataUrl: string): Blob {
   const [header, data] = dataUrl.split(",");
+  if (!data) throw new Error("invalid data URL");
   const mime = header.match(/:(.*?);/)?.[1] ?? "image/jpeg";
   const bytes = atob(data);
   const buf = new Uint8Array(bytes.length);

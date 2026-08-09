@@ -28,7 +28,7 @@ npm run build     # 生產建置
 ```
 
 React + TypeScript + Vite + Zustand。資料同步腳本說明請見
-[docs/scripts.md](docs/scripts.md)。
+[docs/maintenance.md](docs/maintenance.md)。
 
 ---
 

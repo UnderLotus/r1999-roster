@@ -19,12 +19,13 @@ export interface BoxStore {
   rarityFilter: number[];
   userId: string;
   displayLang: LangCode;
+  /** 使用者是否手動選過語系（false = 首次造訪，可自動偵測瀏覽器語系） */
+  langChosen: boolean;
   showFutureSight: boolean;
   defaultSkinMode: SkinMode;
 
   activateCharacter: (id: string) => void;
   decreasePortray: (id: string) => void;
-  removeCharacter: (id: string) => void;
   resetAll: () => void;
   setFilterMode: (mode: FilterMode) => void;
   setSearch: (text: string) => void;
@@ -34,9 +35,19 @@ export interface BoxStore {
   setActiveVariant: (id: string, variantId: string) => void;
   setShowFutureSight: (v: boolean) => void;
   setSkinMode: (mode: SkinMode) => void;
+  /** 移除未實裝角色（未來視關閉時），同時清 characters/activeVariant/customVariants */
+  purgeUnreleased: (unreleasedIds: string[]) => void;
 }
 
 const emptyState: CharacterState = { owned: false, portray: 0 };
+
+/** 已知角色 id 集合（migrate 時過濾 stale 條目用） */
+const KNOWN_IDS = new Set(characters.map((c) => c.id));
+
+/** 每角色的合法 variantId 集合（migrate 校驗 activeVariant 用） */
+const VALID_VARIANTS = new Map(
+  characters.map((c) => [c.id, new Set(c.skins.map((s) => s.variantId))])
+);
 
 /* ---------- 持久化資料清理（localStorage 為不可信資料） ---------- */
 
@@ -46,6 +57,7 @@ export interface PersistedBoxState {
   activeVariant?: unknown;
   customVariants?: unknown;
   userId?: unknown;
+  langChosen?: unknown;
   showFutureSight?: unknown;
   defaultSkinMode?: unknown;
 }
@@ -80,8 +92,11 @@ function normalizePortray(value: unknown): PortrayLevel {
   return Math.min(5, Math.max(0, value)) as PortrayLevel;
 }
 
+/** User ID 長度上限（UI 輸入與 store 統一） */
+export const USER_ID_MAX = 20;
+
 function normalizeUserId(value: unknown): string {
-  return typeof value === "string" ? value.trim().slice(0, 100) : "";
+  return typeof value === "string" ? value.trim().slice(0, USER_ID_MAX) : "";
 }
 
 function normalizeBoolean(value: unknown): boolean {
@@ -92,7 +107,13 @@ function normalizeActiveVariant(value: unknown): Record<string, string> {
   if (!isRecord(value)) return {};
   const result: Record<string, string> = {};
   for (const [k, v] of Object.entries(value)) {
-    if (typeof v === "string" && v.length > 0) {
+    // 只保留已知角色且為合法 variant（避免 stale 條目與壞路徑）
+    if (
+      KNOWN_IDS.has(k) &&
+      typeof v === "string" &&
+      v.length > 0 &&
+      VALID_VARIANTS.get(k)?.has(v)
+    ) {
       result[k] = v;
     }
   }
@@ -103,7 +124,7 @@ function normalizeCustomVariants(value: unknown): Record<string, true> {
   if (!isRecord(value)) return {};
   const result: Record<string, true> = {};
   for (const [k, v] of Object.entries(value)) {
-    if (v === true) {
+    if (KNOWN_IDS.has(k) && v === true) {
       result[k] = true;
     }
   }
@@ -133,12 +154,54 @@ export function migratePersistedState(raw: unknown): PersistedBoxState {
     activeVariant: normalizeActiveVariant(data.activeVariant),
     customVariants: normalizeCustomVariants(data.customVariants),
     userId: normalizeUserId(data.userId),
+    langChosen: normalizeBoolean(data.langChosen),
     showFutureSight: normalizeBoolean(data.showFutureSight),
     defaultSkinMode: normalizeSkinMode(data.defaultSkinMode),
   };
 }
 
 /* ---------- store ---------- */
+
+/** 依持久化版本遷移狀態（測試可直接呼叫驗證 version 分支） */
+export function migratePersisted(
+  persisted: unknown,
+  version: number | undefined
+): PersistedBoxState {
+  const migrated = migratePersistedState(persisted);
+
+  // 語系：任何既有資料（version 0–6）一律視為已選擇語系，
+  // 避免舊使用者的 displayLang 被瀏覽器語系覆寫；
+  // 僅全新訪客（無 persisted → version undefined）自動偵測。
+  const langChosen = version == null ? false : version >= 7
+    ? migrated.langChosen ?? false
+    : true;
+
+  // v5 → v6: 預設立繪改為初始（01）。舊資料的 activeVariant
+  // 全是 02（舊預設），重設為 {} 讓 App.tsx 依 defaultSkinMode
+  // 重新填充為 01。
+  if (version && version >= 6) {
+    return {
+      characters: migrated.characters,
+      displayLang: migrated.displayLang,
+      activeVariant: migrated.activeVariant,
+      customVariants: migrated.customVariants,
+      userId: migrated.userId ?? "",
+      langChosen,
+      showFutureSight: migrated.showFutureSight ?? false,
+      defaultSkinMode: migrated.defaultSkinMode ?? "initial",
+    };
+  }
+  return {
+    characters: migrated.characters,
+    displayLang: migrated.displayLang,
+    activeVariant: {},
+    customVariants: {},
+    userId: migrated.userId ?? "",
+    langChosen,
+    showFutureSight: migrated.showFutureSight ?? false,
+    defaultSkinMode: "initial",
+  };
+}
 
 function setCharacter(
   set: (fn: (state: BoxStore) => Partial<BoxStore>) => void,
@@ -161,6 +224,7 @@ export const useBoxStore = create<BoxStore>()(
       rarityFilter: [],
       userId: "",
       displayLang: "en-US",
+      langChosen: false,
       showFutureSight: false,
       defaultSkinMode: "initial",
 
@@ -202,18 +266,6 @@ export const useBoxStore = create<BoxStore>()(
         }
       },
 
-      removeCharacter: (id) => {
-        set((state) => {
-          const next = { ...state.characters };
-          const nextVariant = { ...state.activeVariant };
-          const nextCustom = { ...state.customVariants };
-          delete next[id];
-          delete nextVariant[id];
-          delete nextCustom[id];
-          return { characters: next, activeVariant: nextVariant, customVariants: nextCustom };
-        });
-      },
-
       // 只重置角色資料；保留 userId、過濾、語系等使用者偏好
       resetAll: () => {
         set({ characters: {}, activeVariant: {}, customVariants: {} });
@@ -223,13 +275,33 @@ export const useBoxStore = create<BoxStore>()(
       setSearch: (text) => set({ search: text }),
       setRarityFilter: (rarities) => set({ rarityFilter: rarities }),
       setUserId: (id) => set({ userId: id }),
-      setDisplayLang: (lang) => set({ displayLang: lang }),
+      setDisplayLang: (lang) => set({ displayLang: lang, langChosen: true }),
       setActiveVariant: (id, variantId) =>
         set((state) => ({
           activeVariant: { ...state.activeVariant, [id]: variantId },
           customVariants: { ...state.customVariants, [id]: true },
         })),
       setShowFutureSight: (v) => set({ showFutureSight: v }),
+      purgeUnreleased: (unreleasedIds) =>
+        set((state) => {
+          const targets = new Set(unreleasedIds);
+          const next = { ...state.characters };
+          const nextVariant = { ...state.activeVariant };
+          const nextCustom = { ...state.customVariants };
+          let changed = false;
+          for (const id of targets) {
+            // 三張 map 任一存在即清理（activeVariant 可能含未持有角色）
+            if (id in next || id in nextVariant || id in nextCustom) {
+              delete next[id];
+              delete nextVariant[id];
+              delete nextCustom[id];
+              changed = true;
+            }
+          }
+          return changed
+            ? { characters: next, activeVariant: nextVariant, customVariants: nextCustom }
+            : {};
+        }),
       setSkinMode: (mode) =>
         set((state) => {
           const nextVariant = { ...state.activeVariant };
@@ -242,43 +314,18 @@ export const useBoxStore = create<BoxStore>()(
     }),
     {
       name: "reverse1999-box-state",
-      version: 6,
+      version: 7,
       partialize: (state) => ({
         characters: state.characters,
         displayLang: state.displayLang,
         activeVariant: state.activeVariant,
         customVariants: state.customVariants,
         userId: state.userId,
+        langChosen: state.langChosen,
         showFutureSight: state.showFutureSight,
         defaultSkinMode: state.defaultSkinMode,
       }),
-      migrate: (persisted, version) => {
-        const migrated = migratePersistedState(persisted);
-
-        // v5 → v6: 預設立繪改為初始（01）。舊資料的 activeVariant
-        // 全是 02（舊預設），重設為 {} 讓 App.tsx 依 defaultSkinMode
-        // 重新填充為 01。
-        if (version && version >= 6) {
-          return {
-            characters: migrated.characters,
-            displayLang: migrated.displayLang,
-            activeVariant: migrated.activeVariant,
-            customVariants: migrated.customVariants,
-            userId: migrated.userId ?? "",
-            showFutureSight: migrated.showFutureSight ?? false,
-            defaultSkinMode: migrated.defaultSkinMode ?? "initial",
-          };
-        }
-        return {
-          characters: migrated.characters,
-          displayLang: migrated.displayLang,
-          activeVariant: {},
-          customVariants: {},
-          userId: migrated.userId ?? "",
-          showFutureSight: migrated.showFutureSight ?? false,
-          defaultSkinMode: "initial",
-        };
-      },
+      migrate: (persisted, version) => migratePersisted(persisted, version),
       storage: createJSONStorage(() => ({
         getItem: (key) => loadJSON<string>(key),
         setItem: (key, value) => saveJSON(key, value),

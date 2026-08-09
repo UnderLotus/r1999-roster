@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { Character } from "../types/character";
 import type { LangCode } from "../store/boxStore";
 import { getUiText } from "../i18n/ui";
+import { getDisplayName } from "../utils/i18n";
 import { prefixedAvatarPath } from "../utils/assets";
 
 interface CharacterImageProps {
@@ -14,6 +15,7 @@ interface CharacterImageProps {
 export function CharacterImage({ character, lang, variantId }: CharacterImageProps) {
   const [hasError, setHasError] = useState(false);
   const t = getUiText(lang);
+  const displayName = getDisplayName(character, lang);
 
   const src = prefixedAvatarPath(variantId);
 
@@ -22,7 +24,7 @@ export function CharacterImage({ character, lang, variantId }: CharacterImagePro
       <div
         className="character-card__image character-card__image--error"
         role="img"
-        aria-label={t.imageErrorLabel(character.name)}
+        aria-label={t.imageErrorLabel(displayName)}
       >
         {t.imageError}
       </div>
@@ -33,7 +35,7 @@ export function CharacterImage({ character, lang, variantId }: CharacterImagePro
     <img
       className="character-card__image"
       src={src}
-      alt={character.name}
+      alt={displayName}
       loading="lazy"
       decoding="async"
       onError={() => setHasError(true)}

@@ -360,7 +360,8 @@
         "variantId": "313903",
         "type": "skin",
         "skinName": "致命银弦",
-        "skinNameEng": "Finale in Silver"
+        "skinNameEng": "Finale in Silver",
+        "isReleased": false
       }
     ],
     "defaultVariant": "313901",
@@ -551,7 +552,8 @@
         "variantId": "312803",
         "type": "skin",
         "skinName": "亡者的恩赐",
-        "skinNameEng": "Gift of the Dead"
+        "skinNameEng": "Gift of the Dead",
+        "isReleased": false
       }
     ],
     "defaultVariant": "312801",
@@ -836,7 +838,8 @@
         "variantId": "312003",
         "type": "skin",
         "skinName": "名以光辉",
-        "skinNameEng": "From Darkness, Light"
+        "skinNameEng": "From Darkness, Light",
+        "isReleased": false
       }
     ],
     "defaultVariant": "312001",
@@ -932,7 +935,8 @@
         "variantId": "311604",
         "type": "skin",
         "skinName": "巫阳抚彗歌",
-        "skinNameEng": "Verses to Heaven"
+        "skinNameEng": "Verses to Heaven",
+        "isReleased": false
       }
     ],
     "defaultVariant": "311601",
@@ -1154,7 +1158,8 @@
         "variantId": "310905",
         "type": "skin",
         "skinName": "故梦罅隙间",
-        "skinNameEng": "Fragments of An Old Dream"
+        "skinNameEng": "Fragments of An Old Dream",
+        "isReleased": false
       }
     ],
     "defaultVariant": "310901",
@@ -1639,7 +1644,8 @@
         "variantId": "309203",
         "type": "skin",
         "skinName": "幽冥无归",
-        "skinNameEng": "Returning Nevermore"
+        "skinNameEng": "Returning Nevermore",
+        "isReleased": false
       }
     ],
     "defaultVariant": "309201",
@@ -2155,7 +2161,8 @@
         "variantId": "307304",
         "type": "skin",
         "skinName": "火芙蕖",
-        "skinNameEng": "Fire Lotus"
+        "skinNameEng": "Fire Lotus",
+        "isReleased": false
       }
     ],
     "defaultVariant": "307301",
@@ -2299,7 +2306,8 @@
         "variantId": "306605",
         "type": "skin",
         "skinName": "完美的流体",
-        "skinNameEng": "A Gift of Nourishment"
+        "skinNameEng": "A Gift of Nourishment",
+        "isReleased": false
       }
     ],
     "defaultVariant": "306601",
@@ -3166,7 +3174,8 @@
         "variantId": "311803",
         "type": "skin",
         "skinName": "永恒的沉默",
-        "skinNameEng": "The Deathless Quiet"
+        "skinNameEng": "The Deathless Quiet",
+        "isReleased": false
       }
     ],
     "defaultVariant": "311801",
@@ -4018,7 +4027,8 @@
         "variantId": "302306",
         "type": "skin",
         "skinName": "诗的礼赞",
-        "skinNameEng": "In Praise of Poetry"
+        "skinNameEng": "In Praise of Poetry",
+        "isReleased": false
       }
     ],
     "defaultVariant": "302301",
@@ -5232,7 +5242,8 @@
         "variantId": "304504",
         "type": "skin",
         "skinName": "人生填色格",
-        "skinNameEng": "A Life in Frames"
+        "skinNameEng": "A Life in Frames",
+        "isReleased": false
       }
     ],
     "defaultVariant": "304501",

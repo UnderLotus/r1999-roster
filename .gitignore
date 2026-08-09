@@ -3,3 +3,6 @@ dist/
 .commandcode/
 .DS_Store
 *.tsbuildinfo
+.venv/
+.pi/
+.pi-subagents/

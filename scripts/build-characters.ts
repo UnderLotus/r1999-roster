@@ -64,6 +64,7 @@ function main(): void {
   let skinsTotal = 0;
 
   // 1. Update existing: always overwrite skins[] from ArcanistMap (authority)
+  //    but preserve sync:fandom 的 isReleased 標記（以 variantId 對回）
   for (const character of characters) {
     const entry = arcanistByBase.get(character.baseId);
     if (!entry) continue;
@@ -74,6 +75,14 @@ function main(): void {
     const oldPrint = skinFingerprint(character.skins);
     const newPrint = skinFingerprint(newSkins);
     if (oldPrint !== newPrint) {
+      // 保留舊 isReleased（variantId 對應）
+      const oldReleased = new Map<string, boolean>();
+      for (const s of character.skins) {
+        if (s.isReleased !== undefined) oldReleased.set(s.variantId, s.isReleased);
+      }
+      for (const s of newSkins) {
+        if (oldReleased.has(s.variantId)) s.isReleased = oldReleased.get(s.variantId);
+      }
       character.skins = newSkins;
       skinsUpdated++;
     }

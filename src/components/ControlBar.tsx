@@ -1,6 +1,7 @@
 import { ImageDown, Search, UserCheck, UserX, Users } from "lucide-react";
 
 import type { FilterMode, LangCode, SkinMode } from "../store/boxStore";
+import { USER_ID_MAX } from "../store/boxStore";
 import { getUiText } from "../i18n/ui";
 
 interface ControlBarProps {
@@ -63,7 +64,8 @@ export function ControlBar({
         value={userId}
         onChange={(event) => onUserIdChange(event.target.value)}
         placeholder={t.userIdPlaceholder}
-        maxLength={20}
+        aria-label={t.userIdPlaceholder}
+        maxLength={USER_ID_MAX}
         style={{ maxWidth: 160 }}
       />
 
@@ -137,6 +139,7 @@ export function ControlBar({
           className="button button--primary"
           onClick={onExport}
           disabled={exportStatus === "exporting"}
+          title={t.exportHint}
         >
           <ImageDown size={15} />
           {exportStatus === "exporting" && exportProgress

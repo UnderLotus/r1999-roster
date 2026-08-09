@@ -165,37 +165,48 @@
   }
 }
 
-/* ---------- 塑造標記（圖片區底部、名稱上方） ---------- */
+/* ---------- 塑造標記（圖片區底部、名稱上方；五段細長孔，底片齒孔風格，無外框） ---------- */
 
 .portray-badge {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: 6px;
   transform: translateX(-50%);
   z-index: 3;
 
-  min-width: 30px;
-  height: 20px;
-  padding: 0 6px;
-
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 2px;
+  gap: 5px;
 
-  background: rgba(42, 36, 31, 0.85);
-  border: 1px solid rgba(231, 215, 179, 0.7);
-
-  color: #f1e5ca;
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.04em;
+  padding: 0;
 }
 
-.portray-badge small {
-  font-size: 8px;
+.portray-badge__segment {
+  width: 12px;
+  height: 4px;
+
+  background: rgba(255, 245, 220, 0.45);
+  border-radius: 1px;
+}
+
+/* ---------- 塑造標記（圖片區底部、名稱上方；五段細長孔，底片齒孔風格，無外框） ---------- */
+
+/* 亮段光暈：匯出（export-canvas.css）以 --portray-glow: none 覆寫 */
+.portray-badge__segment[data-filled="true"] {
+  background: #f8b877;
+  box-shadow: var(--portray-glow, 0 0 6px 1px rgba(248, 184, 119, 0.85));
+}
+
+/* 手機：窄卡縮小孔與間距，避免溢壓鄰卡（只限網頁卡片，匯出不受影響） */
+@media (max-width: 640px) {
+  .character-card .portray-badge {
+    gap: 3px;
+  }
+
+  .character-card .portray-badge__segment {
+    width: 9px;
+    height: 3px;
+  }
 }
 
 /* ---------- 快速操作按鈕（− 左上、👕 右上） ---------- */
@@ -319,6 +330,20 @@
   }
 }
 
+/* localStorage 儲存失敗警告條 */
+.page-storage-warning {
+  margin: 0 14px 6px;
+  padding: 8px 12px;
+
+  background: rgba(158, 82, 40, 0.14);
+  border: 1px solid rgba(198, 112, 52, 0.5);
+  border-radius: var(--radius-control);
+
+  color: #d9a05b;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 /* 語系切換（左上角） */
 .lang-switcher {
   display: inline-flex;
@@ -402,13 +427,6 @@
   }
 }
 
-.page-topbar__stats {
-  font-family: var(--font-display);
-  font-size: 13px;
-  color: var(--ink-secondary);
-  letter-spacing: 0.03em;
-}
-
 .button-reset-all {
   width: 30px;
   height: 30px;
@@ -467,6 +485,14 @@
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-control);
   box-shadow: var(--shadow-page);
+}
+
+/* 第一列角色：改為向下開，避免超出視窗頂部 */
+.skin-picker--flip {
+  bottom: auto;
+  top: 100%;
+  margin-bottom: 0;
+  margin-top: 4px;
 }
 
 .skin-picker__grid {

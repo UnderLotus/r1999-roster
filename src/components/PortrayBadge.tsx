@@ -8,6 +8,9 @@ interface PortrayBadgeProps {
   position?: "default" | "bottom";
 }
 
+const SEGMENTS = 5;
+
+/** 塑造顯示：五段細長孔（底片齒孔風格），依 level 由左至右亮起 */
 export function PortrayBadge({ level, lang, position = "default" }: PortrayBadgeProps) {
   if (level <= 0) return null;
 
@@ -16,10 +19,16 @@ export function PortrayBadge({ level, lang, position = "default" }: PortrayBadge
   return (
     <span
       className={`portray-badge portray-badge--${position}`}
+      role="img"
       aria-label={t.portrayLabel(level)}
     >
-      {level}
-      <small>{t.portrayUnit}</small>
+      {Array.from({ length: SEGMENTS }, (_, i) => (
+        <span
+          key={i}
+          className="portray-badge__segment"
+          data-filled={i < level}
+        />
+      ))}
     </span>
   );
 }

@@ -7,7 +7,8 @@ interface ConfirmDialogProps {
   confirmLabel: string;
   cancelLabel: string;
   onConfirm: () => void;
-  onCancel: () => void;
+  /** 關閉 dialog（取消按鈕、backdrop、Escape、確認後皆會呼叫） */
+  onClose: () => void;
 }
 
 /** 原生 <dialog> 確認視窗（spec §23） */
@@ -18,7 +19,7 @@ export function ConfirmDialog({
   confirmLabel,
   cancelLabel,
   onConfirm,
-  onCancel,
+  onClose,
 }: ConfirmDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -39,12 +40,12 @@ export function ConfirmDialog({
       className="confirm-dialog"
       onCancel={(event) => {
         event.preventDefault();
-        onCancel();
+        onClose();
       }}
       onClick={(event) => {
         // 點擊 backdrop 關閉（dialog 內部點擊不會觸發）
         if (event.target === dialogRef.current) {
-          onCancel();
+          onClose();
         }
       }}
     >
@@ -54,7 +55,7 @@ export function ConfirmDialog({
         <button
           type="button"
           className="button button--quiet"
-          onClick={onCancel}
+          onClick={onClose}
         >
           {cancelLabel}
         </button>
@@ -63,7 +64,7 @@ export function ConfirmDialog({
           className="button button--primary"
           onClick={() => {
             onConfirm();
-            onCancel();
+            onClose();
           }}
         >
           {confirmLabel}

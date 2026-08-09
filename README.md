@@ -33,7 +33,7 @@ npm run build     # Production build
 ```
 
 React + TypeScript + Vite + Zustand. See
-[docs/scripts.md](docs/scripts.md) for data sync scripts.
+[docs/maintenance.md](docs/maintenance.md) for data sync scripts.
 
 ---
 

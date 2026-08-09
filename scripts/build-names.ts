@@ -49,6 +49,8 @@ interface KornblumeArcanist {
 interface ReleasedOverride {
   nameEng: string;
   isReleased: boolean;
+  /** 來源：manual = 手動修正；auto = build-names 自動標記的未實裝 */
+  source?: "manual" | "auto";
 }
 
 interface ArcanistMapEntry {
@@ -227,12 +229,18 @@ async function main(): Promise<void> {
   console.log(`  Fandom 補齊 ko-KR: +${fandomAdded} 名`);
 
   // 3.5. Load released-overrides for future sight
+  //    manual entries = 手動修正（優先）；auto entries = 上回自動標記，僅供回顧
   const releasedOverrides = new Map<string, boolean>();
+  const manualOverrides: ReleasedOverride[] = [];
   const releaseList = loadJSON<ReleasedOverride[]>(RELEASED_OVERRIDES_FILE);
   for (const o of releaseList) {
+    if (o.source === "auto") continue; // auto 條目不參與判定，只是上回紀錄
+    manualOverrides.push({ ...o, source: "manual" });
     releasedOverrides.set(o.nameEng, o.isReleased);
   }
-  console.log(`  released overrides: ${releaseList.length} 筆`);
+  console.log(
+    `  released overrides: ${releaseList.length} 筆（manual ${manualOverrides.length}）`
+  );
 
   // 4. Build Kornblume slug → arcanist lookup
   const kbBySlug = new Map<string, KornblumeArcanist>();
@@ -311,6 +319,42 @@ async function main(): Promise<void> {
     delete character._kbId;
   }
   writeFileSync(DATA_FILE, JSON.stringify(ordered, null, 2) + "\n", "utf-8");
+
+  // 8.5. 重建 released-overrides.json 為「未實裝全表」：
+  //     manual 修正一定保留；所有最終 isReleased=false 的角色補 auto 條目，
+  //     讓每次維護都一眼看到全部未實裝（而非只有手動修正）。
+  const autoEntries: ReleasedOverride[] = [];
+  for (const c of ordered) {
+    if (c.isReleased) continue;
+    const nameEng = c.names?.["en-US"] ?? c.name;
+    autoEntries.push({ nameEng, isReleased: false, source: "auto" });
+  }
+  const byName = new Map<string, ReleasedOverride>();
+  // manual 優先：auto 先放，manual 後蓋
+  for (const entry of [...autoEntries, ...manualOverrides]) {
+    byName.set(entry.nameEng, entry);
+  }
+  const merged = [...byName.values()].sort((a, b) =>
+    a.nameEng.localeCompare(b.nameEng)
+  );
+  writeFileSync(
+    RELEASED_OVERRIDES_FILE,
+    JSON.stringify(merged, null, 2) + "\n",
+    "utf-8"
+  );
+
+  // 印出未實裝全覽（含來源），方便比對誤判
+  const unreleased = ordered.filter((c) => !c.isReleased);
+  console.log(`\n=== 未實裝全覽（${unreleased.length}）===`);
+  for (const c of unreleased) {
+    const nameEn = c.names?.["en-US"] ?? c.name;
+    const from = manualOverrides.some((o) => o.nameEng === nameEn)
+      ? "manual"
+      : "auto";
+    console.log(`  [${from}] ${c.id} ${c.name} (${nameEn})`);
+  }
+  if (unreleased.length === 0) console.log("  （無）");
+
   console.log(`\n=== 摘要 ===`);
   console.log(`名稱: ${nameApplied}/${ordered.length}`);
   console.log(`星數: ${rarityApplied}/${ordered.length}`);

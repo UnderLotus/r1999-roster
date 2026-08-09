@@ -13,6 +13,7 @@ import { useBoxStore } from "./store/boxStore";
 import type { LangCode } from "./store/boxStore";
 import { getAllNames } from "./utils/i18n";
 import { resolveModeVariant } from "./utils/skins";
+import { STORAGE_ERROR_EVENT, consumeStorageError } from "./utils/storage";
 import "./styles/character-card.css";
 import "./styles/app-header.css";
 import "./styles/control-bar.css";
@@ -42,6 +43,7 @@ export default function App() {
   const resetAll = useBoxStore((s) => s.resetAll);
   const showFutureSight = useBoxStore((s) => s.showFutureSight);
   const setShowFutureSight = useBoxStore((s) => s.setShowFutureSight);
+  const purgeUnreleased = useBoxStore((s) => s.purgeUnreleased);
   const defaultSkinMode = useBoxStore((s) => s.defaultSkinMode);
   const setSkinMode = useBoxStore((s) => s.setSkinMode);
 
@@ -54,12 +56,21 @@ export default function App() {
     lang: typeof displayLang;
     activeVariant: typeof activeVariant;
     userId: string;
-    total: number;
+    characters: typeof visibleCharacters;
   } | null>(null);
   const isExportingRef = useRef(false);
-  const exportLayerElRef = useRef<HTMLElement | null>(null);
+  const exportLayerElRef = useRef<HTMLDivElement | null>(null);
   const exportAttemptRef = useRef(0);
+  const [storageError, setStorageError] = useState(false);
   const t = getUiText(displayLang);
+
+  // localStorage 寫入失敗警告（含 mount 前早期失敗的補救）
+  useEffect(() => {
+    if (consumeStorageError()) setStorageError(true);
+    const onStorageError = () => setStorageError(true);
+    window.addEventListener(STORAGE_ERROR_EVENT, onStorageError);
+    return () => window.removeEventListener(STORAGE_ERROR_EVENT, onStorageError);
+  }, []);
 
   // 初始化 activeVariant：hydrate 後依 defaultSkinMode 補上缺漏的角色
   const initDone = useRef(false);
@@ -70,8 +81,8 @@ export default function App() {
       const store = useBoxStore.getState();
 
       // Auto-detect language from browser locale on first-ever visit
-      // (only when displayLang is still the default — user hasn't manually chosen one)
-      if (store.displayLang === "en-US") {
+      // (only when the user hasn't manually chosen a language before)
+      if (!store.langChosen) {
         const locale = navigator.language;
         const langMap: Record<string, LangCode> = {
           "zh-CN": "zh-CN", "zh-SG": "zh-CN", "zh": "zh-CN",
@@ -79,7 +90,7 @@ export default function App() {
           "ja": "ja-JP", "ko": "ko-KR",
         };
         const autoLang = langMap[locale] ?? langMap[locale.split("-")[0]] ?? "en-US";
-        useBoxStore.setState({ displayLang: autoLang });
+        useBoxStore.setState({ displayLang: autoLang, langChosen: true });
       }
 
       let changed = false;
@@ -125,11 +136,6 @@ export default function App() {
     });
   }, [states, filterMode, search, rarityFilter, showFutureSight]);
 
-  const visibleTotal = useMemo(
-    () => characters.filter((c) => showFutureSight || c.isReleased).length,
-    [showFutureSight]
-  );
-
   const handleExport = () => {
     if (isExportingRef.current) return;
     isExportingRef.current = true;
@@ -139,7 +145,7 @@ export default function App() {
       lang: displayLang,
       activeVariant: { ...activeVariant },
       userId,
-      total: visibleTotal,
+      characters: visibleCharacters,
     });
     setExportStatus("exporting");
     setExportProgress(null);
@@ -239,18 +245,9 @@ export default function App() {
           onClick={() => {
             if (showFutureSight) {
               setShowFutureSight(false);
-              const snap = useBoxStore.getState().characters;
-              let changed = false;
-              const next = { ...snap };
-              const nextVariant = { ...useBoxStore.getState().activeVariant };
-              for (const c of characters) {
-                if (!c.isReleased && snap[c.id]?.owned) {
-                  delete next[c.id];
-                  delete nextVariant[c.id];
-                  changed = true;
-                }
-              }
-              if (changed) useBoxStore.setState({ characters: next, activeVariant: nextVariant });
+              purgeUnreleased(
+                characters.filter((c) => !c.isReleased).map((c) => c.id)
+              );
             } else {
               setShowFutureSightConfirm(true);
             }
@@ -284,7 +281,13 @@ export default function App() {
         </div>
       </div>
 
-      <AppHeader total={visibleTotal} states={states} lang={displayLang} />
+      {storageError && (
+        <div className="page-storage-warning" role="alert">
+          {t.storageError}
+        </div>
+      )}
+
+      <AppHeader characters={visibleCharacters} states={states} lang={displayLang} />
 
       <ControlBar
         search={search}
@@ -308,6 +311,7 @@ export default function App() {
         states={states}
         lang={displayLang}
         activeVariant={activeVariant}
+        showFutureSight={showFutureSight}
         onActivate={activateCharacter}
         onDecrease={decreasePortray}
         onSkinSelect={handleSkinSelect}
@@ -331,7 +335,7 @@ export default function App() {
         confirmLabel={t.resetConfirm}
         cancelLabel={t.resetCancel}
         onConfirm={() => resetAll()}
-        onCancel={() => setShowResetConfirm(false)}
+        onClose={() => setShowResetConfirm(false)}
       />
 
       <ConfirmDialog
@@ -344,23 +348,22 @@ export default function App() {
           setShowFutureSight(true);
           setShowFutureSightConfirm(false);
         }}
-        onCancel={() => setShowFutureSightConfirm(false)}
+        onClose={() => setShowFutureSightConfirm(false)}
       />
 
       {/* 離屏匯出層（僅在匯出時 mount） */}
       {exportSnapshot && (
         <div
           className="export-layer"
-          ref={(el) => { exportLayerElRef.current = el; }}
+          ref={exportLayerElRef}
           aria-hidden="true"
         >
           <ExportCanvas
-            characters={characters}
+            characters={exportSnapshot.characters}
             states={exportSnapshot.states}
             activeVariant={exportSnapshot.activeVariant}
             lang={exportSnapshot.lang}
             userId={exportSnapshot.userId}
-            total={exportSnapshot.total}
           />
         </div>
       )}

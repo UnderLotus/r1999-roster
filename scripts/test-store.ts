@@ -23,7 +23,7 @@ class MemoryStorage implements Storage {
 
 (globalThis as { localStorage?: Storage }).localStorage = new MemoryStorage();
 
-import { useBoxStore, migratePersistedState } from "../src/store/boxStore";
+import { useBoxStore, migratePersistedState, migratePersisted } from "../src/store/boxStore";
 import { characters as charactersData } from "../src/data/characters";
 import { resolveModeVariant } from "../src/utils/skins";
 
@@ -81,8 +81,8 @@ assert(s().characters["A"] === undefined, "0 塑再按 − 取消持有");
 s().decreasePortray("X");
 assert(s().characters["X"] === undefined, "未持有角色減塑無效");
 
-// 取消持有
-s().removeCharacter("A");
+// 取消持有（0 塑再按 −）
+s().decreasePortray("A");
 assert(s().characters["A"] === undefined, "取消持有後移除");
 
 // 重設
@@ -107,11 +107,7 @@ s().activateCharacter("A");
 s().setActiveVariant("A", "100001");
 assert(s().customVariants["A"] === true, "setActiveVariant 標記 custom");
 
-// removeCharacter 清除 custom
-s().removeCharacter("A");
-assert(s().customVariants["A"] === undefined, "removeCharacter 清除 custom");
-
-// decreasePortray 歸零後取消持有也清除 custom
+// decreasePortray 歸零後取消持有也清除 custom（取代已移除的 removeCharacter）
 s().activateCharacter("B");
 s().setActiveVariant("B", "100002");
 s().decreasePortray("B");
@@ -233,5 +229,72 @@ assert(
   ).length === 0,
   "migrate 角色狀態非物件 → 跳過"
 );
+
+/* ---------- purgeUnreleased ---------- */
+
+// 未持有但有 activeVariant / customVariants 的角色也應被清乾淨
+const first = charactersData[0];
+s().setActiveVariant(first.id, first.skins[0].variantId); // 未持有也會寫 activeVariant + custom
+s().purgeUnreleased([first.id]);
+assert(s().characters[first.id] === undefined, "purgeUnreleased 清除未持有角色 characters");
+assert(s().activeVariant[first.id] === undefined, "purgeUnreleased 清除 activeVariant（未持有也有）");
+assert(s().customVariants[first.id] === undefined, "purgeUnreleased 清除 customVariants（未持有也有）");
+
+// 已持有角色也清
+s().activateCharacter(first.id);
+s().purgeUnreleased([first.id]);
+assert(s().characters[first.id] === undefined, "purgeUnreleased 清除已持有角色");
+
+// 無關角色不受影響
+s().activateCharacter("B");
+s().purgeUnreleased([first.id]);
+assert(s().characters["B"]?.owned === true, "purgeUnreleased 不影響其他角色");
+
+/* ---------- migrate：variant 校驗 ---------- */
+
+const realId = charactersData[0].id;
+const realVariant = charactersData[0].skins[0].variantId;
+const okVariant = migratePersistedState({
+  activeVariant: { [realId]: realVariant, X: "12345", [realId + "bad"]: "99999" },
+}) as { activeVariant?: Record<string, string> };
+assert(
+  okVariant.activeVariant?.[realId] === realVariant,
+  "migrate 保留合法 variant"
+);
+assert(
+  okVariant.activeVariant?.["X"] === undefined,
+  "migrate 過濾未知角色 activeVariant"
+);
+
+/* ---------- migrate：langChosen ---------- */
+
+// 舊資料（無 langChosen 欄位）→ 視為已選擇（true）
+const oldMigrated = migratePersistedState({ displayLang: "en-US" });
+assert(oldMigrated.langChosen === false, "migratePersistedState 無 langChosen → false（新訪客）");
+// 注意：migrate 函數本身（version <7）才會把舊資料視為 true，這裡測 normalize 的原始行為
+
+/* ---------- migratePersisted：version 分支 ---------- */
+
+// version 0–6（有 persisted 舊資料）→ langChosen 一律 true
+for (const v of [0, 5, 6]) {
+  const m = migratePersisted({ displayLang: "zh-TW" }, v);
+  assert(m.langChosen === true, `migratePersisted version ${v} → langChosen true（舊資料視為已選擇）`);
+}
+// version 7+ → 尊重已存的 langChosen
+const m7 = migratePersisted({ displayLang: "zh-TW", langChosen: false }, 7);
+assert(m7.langChosen === false, "migratePersisted version 7 尊重 langChosen false");
+const m8 = migratePersisted({ displayLang: "zh-TW", langChosen: true }, 8);
+assert(m8.langChosen === true, "migratePersisted version 8 尊重 langChosen true");
+// 無 version（全新訪客）→ false
+const mNull = migratePersisted({ displayLang: "zh-TW" }, undefined);
+assert(mNull.langChosen === false, "migratePersisted 無 version → langChosen false（全新訪客）");
+// version <6 → activeVariant 清空（v5→v6 遷移規則）
+const m5 = migratePersisted({ displayLang: "en-US", activeVariant: { X: "123" } }, 5);
+assert(Object.keys(m5.activeVariant ?? {}).length === 0, "migratePersisted version 5 清空 activeVariant");
+// version >=6 → 保留合法 activeVariant
+const m6 = migratePersisted({ activeVariant: { [realId]: realVariant } }, 6) as {
+  activeVariant?: Record<string, string>;
+};
+assert(m6.activeVariant?.[realId] === realVariant, "migratePersisted version 6 保留合法 activeVariant");
 
 console.log(process.exitCode ? "\n有失敗項目" : "\n全部通過");

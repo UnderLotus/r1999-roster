@@ -13,6 +13,7 @@ interface CharacterCardProps {
   state: CharacterState;
   lang: LangCode;
   activeVariant: string;
+  showFutureSight: boolean;
 
   onActivate: (id: string) => void;
   onDecrease: (id: string) => void;
@@ -24,6 +25,7 @@ export function CharacterCard({
   state,
   lang,
   activeVariant,
+  showFutureSight,
   onActivate,
   onDecrease,
   onSkinSelect,
@@ -63,11 +65,13 @@ export function CharacterCard({
             lang={lang}
             onDecrease={() => onDecrease(character.id)}
           />
-          <SkinPickerTrigger onClick={() => setPickerOpen(true)} />
+          <SkinPickerTrigger onClick={() => setPickerOpen(true)} lang={lang} />
           {pickerOpen && (
             <SkinPicker
               character={character}
               activeVariant={activeVariant}
+              showFutureSight={showFutureSight}
+              lang={lang}
               onSelect={(variantId) =>
                 onSkinSelect(character.id, variantId)
               }
