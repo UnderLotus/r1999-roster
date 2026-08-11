@@ -1,13 +1,14 @@
 {
   "name": "r1999-roster",
   "private": true,
-  "version": "1.5.3",
+  "version": "1.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b --pretty false",
     "test:store": "tsx scripts/test-store.ts",
+    "test:share": "tsx scripts/test-share-code.ts",
     "build:names": "tsx scripts/build-names.ts",
     "build:id-map": "tsx scripts/build-id-map.ts",
     "build:characters": "tsx scripts/build-characters.ts",

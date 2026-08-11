@@ -1,4 +1,4 @@
-import { ImageDown, Search, UserCheck, UserX, Users } from "lucide-react";
+import { ImageDown, Link, Search, UserCheck, UserX, Users } from "lucide-react";
 
 import type { FilterMode, LangCode, SkinMode } from "../store/boxStore";
 import { USER_ID_MAX } from "../store/boxStore";
@@ -13,12 +13,15 @@ interface ControlBarProps {
   exportStatus: "idle" | "exporting" | "error";
   exportProgress: { loaded: number; total: number } | null;
   userId: string;
+  ownedCount: number;
+  shareStatus: "idle" | "copied";
   onSearchChange: (text: string) => void;
   onFilterChange: (mode: FilterMode) => void;
   onRarityFilterChange: (rarities: number[]) => void;
   onSkinModeChange: (mode: SkinMode) => void;
   onUserIdChange: (id: string) => void;
   onExport: () => void;
+  onShareUrl: () => void;
 }
 
 export function ControlBar({
@@ -30,12 +33,15 @@ export function ControlBar({
   exportStatus,
   exportProgress,
   userId,
+  ownedCount,
+  shareStatus,
   onSearchChange,
   onFilterChange,
   onRarityFilterChange,
   onSkinModeChange,
   onUserIdChange,
   onExport,
+  onShareUrl,
 }: ControlBarProps) {
   const t = getUiText(lang);
 
@@ -134,20 +140,32 @@ export function ControlBar({
       <div className="control-bar__spacer" />
 
       <div className="control-bar__export">
-        <button
-          type="button"
-          className="button button--primary"
-          onClick={onExport}
-          disabled={exportStatus === "exporting"}
-          title={t.exportHint}
-        >
-          <ImageDown size={15} />
-          {exportStatus === "exporting" && exportProgress
-            ? `${t.exporting} (${exportProgress.loaded}/${exportProgress.total})`
-            : exportStatus === "exporting"
-              ? t.exporting
-              : t.export}
-        </button>
+        <div className="control-bar__export-buttons">
+          <button
+            type="button"
+            className="button button--url"
+            onClick={onShareUrl}
+            disabled={ownedCount === 0}
+            title={ownedCount === 0 ? t.shareEmptyHint : undefined}
+          >
+            <Link size={15} />
+            {shareStatus === "copied" ? t.shareCopied : t.exportUrl}
+          </button>
+          <button
+            type="button"
+            className="button button--primary"
+            onClick={onExport}
+            disabled={exportStatus === "exporting"}
+            title={t.exportHint}
+          >
+            <ImageDown size={15} />
+            {exportStatus === "exporting" && exportProgress
+              ? `${t.exporting} (${exportProgress.loaded}/${exportProgress.total})`
+              : exportStatus === "exporting"
+                ? t.exporting
+                : t.export}
+          </button>
+        </div>
         {exportStatus === "error" && (
           <span className="control-bar__export-error" role="alert">
             {t.exportError}

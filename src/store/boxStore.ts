@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { characters } from "../data/characters";
 import type { CharacterState, PortrayLevel } from "../types/character";
 import { resolveModeVariant } from "../utils/skins";
+import type { SharePayload } from "../utils/share-code";
 import { loadJSON, removeKey, saveJSON } from "../utils/storage";
 
 export type FilterMode = "all" | "owned" | "unowned";
@@ -35,6 +36,8 @@ export interface BoxStore {
   setActiveVariant: (id: string, variantId: string) => void;
   setShowFutureSight: (v: boolean) => void;
   setSkinMode: (mode: SkinMode) => void;
+  /** 匯入分享 token 的 Box 狀態（payload 已消毒，直接覆蓋） */
+  importBox: (payload: SharePayload) => void;
   /** 移除未實裝角色（未來視關閉時），同時清 characters/activeVariant/customVariants */
   purgeUnreleased: (unreleasedIds: string[]) => void;
 }
@@ -310,6 +313,14 @@ export const useBoxStore = create<BoxStore>()(
             nextVariant[character.id] = resolveModeVariant(character, mode);
           }
           return { defaultSkinMode: mode, activeVariant: nextVariant };
+        }),
+      importBox: (payload) =>
+        set({
+          characters: payload.characters,
+          activeVariant: payload.activeVariant,
+          customVariants: payload.customVariants,
+          defaultSkinMode: payload.defaultSkinMode,
+          showFutureSight: payload.showFutureSight,
         }),
     }),
     {

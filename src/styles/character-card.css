@@ -567,10 +567,31 @@
   color: var(--ink-secondary);
 }
 
+.confirm-dialog__message strong {
+  font-weight: 700;
+}
+
 .confirm-dialog__actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.share-url-input {
+  width: 100%;
+  padding: 8px 10px;
+
+  font-size: 12px;
+  color: var(--ink-primary);
+  background: var(--surface-main);
+
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-control);
+}
+
+.share-url-input:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
 }
 
 .button {

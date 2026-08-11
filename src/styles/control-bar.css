@@ -142,6 +142,32 @@
   gap: 6px;
 }
 
+/* URL 分享按鈕（spec §25）：青藍，融於紙感/暗紅/舊金調性 */
+.button--url {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--ink-inverse);
+  background: var(--accent-teal);
+  border-color: var(--accent-teal);
+}
+
+.button--url:hover:not(:disabled) {
+  background: var(--accent-teal-hover);
+  border-color: var(--accent-teal-hover);
+}
+
+.button--url:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.control-bar__export-buttons {
+  display: inline-flex;
+  gap: 8px;
+}
+
 /* ---------- 平板：允許換行（spec §25） ---------- */
 
 @media (max-width: 1199px) {
@@ -175,6 +201,10 @@
 
   .control-bar__skinmode-row {
     flex-basis: 100%;
+  }
+
+  .control-bar__export-buttons {
+    flex-wrap: wrap;
   }
 }
 

@@ -7,11 +7,14 @@ import { ConfirmDialog } from "./components/ConfirmDialog";
 import { ControlBar } from "./components/ControlBar";
 import { ExportCanvas } from "./components/ExportCanvas";
 import { LangSwitcher } from "./components/LangSwitcher";
+import { ShareUrlDialog } from "./components/ShareUrlDialog";
 import { characters } from "./data/characters";
 import { getUiText } from "./i18n/ui";
 import { useBoxStore } from "./store/boxStore";
 import type { LangCode } from "./store/boxStore";
 import { getAllNames } from "./utils/i18n";
+import { decodeShareCode, encodeShareCode } from "./utils/share-code";
+import type { SharePayload } from "./utils/share-code";
 import { resolveModeVariant } from "./utils/skins";
 import { STORAGE_ERROR_EVENT, consumeStorageError } from "./utils/storage";
 import "./styles/character-card.css";
@@ -24,9 +27,27 @@ type ExportStatus = "idle" | "exporting" | "error";
 /** 主站網址（頁尾顯示與連結） */
 const SITE_URL = "https://underlotus.github.io";
 
+/** 同時支援同步與未來可能的非同步 persist hydration。 */
+function onStoreHydrated(callback: () => void): () => void {
+  if (useBoxStore.persist.hasHydrated()) {
+    callback();
+    return () => {};
+  }
+  return useBoxStore.persist.onFinishHydration(callback);
+}
+
+function clearShareHash(): void {
+  window.history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search
+  );
+}
+
 export default function App() {
   const states = useBoxStore((s) => s.characters);
   const activeVariant = useBoxStore((s) => s.activeVariant);
+  const customVariants = useBoxStore((s) => s.customVariants);
   const filterMode = useBoxStore((s) => s.filterMode);
   const search = useBoxStore((s) => s.search);
   const rarityFilter = useBoxStore((s) => s.rarityFilter);
@@ -44,11 +65,16 @@ export default function App() {
   const showFutureSight = useBoxStore((s) => s.showFutureSight);
   const setShowFutureSight = useBoxStore((s) => s.setShowFutureSight);
   const purgeUnreleased = useBoxStore((s) => s.purgeUnreleased);
+  const importBox = useBoxStore((s) => s.importBox);
   const defaultSkinMode = useBoxStore((s) => s.defaultSkinMode);
   const setSkinMode = useBoxStore((s) => s.setSkinMode);
 
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showFutureSightConfirm, setShowFutureSightConfirm] = useState(false);
+  const [pendingImport, setPendingImport] = useState<SharePayload | null>(null);
+  const [shareStatus, setShareStatus] = useState<"idle" | "copied">("idle");
+  const [shareDialogUrl, setShareDialogUrl] = useState<string | null>(null);
+  const shareTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [exportStatus, setExportStatus] = useState<ExportStatus>("idle");
   const [exportProgress, setExportProgress] = useState<{ loaded: number; total: number } | null>(null);
   const [exportSnapshot, setExportSnapshot] = useState<{
@@ -75,7 +101,7 @@ export default function App() {
   // 初始化 activeVariant：hydrate 後依 defaultSkinMode 補上缺漏的角色
   const initDone = useRef(false);
   useEffect(() => {
-    const unsub = useBoxStore.persist.onFinishHydration(() => {
+    return onStoreHydrated(() => {
       if (initDone.current) return;
       initDone.current = true;
       const store = useBoxStore.getState();
@@ -105,7 +131,31 @@ export default function App() {
         useBoxStore.setState({ activeVariant: next });
       }
     });
-    return unsub;
+  }, []);
+
+  // URL 分享匯入（#b=<token>）：初次載入與同頁 hash 變更都處理。
+  useEffect(() => {
+    let hydrated = false;
+    const handleShareHash = () => {
+      if (!hydrated || !window.location.hash.startsWith("#b=")) return;
+      const payload = decodeShareCode(window.location.hash.slice(3));
+      if (!payload) {
+        clearShareHash(); // 壞 token：靜默清除，不騷擾使用者
+        return;
+      }
+      setPendingImport(payload);
+    };
+
+    const unsubscribeHydration = onStoreHydrated(() => {
+      hydrated = true;
+      handleShareHash();
+    });
+    window.addEventListener("hashchange", handleShareHash);
+
+    return () => {
+      unsubscribeHydration();
+      window.removeEventListener("hashchange", handleShareHash);
+    };
   }, []);
 
   // 頁面 title 隨語系
@@ -233,6 +283,46 @@ export default function App() {
     setActiveVariant(charId, variantId);
   };
 
+  const handleShareUrl = async () => {
+    const token = encodeShareCode({
+      characters: states,
+      activeVariant,
+      customVariants,
+      defaultSkinMode,
+      showFutureSight,
+    });
+    const url = `${window.location.origin}${window.location.pathname}#b=${token}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setShareStatus("copied");
+      if (shareTimerRef.current) clearTimeout(shareTimerRef.current);
+      shareTimerRef.current = setTimeout(() => setShareStatus("idle"), 1600);
+    } catch {
+      setShareDialogUrl(url); // clipboard 不可用：fallback dialog
+    }
+  };
+
+  const applyImport = (payload: SharePayload) => {
+    // 補齊非 custom 角色的 activeVariant（與 hydrate 填充同邏輯）
+    const nextVariant = { ...payload.activeVariant };
+    for (const character of characters) {
+      if (!nextVariant[character.id]) {
+        nextVariant[character.id] = resolveModeVariant(
+          character,
+          payload.defaultSkinMode
+        );
+      }
+    }
+    importBox({ ...payload, activeVariant: nextVariant });
+    setPendingImport(null);
+    clearShareHash();
+  };
+
+  const cancelImport = () => {
+    setPendingImport(null);
+    clearShareHash();
+  };
+
   return (
     <main className="box-page">
       <div className="page-topbar">
@@ -301,7 +391,10 @@ export default function App() {
         onRarityFilterChange={setRarityFilter}
         userId={userId}
         onUserIdChange={setUserId}
+        ownedCount={Object.keys(states).length}
+        shareStatus={shareStatus}
         onExport={handleExport}
+        onShareUrl={handleShareUrl}
         exportStatus={exportStatus}
         exportProgress={exportProgress}
       />
@@ -357,6 +450,37 @@ export default function App() {
           setShowFutureSightConfirm(false);
         }}
         onClose={() => setShowFutureSightConfirm(false)}
+      />
+
+      <ConfirmDialog
+        open={pendingImport !== null}
+        title={t.importBoxTitle}
+        message={
+          pendingImport?.showFutureSight ? (
+            <>
+              {t.importBoxFuturePrefix(
+                Object.keys(pendingImport.characters).length
+              )}
+              <strong>{t.futureSightLabel}</strong>
+              {t.importBoxFutureSuffix}
+            </>
+          ) : (
+            t.importBoxMessage(
+              Object.keys(pendingImport?.characters ?? {}).length
+            )
+          )
+        }
+        confirmLabel={t.importBoxConfirm}
+        cancelLabel={t.importBoxCancel}
+        onConfirm={() => pendingImport && applyImport(pendingImport)}
+        onClose={cancelImport}
+      />
+
+      <ShareUrlDialog
+        open={shareDialogUrl !== null}
+        url={shareDialogUrl ?? ""}
+        lang={displayLang}
+        onClose={() => setShareDialogUrl(null)}
       />
 
       {/* 離屏匯出層（僅在匯出時 mount） */}

@@ -20,10 +20,12 @@
   --border-light: rgba(66, 58, 49, 0.24);
   --border-dark: #292521;
 
-  /* --- 強調色：暗紅（主操作）＋舊金（收藏/持有） --- */
+  /* --- 強調色：暗紅（主操作）＋舊金（收藏/持有）＋青藍（URL 分享） --- */
   --accent-primary: #7c302e;
   --accent-hover: #642321;
   --accent-gold: #a8894e;
+  --accent-teal: #3e6b6e;
+  --accent-teal-hover: #2f5457;
 
   /* --- 持有狀態 --- */
   --owned-opacity: 1;

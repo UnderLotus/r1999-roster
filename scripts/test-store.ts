@@ -140,6 +140,40 @@ for (const c of charactersData) {
 }
 s().setSkinMode("initial");
 
+/* ---------- importBox ---------- */
+
+const importedCharacter = charactersData[0];
+const replacedCharacter = charactersData[1];
+s().resetAll();
+s().activateCharacter(replacedCharacter.id);
+s().setUserId("keep-me");
+s().setFilterMode("owned");
+s().importBox({
+  characters: {
+    [importedCharacter.id]: { owned: true, portray: 0 },
+  },
+  activeVariant: {},
+  customVariants: {},
+  defaultSkinMode: "insight",
+  showFutureSight: true,
+});
+assert(
+  s().characters[importedCharacter.id]?.portray === 0,
+  "importBox 保留 0 塑持有角色"
+);
+assert(
+  s().characters[replacedCharacter.id] === undefined,
+  "importBox 覆蓋舊 Box 角色"
+);
+assert(
+  s().userId === "keep-me" && s().filterMode === "owned",
+  "importBox 保留 userId 與篩選偏好"
+);
+assert(
+  s().defaultSkinMode === "insight" && s().showFutureSight === true,
+  "importBox 套用立繪模式與未來視"
+);
+
 /* ---------- migrate 驗證 ---------- */
 
 // 正常資料
