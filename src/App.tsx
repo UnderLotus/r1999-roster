@@ -21,8 +21,8 @@ import "./styles/export-canvas.css";
 
 type ExportStatus = "idle" | "exporting" | "error";
 
-/** 專案儲存庫網址（頁尾顯示與連結） */
-const REPO_URL = "https://github.com/UnderLotus/r1999-roster";
+/** 主站網址（頁尾顯示與連結） */
+const SITE_URL = "https://underlotus.github.io";
 
 export default function App() {
   const states = useBoxStore((s) => s.characters);
@@ -321,16 +321,16 @@ export default function App() {
       <footer className="page-footer">
         <a
           className="repo-banner"
-          href={REPO_URL}
+          href={SITE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          title="GitHub Repository"
+          title="UnderLotus 主站"
         >
           <Github size={22} strokeWidth={1.5} aria-hidden="true" />
           <span className="repo-banner__text">
-            <span className="repo-banner__name">r1999-roster</span>
+            <span className="repo-banner__name">underlotus</span>
             <span className="repo-banner__url">
-              {REPO_URL.replace("https://", "")}
+              {SITE_URL.replace("https://", "")}
             </span>
           </span>
         </a>
