@@ -55,7 +55,8 @@
       "zh-CN": "无名者",
       "zh-TW": "無名者",
       "en-US": "Ms. Stranger",
-      "ko-KR": "미스 스트레인저"
+      "ko-KR": "미스 스트레인저",
+      "ja-JP": "ストレンジャー"
     },
     "skins": [
       {
@@ -125,7 +126,9 @@
     "names": {
       "zh-CN": "回声谣",
       "zh-TW": "回聲謠",
-      "en-US": "Everecho"
+      "en-US": "Everecho",
+      "ja-JP": "エヴァーエコー",
+      "ko-KR": "에버에코"
     },
     "skins": [
       {
@@ -160,7 +163,8 @@
       "zh-CN": "珐琅眼",
       "zh-TW": "琺琅眼",
       "en-US": "Coppélia",
-      "ko-KR": "코펠리아"
+      "ko-KR": "코펠리아",
+      "ja-JP": "コッペリア"
     },
     "skins": [
       {
@@ -202,7 +206,8 @@
       "zh-CN": "哑谜",
       "zh-TW": "啞謎",
       "en-US": "Enigma",
-      "ja-JP": "エニグマ"
+      "ja-JP": "エニグマ",
+      "ko-KR": "이니그마"
     },
     "skins": [
       {
@@ -273,7 +278,8 @@
       "zh-CN": "鹭鸶剪",
       "zh-TW": "鷺鷥剪",
       "en-US": "Paper Heron",
-      "ja-JP": "鷺切"
+      "ja-JP": "鷺切",
+      "ko-KR": "노사전"
     },
     "skins": [
       {
@@ -307,7 +313,9 @@
     "names": {
       "zh-CN": "奠基石",
       "zh-TW": "奠基石",
-      "en-US": "Cornerstone"
+      "en-US": "Cornerstone",
+      "ja-JP": "コーナーストーン",
+      "ko-KR": "코너스톤"
     },
     "skins": [
       {
@@ -385,7 +393,8 @@
       "zh-CN": "程和光",
       "zh-TW": "程和光",
       "en-US": "Cheng Heguang",
-      "ja-JP": "程和光"
+      "ja-JP": "程和光",
+      "ko-KR": "정화광"
     },
     "skins": [
       {
@@ -667,7 +676,8 @@
       "zh-CN": "野树莓",
       "zh-TW": "野樹莓",
       "en-US": "Rubuska",
-      "ja-JP": "ルブシカ"
+      "ja-JP": "ルブシカ",
+      "ko-KR": "루부스카"
     },
     "skins": [
       {
@@ -708,7 +718,8 @@
       "zh-CN": "卡珊德拉",
       "zh-TW": "卡珊德拉",
       "en-US": "Kassandra",
-      "ja-JP": "カサンドラ"
+      "ja-JP": "カサンドラ",
+      "ko-KR": "카산드라"
     },
     "skins": [
       {
@@ -743,7 +754,8 @@
       "zh-CN": "艾吉奥·奥迪托雷",
       "zh-TW": "艾吉奧·奧迪託雷",
       "en-US": "Ezio Auditore",
-      "ja-JP": "エツィオ"
+      "ja-JP": "エツィオ",
+      "ko-KR": "에지오 아디토레"
     },
     "skins": [
       {
@@ -1225,7 +1237,8 @@
       "zh-CN": "乌尔里希",
       "zh-TW": "烏爾裡希",
       "en-US": "Ulrich",
-      "ja-JP": "ウルリッヒ"
+      "ja-JP": "ウルリッヒ",
+      "ko-KR": "울리히"
     },
     "skins": [
       {
@@ -3086,7 +3099,9 @@
     "names": {
       "zh-CN": "银装小春雀儿",
       "zh-TW": "銀裝小春雀兒",
-      "en-US": "Silverwing Eagle"
+      "en-US": "Silverwing Eagle",
+      "ja-JP": "イーグル",
+      "ko-KR": "이글"
     },
     "skins": [
       {
@@ -3121,7 +3136,8 @@
       "zh-CN": "阿利克西欧斯",
       "zh-TW": "阿利克西歐斯",
       "en-US": "Alexios",
-      "ja-JP": "アレクシオス"
+      "ja-JP": "アレクシオス",
+      "ko-KR": "알렉시오스"
     },
     "skins": [
       {
@@ -4304,7 +4320,8 @@
       "zh-CN": "诺拉",
       "zh-TW": "諾拉",
       "en-US": "NORA",
-      "ja-JP": "ノラ"
+      "ja-JP": "ノラ",
+      "ko-KR": "노라"
     },
     "skins": [
       {
@@ -4339,7 +4356,8 @@
       "zh-CN": "芦草结",
       "zh-TW": "蘆草結",
       "en-US": "Reed",
-      "ja-JP": "リードノット"
+      "ja-JP": "リードノット",
+      "ko-KR": "노초결"
     },
     "skins": [
       {
@@ -4373,7 +4391,9 @@
     "names": {
       "zh-CN": "《湖边的女人》",
       "zh-TW": "《湖邊的女人》",
-      "en-US": "Lady by the Lake"
+      "en-US": "Lady by the Lake",
+      "ja-JP": "『湖畔の女性』",
+      "ko-KR": "호숫가의 여인"
     },
     "skins": [
       {

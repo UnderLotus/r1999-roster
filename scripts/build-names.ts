@@ -29,6 +29,10 @@ const ROOT = path.resolve(__dirname, "..");
 const DATA_FILE = path.join(ROOT, "src/data/characters.json");
 const ARCANIST_MAP = path.join(__dirname, "data/ArcanistMap.json");
 const JP_OVERRIDES_FILE = path.join(__dirname, "data/jp-name-overrides.json");
+const LOCALIZED_NAME_OVERRIDES_FILE = path.join(
+  __dirname,
+  "data/localized-name-overrides.json"
+);
 const RELEASED_OVERRIDES_FILE = path.join(__dirname, "data/released-overrides.json");
 
 const LANGS = ["zh-CN", "zh-TW", "en-US", "ja-JP", "ko-KR"] as const;
@@ -58,6 +62,8 @@ interface ArcanistMapEntry {
   name: string;
   nameEng: string;
 }
+
+type LocalizedNameOverride = { nameEng: string } & Partial<Record<Lang, string>>;
 
 function loadJSON<T>(file: string): T {
   return JSON.parse(readFileSync(file, "utf-8")) as T;
@@ -307,6 +313,38 @@ async function main(): Promise<void> {
     if (character.stage === "pending-names") {
       character.stage = "live";
     }
+  }
+
+  // 6.5. 套用人工確認的本地化名稱（來源延遲或自動對應失敗時使用）
+  const localizedOverrides = loadJSON<LocalizedNameOverride[]>(
+    LOCALIZED_NAME_OVERRIDES_FILE
+  );
+  const characterByEnglishName = new Map(
+    characters.map((c) => [c.names?.["en-US"] ?? c.name, c])
+  );
+  let localizedOverridesApplied = 0;
+  const unmatchedLocalizedOverrides: string[] = [];
+  for (const override of localizedOverrides) {
+    const character = characterByEnglishName.get(override.nameEng);
+    if (!character) {
+      unmatchedLocalizedOverrides.push(override.nameEng);
+      continue;
+    }
+    character.names ??= {};
+    for (const lang of LANGS) {
+      const name = override[lang];
+      if (!name) continue;
+      character.names[lang] = name;
+      localizedOverridesApplied++;
+    }
+  }
+  console.log(
+    `  localized name overrides: ${localizedOverridesApplied} 個欄位／${localizedOverrides.length} 名`
+  );
+  if (unmatchedLocalizedOverrides.length > 0) {
+    console.warn(
+      `⚠ localized name overrides 無法對應：${unmatchedLocalizedOverrides.join("、")}`
+    );
   }
 
   // 7. Recalculate releaseOrder based on multi-source rules
