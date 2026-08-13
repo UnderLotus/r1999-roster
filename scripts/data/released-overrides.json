@@ -6,8 +6,8 @@
   },
   {
     "nameEng": "Coppélia",
-    "isReleased": false,
-    "source": "auto"
+    "isReleased": true,
+    "source": "manual"
   },
   {
     "nameEng": "Cornerstone",
@@ -21,7 +21,7 @@
   },
   {
     "nameEng": "Lady by the Lake",
-    "isReleased": false,
+    "isReleased": true,
     "source": "manual"
   },
   {
@@ -36,12 +36,12 @@
   },
   {
     "nameEng": "Rhiannon",
-    "isReleased": false,
-    "source": "auto"
+    "isReleased": true,
+    "source": "manual"
   },
   {
     "nameEng": "Silverwing Eagle",
-    "isReleased": false,
-    "source": "auto"
+    "isReleased": true,
+    "source": "manual"
   }
 ]

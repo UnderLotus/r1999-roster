@@ -19,17 +19,17 @@
     "variantId": "306605",
     "name": "完美的流体",
     "nameEng": "A Gift of Nourishment",
-    "source": "auto-fandom",
-    "isReleased": false,
-    "note": "Fandom 白名單未收錄（37）— 待確認"
+    "source": "manual",
+    "isReleased": true,
+    "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
     "variantId": "307304",
     "name": "火芙蕖",
     "nameEng": "Fire Lotus",
-    "source": "auto-fandom",
-    "isReleased": false,
-    "note": "Fandom 白名單未收錄（可燃点）— 待確認"
+    "source": "manual",
+    "isReleased": true,
+    "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
     "variantId": "309203",
@@ -43,9 +43,9 @@
     "variantId": "310905",
     "name": "故梦罅隙间",
     "nameEng": "Fragments of An Old Dream",
-    "source": "auto-fandom",
-    "isReleased": false,
-    "note": "Fandom 白名單未收錄（图图石子）— 待確認"
+    "source": "manual",
+    "isReleased": true,
+    "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
     "variantId": "311604",
@@ -59,25 +59,25 @@
     "variantId": "311803",
     "name": "永恒的沉默",
     "nameEng": "The Deathless Quiet",
-    "source": "auto-fandom",
-    "isReleased": false,
-    "note": "Fandom 白名單未收錄（命名日）— 待確認"
+    "source": "manual",
+    "isReleased": true,
+    "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
     "variantId": "312003",
     "name": "名以光辉",
     "nameEng": "From Darkness, Light",
-    "source": "auto-fandom",
-    "isReleased": false,
-    "note": "Fandom 白名單未收錄（诺谛卡）— 待確認"
+    "source": "manual",
+    "isReleased": true,
+    "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
     "variantId": "312803",
     "name": "亡者的恩赐",
     "nameEng": "Gift of the Dead",
-    "source": "auto-fandom",
-    "isReleased": false,
-    "note": "Fandom 白名單未收錄（卡戎）— 待確認"
+    "source": "manual",
+    "isReleased": true,
+    "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
     "variantId": "313903",
@@ -86,5 +86,13 @@
     "source": "auto-fandom",
     "isReleased": false,
     "note": "Fandom 白名單未收錄（洛伦兹蝴蝶）— 待確認"
+  },
+  {
+    "variantId": "314403",
+    "name": "醒时声",
+    "nameEng": "Sounds that Wake Her",
+    "source": "manual",
+    "isReleased": true,
+    "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   }
 ]

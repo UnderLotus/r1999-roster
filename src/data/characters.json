@@ -90,6 +90,7 @@
       "zh-CN": "小瑞安侬",
       "zh-TW": "小瑞安儂",
       "en-US": "Rhiannon",
+      "ja-JP": "リアンノン",
       "ko-KR": "리아논"
     },
     "skins": [
@@ -113,7 +114,7 @@
     },
     "stage": "live",
     "rarity": 6,
-    "isReleased": false
+    "isReleased": true
   },
   {
     "id": "314501",
@@ -178,7 +179,8 @@
         "variantId": "314403",
         "type": "skin",
         "skinName": "醒时声",
-        "skinNameEng": "Sounds that Wake Her"
+        "skinNameEng": "Sounds that Wake Her",
+        "isReleased": true
       }
     ],
     "defaultVariant": "314401",
@@ -188,7 +190,7 @@
     },
     "stage": "live",
     "rarity": 6,
-    "isReleased": false
+    "isReleased": true
   },
   {
     "id": "314301",
@@ -553,7 +555,7 @@
         "type": "skin",
         "skinName": "亡者的恩赐",
         "skinNameEng": "Gift of the Dead",
-        "isReleased": false
+        "isReleased": true
       }
     ],
     "defaultVariant": "312801",
@@ -839,7 +841,7 @@
         "type": "skin",
         "skinName": "名以光辉",
         "skinNameEng": "From Darkness, Light",
-        "isReleased": false
+        "isReleased": true
       }
     ],
     "defaultVariant": "312001",
@@ -1159,7 +1161,7 @@
         "type": "skin",
         "skinName": "故梦罅隙间",
         "skinNameEng": "Fragments of An Old Dream",
-        "isReleased": false
+        "isReleased": true
       }
     ],
     "defaultVariant": "310901",
@@ -2162,7 +2164,7 @@
         "type": "skin",
         "skinName": "火芙蕖",
         "skinNameEng": "Fire Lotus",
-        "isReleased": false
+        "isReleased": true
       }
     ],
     "defaultVariant": "307301",
@@ -2307,7 +2309,7 @@
         "type": "skin",
         "skinName": "完美的流体",
         "skinNameEng": "A Gift of Nourishment",
-        "isReleased": false
+        "isReleased": true
       }
     ],
     "defaultVariant": "306601",
@@ -3107,7 +3109,7 @@
     },
     "stage": "live",
     "rarity": 5,
-    "isReleased": false
+    "isReleased": true
   },
   {
     "id": "312201",
@@ -3175,7 +3177,7 @@
         "type": "skin",
         "skinName": "永恒的沉默",
         "skinNameEng": "The Deathless Quiet",
-        "isReleased": false
+        "isReleased": true
       }
     ],
     "defaultVariant": "311801",
@@ -4394,7 +4396,7 @@
     },
     "stage": "live",
     "rarity": 4,
-    "isReleased": false
+    "isReleased": true
   },
   {
     "id": "310101",
