@@ -38,7 +38,7 @@ function skinFingerprint(skins: Character["skins"]): string {
 }
 
 function hasAvatarImage(variantId: string): boolean {
-  return existsSync(path.join(AVATARS_DIR, `${variantId}.png`));
+  return existsSync(path.join(AVATARS_DIR, `${variantId}.webp`));
 }
 
 function main(): void {

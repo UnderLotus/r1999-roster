@@ -29,6 +29,7 @@ import { resolveModeVariant } from "../src/utils/skins";
 
 const store = useBoxStore;
 const s = () => store.getState();
+const realId = charactersData[0].id;
 
 function assert(cond: boolean, msg: string) {
   if (!cond) {
@@ -179,55 +180,72 @@ assert(
 // 正常資料
 const ok = migratePersistedState({
   characters: {
-    X: { owned: true, portray: 3 },
+    [realId]: { owned: true, portray: 3 },
   },
 });
-assert(ok.characters?.["X"].portray === 3, "migrate 保留正常值");
+assert(ok.characters?.[realId].portray === 3, "migrate 保留正常值");
 
 // clamp
 assert(
-  migratePersistedState({ characters: { X: { owned: true, portray: 99 } } })
-    .characters?.["X"].portray === 5,
+  migratePersistedState({ characters: { [realId]: { owned: true, portray: 99 } } })
+    .characters?.[realId].portray === 5,
   "migrate clamp portray 99→5"
 );
 assert(
-  migratePersistedState({ characters: { X: { owned: true, portray: -3 } } })
-    .characters?.["X"].portray === 0,
+  migratePersistedState({ characters: { [realId]: { owned: true, portray: -3 } } })
+    .characters?.[realId].portray === 0,
   "migrate clamp 負數→0"
 );
 
 // owned false 不保留（store invariant：未持有不存 characters）
 assert(
-  migratePersistedState({ characters: { Y: { owned: false, portray: 3 } } })
-    .characters?.["Y"] === undefined,
+  migratePersistedState({ characters: { [realId]: { owned: false, portray: 3 } } })
+    .characters?.[realId] === undefined,
   "migrate owned false 不保留"
 );
 
 // 字串 owned "false" 不當 true（也不保留）
 assert(
   migratePersistedState({
-    characters: { Z: { owned: "false" as never, portray: 3 } },
-  }).characters?.["Z"] === undefined,
+    characters: { [realId]: { owned: "false" as never, portray: 3 } },
+  }).characters?.[realId] === undefined,
   "migrate 字串 owned false 不誤判"
+);
+
+// 未知角色 ID 過濾（KNOWN_IDS）
+assert(
+  migratePersistedState({
+    characters: {
+      [realId]: { owned: true, portray: 2 },
+      "999901": { owned: true, portray: 3 },
+    },
+  }).characters?.[realId]?.portray === 2,
+  "migrate 保留已知角色"
+);
+assert(
+  migratePersistedState({
+    characters: { "999901": { owned: true, portray: 3 } },
+  }).characters?.["999901"] === undefined,
+  "migrate 過濾未知角色 ID"
 );
 
 // 小數/字串/Infinity portray → 0
 assert(
   migratePersistedState({
-    characters: { P: { owned: true, portray: 2.5 } },
-  }).characters?.["P"].portray === 0,
+    characters: { [realId]: { owned: true, portray: 2.5 } },
+  }).characters?.[realId].portray === 0,
   "migrate 小數 portray → 0"
 );
 assert(
   migratePersistedState({
-    characters: { P: { owned: true, portray: "3" as never } },
-  }).characters?.["P"].portray === 0,
+    characters: { [realId]: { owned: true, portray: "3" as never } },
+  }).characters?.[realId].portray === 0,
   "migrate 字串 portray → 0"
 );
 assert(
   migratePersistedState({
-    characters: { P: { owned: true, portray: Infinity } },
-  }).characters?.["P"].portray === 0,
+    characters: { [realId]: { owned: true, portray: Infinity } },
+  }).characters?.[realId].portray === 0,
   "migrate Infinity portray → 0"
 );
 
@@ -286,7 +304,6 @@ assert(s().characters["B"]?.owned === true, "purgeUnreleased 不影響其他角�
 
 /* ---------- migrate：variant 校驗 ---------- */
 
-const realId = charactersData[0].id;
 const realVariant = charactersData[0].skins[0].variantId;
 const okVariant = migratePersistedState({
   activeVariant: { [realId]: realVariant, X: "12345", [realId + "bad"]: "99999" },
@@ -330,5 +347,43 @@ const m6 = migratePersisted({ activeVariant: { [realId]: realVariant } }, 6) as 
   activeVariant?: Record<string, string>;
 };
 assert(m6.activeVariant?.[realId] === realVariant, "migratePersisted version 6 保留合法 activeVariant");
+
+// v7 → v8：現役 v7 使用者 bump 後觸發 migrate，KNOWN_IDS 過濾 stale 未知角色
+assert(
+  migratePersisted(
+    {
+      characters: {
+        [realId]: { owned: true, portray: 2 },
+        "999901": { owned: true, portray: 3 }, // stale unknown ID
+        "999902": { owned: false, portray: 5 }, // 未持有也不該留存
+      },
+      activeVariant: { [realId]: realVariant },
+    },
+    7
+  ).characters?.[realId]?.portray === 2,
+  "migrate v7→v8：已知角色保留（portray 2）"
+);
+assert(
+  migratePersisted(
+    {
+      characters: {
+        "999901": { owned: true, portray: 3 },
+      },
+    },
+    7
+  ).characters?.["999901"] === undefined,
+  "migrate v7→v8：未知角色 ID 被清掉"
+);
+assert(
+  migratePersisted(
+    {
+      characters: {
+        "999902": { owned: false, portray: 5 },
+      },
+    },
+    7
+  ).characters?.["999902"] === undefined,
+  "migrate v7→v8：未持有條目不保留"
+);
 
 console.log(process.exitCode ? "\n有失敗項目" : "\n全部通過");

@@ -1,5 +1,5 @@
 export function avatarPath(variantId: string): string {
-  return `/assets/characters/avatars/${variantId}.png`;
+  return `/assets/characters/avatars/${variantId}.webp`;
 }
 
 export function prefixedAvatarPath(variantId: string): string {

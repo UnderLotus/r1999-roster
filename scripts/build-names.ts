@@ -2,13 +2,16 @@
  * 多語系角色名稱 + 星數同步腳本。
  *
  * 來源：
+ *   - Global 解包（St-Pavlov-Foundation/re1999-data-global）：角色 en-US 名稱
+ *     （data/json/character.json 的 name localization key → language_en.json content，以 baseId 對接）
  *   - Kornblume（windbow27/kornblume）：lang/static/arcanists/{lang}.json（5 語系）
  *     + public/data/arcanists.json（含 Rarity / Id / Name）
  *   - wikiru（日本攻略 wiki）：補 Kornblume ja-JP 缺的最新角色日文名
  *   - Fandom：補 ko-KR（name_kor 欄位）
  *
- * 對應方式：以 ArcanistMap 的 nameEng → slug → Kornblume Name 為橋接，
- * 不再依賴順序對齊。
+ * 對應方式：Global 英文名以角色 baseId → Global character.id → name key →
+ * language_en content 對接；其餘語系與 Kornblume metadata 仍以 ArcanistMap 的
+ * nameEng → slug → Kornblume Name 為橋接，不再依賴順序對齊。
  *
  * Phase 2：寫入 rarity、_kbId；將 stage 從 pending-names 升為 live。
  * Phase 3：recalculateReleaseOrder（見 build-characters.ts 的共享函式）。
@@ -22,6 +25,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import type { Character } from "./types";
+import {
+  buildGlobalEnglishNames,
+  resolveEnglishName,
+  type GlobalCharacterEntry,
+  type GlobalLocalizationEntry,
+} from "./english-name";
 import { recalculateReleaseOrder } from "./recalculate-order";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -40,6 +49,10 @@ type Lang = (typeof LANGS)[number];
 
 const BASE =
   "https://raw.githubusercontent.com/windbow27/kornblume/main";
+const GLOBAL_CHARACTER_URL =
+  "https://raw.githubusercontent.com/St-Pavlov-Foundation/re1999-data-global/main/data/json/character.json";
+const GLOBAL_ENGLISH_LANGUAGE_URL =
+  "https://raw.githubusercontent.com/St-Pavlov-Foundation/re1999-data-global/main/data/configs/language/language_en.json";
 const WIKIRU_JP_URL =
   "https://r.jina.ai/https://reverse1999.wikiru.jp/?%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E4%B8%80%E8%A6%A7%28%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E7%89%88%29";
 
@@ -49,6 +62,9 @@ interface KornblumeArcanist {
   Rarity: number;
   IsReleased: boolean;
 }
+
+// Kept locally for the Global data shape only; display names come from language_en.json.
+interface GlobalCharacter extends GlobalCharacterEntry {}
 
 interface ReleasedOverride {
   nameEng: string;
@@ -69,10 +85,13 @@ function loadJSON<T>(file: string): T {
   return JSON.parse(readFileSync(file, "utf-8")) as T;
 }
 
-function fetchText(url: string): string {
+function fetchText(
+  url: string,
+  maxBuffer = 16 * 1024 * 1024
+): string {
   return execFileSync("curl", ["-fsSL", "-m", "60", url], {
     encoding: "utf-8",
-    maxBuffer: 16 * 1024 * 1024,
+    maxBuffer,
   });
 }
 
@@ -80,6 +99,24 @@ function slugify(name: string): string {
   const lower = name.toLowerCase().trim();
   if (/^\d+$/.test(lower)) return lower;
   return lower.replace(/[^\p{L}\p{N}]+/gu, "-").replace(/^-+|-+$/g, "");
+}
+
+function fetchGlobalEnglishNames(): Map<number, string> {
+  try {
+    const characters = JSON.parse(
+      fetchText(GLOBAL_CHARACTER_URL)
+    ) as GlobalCharacter[];
+    // language_en.json is ~20 MB, so give only this request a larger buffer.
+    const localizations = JSON.parse(
+      fetchText(GLOBAL_ENGLISH_LANGUAGE_URL, 32 * 1024 * 1024)
+    ) as GlobalLocalizationEntry[];
+    const names = buildGlobalEnglishNames(characters, localizations);
+    console.log(`  Global 英文 localization: ${names.size} 名`);
+    return names;
+  } catch (error) {
+    console.warn(`⚠ Global 英文 localization 下載失敗，改用既有英文 fallback：${String(error)}`);
+    return new Map();
+  }
 }
 
 interface WikiRuResult {
@@ -205,6 +242,9 @@ async function main(): Promise<void> {
   ) as KornblumeArcanist[];
   console.log(`  arcanists.json: ${arcanists.length} 名`);
 
+  // Global 英文名獨立抓取；失敗時保留現有 Kornblume／既有值 fallback。
+  const globalEnglishNames = fetchGlobalEnglishNames();
+
   // 2. wikiru 補 ja-JP
   let wikiruResult = fetchWikiRuJaMap(namesByLang["ja-JP"], jpOverrides);
   if (Object.keys(wikiruResult.map).length < 30) {
@@ -270,6 +310,9 @@ async function main(): Promise<void> {
 
   // 7. Match characters.json entries to Kornblume via zh-CN name bridge
   const characters = loadJSON<Character[]>(DATA_FILE);
+  const existingEnglishNames = new Map(
+    characters.map((character) => [character.id, character.names?.["en-US"]])
+  );
   let nameApplied = 0;
   let rarityApplied = 0;
   const unmatched: string[] = [];
@@ -291,10 +334,14 @@ async function main(): Promise<void> {
       continue;
     }
 
+    const existingEnglishName = character.names?.["en-US"];
     const names: Partial<Record<Lang, string>> = {};
     for (const lang of LANGS) {
       const name = namesByLang[lang][slug];
       if (name) names[lang] = name;
+    }
+    if (!names["en-US"] && existingEnglishName) {
+      names["en-US"] = existingEnglishName;
     }
     if (Object.keys(names).length > 0) {
       character.names = names;
@@ -346,6 +393,34 @@ async function main(): Promise<void> {
       `⚠ localized name overrides 無法對應：${unmatchedLocalizedOverrides.join("、")}`
     );
   }
+
+  // 6.6. Global 解包優先套用非空英文名；缺值時保留既有英文 fallback。
+  let globalEnglishApplied = 0;
+  let englishFallback = 0;
+  let englishMissing = 0;
+  for (const character of characters) {
+    const resolution = resolveEnglishName(
+      globalEnglishNames,
+      character.baseId,
+      character.names?.["en-US"],
+      existingEnglishNames.get(character.id)
+    );
+    if (resolution.name) {
+      character.names ??= {};
+      character.names["en-US"] = resolution.name;
+    }
+    if (resolution.source === "global") {
+      globalEnglishApplied++;
+    } else if (resolution.source === "fallback" || resolution.source === "existing") {
+      englishFallback++;
+    } else {
+      englishMissing++;
+    }
+  }
+  console.log(
+    `  Global 英文名套用: ${globalEnglishApplied}/${characters.length} 名；` +
+      `fallback: ${englishFallback} 名；缺名: ${englishMissing} 名`
+  );
 
   // 7. Recalculate releaseOrder based on multi-source rules
   //    (needs _kbId on Kornblume-group characters)

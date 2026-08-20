@@ -63,7 +63,7 @@ export function ExportCanvas({
         {owned.length === 0 ? (
           <div className="export-canvas__empty">
             <img
-              src={import.meta.env.BASE_URL + "assets/vertin_question.png"}
+              src={import.meta.env.BASE_URL + "assets/vertin_question.webp"}
               alt=""
               className="export-canvas__empty-image"
             />

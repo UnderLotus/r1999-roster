@@ -22,7 +22,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
       - run: npm ci
+      - run: npm run test:store
+      - run: npm run test:share
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

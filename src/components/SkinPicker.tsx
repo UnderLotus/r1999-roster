@@ -87,18 +87,6 @@ export function SkinPicker({
     };
   }, [onClose]);
 
-  // Preload non-active variant images（保留參考避免被 GC）
-  const preloadRef = useRef<HTMLImageElement[]>([]);
-  useEffect(() => {
-    preloadRef.current = character.skins
-      .filter((skin) => skin.variantId !== activeVariant)
-      .map((skin) => {
-        const img = new Image();
-        img.src = prefixedAvatarPath(skin.variantId);
-        return img;
-      });
-  }, [character.skins, activeVariant]);
-
   return (
     <div
       className={`skin-picker${flip ? " skin-picker--flip" : ""}`}

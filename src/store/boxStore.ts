@@ -146,6 +146,7 @@ export function migratePersistedState(raw: unknown): PersistedBoxState {
   const characters: Record<string, CharacterState> = {};
   for (const [id, state] of Object.entries(rawCharacters)) {
     if (!isRecord(state)) continue;
+    if (!KNOWN_IDS.has(id)) continue; // 未知角色：跳過（避免 stale 條目永久存活）
     const owned = state.owned === true;
     if (!owned) continue;
     characters[id] = { owned: true, portray: normalizePortray(state.portray) };
@@ -325,7 +326,7 @@ export const useBoxStore = create<BoxStore>()(
     }),
     {
       name: "reverse1999-box-state",
-      version: 7,
+      version: 8,
       partialize: (state) => ({
         characters: state.characters,
         displayLang: state.displayLang,

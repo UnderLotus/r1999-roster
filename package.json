@@ -1,7 +1,7 @@
 {
   "name": "r1999-roster",
   "private": true,
-  "version": "1.6.2",
+  "version": "1.7.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,8 @@
     "typecheck": "tsc -b --pretty false",
     "test:store": "tsx scripts/test-store.ts",
     "test:share": "tsx scripts/test-share-code.ts",
+    "test:names": "tsx scripts/test-names.ts",
+    "test:assets": "tsx scripts/test-assets.ts",
     "build:names": "tsx scripts/build-names.ts",
     "build:id-map": "tsx scripts/build-id-map.ts",
     "build:characters": "tsx scripts/build-characters.ts",
@@ -30,6 +32,7 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "sharp": "^0.35.3",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "vite": "^6.0.7"
