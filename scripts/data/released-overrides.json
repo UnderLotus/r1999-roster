@@ -20,12 +20,22 @@
     "source": "auto"
   },
   {
+    "nameEng": "Hedone",
+    "isReleased": false,
+    "source": "auto"
+  },
+  {
     "nameEng": "Lady by the Lake",
     "isReleased": true,
     "source": "manual"
   },
   {
     "nameEng": "Ms. Stranger",
+    "isReleased": false,
+    "source": "auto"
+  },
+  {
+    "nameEng": "Narcissus",
     "isReleased": false,
     "source": "auto"
   },

@@ -1,0 +1,9 @@
+[
+  {
+    "baseId": 3029,
+    "variantId": "302901",
+    "name": "斯奈德",
+    "nameEng": "Schneider",
+    "note": "CB 封測廢棄角色：OB／正式服上線後即移除，官方不再使用。上游 asset repo 仍保留其 headicon 與 spine，但不得自動加入本專案。"
+  }
+]

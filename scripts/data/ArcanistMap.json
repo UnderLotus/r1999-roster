@@ -2225,6 +2225,18 @@
         "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/305401_yangcongtou",
         "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/",
         "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/305401_yangcongtou_s"
+      },
+      {
+        "id": 305403,
+        "name": "体育快讯",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "体育快讯",
+        "characterSkinNameEng": "Front Page Exclusive",
+        "skinDescription": "欢迎来到第一现场，正向大海冲锋的是……一辆巨大的小黄鸭！",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_305403_yct",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/305401_yangcongtou_s"
       }
     ]
   },
@@ -5000,6 +5012,18 @@
         "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a3_312103_mlde",
         "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/312103_mlde",
         "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a3_312103_mlde_s"
+      },
+      {
+        "id": 312104,
+        "name": "玫瑰午睡时",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "玫瑰午睡时",
+        "characterSkinNameEng": "Repose Amidst the Roses",
+        "skinDescription": "将床单与芬芳一同折起，于褶皱里保留一点夏天。",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_312104_mlde",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/312104_mlde",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v2a8_312101_mlde_s"
       }
     ]
   },
@@ -5357,6 +5381,18 @@
         "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a2_313502_hdl",
         "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/313502_hdl",
         "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a2_313501_hdl_s"
+      },
+      {
+        "id": 313503,
+        "name": "海盐急速",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "海盐急速",
+        "characterSkinNameEng": "Full Quack Ahead",
+        "skinDescription": "人生一路，当激流勇进，然后顺手挖点命运埋下的彩蛋！",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_313503_hdl",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/313503_hdl",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_313503_hdl_s"
       }
     ]
   },
@@ -5690,6 +5726,18 @@
         "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a6_314302_ym",
         "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/314302_yami",
         "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a6_314301_ym_s"
+      },
+      {
+        "id": 314303,
+        "name": "泅与问",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "泅与问",
+        "characterSkinNameEng": "To Fathom the Depths",
+        "skinDescription": "光线在海中褪色。思维的边界上，唯余浩渺的蓝。",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_314303_ym",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/314303_ym",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_314303_ym_s"
       }
     ]
   },
@@ -5756,6 +5804,18 @@
         "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a7_314702_wmz",
         "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/314702_wmz",
         "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a7_314701_wmz_s"
+      },
+      {
+        "id": 314704,
+        "name": "沉影探戈",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "沉影探戈",
+        "characterSkinNameEng": "Waltz of the Depths",
+        "skinDescription": "秘密在目光中流转——如此翩然。",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_314704_wmz",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/314704_wmz",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_314704_wmz_s"
       }
     ]
   },
@@ -5978,6 +6038,72 @@
         "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/s02_315102_nl",
         "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/",
         "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/s02_315101_nl_s"
+      }
+    ]
+  },
+  {
+    "id": 3156,
+    "name": "赫多涅",
+    "nameEng": "Hedone",
+    "roleBirthday": "8/8",
+    "signature": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/singlebg/signature/3156.png",
+    "live2d": [
+      {
+        "id": 315601,
+        "name": "赫多涅",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "",
+        "characterSkinNameEng": "",
+        "skinDescription": "她是一切欢愉与财富的主人。",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315601_hdn",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/315601_hdn",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315601_hdn_s"
+      },
+      {
+        "id": 315602,
+        "name": "赫多涅",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "与过往碰杯",
+        "characterSkinNameEng": "A Cheers to the Past",
+        "skinDescription": "岩浆冷却之后，一场漫长的告别。",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315602_hdn",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/315602_hdn",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315601_hdn_s"
+      }
+    ]
+  },
+  {
+    "id": 3157,
+    "name": "纳西索斯",
+    "nameEng": "Narcissus",
+    "roleBirthday": "3/21",
+    "signature": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/singlebg/signature/3157.png",
+    "live2d": [
+      {
+        "id": 315701,
+        "name": "纳西索斯",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "",
+        "characterSkinNameEng": "",
+        "skinDescription": "火山岛运动会的第一位宁芙冠军！……算是吧？",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315701_nxss",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/315701_nxss",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315701_nxss_s"
+      },
+      {
+        "id": 315702,
+        "name": "纳西索斯",
+        "nameEng": "",
+        "des": "",
+        "characterSkin": "涟漪的裙裾",
+        "characterSkinNameEng": "Ripples Yet to Bloom",
+        "skinDescription": "临行前夜，河岸覆满露水。",
+        "spine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315702_nxss",
+        "cubism": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/live2d/roles/315702_nxss",
+        "alternateSpine": "https://github.com/myssal/Reverse-1999-CN-Asset/tree/master/roles/v3a9_315701_nxss_s"
       }
     ]
   }

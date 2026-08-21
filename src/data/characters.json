@@ -1,9 +1,71 @@
 [
   {
+    "id": "315701",
+    "name": "纳西索斯",
+    "baseId": 3157,
+    "releaseOrder": 1,
+    "enabled": true,
+    "skins": [
+      {
+        "variantId": "315701",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "315702",
+        "type": "insight",
+        "skinName": "涟漪的裙裾",
+        "skinNameEng": "Ripples Yet to Bloom"
+      }
+    ],
+    "defaultVariant": "315701",
+    "stage": "pending-names",
+    "isReleased": false,
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%B3%E8%A5%BF%E7%B4%A2%E6%96%AF"
+    },
+    "names": {
+      "zh-CN": "纳西索斯",
+      "en-US": "Narcissus"
+    }
+  },
+  {
+    "id": "315601",
+    "name": "赫多涅",
+    "baseId": 3156,
+    "releaseOrder": 2,
+    "enabled": true,
+    "skins": [
+      {
+        "variantId": "315601",
+        "type": "default",
+        "skinName": null,
+        "skinNameEng": null
+      },
+      {
+        "variantId": "315602",
+        "type": "insight",
+        "skinName": "与过往碰杯",
+        "skinNameEng": "A Cheers to the Past"
+      }
+    ],
+    "defaultVariant": "315601",
+    "stage": "pending-names",
+    "isReleased": false,
+    "source": {
+      "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B5%AB%E5%A4%9A%E6%B6%85"
+    },
+    "names": {
+      "zh-CN": "赫多涅",
+      "en-US": "Hedone"
+    }
+  },
+  {
     "id": "314901",
     "name": "双生舞伶",
     "baseId": 3149,
-    "releaseOrder": 1,
+    "releaseOrder": 3,
     "enabled": true,
     "names": {
       "zh-CN": "双生舞伶",
@@ -49,7 +111,7 @@
     "id": "314701",
     "name": "无名者",
     "baseId": 3147,
-    "releaseOrder": 2,
+    "releaseOrder": 4,
     "enabled": true,
     "names": {
       "zh-CN": "无名者",
@@ -70,6 +132,12 @@
         "type": "insight",
         "skinName": "无尽且唯一的路",
         "skinNameEng": "Down a Dark Path"
+      },
+      {
+        "variantId": "314704",
+        "type": "skin",
+        "skinName": "沉影探戈",
+        "skinNameEng": "Waltz of the Depths"
       }
     ],
     "defaultVariant": "314701",
@@ -85,7 +153,7 @@
     "id": "314601",
     "name": "小瑞安侬",
     "baseId": 3146,
-    "releaseOrder": 3,
+    "releaseOrder": 5,
     "enabled": true,
     "names": {
       "zh-CN": "小瑞安侬",
@@ -121,13 +189,13 @@
     "id": "314501",
     "name": "回声谣",
     "baseId": 3145,
-    "releaseOrder": 4,
+    "releaseOrder": 6,
     "enabled": true,
     "names": {
       "zh-CN": "回声谣",
       "zh-TW": "回聲謠",
       "en-US": "Everecho",
-      "ja-JP": "エヴァーエコー",
+      "ja-JP": "エバーエコー",
       "ko-KR": "에버에코"
     },
     "skins": [
@@ -157,11 +225,11 @@
     "id": "314401",
     "name": "珐琅眼",
     "baseId": 3144,
-    "releaseOrder": 5,
+    "releaseOrder": 7,
     "enabled": true,
     "names": {
       "zh-CN": "珐琅眼",
-      "zh-TW": "琺琅眼",
+      "zh-TW": "琺瑯眼",
       "en-US": "Coppélia",
       "ko-KR": "코펠리아",
       "ja-JP": "コッペリア"
@@ -200,7 +268,7 @@
     "id": "314301",
     "name": "哑谜",
     "baseId": 3143,
-    "releaseOrder": 6,
+    "releaseOrder": 8,
     "enabled": true,
     "names": {
       "zh-CN": "哑谜",
@@ -221,6 +289,13 @@
         "type": "insight",
         "skinName": "填空题",
         "skinNameEng": "Cloze Testing"
+      },
+      {
+        "variantId": "314303",
+        "type": "skin",
+        "skinName": "泅与问",
+        "skinNameEng": "To Fathom the Depths",
+        "isReleased": false
       }
     ],
     "defaultVariant": "314301",
@@ -236,7 +311,7 @@
     "id": "314201",
     "name": "拉莫纳",
     "baseId": 3142,
-    "releaseOrder": 7,
+    "releaseOrder": 9,
     "enabled": true,
     "names": {
       "zh-CN": "拉莫纳",
@@ -272,7 +347,7 @@
     "id": "314101",
     "name": "鹭鸶剪",
     "baseId": 3141,
-    "releaseOrder": 8,
+    "releaseOrder": 10,
     "enabled": true,
     "names": {
       "zh-CN": "鹭鸶剪",
@@ -308,7 +383,7 @@
     "id": "314001",
     "name": "奠基石",
     "baseId": 3140,
-    "releaseOrder": 9,
+    "releaseOrder": 11,
     "enabled": true,
     "names": {
       "zh-CN": "奠基石",
@@ -344,7 +419,7 @@
     "id": "313901",
     "name": "洛伦兹蝴蝶",
     "baseId": 3139,
-    "releaseOrder": 10,
+    "releaseOrder": 12,
     "enabled": true,
     "names": {
       "zh-CN": "洛伦兹蝴蝶",
@@ -387,7 +462,7 @@
     "id": "313701",
     "name": "程和光",
     "baseId": 3137,
-    "releaseOrder": 11,
+    "releaseOrder": 13,
     "enabled": true,
     "names": {
       "zh-CN": "程和光",
@@ -423,7 +498,7 @@
     "id": "313501",
     "name": "灰调蓝",
     "baseId": 3135,
-    "releaseOrder": 12,
+    "releaseOrder": 14,
     "enabled": true,
     "names": {
       "zh-CN": "灰调蓝",
@@ -444,6 +519,13 @@
         "type": "insight",
         "skinName": "意外停靠",
         "skinNameEng": "A Wayward Intermission"
+      },
+      {
+        "variantId": "313503",
+        "type": "skin",
+        "skinName": "海盐急速",
+        "skinNameEng": "Full Quack Ahead",
+        "isReleased": false
       }
     ],
     "defaultVariant": "313501",
@@ -459,7 +541,7 @@
     "id": "313401",
     "name": "贝丽尔",
     "baseId": 3134,
-    "releaseOrder": 13,
+    "releaseOrder": 15,
     "enabled": true,
     "names": {
       "zh-CN": "贝丽尔",
@@ -495,7 +577,7 @@
     "id": "313201",
     "name": "告死鸟",
     "baseId": 3132,
-    "releaseOrder": 14,
+    "releaseOrder": 16,
     "enabled": true,
     "names": {
       "zh-CN": "告死鸟",
@@ -537,7 +619,7 @@
     "id": "312801",
     "name": "卡戎",
     "baseId": 3128,
-    "releaseOrder": 15,
+    "releaseOrder": 17,
     "enabled": true,
     "names": {
       "zh-CN": "卡戎",
@@ -580,7 +662,7 @@
     "id": "312701",
     "name": "玛尔纱",
     "baseId": 3127,
-    "releaseOrder": 16,
+    "releaseOrder": 18,
     "enabled": true,
     "names": {
       "zh-CN": "玛尔纱",
@@ -622,7 +704,7 @@
     "id": "312601",
     "name": "玛丽安娜",
     "baseId": 3126,
-    "releaseOrder": 17,
+    "releaseOrder": 19,
     "enabled": true,
     "names": {
       "zh-CN": "玛丽安娜",
@@ -670,7 +752,7 @@
     "id": "312501",
     "name": "野树莓",
     "baseId": 3125,
-    "releaseOrder": 18,
+    "releaseOrder": 20,
     "enabled": true,
     "names": {
       "zh-CN": "野树莓",
@@ -712,11 +794,11 @@
     "id": "312401",
     "name": "卡珊德拉",
     "baseId": 3124,
-    "releaseOrder": 19,
+    "releaseOrder": 21,
     "enabled": true,
     "names": {
       "zh-CN": "卡珊德拉",
-      "zh-TW": "卡珊德拉",
+      "zh-TW": "卡珊卓",
       "en-US": "Kassandra",
       "ja-JP": "カサンドラ",
       "ko-KR": "카산드라"
@@ -748,11 +830,11 @@
     "id": "312301",
     "name": "艾吉奥·奥迪托雷",
     "baseId": 3123,
-    "releaseOrder": 20,
+    "releaseOrder": 22,
     "enabled": true,
     "names": {
       "zh-CN": "艾吉奥·奥迪托雷",
-      "zh-TW": "艾吉奧·奧迪託雷",
+      "zh-TW": "埃齊歐·奧迪托雷",
       "en-US": "Ezio Auditore",
       "ja-JP": "エツィオ",
       "ko-KR": "에지오 아디토레"
@@ -784,14 +866,14 @@
     "id": "312101",
     "name": "莫莉德尔",
     "baseId": 3121,
-    "releaseOrder": 21,
+    "releaseOrder": 23,
     "enabled": true,
     "names": {
       "zh-CN": "莫莉德尔",
       "zh-TW": "莫莉德爾",
       "en-US": "Moldir",
       "ja-JP": "モルダー",
-      "ko-KR": "Moldir"
+      "ko-KR": "몰디르"
     },
     "skins": [
       {
@@ -811,6 +893,13 @@
         "type": "skin",
         "skinName": "石头城挽歌",
         "skinNameEng": "Idyll of the Luberon"
+      },
+      {
+        "variantId": "312104",
+        "type": "skin",
+        "skinName": "玫瑰午睡时",
+        "skinNameEng": "Repose Amidst the Roses",
+        "isReleased": false
       }
     ],
     "defaultVariant": "312101",
@@ -826,14 +915,14 @@
     "id": "312001",
     "name": "诺谛卡",
     "baseId": 3120,
-    "releaseOrder": 22,
+    "releaseOrder": 24,
     "enabled": true,
     "names": {
       "zh-CN": "诺谛卡",
       "zh-TW": "諾諦卡",
       "en-US": "Nautika",
       "ja-JP": "ノーティカ",
-      "ko-KR": "Nautika"
+      "ko-KR": "노티카"
     },
     "skins": [
       {
@@ -869,14 +958,14 @@
     "id": "311701",
     "name": "库珀花环",
     "baseId": 3117,
-    "releaseOrder": 23,
+    "releaseOrder": 25,
     "enabled": true,
     "names": {
       "zh-CN": "库珀花环",
       "zh-TW": "庫珀花環",
       "en-US": "Kiperina",
       "ja-JP": "カイパリーナ",
-      "ko-KR": "Kiperina"
+      "ko-KR": "키페리나"
     },
     "skins": [
       {
@@ -917,14 +1006,14 @@
     "id": "311601",
     "name": "冷周六",
     "baseId": 3116,
-    "releaseOrder": 24,
+    "releaseOrder": 26,
     "enabled": true,
     "names": {
       "zh-CN": "冷周六",
       "zh-TW": "冷週六",
       "en-US": "Hissabeth",
       "ja-JP": "サーベス",
-      "ko-KR": "Hissabeth"
+      "ko-KR": "히사베스"
     },
     "skins": [
       {
@@ -966,7 +1055,7 @@
     "id": "311401",
     "name": "虚构集",
     "baseId": 3114,
-    "releaseOrder": 25,
+    "releaseOrder": 27,
     "enabled": true,
     "names": {
       "zh-CN": "虚构集",
@@ -1014,7 +1103,7 @@
     "id": "311301",
     "name": "阿莱夫",
     "baseId": 3113,
-    "releaseOrder": 26,
+    "releaseOrder": 28,
     "enabled": true,
     "names": {
       "zh-CN": "阿莱夫",
@@ -1056,14 +1145,14 @@
     "id": "311101",
     "name": "菲林士多",
     "baseId": 3111,
-    "releaseOrder": 27,
+    "releaseOrder": 29,
     "enabled": true,
     "names": {
       "zh-CN": "菲林士多",
       "zh-TW": "菲林士多",
       "en-US": "Noire",
       "ja-JP": "ノワール",
-      "ko-KR": "느와르"
+      "ko-KR": "누아르"
     },
     "skins": [
       {
@@ -1098,7 +1187,7 @@
     "id": "311001",
     "name": "梁月",
     "baseId": 3110,
-    "releaseOrder": 28,
+    "releaseOrder": 30,
     "enabled": true,
     "names": {
       "zh-CN": "梁月",
@@ -1140,7 +1229,7 @@
     "id": "310901",
     "name": "图图石子",
     "baseId": 3109,
-    "releaseOrder": 29,
+    "releaseOrder": 31,
     "enabled": true,
     "names": {
       "zh-CN": "图图石子",
@@ -1189,7 +1278,7 @@
     "id": "310801",
     "name": "芭卡洛儿",
     "baseId": 3108,
-    "releaseOrder": 30,
+    "releaseOrder": 32,
     "enabled": true,
     "names": {
       "zh-CN": "芭卡洛儿",
@@ -1231,11 +1320,11 @@
     "id": "310701",
     "name": "乌尔里希",
     "baseId": 3107,
-    "releaseOrder": 31,
+    "releaseOrder": 33,
     "enabled": true,
     "names": {
       "zh-CN": "乌尔里希",
-      "zh-TW": "烏爾裡希",
+      "zh-TW": "烏爾里希",
       "en-US": "Ulrich",
       "ja-JP": "ウルリッヒ",
       "ko-KR": "울리히"
@@ -1273,7 +1362,7 @@
     "id": "310501",
     "name": "纸信圈儿",
     "baseId": 3105,
-    "releaseOrder": 32,
+    "releaseOrder": 34,
     "enabled": true,
     "names": {
       "zh-CN": "纸信圈儿",
@@ -1321,7 +1410,7 @@
     "id": "310401",
     "name": "笃笃骨",
     "baseId": 3104,
-    "releaseOrder": 33,
+    "releaseOrder": 35,
     "enabled": true,
     "names": {
       "zh-CN": "笃笃骨",
@@ -1369,7 +1458,7 @@
     "id": "310201",
     "name": "洛佩拉",
     "baseId": 3102,
-    "releaseOrder": 34,
+    "releaseOrder": 36,
     "enabled": true,
     "names": {
       "zh-CN": "洛佩拉",
@@ -1411,7 +1500,7 @@
     "id": "310001",
     "name": "天使娜娜",
     "baseId": 3100,
-    "releaseOrder": 35,
+    "releaseOrder": 37,
     "enabled": true,
     "names": {
       "zh-CN": "天使娜娜",
@@ -1453,7 +1542,7 @@
     "id": "309801",
     "name": "蓝手帕",
     "baseId": 3098,
-    "releaseOrder": 36,
+    "releaseOrder": 38,
     "enabled": true,
     "names": {
       "zh-CN": "蓝手帕",
@@ -1501,7 +1590,7 @@
     "id": "309701",
     "name": "阿尔古斯",
     "baseId": 3097,
-    "releaseOrder": 37,
+    "releaseOrder": 39,
     "enabled": true,
     "names": {
       "zh-CN": "阿尔古斯",
@@ -1543,7 +1632,7 @@
     "id": "309501",
     "name": "环状水星",
     "baseId": 3095,
-    "releaseOrder": 38,
+    "releaseOrder": 40,
     "enabled": true,
     "names": {
       "zh-CN": "环状水星",
@@ -1591,7 +1680,7 @@
     "id": "309401",
     "name": "J",
     "baseId": 3094,
-    "releaseOrder": 39,
+    "releaseOrder": 41,
     "enabled": true,
     "names": {
       "zh-CN": "J",
@@ -1633,7 +1722,7 @@
     "id": "309201",
     "name": "伊戈尔",
     "baseId": 3092,
-    "releaseOrder": 40,
+    "releaseOrder": 42,
     "enabled": true,
     "names": {
       "zh-CN": "伊戈尔",
@@ -1676,7 +1765,7 @@
     "id": "308801",
     "name": "塞梅尔维斯",
     "baseId": 3088,
-    "releaseOrder": 41,
+    "releaseOrder": 43,
     "enabled": true,
     "names": {
       "zh-CN": "塞梅尔维斯",
@@ -1724,7 +1813,7 @@
     "id": "308701",
     "name": "维拉",
     "baseId": 3087,
-    "releaseOrder": 42,
+    "releaseOrder": 44,
     "enabled": true,
     "names": {
       "zh-CN": "维拉",
@@ -1772,7 +1861,7 @@
     "id": "308601",
     "name": "露西",
     "baseId": 3086,
-    "releaseOrder": 43,
+    "releaseOrder": 45,
     "enabled": true,
     "names": {
       "zh-CN": "露西",
@@ -1814,7 +1903,7 @@
     "id": "308401",
     "name": "葛天",
     "baseId": 3084,
-    "releaseOrder": 44,
+    "releaseOrder": 46,
     "enabled": true,
     "names": {
       "zh-CN": "葛天",
@@ -1856,7 +1945,7 @@
     "id": "308301",
     "name": "曲娘",
     "baseId": 3083,
-    "releaseOrder": 45,
+    "releaseOrder": 47,
     "enabled": true,
     "names": {
       "zh-CN": "曲娘",
@@ -1898,7 +1987,7 @@
     "id": "308101",
     "name": "伊索尔德",
     "baseId": 3081,
-    "releaseOrder": 46,
+    "releaseOrder": 48,
     "enabled": true,
     "names": {
       "zh-CN": "伊索尔德",
@@ -1946,7 +2035,7 @@
     "id": "308001",
     "name": "卡卡尼亚",
     "baseId": 3080,
-    "releaseOrder": 47,
+    "releaseOrder": 49,
     "enabled": true,
     "names": {
       "zh-CN": "卡卡尼亚",
@@ -1994,7 +2083,7 @@
     "id": "307901",
     "name": "6",
     "baseId": 3079,
-    "releaseOrder": 48,
+    "releaseOrder": 50,
     "enabled": true,
     "names": {
       "zh-CN": "6",
@@ -2048,7 +2137,7 @@
     "id": "307701",
     "name": "北方哨歌",
     "baseId": 3077,
-    "releaseOrder": 49,
+    "releaseOrder": 51,
     "enabled": true,
     "names": {
       "zh-CN": "北方哨歌",
@@ -2102,7 +2191,7 @@
     "id": "307401",
     "name": "爱兹拉",
     "baseId": 3074,
-    "releaseOrder": 50,
+    "releaseOrder": 52,
     "enabled": true,
     "names": {
       "zh-CN": "爱兹拉",
@@ -2144,7 +2233,7 @@
     "id": "307301",
     "name": "可燃点",
     "baseId": 3073,
-    "releaseOrder": 51,
+    "releaseOrder": 53,
     "enabled": true,
     "names": {
       "zh-CN": "可燃点",
@@ -2193,14 +2282,14 @@
     "id": "307201",
     "name": "鬃毛沙砾",
     "baseId": 3072,
-    "releaseOrder": 52,
+    "releaseOrder": 54,
     "enabled": true,
     "names": {
       "zh-CN": "鬃毛沙砾",
       "zh-TW": "鬃毛沙礫",
       "en-US": "Shamane",
       "ja-JP": "シャーマィン",
-      "ko-KR": "갈기모래"
+      "ko-KR": "갈기 모래"
     },
     "skins": [
       {
@@ -2235,7 +2324,7 @@
     "id": "307001",
     "name": "伽菈波那",
     "baseId": 3070,
-    "releaseOrder": 53,
+    "releaseOrder": 55,
     "enabled": true,
     "names": {
       "zh-CN": "伽菈波那",
@@ -2283,7 +2372,7 @@
     "id": "306601",
     "name": "37",
     "baseId": 3066,
-    "releaseOrder": 54,
+    "releaseOrder": 56,
     "enabled": true,
     "names": {
       "zh-CN": "37",
@@ -2338,7 +2427,7 @@
     "id": "306501",
     "name": "马库斯",
     "baseId": 3065,
-    "releaseOrder": 55,
+    "releaseOrder": 57,
     "enabled": true,
     "names": {
       "zh-CN": "马库斯",
@@ -2386,7 +2475,7 @@
     "id": "306301",
     "name": "皮克勒斯",
     "baseId": 3063,
-    "releaseOrder": 56,
+    "releaseOrder": 58,
     "enabled": true,
     "names": {
       "zh-CN": "皮克勒斯",
@@ -2428,7 +2517,7 @@
     "id": "306201",
     "name": "梅兰妮",
     "baseId": 3062,
-    "releaseOrder": 57,
+    "releaseOrder": 59,
     "enabled": true,
     "names": {
       "zh-CN": "梅兰妮",
@@ -2476,7 +2565,7 @@
     "id": "305601",
     "name": "洁西卡",
     "baseId": 3056,
-    "releaseOrder": 58,
+    "releaseOrder": 60,
     "enabled": true,
     "names": {
       "zh-CN": "洁西卡",
@@ -2524,7 +2613,7 @@
     "id": "305301",
     "name": "牙仙",
     "baseId": 3053,
-    "releaseOrder": 59,
+    "releaseOrder": 61,
     "enabled": true,
     "names": {
       "zh-CN": "牙仙",
@@ -2578,7 +2667,7 @@
     "id": "305201",
     "name": "新巴别塔",
     "baseId": 3052,
-    "releaseOrder": 60,
+    "releaseOrder": 62,
     "enabled": true,
     "names": {
       "zh-CN": "新巴别塔",
@@ -2620,7 +2709,7 @@
     "id": "305101",
     "name": "温妮弗雷德",
     "baseId": 3051,
-    "releaseOrder": 61,
+    "releaseOrder": 63,
     "enabled": true,
     "names": {
       "zh-CN": "温妮弗雷德",
@@ -2668,7 +2757,7 @@
     "id": "304801",
     "name": "远旅",
     "baseId": 3048,
-    "releaseOrder": 62,
+    "releaseOrder": 64,
     "enabled": true,
     "names": {
       "zh-CN": "远旅",
@@ -2716,7 +2805,7 @@
     "id": "304701",
     "name": "兔毛手袋",
     "baseId": 3047,
-    "releaseOrder": 63,
+    "releaseOrder": 65,
     "enabled": true,
     "names": {
       "zh-CN": "兔毛手袋",
@@ -2764,7 +2853,7 @@
     "id": "303901",
     "name": "泥鯭的士",
     "baseId": 3039,
-    "releaseOrder": 64,
+    "releaseOrder": 66,
     "enabled": true,
     "names": {
       "zh-CN": "泥鯭的士",
@@ -2812,7 +2901,7 @@
     "id": "303201",
     "name": "百夫长",
     "baseId": 3032,
-    "releaseOrder": 65,
+    "releaseOrder": 67,
     "enabled": true,
     "names": {
       "zh-CN": "百夫长",
@@ -2854,7 +2943,7 @@
     "id": "302501",
     "name": "星锑",
     "baseId": 3025,
-    "releaseOrder": 66,
+    "releaseOrder": 68,
     "enabled": true,
     "names": {
       "zh-CN": "星锑",
@@ -2902,7 +2991,7 @@
     "id": "300901",
     "name": "苏芙比",
     "baseId": 3009,
-    "releaseOrder": 67,
+    "releaseOrder": 69,
     "enabled": true,
     "names": {
       "zh-CN": "苏芙比",
@@ -2950,7 +3039,7 @@
     "id": "300701",
     "name": "未锈铠",
     "baseId": 3007,
-    "releaseOrder": 68,
+    "releaseOrder": 70,
     "enabled": true,
     "names": {
       "zh-CN": "未锈铠",
@@ -2998,7 +3087,7 @@
     "id": "300401",
     "name": "红弩箭",
     "baseId": 3004,
-    "releaseOrder": 69,
+    "releaseOrder": 71,
     "enabled": true,
     "names": {
       "zh-CN": "红弩箭",
@@ -3046,7 +3135,7 @@
     "id": "300301",
     "name": "槲寄生",
     "baseId": 3003,
-    "releaseOrder": 70,
+    "releaseOrder": 72,
     "enabled": true,
     "names": {
       "zh-CN": "槲寄生",
@@ -3094,14 +3183,14 @@
     "id": "315401",
     "name": "银装小春雀儿",
     "baseId": 3154,
-    "releaseOrder": 71,
+    "releaseOrder": 73,
     "enabled": true,
     "names": {
       "zh-CN": "银装小春雀儿",
       "zh-TW": "銀裝小春雀兒",
       "en-US": "Silverwing Eagle",
       "ja-JP": "イーグル",
-      "ko-KR": "이글"
+      "ko-KR": "은빛 이글"
     },
     "skins": [
       {
@@ -3130,11 +3219,11 @@
     "id": "312201",
     "name": "阿利克西欧斯",
     "baseId": 3122,
-    "releaseOrder": 72,
+    "releaseOrder": 74,
     "enabled": true,
     "names": {
       "zh-CN": "阿利克西欧斯",
-      "zh-TW": "阿利克西歐斯",
+      "zh-TW": "亞歷克西歐斯",
       "en-US": "Alexios",
       "ja-JP": "アレクシオス",
       "ko-KR": "알렉시오스"
@@ -3166,14 +3255,14 @@
     "id": "311801",
     "name": "命名日",
     "baseId": 3118,
-    "releaseOrder": 73,
+    "releaseOrder": 75,
     "enabled": true,
     "names": {
       "zh-CN": "命名日",
       "zh-TW": "命名日",
       "en-US": "Name Day",
       "ja-JP": "ネイムデー",
-      "ko-KR": "Name Day"
+      "ko-KR": "네임데이"
     },
     "skins": [
       {
@@ -3209,14 +3298,14 @@
     "id": "311501",
     "name": "嚼嚼松果",
     "baseId": 3115,
-    "releaseOrder": 74,
+    "releaseOrder": 76,
     "enabled": true,
     "names": {
       "zh-CN": "嚼嚼松果",
       "zh-TW": "嚼嚼松果",
       "en-US": "Buddy Fairchild",
       "ja-JP": "もぐナッツ",
-      "ko-KR": "Buddy Fairchild"
+      "ko-KR": "버디 페어차일드"
     },
     "skins": [
       {
@@ -3245,7 +3334,7 @@
     "id": "311201",
     "name": "空脑袋",
     "baseId": 3112,
-    "releaseOrder": 75,
+    "releaseOrder": 77,
     "enabled": true,
     "names": {
       "zh-CN": "空脑袋",
@@ -3281,7 +3370,7 @@
     "id": "310601",
     "name": "宽檐帽",
     "baseId": 3106,
-    "releaseOrder": 76,
+    "releaseOrder": 78,
     "enabled": true,
     "names": {
       "zh-CN": "宽檐帽",
@@ -3323,7 +3412,7 @@
     "id": "310301",
     "name": "邓肯先生",
     "baseId": 3103,
-    "releaseOrder": 77,
+    "releaseOrder": 79,
     "enabled": true,
     "names": {
       "zh-CN": "邓肯先生",
@@ -3359,7 +3448,7 @@
     "id": "309901",
     "name": "数羊羔",
     "baseId": 3099,
-    "releaseOrder": 78,
+    "releaseOrder": 80,
     "enabled": true,
     "names": {
       "zh-CN": "数羊羔",
@@ -3395,7 +3484,7 @@
     "id": "309101",
     "name": "罗蕾莱",
     "baseId": 3091,
-    "releaseOrder": 79,
+    "releaseOrder": 81,
     "enabled": true,
     "names": {
       "zh-CN": "罗蕾莱",
@@ -3431,7 +3520,7 @@
     "id": "308201",
     "name": "小叶尼塞",
     "baseId": 3082,
-    "releaseOrder": 80,
+    "releaseOrder": 82,
     "enabled": true,
     "names": {
       "zh-CN": "小叶尼塞",
@@ -3473,7 +3562,7 @@
     "id": "307801",
     "name": "阿夫西维",
     "baseId": 3078,
-    "releaseOrder": 81,
+    "releaseOrder": 83,
     "enabled": true,
     "names": {
       "zh-CN": "阿夫西维",
@@ -3509,7 +3598,7 @@
     "id": "307601",
     "name": "和平乌鲁",
     "baseId": 3076,
-    "releaseOrder": 82,
+    "releaseOrder": 84,
     "enabled": true,
     "names": {
       "zh-CN": "和平乌鲁",
@@ -3545,7 +3634,7 @@
     "id": "307501",
     "name": "沙丝绒",
     "baseId": 3075,
-    "releaseOrder": 83,
+    "releaseOrder": 85,
     "enabled": true,
     "names": {
       "zh-CN": "沙丝绒",
@@ -3587,7 +3676,7 @@
     "id": "307101",
     "name": "坎吉拉",
     "baseId": 3071,
-    "releaseOrder": 84,
+    "releaseOrder": 86,
     "enabled": true,
     "names": {
       "zh-CN": "坎吉拉",
@@ -3629,7 +3718,7 @@
     "id": "306401",
     "name": "挖掘艺术",
     "baseId": 3064,
-    "releaseOrder": 85,
+    "releaseOrder": 87,
     "enabled": true,
     "names": {
       "zh-CN": "挖掘艺术",
@@ -3671,7 +3760,7 @@
     "id": "306101",
     "name": "恐怖通",
     "baseId": 3061,
-    "releaseOrder": 86,
+    "releaseOrder": 88,
     "enabled": true,
     "names": {
       "zh-CN": "恐怖通",
@@ -3713,7 +3802,7 @@
     "id": "306001",
     "name": "金蜜儿",
     "baseId": 3060,
-    "releaseOrder": 87,
+    "releaseOrder": 89,
     "enabled": true,
     "names": {
       "zh-CN": "金蜜儿",
@@ -3755,7 +3844,7 @@
     "id": "304901",
     "name": "喀嚓喀嚓",
     "baseId": 3049,
-    "releaseOrder": 88,
+    "releaseOrder": 90,
     "enabled": true,
     "names": {
       "zh-CN": "喀嚓喀嚓",
@@ -3791,7 +3880,7 @@
     "id": "304301",
     "name": "坦南特",
     "baseId": 3043,
-    "releaseOrder": 89,
+    "releaseOrder": 91,
     "enabled": true,
     "names": {
       "zh-CN": "坦南特",
@@ -3839,7 +3928,7 @@
     "id": "304101",
     "name": "玛蒂尔达",
     "baseId": 3041,
-    "releaseOrder": 90,
+    "releaseOrder": 92,
     "enabled": true,
     "names": {
       "zh-CN": "玛蒂尔达",
@@ -3887,7 +3976,7 @@
     "id": "303801",
     "name": "五色月",
     "baseId": 3038,
-    "releaseOrder": 91,
+    "releaseOrder": 93,
     "enabled": true,
     "names": {
       "zh-CN": "五色月",
@@ -3929,7 +4018,7 @@
     "id": "303701",
     "name": "讣告人",
     "baseId": 3037,
-    "releaseOrder": 92,
+    "releaseOrder": 94,
     "enabled": true,
     "names": {
       "zh-CN": "讣告人",
@@ -3971,7 +4060,7 @@
     "id": "302401",
     "name": "气球派对",
     "baseId": 3024,
-    "releaseOrder": 93,
+    "releaseOrder": 95,
     "enabled": true,
     "names": {
       "zh-CN": "气球派对",
@@ -4013,7 +4102,7 @@
     "id": "302301",
     "name": "十四行诗",
     "baseId": 3023,
-    "releaseOrder": 94,
+    "releaseOrder": 96,
     "enabled": true,
     "names": {
       "zh-CN": "十四行诗",
@@ -4062,7 +4151,7 @@
     "id": "302201",
     "name": "帕米埃",
     "baseId": 3022,
-    "releaseOrder": 95,
+    "releaseOrder": 97,
     "enabled": true,
     "names": {
       "zh-CN": "帕米埃",
@@ -4104,7 +4193,7 @@
     "id": "302001",
     "name": "柏林以东",
     "baseId": 3020,
-    "releaseOrder": 96,
+    "releaseOrder": 98,
     "enabled": true,
     "names": {
       "zh-CN": "柏林以东",
@@ -4146,7 +4235,7 @@
     "id": "301701",
     "name": "夏利",
     "baseId": 3017,
-    "releaseOrder": 97,
+    "releaseOrder": 99,
     "enabled": true,
     "names": {
       "zh-CN": "夏利",
@@ -4188,7 +4277,7 @@
     "id": "301601",
     "name": "婴儿蓝",
     "baseId": 3016,
-    "releaseOrder": 98,
+    "releaseOrder": 100,
     "enabled": true,
     "names": {
       "zh-CN": "婴儿蓝",
@@ -4230,7 +4319,7 @@
     "id": "301101",
     "name": "玛丽莲",
     "baseId": 3011,
-    "releaseOrder": 99,
+    "releaseOrder": 101,
     "enabled": true,
     "names": {
       "zh-CN": "玛丽莲",
@@ -4272,7 +4361,7 @@
     "id": "301001",
     "name": "X",
     "baseId": 3010,
-    "releaseOrder": 100,
+    "releaseOrder": 102,
     "enabled": true,
     "names": {
       "zh-CN": "X",
@@ -4314,7 +4403,7 @@
     "id": "315101",
     "name": "诺拉",
     "baseId": 3151,
-    "releaseOrder": 101,
+    "releaseOrder": 103,
     "enabled": true,
     "names": {
       "zh-CN": "诺拉",
@@ -4350,7 +4439,7 @@
     "id": "313801",
     "name": "芦草结",
     "baseId": 3138,
-    "releaseOrder": 102,
+    "releaseOrder": 104,
     "enabled": true,
     "names": {
       "zh-CN": "芦草结",
@@ -4386,14 +4475,14 @@
     "id": "313601",
     "name": "《湖边的女人》",
     "baseId": 3136,
-    "releaseOrder": 103,
+    "releaseOrder": 105,
     "enabled": true,
     "names": {
       "zh-CN": "《湖边的女人》",
       "zh-TW": "《湖邊的女人》",
       "en-US": "Lady by the Lake",
       "ja-JP": "『湖畔の女性』",
-      "ko-KR": "호숫가의 여인"
+      "ko-KR": "<호숫가의 여인>"
     },
     "skins": [
       {
@@ -4422,7 +4511,7 @@
     "id": "310101",
     "name": "白朗姆",
     "baseId": 3101,
-    "releaseOrder": 104,
+    "releaseOrder": 106,
     "enabled": true,
     "names": {
       "zh-CN": "白朗姆",
@@ -4464,7 +4553,7 @@
     "id": "305801",
     "name": "埃里克",
     "baseId": 3058,
-    "releaseOrder": 105,
+    "releaseOrder": 107,
     "enabled": true,
     "names": {
       "zh-CN": "埃里克",
@@ -4506,7 +4595,7 @@
     "id": "305701",
     "name": "小梅斯梅尔",
     "baseId": 3057,
-    "releaseOrder": 106,
+    "releaseOrder": 108,
     "enabled": true,
     "names": {
       "zh-CN": "小梅斯梅尔",
@@ -4548,14 +4637,14 @@
     "id": "304601",
     "name": "吵闹鬼",
     "baseId": 3046,
-    "releaseOrder": 107,
+    "releaseOrder": 109,
     "enabled": true,
     "names": {
       "zh-CN": "吵闹鬼",
       "zh-TW": "吵鬧鬼",
       "en-US": "Poltergeist",
       "ja-JP": "ポルターガイスト",
-      "ko-KR": "폴터 가이스트"
+      "ko-KR": "폴터가이스트"
     },
     "skins": [
       {
@@ -4590,7 +4679,7 @@
     "id": "304401",
     "name": "莫桑女士",
     "baseId": 3044,
-    "releaseOrder": 108,
+    "releaseOrder": 110,
     "enabled": true,
     "names": {
       "zh-CN": "莫桑女士",
@@ -4632,7 +4721,7 @@
     "id": "304201",
     "name": "爱宠",
     "baseId": 3042,
-    "releaseOrder": 109,
+    "releaseOrder": 111,
     "enabled": true,
     "names": {
       "zh-CN": "爱宠",
@@ -4674,7 +4763,7 @@
     "id": "303301",
     "name": "TTT",
     "baseId": 3033,
-    "releaseOrder": 110,
+    "releaseOrder": 112,
     "enabled": true,
     "names": {
       "zh-CN": "TTT",
@@ -4716,7 +4805,7 @@
     "id": "303101",
     "name": "铅玻璃",
     "baseId": 3031,
-    "releaseOrder": 111,
+    "releaseOrder": 113,
     "enabled": true,
     "names": {
       "zh-CN": "铅玻璃",
@@ -4758,11 +4847,11 @@
     "id": "302801",
     "name": "APPLe",
     "baseId": 3028,
-    "releaseOrder": 112,
+    "releaseOrder": 114,
     "enabled": true,
     "names": {
       "zh-CN": "APPLe",
-      "zh-TW": "APPLe",
+      "zh-TW": "Apple",
       "en-US": "APPLe",
       "ja-JP": "APPLe",
       "ko-KR": "APPLe"
@@ -4806,7 +4895,7 @@
     "id": "302601",
     "name": "红斗篷",
     "baseId": 3026,
-    "releaseOrder": 113,
+    "releaseOrder": 115,
     "enabled": true,
     "names": {
       "zh-CN": "红斗篷",
@@ -4848,7 +4937,7 @@
     "id": "301801",
     "name": "雾行者",
     "baseId": 3018,
-    "releaseOrder": 114,
+    "releaseOrder": 116,
     "enabled": true,
     "names": {
       "zh-CN": "雾行者",
@@ -4890,7 +4979,7 @@
     "id": "301501",
     "name": "狼群",
     "baseId": 3015,
-    "releaseOrder": 115,
+    "releaseOrder": 117,
     "enabled": true,
     "names": {
       "zh-CN": "狼群",
@@ -4932,7 +5021,7 @@
     "id": "301401",
     "name": "芭妮芭妮",
     "baseId": 3014,
-    "releaseOrder": 116,
+    "releaseOrder": 118,
     "enabled": true,
     "names": {
       "zh-CN": "芭妮芭妮",
@@ -4974,7 +5063,7 @@
     "id": "301301",
     "name": "冬",
     "baseId": 3013,
-    "releaseOrder": 117,
+    "releaseOrder": 119,
     "enabled": true,
     "names": {
       "zh-CN": "冬",
@@ -5016,7 +5105,7 @@
     "id": "300601",
     "name": "小春雀儿",
     "baseId": 3006,
-    "releaseOrder": 118,
+    "releaseOrder": 120,
     "enabled": true,
     "names": {
       "zh-CN": "小春雀儿",
@@ -5064,7 +5153,7 @@
     "id": "300501",
     "name": "尼克·波顿",
     "baseId": 3005,
-    "releaseOrder": 119,
+    "releaseOrder": 121,
     "enabled": true,
     "names": {
       "zh-CN": "尼克·波顿",
@@ -5106,7 +5195,7 @@
     "id": "309601",
     "name": "先驱者",
     "baseId": 3096,
-    "releaseOrder": 120,
+    "releaseOrder": 122,
     "enabled": true,
     "names": {
       "zh-CN": "先驱者",
@@ -5142,7 +5231,7 @@
     "id": "305501",
     "name": "斯普特尼克",
     "baseId": 3055,
-    "releaseOrder": 121,
+    "releaseOrder": 123,
     "enabled": true,
     "names": {
       "zh-CN": "斯普特尼克",
@@ -5178,7 +5267,7 @@
     "id": "305401",
     "name": "洋葱头",
     "baseId": 3054,
-    "releaseOrder": 122,
+    "releaseOrder": 124,
     "enabled": true,
     "names": {
       "zh-CN": "洋葱头",
@@ -5193,6 +5282,13 @@
         "type": "default",
         "skinName": null,
         "skinNameEng": null
+      },
+      {
+        "variantId": "305403",
+        "type": "skin",
+        "skinName": "体育快讯",
+        "skinNameEng": "Front Page Exclusive",
+        "isReleased": false
       }
     ],
     "defaultVariant": "305401",
@@ -5208,7 +5304,7 @@
     "id": "305001",
     "name": "哒哒达利",
     "baseId": 3050,
-    "releaseOrder": 123,
+    "releaseOrder": 125,
     "enabled": true,
     "names": {
       "zh-CN": "哒哒达利",
@@ -5244,7 +5340,7 @@
     "id": "304501",
     "name": "贝蒂",
     "baseId": 3045,
-    "releaseOrder": 124,
+    "releaseOrder": 126,
     "enabled": true,
     "names": {
       "zh-CN": "贝蒂",
@@ -5281,7 +5377,7 @@
     "id": "304001",
     "name": "丽莎&路易斯",
     "baseId": 3040,
-    "releaseOrder": 125,
+    "releaseOrder": 127,
     "enabled": true,
     "names": {
       "zh-CN": "丽莎&路易斯",
@@ -5317,7 +5413,7 @@
     "id": "303601",
     "name": "约翰·提托",
     "baseId": 3036,
-    "releaseOrder": 126,
+    "releaseOrder": 128,
     "enabled": true,
     "names": {
       "zh-CN": "约翰·提托",
@@ -5353,7 +5449,7 @@
     "id": "303501",
     "name": "莉拉妮",
     "baseId": 3035,
-    "releaseOrder": 127,
+    "releaseOrder": 129,
     "enabled": true,
     "names": {
       "zh-CN": "莉拉妮",
@@ -5389,7 +5485,7 @@
     "id": "303401",
     "name": "星之眼",
     "baseId": 3034,
-    "releaseOrder": 128,
+    "releaseOrder": 130,
     "enabled": true,
     "names": {
       "zh-CN": "星之眼",
@@ -5419,7 +5515,7 @@
     "id": "303001",
     "name": "拉拉泉",
     "baseId": 3030,
-    "releaseOrder": 129,
+    "releaseOrder": 131,
     "enabled": true,
     "names": {
       "zh-CN": "拉拉泉",
@@ -5455,7 +5551,7 @@
     "id": "301201",
     "name": "弄臣",
     "baseId": 3012,
-    "releaseOrder": 130,
+    "releaseOrder": 132,
     "enabled": true,
     "names": {
       "zh-CN": "弄臣",
@@ -5491,7 +5587,7 @@
     "id": "305901",
     "name": "门",
     "baseId": 3059,
-    "releaseOrder": 131,
+    "releaseOrder": 133,
     "enabled": true,
     "names": {
       "zh-CN": "门",
@@ -5521,7 +5617,7 @@
     "id": "302701",
     "name": "无线电小姐",
     "baseId": 3027,
-    "releaseOrder": 132,
+    "releaseOrder": 134,
     "enabled": true,
     "names": {
       "zh-CN": "无线电小姐",

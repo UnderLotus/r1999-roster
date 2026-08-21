@@ -41,6 +41,16 @@ function hasAvatarImage(variantId: string): boolean {
   return existsSync(path.join(AVATARS_DIR, `${variantId}.webp`));
 }
 
+function readDeprecatedBaseIds(): Set<number> {
+  const file = path.join(__dirname, "data", "deprecated-characters.json");
+  if (!existsSync(file)) return new Set();
+  return new Set(
+    (JSON.parse(readFileSync(file, "utf-8")) as { baseId: number }[]).map(
+      (entry) => entry.baseId
+    )
+  );
+}
+
 function main(): void {
   console.log("build-characters (v0.6 incremental)\n");
 
@@ -89,11 +99,21 @@ function main(): void {
   }
 
   // 2. Detect new characters from ArcanistMap
+  const deprecatedBaseIds = readDeprecatedBaseIds();
+  const deprecatedSkipped = arcanists.filter(
+    (entry) => deprecatedBaseIds.has(entry.id) && !existingBaseIds.has(entry.id)
+  );
+  if (deprecatedSkipped.length > 0) {
+    console.log(
+      `略過廢棄角色: ${deprecatedSkipped.map((entry) => entry.nameEng).join(", ")}`
+    );
+  }
+
   const pending: PendingCharacter[] = [];
   let added = 0;
 
   for (const entry of arcanists) {
-    if (existingBaseIds.has(entry.id)) continue;
+    if (existingBaseIds.has(entry.id) || deprecatedBaseIds.has(entry.id)) continue;
 
     const defaultVariantId = `${entry.id}01`;
     const defaultVariant = defaultVariantId;

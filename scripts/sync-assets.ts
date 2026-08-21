@@ -1,17 +1,18 @@
 /**
  * Phase 3 — 同步官方素材 + 新角色偵測。
  *
- * 1. 從官方 CN asset repo shallow-clone headicon_middle/
- * 2. 將匹配 characters.json skins[] 的 PNG 轉成 validated lossless WebP
- * 3. 只有整批驗證成功後才替換 avatars/，避免部分更新
- * 4. 偵測 ArcanistMap 中的新角色，有圖片就自動加入 characters.json
+ * 1. 增量刷新官方 CN asset repo 暫存 clone（headicon_middle/ + mappings/；僅在無法增量 pull 時重新 shallow-clone）
+ * 2. 以 mappings/ArcanistMap.json 刷新 scripts/data/ArcanistMap.json（新角色偵測基準）
+ * 3. 以 PNG sha256 快取重用未變更的 lossless WebP，只轉換新增／變更的圖
+ * 4. 只有整批驗證成功後才替換 avatars/，避免部分更新；hash 快取在替換成功後才寫回
+ * 5. 偵測 ArcanistMap 中的新角色，全部 variant 頭貼齊備就自動加入 characters.json
  *
  * 執行：npm run sync
  */
 
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { mkdir, mkdtemp, rename, rm } from "node:fs/promises";
+import { copyFile, mkdir, mkdtemp, rename, rm } from "node:fs/promises";
 import {
   existsSync,
   readFileSync,
@@ -33,6 +34,7 @@ const ROOT = path.resolve(__dirname, "..");
 const DATA_FILE = path.join(ROOT, "src/data/characters.json");
 const ARCANIST_MAP = path.join(__dirname, "data/ArcanistMap.json");
 const PENDING_FILE = path.join(__dirname, "data/pending-characters.json");
+const HASH_CACHE_FILE = path.join(__dirname, "data/avatar-hash-cache.json");
 const AVATARS_DIR = path.join(ROOT, "public/assets/characters/avatars");
 const OLD_ASSETS_DIR = path.join(ROOT, "public/assets/characters");
 const VERTIN_PNG = path.join(ROOT, "public/assets/vertin_question.png");
@@ -65,8 +67,7 @@ function collectVariantIds(characters: readonly Character[]): Set<string> {
 
 function collectNewEntries(
   arcanists: readonly ArcanistEntryFull[],
-  existingBaseIds: ReadonlySet<number>,
-  assetDir: string
+  existingBaseIds: ReadonlySet<number>
 ): { ready: ArcanistEntryFull[]; pending: PendingCharacter[] } {
   const ready: ArcanistEntryFull[] = [];
   const pending: PendingCharacter[] = [];
@@ -74,7 +75,10 @@ function collectNewEntries(
   for (const entry of arcanists) {
     if (existingBaseIds.has(entry.id)) continue;
     const defaultVariantId = `${entry.id}01`;
-    if (existsSync(path.join(assetDir, `${defaultVariantId}.webp`))) {
+    const missing = buildSkins(entry)
+      .map((skin) => skin.variantId)
+      .filter((variantId) => !existsSync(path.join(SOURCE_DIR, `${variantId}.png`)));
+    if (missing.length === 0) {
       ready.push(entry);
     } else {
       pending.push({
@@ -82,7 +86,7 @@ function collectNewEntries(
         variantId: defaultVariantId,
         name: entry.name,
         nameEng: entry.nameEng,
-        reason: "headicon not yet in CN asset repo",
+        reason: `headicon missing in CN asset repo: ${missing.join(", ")}`,
       });
     }
   }
@@ -90,10 +94,31 @@ function collectNewEntries(
   return { ready, pending };
 }
 
+interface AvatarHashEntry {
+  png: string;
+  webp: string;
+}
+
+type AvatarHashCache = Record<string, AvatarHashEntry>;
+
+function sha256(file: string): string {
+  return createHash("sha256").update(readFileSync(file)).digest("hex");
+}
+
+function loadHashCache(): AvatarHashCache {
+  if (!existsSync(HASH_CACHE_FILE)) return {};
+  try {
+    return JSON.parse(readFileSync(HASH_CACHE_FILE, "utf-8")) as AvatarHashCache;
+  } catch {
+    return {};
+  }
+}
+
 async function stageVariantImages(
   variantIds: ReadonlySet<string>,
-  stagingDir: string
-): Promise<void> {
+  stagingDir: string,
+  hashCache: AvatarHashCache
+): Promise<{ cache: AvatarHashCache; reused: number; converted: number }> {
   const missing = [...variantIds].filter(
     (variantId) => !existsSync(path.join(SOURCE_DIR, `${variantId}.png`))
   );
@@ -103,11 +128,29 @@ async function stageVariantImages(
     );
   }
 
+  const nextCache: AvatarHashCache = {};
+  let reused = 0;
+
   for (const variantId of variantIds) {
-    await convertPngToLosslessWebp(
-      path.join(SOURCE_DIR, `${variantId}.png`),
-      path.join(stagingDir, `${variantId}.webp`)
-    );
+    const sourcePng = path.join(SOURCE_DIR, `${variantId}.png`);
+    const stagedWebp = path.join(stagingDir, `${variantId}.webp`);
+    const prodWebp = path.join(AVATARS_DIR, `${variantId}.webp`);
+    const pngHash = sha256(sourcePng);
+    const cached = hashCache[variantId];
+
+    // PNG 未變且現有 webp 校驗一致 → 直接重用，免重轉
+    if (
+      cached?.png === pngHash &&
+      existsSync(prodWebp) &&
+      sha256(prodWebp) === cached.webp
+    ) {
+      await copyFile(prodWebp, stagedWebp);
+      nextCache[variantId] = cached;
+      reused++;
+    } else {
+      await convertPngToLosslessWebp(sourcePng, stagedWebp);
+      nextCache[variantId] = { png: pngHash, webp: sha256(stagedWebp) };
+    }
   }
 
   const stagedFiles = readdirSync(stagingDir);
@@ -122,6 +165,8 @@ async function stageVariantImages(
       `Staged avatar coverage mismatch: expected ${expectedFiles.size}, got ${stagedFiles.length}`
     );
   }
+
+  return { cache: nextCache, reused, converted: variantIds.size - reused };
 }
 
 async function replaceStagedAssets(
@@ -178,6 +223,44 @@ async function replaceStagedAssets(
   if (existsSync(VERTIN_PNG)) await rm(VERTIN_PNG, { force: true });
 }
 
+function readDeprecatedBaseIds(): Set<number> {
+  const file = path.join(__dirname, "data", "deprecated-characters.json");
+  if (!existsSync(file)) return new Set();
+  return new Set(
+    (JSON.parse(readFileSync(file, "utf-8")) as { baseId: number }[]).map(
+      (entry) => entry.baseId
+    )
+  );
+}
+
+const SPARSE_DIRS = ["singlebg/headicon_middle", "mappings"] as const;
+
+function refreshAssetRepo(): void {
+  if (existsSync(path.join(TEMP_DIR, ".git"))) {
+    try {
+      run("git", ["pull", "--depth", "1", "--ff-only"], TEMP_DIR);
+      run("git", ["sparse-checkout", "set", ...SPARSE_DIRS], TEMP_DIR);
+      console.log("  ✓ incremental pull");
+      return;
+    } catch {
+      console.warn("  Incremental pull failed — rebuilding with a fresh clone");
+      run("rm", ["-rf", TEMP_DIR]);
+    }
+  }
+
+  run("git", [
+    "clone",
+    "--depth", "1",
+    "--filter=blob:none",
+    "--sparse",
+    ASSET_REPO,
+    TEMP_DIR,
+  ]);
+  run("git", ["sparse-checkout", "set", ...SPARSE_DIRS], TEMP_DIR);
+  run("git", ["checkout"], TEMP_DIR);
+  console.log("  ✓ fresh shallow clone");
+}
+
 async function main(): Promise<void> {
   console.log("Phase 3: sync-assets\n");
 
@@ -188,27 +271,29 @@ async function main(): Promise<void> {
   }
 
   const characters = loadJSON<Character[]>(DATA_FILE);
-  const arcanists = loadJSON<ArcanistEntryFull[]>(ARCANIST_MAP);
   const existingBaseIds = new Set(characters.map((character) => character.baseId));
 
   console.log(`Characters: ${characters.length}`);
   console.log(`Current variant images: ${collectVariantIds(characters).size}`);
 
-  if (existsSync(TEMP_DIR)) run("rm", ["-rf", TEMP_DIR]);
-
   let stagingRoot: string | undefined;
   try {
-    console.log("→ Cloning official asset repo (shallow, sparse)...");
-    run("git", [
-      "clone",
-      "--depth", "1",
-      "--filter=blob:none",
-      "--sparse",
-      ASSET_REPO,
-      TEMP_DIR,
-    ]);
-    run("git", ["sparse-checkout", "set", "singlebg/headicon_middle"], TEMP_DIR);
-    run("git", ["checkout"], TEMP_DIR);
+    console.log("→ Refreshing official asset repo clone...");
+    refreshAssetRepo();
+
+    // Refresh local ArcanistMap from the fresh clone (authority for character
+    // existence) so new CN characters are detected without a manual copy step.
+    const upstreamMapPath = path.join(TEMP_DIR, "mappings", "ArcanistMap.json");
+    if (!existsSync(upstreamMapPath)) {
+      throw new Error(`${upstreamMapPath} not found in CN asset repo`);
+    }
+    const arcanists = JSON.parse(
+      readFileSync(upstreamMapPath, "utf-8")
+    ) as ArcanistEntryFull[];
+    writeFileSync(ARCANIST_MAP, JSON.stringify(arcanists, null, 2) + "\n", "utf-8");
+    console.log(`→ Refreshed ArcanistMap.json (${arcanists.length} entries)`);
+
+    const deprecatedBaseIds = readDeprecatedBaseIds();
 
     const variantIds = collectVariantIds(characters);
 
@@ -216,9 +301,21 @@ async function main(): Promise<void> {
     const stagedAvatars = path.join(stagingRoot, "avatars");
     await mkdir(stagedAvatars);
 
-    console.log(`→ Converting ${variantIds.size} variant images to lossless WebP...`);
-    await stageVariantImages(variantIds, stagedAvatars);
-    const newEntries = collectNewEntries(arcanists, existingBaseIds, stagedAvatars);
+    const newEntries = collectNewEntries(
+      arcanists.filter((entry) => !deprecatedBaseIds.has(entry.id)),
+      existingBaseIds
+    );
+    const newVariantIds = new Set(
+      newEntries.ready.flatMap((entry) =>
+        buildSkins(entry).map((skin) => skin.variantId)
+      )
+    );
+    const allVariantIds = new Set([...variantIds, ...newVariantIds]);
+
+    const staged = await stageVariantImages(allVariantIds, stagedAvatars, loadHashCache());
+    console.log(
+      `→ Staged ${allVariantIds.size} avatars: ${staged.reused} reused, ${staged.converted} converted (${newVariantIds.size} from new characters)`
+    );
 
     let hasStagedVertin = false;
     if (existsSync(VERTIN_PNG)) {
@@ -233,6 +330,11 @@ async function main(): Promise<void> {
 
     console.log("→ Replacing validated production assets...");
     await replaceStagedAssets(stagingRoot, hasStagedVertin);
+    writeFileSync(
+      HASH_CACHE_FILE,
+      JSON.stringify(staged.cache, null, 2) + "\n",
+      "utf-8"
+    );
     let autoAdded = 0;
     for (const entry of newEntries.ready) {
       const defaultVariant = `${entry.id}01`;
@@ -269,7 +371,7 @@ async function main(): Promise<void> {
 
     console.log("\n=== Summary ===");
     console.log(`Wiped: ${wiped} old directories`);
-    console.log(`Converted: ${variantIds.size} images`);
+    console.log(`Avatars: ${staged.reused} reused, ${staged.converted} converted`);
     console.log(`Auto-added: ${autoAdded} new characters`);
     console.log(`Pending: ${newEntries.pending.length}`);
     if (newEntries.pending.length > 0) {
@@ -289,11 +391,7 @@ async function main(): Promise<void> {
     if (stagingRoot) {
       await rm(stagingRoot, { recursive: true, force: true });
     }
-    try {
-      run("rm", ["-rf", TEMP_DIR]);
-    } catch {
-      console.warn("  Failed to remove temporary clone");
-    }
+    // TEMP_DIR 的 asset repo clone 刻意保留，供下次執行增量 pull。
   }
 }
 

@@ -16,6 +16,14 @@
     "note": "Fandom 白名單未收錄（贝蒂）— 待確認"
   },
   {
+    "variantId": "305403",
+    "name": "体育快讯",
+    "nameEng": "Front Page Exclusive",
+    "source": "auto-fandom",
+    "isReleased": false,
+    "note": "Fandom 白名單未收錄（洋葱头）— 待確認"
+  },
+  {
     "variantId": "306605",
     "name": "完美的流体",
     "nameEng": "A Gift of Nourishment",
@@ -72,6 +80,14 @@
     "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
+    "variantId": "312104",
+    "name": "玫瑰午睡时",
+    "nameEng": "Repose Amidst the Roses",
+    "source": "auto-fandom",
+    "isReleased": false,
+    "note": "Fandom 白名單未收錄（莫莉德尔）— 待確認"
+  },
+  {
     "variantId": "312803",
     "name": "亡者的恩赐",
     "nameEng": "Gift of the Dead",
@@ -80,12 +96,28 @@
     "note": "Version 3.7 Garment Trailer — 2026-08-13 海外服實裝"
   },
   {
+    "variantId": "313503",
+    "name": "海盐急速",
+    "nameEng": "Full Quack Ahead",
+    "source": "auto-fandom",
+    "isReleased": false,
+    "note": "Fandom 白名單未收錄（灰调蓝）— 待確認"
+  },
+  {
     "variantId": "313903",
     "name": "致命银弦",
     "nameEng": "Finale in Silver",
     "source": "auto-fandom",
     "isReleased": false,
     "note": "Fandom 白名單未收錄（洛伦兹蝴蝶）— 待確認"
+  },
+  {
+    "variantId": "314303",
+    "name": "泅与问",
+    "nameEng": "To Fathom the Depths",
+    "source": "auto-fandom",
+    "isReleased": false,
+    "note": "Fandom 白名單未收錄（哑谜）— 待確認"
   },
   {
     "variantId": "314403",
