@@ -59,6 +59,9 @@ export default function App() {
   const setUserId = useBoxStore((s) => s.setUserId);
   const setDisplayLang = useBoxStore((s) => s.setDisplayLang);
   const setActiveVariant = useBoxStore((s) => s.setActiveVariant);
+  const resetUnreleasedSkinSelections = useBoxStore(
+    (s) => s.resetUnreleasedSkinSelections
+  );
   const activateCharacter = useBoxStore((s) => s.activateCharacter);
   const decreasePortray = useBoxStore((s) => s.decreasePortray);
   const resetAll = useBoxStore((s) => s.resetAll);
@@ -338,6 +341,7 @@ export default function App() {
               purgeUnreleased(
                 characters.filter((c) => !c.isReleased).map((c) => c.id)
               );
+              resetUnreleasedSkinSelections();
             } else {
               setShowFutureSightConfirm(true);
             }

@@ -40,6 +40,8 @@ export interface BoxStore {
   importBox: (payload: SharePayload) => void;
   /** 移除未實裝角色（未來視關閉時），同時清 characters/activeVariant/customVariants */
   purgeUnreleased: (unreleasedIds: string[]) => void;
+  /** 未來視關閉時：已實裝角色指向未實裝皮膚的選擇落到預設（初始/洞悉） */
+  resetUnreleasedSkinSelections: () => void;
 }
 
 const emptyState: CharacterState = { owned: false, portray: 0 };
@@ -51,6 +53,55 @@ const KNOWN_IDS = new Set(characters.map((c) => c.id));
 const VALID_VARIANTS = new Map(
   characters.map((c) => [c.id, new Set(c.skins.map((s) => s.variantId))])
 );
+
+/**
+ * 未來視關閉時的預設 skin：優先 defaultSkinMode（初始/洞悉），
+ * 但該皮膚本身未實裝時退回初始，再不行取第一個已實裝皮膚。
+ */
+function pickDefaultVariant(
+  character: (typeof characters)[number],
+  mode: SkinMode
+): string {
+  const released = (variantId: string) => {
+    const skin = character.skins.find((s) => s.variantId === variantId);
+    return !skin || skin.isReleased !== false;
+  };
+  const preferred = resolveModeVariant(character, mode);
+  if (released(preferred)) return preferred;
+  const initial = `${character.baseId}01`;
+  if (released(initial)) return initial;
+  return character.skins.find((s) => s.isReleased !== false)?.variantId ?? preferred;
+}
+
+/**
+ * 未來視關閉時的選擇消毒：activeVariant 指向未實裝皮膚者，
+ * 落到預設（初始/洞悉）並清除 custom 旗標。回傳 null 表示無需變更。
+ */
+function sanitizeUnreleasedSkinSelections(
+  state: Pick<
+    BoxStore,
+    "activeVariant" | "customVariants" | "defaultSkinMode"
+  >
+): { activeVariant: Record<string, string>; customVariants: Record<string, true> } | null {
+  const nextVariant = { ...state.activeVariant };
+  const nextCustom = { ...state.customVariants };
+  let changed = false;
+  for (const character of characters) {
+    const current = nextVariant[character.id];
+    if (!current) continue;
+    const skin = character.skins.find((s) => s.variantId === current);
+    if (!skin || skin.isReleased !== false) continue;
+    nextVariant[character.id] = pickDefaultVariant(
+      character,
+      state.defaultSkinMode
+    );
+    delete nextCustom[character.id];
+    changed = true;
+  }
+  return changed
+    ? { activeVariant: nextVariant, customVariants: nextCustom }
+    : null;
+}
 
 /* ---------- 持久化資料清理（localStorage 為不可信資料） ---------- */
 
@@ -184,11 +235,26 @@ export function migratePersisted(
   // 全是 02（舊預設），重設為 {} 讓 App.tsx 依 defaultSkinMode
   // 重新填充為 01。
   if (version && version >= 6) {
+    // v9：修復舊版殘留——關閉未來視下指向未實裝皮膚的選擇，hydrate 時落回預設。
+    const healed =
+      migrated.showFutureSight
+        ? null
+        : sanitizeUnreleasedSkinSelections({
+            activeVariant: (migrated.activeVariant ?? {}) as Record<
+              string,
+              string
+            >,
+            customVariants: (migrated.customVariants ?? {}) as Record<
+              string,
+              true
+            >,
+            defaultSkinMode: normalizeSkinMode(migrated.defaultSkinMode),
+          });
     return {
       characters: migrated.characters,
       displayLang: migrated.displayLang,
-      activeVariant: migrated.activeVariant,
-      customVariants: migrated.customVariants,
+      activeVariant: healed?.activeVariant ?? migrated.activeVariant,
+      customVariants: healed?.customVariants ?? migrated.customVariants,
       userId: migrated.userId ?? "",
       langChosen,
       showFutureSight: migrated.showFutureSight ?? false,
@@ -306,6 +372,8 @@ export const useBoxStore = create<BoxStore>()(
             ? { characters: next, activeVariant: nextVariant, customVariants: nextCustom }
             : {};
         }),
+      resetUnreleasedSkinSelections: () =>
+        set((state) => sanitizeUnreleasedSkinSelections(state) ?? {}),
       setSkinMode: (mode) =>
         set((state) => {
           const nextVariant = { ...state.activeVariant };
@@ -315,18 +383,24 @@ export const useBoxStore = create<BoxStore>()(
           }
           return { defaultSkinMode: mode, activeVariant: nextVariant };
         }),
-      importBox: (payload) =>
-        set({
+      importBox: (payload) => {
+        const base = {
           characters: payload.characters,
           activeVariant: payload.activeVariant,
           customVariants: payload.customVariants,
           defaultSkinMode: payload.defaultSkinMode,
           showFutureSight: payload.showFutureSight,
-        }),
+        };
+        // 匯入時未來視為關閉：未實裝皮膚的選擇一併落到預設
+        const patch = payload.showFutureSight
+          ? null
+          : sanitizeUnreleasedSkinSelections(get());
+        set(patch ? { ...base, ...patch } : base);
+      },
     }),
     {
       name: "reverse1999-box-state",
-      version: 8,
+      version: 9,
       partialize: (state) => ({
         characters: state.characters,
         displayLang: state.displayLang,

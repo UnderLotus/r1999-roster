@@ -387,3 +387,96 @@ assert(
 );
 
 console.log(process.exitCode ? "\n有失敗項目" : "\n全部通過");
+
+// ===== 未來視關閉：未實裝 skin 選擇重設 =====
+
+// 動態取樣：已實裝角色 + 其未實裝皮膚（資料驅動，避免硬編碼過期）
+const unreleasedSkinCase = charactersData.find(
+  (c) => c.isReleased !== false && c.skins.some((sk) => sk.isReleased === false)
+);
+
+if (!unreleasedSkinCase) {
+  console.log("skip: 資料中無「已實裝角色含未實裝皮膚」案例（上游資料變動）");
+} else {
+  const cid = unreleasedSkinCase.id;
+  const orphanVariant =
+    unreleasedSkinCase.skins.find((sk) => sk.isReleased === false)?.variantId ?? "";
+  // 期望值依「當下 store 的 defaultSkinMode」計算（先前測試可能已切到 insight）
+  const modeDefault = resolveModeVariant(
+    unreleasedSkinCase,
+    s().defaultSkinMode
+  );
+
+  // 1) FS off：孤兒 skin 落到預設（初始），custom 旗標清除
+  s().setActiveVariant(cid, orphanVariant);
+  assert(s().activeVariant[cid] === orphanVariant, "前置：未實裝 skin 已選取");
+  s().resetUnreleasedSkinSelections();
+  assert(
+    s().activeVariant[cid] === modeDefault,
+    `FS off：未實裝 skin (${orphanVariant}) 落到預設 (${modeDefault})`
+  );
+  assert(!s().customVariants[cid], "FS off：custom 旗標一併清除");
+
+  // 2) 已實裝 skin 的選擇不受影響
+  const releasedSkin = unreleasedSkinCase.skins.find((sk) => sk.isReleased !== false);
+  if (releasedSkin) {
+    s().setActiveVariant(cid, releasedSkin.variantId);
+    s().resetUnreleasedSkinSelections();
+    assert(
+      s().activeVariant[cid] === releasedSkin.variantId,
+      "已實裝 skin 不被重設"
+    );
+  }
+
+  // 3) 匯入消毒：showFutureSight=false 時落到預設；=true 時保留
+  s().setActiveVariant(cid, orphanVariant);
+  const basePayload = {
+    characters: { [cid]: { owned: true, portray: 0 as const } },
+    activeVariant: { [cid]: orphanVariant },
+    customVariants: { [cid]: true as const },
+    defaultSkinMode: "insight" as const,
+    showFutureSight: false,
+  };
+  s().importBox(basePayload);
+  const expectedInsightDefault = resolveModeVariant(unreleasedSkinCase, "insight");
+  assert(
+    s().activeVariant[cid] === expectedInsightDefault,
+    `匯入(FS off)：落到 insight 模式預設 (${expectedInsightDefault})`
+  );
+  s().importBox({ ...basePayload, showFutureSight: true });
+  assert(
+    s().activeVariant[cid] === orphanVariant,
+    "匯入(FS on)：保留未實裝 skin 選擇"
+  );
+
+  // 4) migrate v8→v9：殘留孤兒 skin 於 hydrate 時自癒；FS 開啟則保留
+  const persistedState = {
+    characters: { [cid]: { owned: true, portray: 2 } },
+    activeVariant: { [cid]: orphanVariant },
+    customVariants: { [cid]: true },
+    displayLang: "en-US",
+    userId: "tester",
+    langChosen: true,
+    showFutureSight: false,
+    defaultSkinMode: "initial",
+  };
+  // persisted 的 defaultSkinMode 是 initial → 治癒目標為初始 skin（非當下 store 模式）
+  const migratedExpected = resolveModeVariant(unreleasedSkinCase, "initial");
+  const healed = migratePersisted(persistedState, 8);
+  assert(
+    (healed.activeVariant as Record<string, string>)?.[cid] === migratedExpected,
+    "migrate v8→v9：殘留孤兒 skin 自癒為預設"
+  );
+  assert(
+    !(healed.customVariants as Record<string, true> | undefined)?.[cid],
+    "migrate v8→v9：custom 旗標清除"
+  );
+  const keptOn = migratePersisted(
+    { ...persistedState, showFutureSight: true },
+    8
+  );
+  assert(
+    (keptOn.activeVariant as Record<string, string>)?.[cid] === orphanVariant,
+    "migrate：FS 開啟時保留原選擇"
+  );
+}
