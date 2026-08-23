@@ -1,57 +1,36 @@
-[
-  {
-    "nameEng": "Cheng Heguang",
-    "isReleased": true,
-    "source": "manual"
-  },
-  {
-    "nameEng": "Coppélia",
-    "isReleased": true,
-    "source": "manual"
-  },
-  {
-    "nameEng": "Cornerstone",
-    "isReleased": false,
-    "source": "auto"
-  },
-  {
-    "nameEng": "Everecho",
-    "isReleased": false,
-    "source": "auto"
-  },
-  {
-    "nameEng": "Hedone",
-    "isReleased": false,
-    "source": "auto"
-  },
-  {
-    "nameEng": "Lady by the Lake",
-    "isReleased": true,
-    "source": "manual"
-  },
-  {
-    "nameEng": "Ms. Stranger",
-    "isReleased": false,
-    "source": "auto"
-  },
-  {
-    "nameEng": "Narcissus",
-    "isReleased": false,
-    "source": "auto"
-  },
-  {
-    "nameEng": "Ramona",
-    "isReleased": true,
-    "source": "manual"
-  },
-  {
-    "nameEng": "Rhiannon",
-    "isReleased": true,
-    "source": "manual"
-  },
-  {
-    "nameEng": "Silverwing Eagle",
-    "isReleased": true,
-    "source": "manual"
-  }
-]
+{
+  "characters": [
+    {
+      "baseId": 3147,
+      "isReleased": false,
+      "note": "GL 3.7 preload; Ms. Stranger is the second-half banner and is not live yet"
+    }
+  ],
+  "skins": [
+    {
+      "variantId": "313903",
+      "isReleased": false,
+      "note": "Migration hold: present in GL but current release status needs schedule verification"
+    },
+    {
+      "variantId": "311604",
+      "isReleased": false,
+      "note": "Migration hold: present in GL but current release status needs schedule verification"
+    },
+    {
+      "variantId": "309203",
+      "isReleased": false,
+      "note": "Migration hold: present in GL but current release status needs schedule verification"
+    },
+    {
+      "variantId": "302306",
+      "isReleased": false,
+      "note": "Migration hold: present in GL but current release status needs schedule verification"
+    },
+    {
+      "variantId": "304504",
+      "isReleased": false,
+      "note": "Migration hold: present in GL but current release status needs schedule verification"
+    }
+  ]
+}

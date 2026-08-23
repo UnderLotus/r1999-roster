@@ -137,7 +137,8 @@
         "variantId": "314704",
         "type": "skin",
         "skinName": "沉影探戈",
-        "skinNameEng": "Waltz of the Depths"
+        "skinNameEng": "Waltz of the Depths",
+        "isReleased": false
       }
     ],
     "defaultVariant": "314701",
@@ -251,8 +252,7 @@
         "variantId": "314403",
         "type": "skin",
         "skinName": "醒时声",
-        "skinNameEng": "Sounds that Wake Her",
-        "isReleased": true
+        "skinNameEng": "Sounds that Wake Her"
       }
     ],
     "defaultVariant": "314401",
@@ -645,8 +645,7 @@
         "variantId": "312803",
         "type": "skin",
         "skinName": "亡者的恩赐",
-        "skinNameEng": "Gift of the Dead",
-        "isReleased": true
+        "skinNameEng": "Gift of the Dead"
       }
     ],
     "defaultVariant": "312801",
@@ -941,8 +940,7 @@
         "variantId": "312003",
         "type": "skin",
         "skinName": "名以光辉",
-        "skinNameEng": "From Darkness, Light",
-        "isReleased": true
+        "skinNameEng": "From Darkness, Light"
       }
     ],
     "defaultVariant": "312001",
@@ -1261,8 +1259,7 @@
         "variantId": "310905",
         "type": "skin",
         "skinName": "故梦罅隙间",
-        "skinNameEng": "Fragments of An Old Dream",
-        "isReleased": true
+        "skinNameEng": "Fragments of An Old Dream"
       }
     ],
     "defaultVariant": "310901",
@@ -2265,8 +2262,7 @@
         "variantId": "307304",
         "type": "skin",
         "skinName": "火芙蕖",
-        "skinNameEng": "Fire Lotus",
-        "isReleased": true
+        "skinNameEng": "Fire Lotus"
       }
     ],
     "defaultVariant": "307301",
@@ -2410,8 +2406,7 @@
         "variantId": "306605",
         "type": "skin",
         "skinName": "完美的流体",
-        "skinNameEng": "A Gift of Nourishment",
-        "isReleased": true
+        "skinNameEng": "A Gift of Nourishment"
       }
     ],
     "defaultVariant": "306601",
@@ -3281,8 +3276,7 @@
         "variantId": "311803",
         "type": "skin",
         "skinName": "永恒的沉默",
-        "skinNameEng": "The Deathless Quiet",
-        "isReleased": true
+        "skinNameEng": "The Deathless Quiet"
       }
     ],
     "defaultVariant": "311801",

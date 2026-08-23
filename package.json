@@ -1,7 +1,7 @@
 {
   "name": "r1999-roster",
   "private": true,
-  "version": "1.7.3",
+  "version": "1.7.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,6 +10,7 @@
     "test:store": "tsx scripts/test-store.ts",
     "test:share": "tsx scripts/test-share-code.ts",
     "test:names": "tsx scripts/test-names.ts",
+    "test:release": "tsx scripts/test-release.ts",
     "test:assets": "tsx scripts/test-assets.ts",
     "build:names": "tsx scripts/build-names.ts",
     "build:id-map": "tsx scripts/build-id-map.ts",
@@ -17,8 +18,9 @@
     "preview": "vite preview",
     "sync": "tsx scripts/sync-assets.ts",
     "sync:wiki": "tsx scripts/sync-wiki-list.ts",
-    "sync:fandom": "tsx scripts/sync-fandom.ts",
-    "update": "npm run sync && npm run build:characters && npm run sync:wiki && npm run build:names && npm run sync:fandom"
+    "sync:release": "tsx scripts/sync-release.ts",
+    "verify:fandom": "tsx scripts/verify-fandom.ts",
+    "update": "npm run sync && npm run build:characters && npm run sync:wiki && npm run build:names && npm run sync:release"
   },
   "dependencies": {
     "lucide-react": "^0.469.0",
