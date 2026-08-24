@@ -112,6 +112,15 @@
   --portray-glow: none; /* 匯出無光暈，避免截圖失真 */
 }
 
+/* 淡色外框讓小尺寸／壓縮後的塑造段不會融入角色圖 */
+.export-card .portray-badge__segment {
+  box-shadow: 0 0 0 1px rgba(45, 38, 31, 0.28);
+}
+
+.export-card .portray-badge__segment[data-filled="true"] {
+  box-shadow: 0 0 0 1px rgba(65, 42, 25, 0.32);
+}
+
 .export-card {
   min-width: 0;
   border: 1px solid var(--border-primary);

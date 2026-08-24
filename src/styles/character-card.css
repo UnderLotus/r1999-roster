@@ -185,7 +185,7 @@
   width: 12px;
   height: 4px;
 
-  background: rgba(255, 245, 220, 0.75);
+  background: rgba(255, 245, 220, 0.92);
   border-radius: 1px;
 }
 
@@ -195,6 +195,17 @@
 .portray-badge__segment[data-filled="true"] {
   background: #f8b877;
   box-shadow: var(--portray-glow, 0 0 6px 1px rgba(248, 184, 119, 0.85));
+}
+
+/* 頁面角色卡也保留淡色外框，與匯出圖片一致 */
+.character-card .portray-badge__segment {
+  box-shadow: 0 0 0 1px rgba(45, 38, 31, 0.28);
+}
+
+.character-card .portray-badge__segment[data-filled="true"] {
+  box-shadow:
+    0 0 0 1px rgba(65, 42, 25, 0.32),
+    var(--portray-glow, 0 0 6px 1px rgba(248, 184, 119, 0.85));
 }
 
 /* 手機：窄卡縮小孔與間距，避免溢壓鄰卡（只限網頁卡片，匯出不受影響） */
