@@ -26,6 +26,7 @@ jobs:
       - run: npm ci
       - run: npm run test:assets
       - run: npm run test:names
+      - run: npm run test:release
       - run: npm run test:store
       - run: npm run test:share
       - run: npm run build
