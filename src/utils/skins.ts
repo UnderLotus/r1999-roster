@@ -1,5 +1,5 @@
 import type { Character } from "../types/character";
-import type { SkinMode } from "../store/boxStore";
+import type { SkinMode } from "../domain/box";
 
 /** 依 skin 模式解析角色預設 variant（insight 缺 02 時 fallback 01） */
 export function resolveModeVariant(

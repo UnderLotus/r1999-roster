@@ -1,14 +1,11 @@
 import { domToJpeg } from "modern-screenshot";
 
-interface ExportProgress {
-  loaded: number;
-  total: number;
-}
+import type { ExportProgress } from "./export-job";
 
 /** 等待區域內所有圖片載入完成，回報進度 */
 async function waitForImages(
   root: HTMLElement,
-  onProgress?: (p: ExportProgress) => void
+  onProgress?: (progress: ExportProgress) => void
 ): Promise<void> {
   const images = Array.from(root.querySelectorAll("img"));
   const total = images.length;
@@ -30,7 +27,9 @@ async function waitForImages(
       }
 
       if (image.naturalWidth === 0) {
-        throw new Error(`圖片載入失敗：${image.currentSrc || image.src}`);
+        throw new Error(
+          `圖片載入失敗：${image.currentSrc || image.src}`
+        );
       }
 
       await image.decode().catch(() => undefined);
@@ -40,18 +39,11 @@ async function waitForImages(
   );
 }
 
-function getDateString(): string {
-  const d = new Date();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${d.getFullYear()}-${mm}-${dd}`;
-}
-
-/** 匯出 ExportCanvas 為 JPG 並下載 */
-export async function exportJpeg(
+/** 等待 ExportCanvas ready，並以既有輸出設定產生 JPEG。 */
+export async function renderJpeg(
   exportElement: HTMLElement,
-  onProgress?: (p: ExportProgress) => void
-): Promise<void> {
+  onProgress?: (progress: ExportProgress) => void
+): Promise<Blob> {
   await document.fonts.ready;
   await waitForImages(exportElement, onProgress);
 
@@ -61,14 +53,7 @@ export async function exportJpeg(
     scale: 1.5,
   });
 
-  const anchor = document.createElement("a");
-  const blob = dataURLtoBlob(dataUrl);
-  anchor.href = URL.createObjectURL(blob);
-  anchor.download = `reverse-1999-box-${getDateString()}.jpg`;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  setTimeout(() => URL.revokeObjectURL(anchor.href), 10000);
+  return dataURLtoBlob(dataUrl);
 }
 
 function dataURLtoBlob(dataUrl: string): Blob {

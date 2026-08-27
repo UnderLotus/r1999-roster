@@ -1,4 +1,6 @@
 // URL 分享 token（spec §25）單元測試：round-trip、消毒、長度
+import { readFileSync } from "node:fs";
+
 import {
   decodeShareCode,
   encodeShareCode,
@@ -26,6 +28,17 @@ const skinVariant =
 
 const baseId = (id: string) => parseInt(id.slice(0, 4), 10);
 
+{
+  const shareSource = readFileSync(
+    new URL("../src/utils/share-code.ts", import.meta.url),
+    "utf8"
+  );
+  assert(
+    !shareSource.includes("store/boxStore"),
+    "架構：share-code 不得依賴 boxStore（含 type-only import）"
+  );
+}
+
 const highSuffixCharacter = characters.find((character) =>
   character.skins.some((skin) => parseInt(skin.variantId.slice(-2), 10) > 7)
 );
@@ -46,6 +59,7 @@ const highSuffixVariant = highSuffixCharacter.skins.find(
     showFutureSight: false,
   });
   const decoded = decodeShareCode(token);
+  assert(token === "EAA", "空 box v1 golden token 維持 EAA");
   assert(decoded !== null, "空 box round-trip：可解碼");
   assert(
     decoded !== null && Object.keys(decoded.characters).length === 0,

@@ -21,15 +21,18 @@ class MemoryStorage implements Storage {
   }
 }
 
-(globalThis as { localStorage?: Storage }).localStorage = new MemoryStorage();
+const memoryStorage = new MemoryStorage();
+(globalThis as { localStorage?: Storage }).localStorage = memoryStorage;
 
 import { useBoxStore, migratePersistedState, migratePersisted } from "../src/store/boxStore";
 import { characters as charactersData } from "../src/data/characters";
+import { reconcileBox, type BoxState } from "../src/domain/box";
 import { resolveModeVariant } from "../src/utils/skins";
 
 const store = useBoxStore;
 const s = () => store.getState();
-const realId = charactersData[0].id;
+const realCharacter = charactersData.find((character) => character.isReleased !== false)!;
+const realId = realCharacter.id;
 
 function assert(cond: boolean, msg: string) {
   if (!cond) {
@@ -149,6 +152,9 @@ s().resetAll();
 s().activateCharacter(replacedCharacter.id);
 s().setUserId("keep-me");
 s().setFilterMode("owned");
+s().setSearch("keep-search");
+s().setRarityFilter([6]);
+s().setDisplayLang("zh-TW");
 s().importBox({
   characters: {
     [importedCharacter.id]: { owned: true, portray: 0 },
@@ -167,8 +173,14 @@ assert(
   "importBox 覆蓋舊 Box 角色"
 );
 assert(
-  s().userId === "keep-me" && s().filterMode === "owned",
-  "importBox 保留 userId 與篩選偏好"
+  s().userId === "keep-me" &&
+    s().filterMode === "owned" &&
+    s().search === "keep-search" &&
+    s().rarityFilter.length === 1 &&
+    s().rarityFilter[0] === 6 &&
+    s().displayLang === "zh-TW" &&
+    s().langChosen === true,
+  "importBox 保留 ID、語系、搜尋與篩選偏好"
 );
 assert(
   s().defaultSkinMode === "insight" && s().showFutureSight === true,
@@ -212,21 +224,19 @@ assert(
   "migrate 字串 owned false 不誤判"
 );
 
-// 未知角色 ID 過濾（KNOWN_IDS）
-assert(
-  migratePersistedState({
-    characters: {
-      [realId]: { owned: true, portray: 2 },
-      "999901": { owned: true, portray: 3 },
-    },
-  }).characters?.[realId]?.portray === 2,
-  "migrate 保留已知角色"
-);
+// Primitive adapter 只處理 shape；catalog legality 由 Box reconciliation 決定。
 assert(
   migratePersistedState({
     characters: { "999901": { owned: true, portray: 3 } },
-  }).characters?.["999901"] === undefined,
-  "migrate 過濾未知角色 ID"
+  }).characters?.["999901"]?.portray === 3,
+  "primitive migrate 保留未知角色供 domain reconciliation"
+);
+assert(
+  migratePersisted(
+    { characters: { "999901": { owned: true, portray: 3 } } },
+    8
+  ).characters?.["999901"] === undefined,
+  "hydration reconciliation 移除未知角色 ID"
 );
 
 // 小數/字串/Infinity portray → 0
@@ -282,39 +292,17 @@ assert(
   "migrate 角色狀態非物件 → 跳過"
 );
 
-/* ---------- purgeUnreleased ---------- */
-
-// 未持有但有 activeVariant / customVariants 的角色也應被清乾淨
-const first = charactersData[0];
-s().setActiveVariant(first.id, first.skins[0].variantId); // 未持有也會寫 activeVariant + custom
-s().purgeUnreleased([first.id]);
-assert(s().characters[first.id] === undefined, "purgeUnreleased 清除未持有角色 characters");
-assert(s().activeVariant[first.id] === undefined, "purgeUnreleased 清除 activeVariant（未持有也有）");
-assert(s().customVariants[first.id] === undefined, "purgeUnreleased 清除 customVariants（未持有也有）");
-
-// 已持有角色也清
-s().activateCharacter(first.id);
-s().purgeUnreleased([first.id]);
-assert(s().characters[first.id] === undefined, "purgeUnreleased 清除已持有角色");
-
-// 無關角色不受影響
-s().activateCharacter("B");
-s().purgeUnreleased([first.id]);
-assert(s().characters["B"]?.owned === true, "purgeUnreleased 不影響其他角色");
-
 /* ---------- migrate：variant 校驗 ---------- */
 
-const realVariant = charactersData[0].skins[0].variantId;
-const okVariant = migratePersistedState({
-  activeVariant: { [realId]: realVariant, X: "12345", [realId + "bad"]: "99999" },
+const realVariant = realCharacter.skins[0].variantId;
+const parsedVariants = migratePersistedState({
+  activeVariant: { [realId]: realVariant, X: "12345", invalid: 123 },
 }) as { activeVariant?: Record<string, string> };
 assert(
-  okVariant.activeVariant?.[realId] === realVariant,
-  "migrate 保留合法 variant"
-);
-assert(
-  okVariant.activeVariant?.["X"] === undefined,
-  "migrate 過濾未知角色 activeVariant"
+  parsedVariants.activeVariant?.[realId] === realVariant &&
+    parsedVariants.activeVariant?.X === "12345" &&
+    parsedVariants.activeVariant?.invalid === undefined,
+  "primitive migrate 只過濾非字串 variant，legality 留給 domain"
 );
 
 /* ---------- migrate：langChosen ---------- */
@@ -342,10 +330,14 @@ assert(mNull.langChosen === false, "migratePersisted 無 version → langChosen 
 // version <6 → activeVariant 清空（v5→v6 遷移規則）
 const m5 = migratePersisted({ displayLang: "en-US", activeVariant: { X: "123" } }, 5);
 assert(Object.keys(m5.activeVariant ?? {}).length === 0, "migratePersisted version 5 清空 activeVariant");
-// version >=6 → 保留合法 activeVariant
-const m6 = migratePersisted({ activeVariant: { [realId]: realVariant } }, 6) as {
-  activeVariant?: Record<string, string>;
-};
+// version >=6 → 為持有角色保留合法 activeVariant
+const m6 = migratePersisted(
+  {
+    characters: { [realId]: { owned: true, portray: 0 } },
+    activeVariant: { [realId]: realVariant },
+  },
+  6
+) as { activeVariant?: Record<string, string> };
 assert(m6.activeVariant?.[realId] === realVariant, "migratePersisted version 6 保留合法 activeVariant");
 
 // v7 → v8：現役 v7 使用者 bump 後觸發 migrate，KNOWN_IDS 過濾 stale 未知角色
@@ -386,97 +378,205 @@ assert(
   "migrate v7→v8：未持有條目不保留"
 );
 
-console.log(process.exitCode ? "\n有失敗項目" : "\n全部通過");
+// ===== Future Sight hydration / transition parity =====
 
-// ===== 未來視關閉：未實裝 skin 選擇重設 =====
-
-// 動態取樣：已實裝角色 + 其未實裝皮膚（資料驅動，避免硬編碼過期）
 const unreleasedSkinCase = charactersData.find(
-  (c) => c.isReleased !== false && c.skins.some((sk) => sk.isReleased === false)
+  (character) =>
+    character.isReleased !== false &&
+    character.skins.some((skin) => skin.isReleased === false)
+);
+const unreleasedCharacter = charactersData.find(
+  (character) => character.isReleased === false
+);
+const releasedCharacters = charactersData.filter(
+  (character) => character.isReleased !== false
+);
+const missingVariantCharacter = releasedCharacters.find(
+  (character) => character.id !== unreleasedSkinCase?.id
+);
+const releasedCustomCharacter = releasedCharacters.find(
+  (character) =>
+    character.id !== unreleasedSkinCase?.id &&
+    character.id !== missingVariantCharacter?.id &&
+    character.skins.some((skin) => skin.isReleased !== false)
 );
 
-if (!unreleasedSkinCase) {
-  console.log("skip: 資料中無「已實裝角色含未實裝皮膚」案例（上游資料變動）");
-} else {
-  const cid = unreleasedSkinCase.id;
-  const orphanVariant =
-    unreleasedSkinCase.skins.find((sk) => sk.isReleased === false)?.variantId ?? "";
-  // 期望值依「當下 store 的 defaultSkinMode」計算（先前測試可能已切到 insight）
-  const modeDefault = resolveModeVariant(
-    unreleasedSkinCase,
-    s().defaultSkinMode
-  );
+assert(Boolean(unreleasedSkinCase), "fixture：存在已實裝角色含未實裝 skin");
+assert(Boolean(unreleasedCharacter), "fixture：存在未實裝角色");
+assert(Boolean(missingVariantCharacter), "fixture：存在缺少 activeVariant 的已實裝角色");
+assert(Boolean(releasedCustomCharacter), "fixture：存在可保留 released custom skin 的角色");
 
-  // 1) FS off：孤兒 skin 落到預設（初始），custom 旗標清除
-  s().setActiveVariant(cid, orphanVariant);
-  assert(s().activeVariant[cid] === orphanVariant, "前置：未實裝 skin 已選取");
-  s().resetUnreleasedSkinSelections();
-  assert(
-    s().activeVariant[cid] === modeDefault,
-    `FS off：未實裝 skin (${orphanVariant}) 落到預設 (${modeDefault})`
-  );
-  assert(!s().customVariants[cid], "FS off：custom 旗標一併清除");
+if (
+  unreleasedSkinCase &&
+  unreleasedCharacter &&
+  missingVariantCharacter &&
+  releasedCustomCharacter
+) {
+  const repairedId = unreleasedSkinCase.id;
+  const unreleasedVariant = unreleasedSkinCase.skins.find(
+    (skin) => skin.isReleased === false
+  )!.variantId;
+  const releasedCustomVariant = releasedCustomCharacter.skins.find(
+    (skin) => skin.isReleased !== false
+  )!.variantId;
 
-  // 2) 已實裝 skin 的選擇不受影響
-  const releasedSkin = unreleasedSkinCase.skins.find((sk) => sk.isReleased !== false);
-  if (releasedSkin) {
-    s().setActiveVariant(cid, releasedSkin.variantId);
-    s().resetUnreleasedSkinSelections();
-    assert(
-      s().activeVariant[cid] === releasedSkin.variantId,
-      "已實裝 skin 不被重設"
-    );
-  }
-
-  // 3) 匯入消毒：showFutureSight=false 時落到預設；=true 時保留
-  s().setActiveVariant(cid, orphanVariant);
-  const basePayload = {
-    characters: { [cid]: { owned: true, portray: 0 as const } },
-    activeVariant: { [cid]: orphanVariant },
-    customVariants: { [cid]: true as const },
-    defaultSkinMode: "insight" as const,
+  // Shared-import regression from LOC-63 remains protected.
+  const importPayload: BoxState = {
+    characters: { [repairedId]: { owned: true, portray: 0 } },
+    activeVariant: { [repairedId]: unreleasedVariant },
+    customVariants: { [repairedId]: true },
+    defaultSkinMode: "insight",
     showFutureSight: false,
   };
-  s().importBox(basePayload);
-  const expectedInsightDefault = resolveModeVariant(unreleasedSkinCase, "insight");
+  s().importBox(importPayload);
   assert(
-    s().activeVariant[cid] === expectedInsightDefault,
-    `匯入(FS off)：落到 insight 模式預設 (${expectedInsightDefault})`
+    s().activeVariant[repairedId] !== unreleasedVariant &&
+      s().customVariants[repairedId] === undefined,
+    "匯入(FS off)：incoming 未實裝 skin 由 Box model 修復"
   );
-  s().importBox({ ...basePayload, showFutureSight: true });
+  s().importBox({ ...importPayload, showFutureSight: true });
   assert(
-    s().activeVariant[cid] === orphanVariant,
-    "匯入(FS on)：保留未實裝 skin 選擇"
+    s().activeVariant[repairedId] === unreleasedVariant,
+    "匯入(FS on)：保留合法未實裝 skin"
   );
 
-  // 4) migrate v8→v9：殘留孤兒 skin 於 hydrate 時自癒；FS 開啟則保留
-  const persistedState = {
-    characters: { [cid]: { owned: true, portray: 2 } },
-    activeVariant: { [cid]: orphanVariant },
-    customVariants: { [cid]: true },
-    displayLang: "en-US",
-    userId: "tester",
-    langChosen: true,
-    showFutureSight: false,
+  const invalidBox: BoxState = {
+    characters: {
+      [repairedId]: { owned: true, portray: 2 },
+      [missingVariantCharacter.id]: { owned: true, portray: 1 },
+      [releasedCustomCharacter.id]: { owned: true, portray: 4 },
+      [unreleasedCharacter.id]: { owned: true, portray: 3 },
+      "999901": { owned: true, portray: 5 },
+    },
+    activeVariant: {
+      [repairedId]: unreleasedVariant,
+      [releasedCustomCharacter.id]: releasedCustomVariant,
+      [unreleasedCharacter.id]: unreleasedCharacter.skins[0].variantId,
+      "999901": "999901",
+    },
+    customVariants: {
+      [repairedId]: true,
+      [releasedCustomCharacter.id]: true,
+      [unreleasedCharacter.id]: true,
+      "999901": true,
+    },
     defaultSkinMode: "initial",
+    showFutureSight: false,
   };
-  // persisted 的 defaultSkinMode 是 initial → 治癒目標為初始 skin（非當下 store 模式）
-  const migratedExpected = resolveModeVariant(unreleasedSkinCase, "initial");
-  const healed = migratePersisted(persistedState, 8);
+  const persistedState = {
+    ...invalidBox,
+    displayLang: "zh-TW",
+    userId: "hydrate-user",
+    langChosen: true,
+  };
+
+  // Current-version storage does not call Zustand's migrate callback. Exercise
+  // the real hydration path so the merge boundary must reconcile v9 data too.
+  const expectedV9Box = reconcileBox(invalidBox, charactersData);
+  store.setState({
+    filterMode: "unowned",
+    search: "keep-current-search",
+    rarityFilter: [5],
+  });
+  const activateBeforeHydration = s().activateCharacter;
+  memoryStorage.setItem(
+    "reverse1999-box-state",
+    JSON.stringify({ state: persistedState, version: 9 })
+  );
+  await store.persist.rehydrate();
+  const rehydratedV9Box: BoxState = {
+    characters: s().characters,
+    activeVariant: s().activeVariant,
+    customVariants: s().customVariants,
+    defaultSkinMode: s().defaultSkinMode,
+    showFutureSight: s().showFutureSight,
+  };
   assert(
-    (healed.activeVariant as Record<string, string>)?.[cid] === migratedExpected,
-    "migrate v8→v9：殘留孤兒 skin 自癒為預設"
+    JSON.stringify(rehydratedV9Box) === JSON.stringify(expectedV9Box),
+    "current v9 persist.rehydrate 經 Box model reconciliation"
   );
   assert(
-    !(healed.customVariants as Record<string, true> | undefined)?.[cid],
-    "migrate v8→v9：custom 旗標清除"
-  );
-  const keptOn = migratePersisted(
-    { ...persistedState, showFutureSight: true },
-    8
+    s().characters[unreleasedCharacter.id] === undefined &&
+      s().characters["999901"] === undefined &&
+      s().activeVariant[repairedId] === `${unreleasedSkinCase.baseId}01` &&
+      s().customVariants[repairedId] === undefined &&
+      s().activeVariant[missingVariantCharacter.id] ===
+        `${missingVariantCharacter.baseId}01`,
+    "v9 hydration 移除 stale/unreleased 並修復 invalid/missing variant"
   );
   assert(
-    (keptOn.activeVariant as Record<string, string>)?.[cid] === orphanVariant,
-    "migrate：FS 開啟時保留原選擇"
+    s().userId === "hydrate-user" &&
+      s().displayLang === "zh-TW" &&
+      s().langChosen === true,
+    "v9 hydration 套用 persisted allowlist preferences"
+  );
+  assert(
+    s().filterMode === "unowned" &&
+      s().search === "keep-current-search" &&
+      s().rarityFilter.length === 1 &&
+      s().rarityFilter[0] === 5 &&
+      s().activateCharacter === activateBeforeHydration,
+    "v9 hydration 保留 non-persisted UI state 與 actions"
+  );
+
+  const hydrated = migratePersisted(persistedState, 8);
+  const hydratedBox: BoxState = {
+    characters: hydrated.characters ?? {},
+    activeVariant: (hydrated.activeVariant ?? {}) as Record<string, string>,
+    customVariants: (hydrated.customVariants ?? {}) as Record<string, true>,
+    defaultSkinMode: hydrated.defaultSkinMode as "initial" | "insight",
+    showFutureSight: hydrated.showFutureSight === true,
+  };
+
+  store.setState({
+    ...invalidBox,
+    showFutureSight: true,
+    userId: "keep-user",
+  });
+  let transitionCount = 0;
+  const unsubscribe = store.subscribe(() => {
+    transitionCount++;
+  });
+  s().setShowFutureSight(false);
+  unsubscribe();
+
+  const transitionedBox: BoxState = {
+    characters: s().characters,
+    activeVariant: s().activeVariant,
+    customVariants: s().customVariants,
+    defaultSkinMode: s().defaultSkinMode,
+    showFutureSight: s().showFutureSight,
+  };
+  assert(
+    JSON.stringify(transitionedBox) === JSON.stringify(hydratedBox),
+    "相同 invalid Box 經 hydration 與 FS-off transition 得到相同結果"
+  );
+  assert(transitionCount === 1, "FS-off 只觸發一次 Zustand state transition");
+  assert(
+    s().characters[unreleasedCharacter.id] === undefined &&
+      s().activeVariant[unreleasedCharacter.id] === undefined &&
+      s().customVariants[unreleasedCharacter.id] === undefined,
+    "FS-off 原子移除未實裝角色及其 variant/custom"
+  );
+  assert(
+    s().activeVariant[repairedId] === `${unreleasedSkinCase.baseId}01` &&
+      s().customVariants[repairedId] === undefined,
+    "FS-off 修復未實裝 skin 並清 custom"
+  );
+  assert(
+    s().activeVariant[missingVariantCharacter.id] ===
+      `${missingVariantCharacter.baseId}01`,
+    "Box model 補齊 missing activeVariant"
+  );
+  assert(
+    s().activeVariant[releasedCustomCharacter.id] === releasedCustomVariant &&
+      s().customVariants[releasedCustomCharacter.id] === true,
+    "FS-off 保留 released custom skin"
+  );
+  assert(
+    s().userId === "keep-user",
+    "FS-off transition 保留非 Box preference"
   );
 }
+
+console.log(process.exitCode ? "\n有失敗項目" : "\n全部通過");

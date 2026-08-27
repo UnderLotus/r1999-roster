@@ -10,19 +10,17 @@ import { LangSwitcher } from "./components/LangSwitcher";
 import { ShareUrlDialog } from "./components/ShareUrlDialog";
 import { characters } from "./data/characters";
 import { getUiText } from "./i18n/ui";
+import { useExportJob } from "./hooks/useExportJob";
 import { useBoxStore } from "./store/boxStore";
 import type { LangCode } from "./store/boxStore";
 import { getAllNames } from "./utils/i18n";
 import { decodeShareCode, encodeShareCode } from "./utils/share-code";
 import type { SharePayload } from "./utils/share-code";
-import { resolveModeVariant } from "./utils/skins";
 import { STORAGE_ERROR_EVENT, consumeStorageError } from "./utils/storage";
 import "./styles/character-card.css";
 import "./styles/app-header.css";
 import "./styles/control-bar.css";
 import "./styles/export-canvas.css";
-
-type ExportStatus = "idle" | "exporting" | "error";
 
 /** 主站網址（頁尾顯示與連結） */
 const SITE_URL = "https://underlotus.github.io";
@@ -59,15 +57,11 @@ export default function App() {
   const setUserId = useBoxStore((s) => s.setUserId);
   const setDisplayLang = useBoxStore((s) => s.setDisplayLang);
   const setActiveVariant = useBoxStore((s) => s.setActiveVariant);
-  const resetUnreleasedSkinSelections = useBoxStore(
-    (s) => s.resetUnreleasedSkinSelections
-  );
   const activateCharacter = useBoxStore((s) => s.activateCharacter);
   const decreasePortray = useBoxStore((s) => s.decreasePortray);
   const resetAll = useBoxStore((s) => s.resetAll);
   const showFutureSight = useBoxStore((s) => s.showFutureSight);
   const setShowFutureSight = useBoxStore((s) => s.setShowFutureSight);
-  const purgeUnreleased = useBoxStore((s) => s.purgeUnreleased);
   const importBox = useBoxStore((s) => s.importBox);
   const defaultSkinMode = useBoxStore((s) => s.defaultSkinMode);
   const setSkinMode = useBoxStore((s) => s.setSkinMode);
@@ -78,18 +72,6 @@ export default function App() {
   const [shareStatus, setShareStatus] = useState<"idle" | "copied">("idle");
   const [shareDialogUrl, setShareDialogUrl] = useState<string | null>(null);
   const shareTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [exportStatus, setExportStatus] = useState<ExportStatus>("idle");
-  const [exportProgress, setExportProgress] = useState<{ loaded: number; total: number } | null>(null);
-  const [exportSnapshot, setExportSnapshot] = useState<{
-    states: typeof states;
-    lang: typeof displayLang;
-    activeVariant: typeof activeVariant;
-    userId: string;
-    characters: typeof visibleCharacters;
-  } | null>(null);
-  const isExportingRef = useRef(false);
-  const exportLayerElRef = useRef<HTMLDivElement | null>(null);
-  const exportAttemptRef = useRef(0);
   const [storageError, setStorageError] = useState(false);
   const t = getUiText(displayLang);
 
@@ -101,7 +83,7 @@ export default function App() {
     return () => window.removeEventListener(STORAGE_ERROR_EVENT, onStorageError);
   }, []);
 
-  // 初始化 activeVariant：hydrate 後依 defaultSkinMode 補上缺漏的角色
+  // Hydration 後只處理首次造訪的語言偏好；Box reconciliation 由 store 負責。
   const initDone = useRef(false);
   useEffect(() => {
     return onStoreHydrated(() => {
@@ -120,18 +102,6 @@ export default function App() {
         };
         const autoLang = langMap[locale] ?? langMap[locale.split("-")[0]] ?? "en-US";
         useBoxStore.setState({ displayLang: autoLang, langChosen: true });
-      }
-
-      let changed = false;
-      const next = { ...store.activeVariant };
-      for (const c of characters) {
-        if (!next[c.id]) {
-          next[c.id] = resolveModeVariant(c, store.defaultSkinMode);
-          changed = true;
-        }
-      }
-      if (changed) {
-        useBoxStore.setState({ activeVariant: next });
       }
     });
   }, []);
@@ -189,98 +159,31 @@ export default function App() {
     });
   }, [states, filterMode, search, rarityFilter, showFutureSight]);
 
+  const {
+    status: exportStatus,
+    progress: exportProgress,
+    snapshot: exportSnapshot,
+    start: startExport,
+    targetRef: exportLayerElRef,
+  } = useExportJob<{
+    states: typeof states;
+    lang: typeof displayLang;
+    activeVariant: typeof activeVariant;
+    skinMode: typeof defaultSkinMode;
+    userId: string;
+    characters: typeof visibleCharacters;
+  }>();
+
   const handleExport = () => {
-    if (isExportingRef.current) return;
-    isExportingRef.current = true;
-    exportAttemptRef.current += 1;
-    setExportSnapshot({
+    startExport({
       states: { ...states },
       lang: displayLang,
       activeVariant: { ...activeVariant },
+      skinMode: defaultSkinMode,
       userId,
       characters: visibleCharacters,
     });
-    setExportStatus("exporting");
-    setExportProgress(null);
   };
-
-  // 匯出 lifecycle：mount ExportCanvas → 等 render → 截圖 → unmount
-  useEffect(() => {
-    if (!exportSnapshot) return;
-
-    let cancelled = false;
-    const attemptId = exportAttemptRef.current;
-    let errorTimer: ReturnType<typeof setTimeout> | null = null;
-
-    const cleanup = () => {
-      cancelled = true;
-      isExportingRef.current = false;
-      if (errorTimer) clearTimeout(errorTimer);
-    };
-
-    const run = async () => {
-      await new Promise<void>((resolve) => {
-        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
-      });
-      if (cancelled) return;
-
-      let exportJpeg: typeof import("./utils/export-image").exportJpeg;
-      try {
-        const mod = await import("./utils/export-image");
-        exportJpeg = mod.exportJpeg;
-      } catch {
-        if (!cancelled) {
-          setExportStatus("error");
-          isExportingRef.current = false;
-          errorTimer = setTimeout(() => {
-            if (exportAttemptRef.current !== attemptId) return;
-            setExportStatus("idle");
-            setExportSnapshot(null);
-            setExportProgress(null);
-          }, 3000);
-        }
-        return;
-      }
-      if (cancelled) return;
-
-      const el = exportLayerElRef.current;
-      if (!el) {
-        isExportingRef.current = false;
-        setExportSnapshot(null);
-        setExportStatus("idle");
-        setExportProgress(null);
-        return;
-      }
-
-      try {
-        await exportJpeg(el, (p) => {
-          if (!cancelled) setExportProgress(p);
-        });
-        if (!cancelled) {
-          setExportStatus("idle");
-          setExportSnapshot(null);
-          setExportProgress(null);
-          isExportingRef.current = false;
-        }
-      } catch (err) {
-        console.error("匯出失敗:", err);
-        if (!cancelled) {
-          setExportStatus("error");
-          isExportingRef.current = false;
-          errorTimer = setTimeout(() => {
-            if (exportAttemptRef.current !== attemptId) return;
-            setExportStatus("idle");
-            setExportSnapshot(null);
-            setExportProgress(null);
-          }, 3000);
-        }
-      }
-    };
-
-    void run();
-
-    return cleanup;
-  }, [exportSnapshot]);
 
   const handleSkinSelect = (charId: string, variantId: string) => {
     setActiveVariant(charId, variantId);
@@ -306,17 +209,7 @@ export default function App() {
   };
 
   const applyImport = (payload: SharePayload) => {
-    // 補齊非 custom 角色的 activeVariant（與 hydrate 填充同邏輯）
-    const nextVariant = { ...payload.activeVariant };
-    for (const character of characters) {
-      if (!nextVariant[character.id]) {
-        nextVariant[character.id] = resolveModeVariant(
-          character,
-          payload.defaultSkinMode
-        );
-      }
-    }
-    importBox({ ...payload, activeVariant: nextVariant });
+    importBox(payload);
     setPendingImport(null);
     clearShareHash();
   };
@@ -338,10 +231,6 @@ export default function App() {
           onClick={() => {
             if (showFutureSight) {
               setShowFutureSight(false);
-              purgeUnreleased(
-                characters.filter((c) => !c.isReleased).map((c) => c.id)
-              );
-              resetUnreleasedSkinSelections();
             } else {
               setShowFutureSightConfirm(true);
             }
@@ -498,7 +387,7 @@ export default function App() {
             characters={exportSnapshot.characters}
             states={exportSnapshot.states}
             activeVariant={exportSnapshot.activeVariant}
-            skinMode={defaultSkinMode}
+            skinMode={exportSnapshot.skinMode}
             lang={exportSnapshot.lang}
             userId={exportSnapshot.userId}
           />

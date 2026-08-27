@@ -1,5 +1,6 @@
 import {
   applyReleaseStatuses,
+  parseGlobalCharacters,
   parseReleaseOverrides,
   resolveGlobalIsOnline,
   type GlobalReleaseSnapshot,
@@ -22,11 +23,67 @@ function assertThrows(run: () => void, message: string): void {
   assert(threw, message);
 }
 
-assert(resolveGlobalIsOnline("1"), 'isOnline "1" is released');
-assert(!resolveGlobalIsOnline("0"), 'isOnline "0" is unreleased');
-assert(!resolveGlobalIsOnline(""), "empty isOnline is unreleased");
-assert(!resolveGlobalIsOnline(undefined), "missing Global character is unreleased");
-assertThrows(() => resolveGlobalIsOnline("2026-09-03 05:00:00"), "unknown isOnline schema fails loudly");
+const releaseClock = new Date("2026-09-03T10:00:00.000Z");
+const globalIsOnlineFixtures: readonly [string, unknown, boolean][] = [
+  ["numeric 1", 1, true],
+  ["string 1", "1", true],
+  ["numeric 0", 0, false],
+  ["string 0", "0", false],
+  ["empty", "", false],
+  ["null", null, false],
+  ["missing", undefined, false],
+  ["past timestamp", "2026-09-03 04:59:59", true],
+  ["future timestamp", "2026-09-03 05:00:01", false],
+  ["equal timestamp", "2026-09-03 05:00:00", false],
+];
+for (const [label, value, expected] of globalIsOnlineFixtures) {
+  assert(
+    resolveGlobalIsOnline(value, releaseClock) === expected,
+    `isOnline ${label}`
+  );
+}
+assert(
+  !resolveGlobalIsOnline(
+    "2026-09-03 04:59:59",
+    new Date("2026-09-03T09:59:59.000Z")
+  ) &&
+    resolveGlobalIsOnline(
+      "2026-09-03 04:59:59",
+      new Date("2026-09-03T10:00:00.000Z")
+    ),
+  "server-local timestamp conversion uses the explicit region offset"
+);
+assertThrows(
+  () => resolveGlobalIsOnline("2", releaseClock),
+  "unknown string isOnline fails loudly"
+);
+assertThrows(
+  () => resolveGlobalIsOnline(2, releaseClock),
+  "unknown numeric isOnline fails loudly"
+);
+assertThrows(
+  () => resolveGlobalIsOnline("2026-09-03T05:00:00Z", releaseClock),
+  "non-Global timestamp syntax fails loudly"
+);
+assertThrows(
+  () => resolveGlobalIsOnline("2026-02-30 05:00:00", releaseClock),
+  "invalid Global timestamp calendar date fails loudly"
+);
+const parsedGlobalCharacters = parseGlobalCharacters([
+  { id: 1001, isOnline: 1 },
+  { id: 1002, isOnline: 0 },
+  { id: 1003, isOnline: null },
+]);
+assert(
+  parsedGlobalCharacters[0]?.isOnline === 1 &&
+    parsedGlobalCharacters[1]?.isOnline === 0 &&
+    parsedGlobalCharacters[2]?.isOnline === null,
+  "Global character schema preserves numeric and null isOnline values"
+);
+assertThrows(
+  () => parseGlobalCharacters([{ id: 1001, isOnline: true }]),
+  "Global character schema rejects unrelated isOnline types"
+);
 
 const parsed = parseReleaseOverrides({
   characters: [{ baseId: 1001, isReleased: false, note: "second half" }],
@@ -84,8 +141,8 @@ const characters: Character[] = [
 ];
 const snapshot: GlobalReleaseSnapshot = {
   characters: [
-    { id: 1001, isOnline: "1" },
-    { id: 1002, isOnline: "0" },
+    { id: 1001, isOnline: "unsupported" },
+    { id: 1002, isOnline: 2 },
   ],
   skins: [{ id: 100103 }, { id: 100104 }],
 };
@@ -100,8 +157,14 @@ const overrides: ReleaseOverrides = {
   ],
 };
 const summary = applyReleaseStatuses(characters, snapshot, overrides);
-assert(!characters[0]!.isReleased, "manual false gates GL-preloaded character");
-assert(characters[1]!.isReleased, "manual true overrides GL offline character");
+assert(
+  !characters[0]!.isReleased,
+  "manual false short-circuits unsupported Global character value"
+);
+assert(
+  characters[1]!.isReleased,
+  "manual true short-circuits unsupported Global character value"
+);
 assert(characters[0]!.skins[1]!.isReleased === false, "manual false gates GL-preloaded skin");
 assert(characters[0]!.skins[2]!.isReleased === undefined, "GL-present skin is released sparsely");
 assert(characters[1]!.skins[1]!.isReleased === undefined, "manual true releases GL-absent skin");

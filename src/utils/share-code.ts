@@ -1,6 +1,6 @@
 import { characters } from "../data/characters";
+import type { BoxState, SkinMode } from "../domain/box";
 import type { CharacterState, PortrayLevel } from "../types/character";
-import type { SkinMode } from "../store/boxStore";
 
 /**
  * URL 分享 token v1（spec §25）
@@ -26,13 +26,7 @@ import type { SkinMode } from "../store/boxStore";
  *   variant 對照 VALID_VARIANTS、位元不足即拒絕。
  */
 
-export interface SharePayload {
-  characters: Record<string, CharacterState>;
-  activeVariant: Record<string, string>;
-  customVariants: Record<string, true>;
-  defaultSkinMode: SkinMode;
-  showFutureSight: boolean;
-}
+export type SharePayload = BoxState;
 
 const VERSION = 1;
 

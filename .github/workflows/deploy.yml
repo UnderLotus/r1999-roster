@@ -26,8 +26,14 @@ jobs:
       - run: npm ci
       - run: npm run test:assets
       - run: npm run test:names
+      - run: npm run test:name-sources
       - run: npm run test:release
+      - run: npm run test:box
+      - run: npm run test:architecture
+      - run: npm run test:export
       - run: npm run test:store
+      - run: npm run test:storage
+      - run: npm run test:lock
       - run: npm run test:share
       - run: npm run build
       - uses: actions/upload-pages-artifact@v5

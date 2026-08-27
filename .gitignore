@@ -6,3 +6,6 @@ dist/
 .venv/
 .pi/
 .pi-subagents/
+scripts/data/name-source-cache.json
+scripts/data/name-source-cache.json.staging-*
+scripts/data/name-source-cache.json.backup-*

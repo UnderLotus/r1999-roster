@@ -9,7 +9,7 @@ export const GLOBAL_SKIN_URL =
 
 export interface GlobalCharacterRelease {
   id: number;
-  isOnline?: string;
+  isOnline?: string | number | null;
 }
 
 export interface GlobalSkinRelease {
@@ -101,17 +101,23 @@ export function parseReleaseOverrides(value: unknown): ReleaseOverrides {
   return { characters, skins };
 }
 
-function parseGlobalCharacters(value: unknown): GlobalCharacterRelease[] {
+export function parseGlobalCharacters(value: unknown): GlobalCharacterRelease[] {
   if (!Array.isArray(value)) throw new Error("Global character.json is not an array");
   return value.map((entry, index) => {
     if (
       !isRecord(entry) ||
       !Number.isInteger(entry.id) ||
-      (entry.isOnline !== undefined && typeof entry.isOnline !== "string")
+      (entry.isOnline !== undefined &&
+        entry.isOnline !== null &&
+        typeof entry.isOnline !== "string" &&
+        typeof entry.isOnline !== "number")
     ) {
       throw new Error(`Invalid Global character entry at index ${index}`);
     }
-    return { id: entry.id as number, isOnline: entry.isOnline as string | undefined };
+    return {
+      id: entry.id as number,
+      isOnline: entry.isOnline as string | number | null | undefined,
+    };
   });
 }
 
@@ -125,14 +131,73 @@ function parseGlobalSkins(value: unknown): GlobalSkinRelease[] {
   });
 }
 
+const GLOBAL_IS_ONLINE_TIMESTAMP =
+  /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/;
+
+/** Roster tracks the English Global release region's server-local timestamps. */
+const GLOBAL_SERVER_UTC_OFFSET_MINUTES = -5 * 60;
+
+function parseGlobalTimestamp(value: string): number | null {
+  const match = GLOBAL_IS_ONLINE_TIMESTAMP.exec(value);
+  if (!match) return null;
+
+  const [, yearText, monthText, dayText, hourText, minuteText, secondText] = match;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const hour = Number(hourText);
+  const minute = Number(minuteText);
+  const second = Number(secondText);
+
+  // Validate the server-local wall clock without depending on the machine timezone,
+  // then convert it to UTC using the explicitly selected Global region offset.
+  const date = new Date(0);
+  date.setUTCFullYear(year, month - 1, day);
+  date.setUTCHours(hour, minute, second, 0);
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day ||
+    date.getUTCHours() !== hour ||
+    date.getUTCMinutes() !== minute ||
+    date.getUTCSeconds() !== second
+  ) {
+    throw new Error(`Invalid Global character.isOnline timestamp: ${value}`);
+  }
+
+  return date.getTime() - GLOBAL_SERVER_UTC_OFFSET_MINUTES * 60_000;
+}
+
 /**
- * GL currently uses "1" for client-enabled characters and "0"/empty for disabled.
- * Unknown values fail loudly so a future schema change cannot silently flip production data.
+ * Resolve the Global client isOnline contract.
+ *
+ * Numeric/string 1 is immediately online; 0, empty and missing are offline.
+ * Other valid values are strict YYYY-MM-DD HH:mm:ss server-local timestamps.
+ * A timestamp is online only when strictly earlier than the supplied clock.
  */
-export function resolveGlobalIsOnline(value: string | undefined): boolean {
-  if (value === "1") return true;
-  if (value === undefined || value === "" || value === "0") return false;
-  throw new Error(`Unsupported Global character.isOnline value: ${JSON.stringify(value)}`);
+export function resolveGlobalIsOnline(
+  value: unknown,
+  clock: Date = new Date()
+): boolean {
+  if (
+    value === undefined ||
+    value === null ||
+    value === "" ||
+    value === "0" ||
+    value === 0
+  ) {
+    return false;
+  }
+  if (value === "1" || value === 1) return true;
+  if (typeof value !== "string") {
+    throw new Error(`Unsupported Global character.isOnline value: ${String(value)}`);
+  }
+
+  const timestamp = parseGlobalTimestamp(value);
+  if (timestamp === null) {
+    throw new Error(`Unsupported Global character.isOnline value: ${value}`);
+  }
+  return timestamp < clock.getTime();
 }
 
 export function fetchGlobalReleaseSnapshot(): GlobalReleaseSnapshot {
@@ -189,12 +254,13 @@ export function applyReleaseStatuses(
   let unreleasedCharacters = 0;
   let releasedSkins = 0;
   let unreleasedSkins = 0;
+  const releaseClock = new Date();
 
   for (const character of characters) {
     const global = globalCharacters.get(character.baseId);
     const nextCharacter =
       characterOverrides.get(character.baseId)?.isReleased ??
-      resolveGlobalIsOnline(global?.isOnline);
+      resolveGlobalIsOnline(global?.isOnline, releaseClock);
     if (character.isReleased !== nextCharacter) characterChanges++;
     character.isReleased = nextCharacter;
     if (nextCharacter) releasedCharacters++;
