@@ -1,11 +1,5 @@
 {
-  "characters": [
-    {
-      "baseId": 3147,
-      "isReleased": false,
-      "note": "GL 3.7 preload; Ms. Stranger is the second-half banner and is not live yet"
-    }
-  ],
+  "characters": [],
   "skins": [
     {
       "variantId": "313903",
