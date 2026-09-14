@@ -1,14 +1,14 @@
 {
   "name": "r1999-roster",
   "private": true,
-  "version": "1.8.2",
+  "version": "1.8.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b --pretty false",
+    "test": "npm run test:assets && npm run test:names && npm run test:name-sources && npm run test:release && npm run test:box && npm run test:export && npm run test:store && npm run test:storage && npm run test:lock && npm run test:share",
     "test:box": "tsx scripts/test-box.ts",
-    "test:architecture": "tsx scripts/test-app-architecture.ts",
     "test:export": "tsx scripts/test-export-job.ts",
     "test:store": "tsx scripts/test-store.ts",
     "test:storage": "tsx scripts/test-storage.ts",

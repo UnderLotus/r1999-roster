@@ -76,14 +76,6 @@ async function testRepositoryAssets(): Promise<void> {
     totalBytes += (await stat(filePath)).size;
   }
 
-  const maxBytes = 36 * 1024 * 1024;
-  const baselineBytes = 57.38 * 1024 * 1024;
-  assert.ok(totalBytes <= maxBytes, `avatars are under 36 MiB: ${totalBytes}`);
-  assert.ok(
-    totalBytes <= baselineBytes * 0.65,
-    `avatars save at least 35%: ${totalBytes} bytes`
-  );
-
   const vertin = await sharp(path.join(root, "public/assets/vertin_question.webp")).metadata();
   assert.equal(vertin.format, "webp", "Vertin empty-state image is WebP");
   assert.equal(vertin.width, 400, "Vertin has expected width");

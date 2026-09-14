@@ -1,4 +1,6 @@
-// Node 環境的 localStorage mock（在 import store 前設定）
+import assert from "node:assert/strict";
+
+// Node 環境的 localStorage mock
 class MemoryStorage implements Storage {
   private data = new Map<string, string>();
   get length() {
@@ -34,15 +36,6 @@ const s = () => store.getState();
 const realCharacter = charactersData.find((character) => character.isReleased !== false)!;
 const realId = realCharacter.id;
 
-function assert(cond: boolean, msg: string) {
-  if (!cond) {
-    console.error(`FAIL: ${msg}`);
-    process.exitCode = 1;
-  } else {
-    console.log(`ok: ${msg}`);
-  }
-}
-
 // 初始狀態
 assert(Object.keys(s().characters).length === 0, "初始無角色");
 
@@ -61,22 +54,11 @@ assert(s().characters["A"]?.owned === true, "5 塑再點仍持有");
 assert(s().characters["A"]?.portray === 5, "5 塑再點維持 5 塑（不循環）");
 
 // 減塑
-s().activateCharacter("A");
-s().activateCharacter("A");
-s().activateCharacter("A");
-s().activateCharacter("A");
-s().activateCharacter("A"); // 現在 5 塑
 s().decreasePortray("A");
 assert(s().characters["A"]?.portray === 4, "減塑 5→4");
 
 // 0 塑減塑 → 取消持有
-const st = s().characters["A"];
-if (st) {
-  s().decreasePortray("A");
-  s().decreasePortray("A");
-  s().decreasePortray("A");
-  s().decreasePortray("A");
-}
+for (let i = 0; i < 4; i++) s().decreasePortray("A");
 assert(s().characters["A"]?.portray === 0, "減塑到 0");
 s().decreasePortray("A");
 assert(s().characters["A"] === undefined, "0 塑再按 − 取消持有");
@@ -84,10 +66,6 @@ assert(s().characters["A"] === undefined, "0 塑再按 − 取消持有");
 // 未持有角色減塑無效
 s().decreasePortray("X");
 assert(s().characters["X"] === undefined, "未持有角色減塑無效");
-
-// 取消持有（0 塑再按 −）
-s().decreasePortray("A");
-assert(s().characters["A"] === undefined, "取消持有後移除");
 
 // 重設
 s().activateCharacter("B");
@@ -128,20 +106,23 @@ assert(s().defaultSkinMode === "insight", "setSkinMode → insight");
 s().setSkinMode("initial");
 assert(s().defaultSkinMode === "initial", "setSkinMode → initial");
 
-// setSkinMode 跳過 custom 角色、更新其餘角色
-s().activateCharacter("A");
-s().setActiveVariant("A", "100002");
+// 兩個 fixture 都須有不同的 initial／insight，才能抓到模式未更新或 custom 被覆寫。
+const [customCharacter, modeCharacter] = charactersData.filter(
+  (character) =>
+    character.isReleased !== false &&
+    resolveModeVariant(character, "initial") !== resolveModeVariant(character, "insight")
+);
+assert(customCharacter && modeCharacter, "fixture：兩個已實裝角色具有不同模式立繪");
+const customVariant = resolveModeVariant(customCharacter, "initial");
+s().activateCharacter(customCharacter.id);
+s().setActiveVariant(customCharacter.id, customVariant);
 s().setSkinMode("insight");
-for (const c of charactersData) {
-  if (s().customVariants[c.id]) {
-    assert(s().activeVariant[c.id] === "100002", `custom 角色不受 setSkinMode 影響 (${c.id})`);
-  } else {
-    assert(
-      s().activeVariant[c.id] === resolveModeVariant(c, "insight"),
-      `setSkinMode 更新非 custom 角色 (${c.id})`
-    );
-  }
-}
+assert.equal(s().activeVariant[customCharacter.id], customVariant, "setSkinMode 保留 custom 立繪");
+assert.equal(
+  s().activeVariant[modeCharacter.id],
+  resolveModeVariant(modeCharacter, "insight"),
+  "setSkinMode 更新非 custom 立繪"
+);
 s().setSkinMode("initial");
 
 /* ---------- importBox ---------- */
@@ -189,108 +170,48 @@ assert(
 
 /* ---------- migrate 驗證 ---------- */
 
-// 正常資料
-const ok = migratePersistedState({
-  characters: {
-    [realId]: { owned: true, portray: 3 },
-  },
-});
-assert(ok.characters?.[realId].portray === 3, "migrate 保留正常值");
+for (const [portray, expected] of [
+  [3, 3], [99, 5], [-3, 0], [2.5, 0], ["3", 0], [Infinity, 0],
+] as const) {
+  assert.equal(
+    migratePersistedState({ characters: { [realId]: { owned: true, portray } } })
+      .characters?.[realId]?.portray,
+    expected,
+    `migrate portray ${String(portray)} → ${expected}`
+  );
+}
 
-// clamp
-assert(
-  migratePersistedState({ characters: { [realId]: { owned: true, portray: 99 } } })
-    .characters?.[realId].portray === 5,
-  "migrate clamp portray 99→5"
-);
-assert(
-  migratePersistedState({ characters: { [realId]: { owned: true, portray: -3 } } })
-    .characters?.[realId].portray === 0,
-  "migrate clamp 負數→0"
-);
-
-// owned false 不保留（store invariant：未持有不存 characters）
-assert(
-  migratePersistedState({ characters: { [realId]: { owned: false, portray: 3 } } })
-    .characters?.[realId] === undefined,
-  "migrate owned false 不保留"
-);
-
-// 字串 owned "false" 不當 true（也不保留）
-assert(
-  migratePersistedState({
-    characters: { [realId]: { owned: "false" as never, portray: 3 } },
-  }).characters?.[realId] === undefined,
-  "migrate 字串 owned false 不誤判"
-);
+for (const owned of [false, "false"]) {
+  assert.deepEqual(
+    migratePersistedState({ characters: { [realId]: { owned, portray: 3 } } }).characters,
+    {},
+    `migrate owned ${JSON.stringify(owned)} 不保留`
+  );
+}
 
 // Primitive adapter 只處理 shape；catalog legality 由 Box reconciliation 決定。
-assert(
-  migratePersistedState({
-    characters: { "999901": { owned: true, portray: 3 } },
-  }).characters?.["999901"]?.portray === 3,
+const unknownCharacter = { characters: { "999901": { owned: true, portray: 3 } } };
+assert.equal(
+  migratePersistedState(unknownCharacter).characters?.["999901"]?.portray,
+  3,
   "primitive migrate 保留未知角色供 domain reconciliation"
 );
-assert(
-  migratePersisted(
-    { characters: { "999901": { owned: true, portray: 3 } } },
-    8
-  ).characters?.["999901"] === undefined,
+assert.deepEqual(
+  migratePersisted(unknownCharacter, 8).characters,
+  {},
   "hydration reconciliation 移除未知角色 ID"
 );
 
-// 小數/字串/Infinity portray → 0
-assert(
-  migratePersistedState({
-    characters: { [realId]: { owned: true, portray: 2.5 } },
-  }).characters?.[realId].portray === 0,
-  "migrate 小數 portray → 0"
-);
-assert(
-  migratePersistedState({
-    characters: { [realId]: { owned: true, portray: "3" as never } },
-  }).characters?.[realId].portray === 0,
-  "migrate 字串 portray → 0"
-);
-assert(
-  migratePersistedState({
-    characters: { [realId]: { owned: true, portray: Infinity } },
-  }).characters?.[realId].portray === 0,
-  "migrate Infinity portray → 0"
-);
-
-// malformed 資料
-assert(
-  Object.keys(migratePersistedState(null).characters ?? {}).length === 0,
-  "migrate null → 空"
-);
-assert(
-  Object.keys(migratePersistedState(undefined).characters ?? {}).length === 0,
-  "migrate undefined → 空"
-);
-assert(
-  Object.keys(migratePersistedState({ characters: null }).characters ?? {})
-    .length === 0,
-  "migrate characters null → 空"
-);
-assert(
-  Object.keys(migratePersistedState({ characters: "invalid" }).characters ?? {})
-    .length === 0,
-  "migrate characters 字串 → 空"
-);
-assert(
-  Object.keys(migratePersistedState({ characters: [1, 2, 3] }).characters ?? {})
-    .length === 0,
-  "migrate characters 陣列 → 空"
-);
-assert(
-  Object.keys(
-    migratePersistedState({
-      characters: { A: "invalid" },
-    }).characters ?? {}
-  ).length === 0,
-  "migrate 角色狀態非物件 → 跳過"
-);
+for (const [label, raw] of [
+  ["null", null],
+  ["undefined", undefined],
+  ["characters null", { characters: null }],
+  ["characters 字串", { characters: "invalid" }],
+  ["characters 陣列", { characters: [1, 2, 3] }],
+  ["角色狀態非物件", { characters: { A: "invalid" } }],
+] as const) {
+  assert.deepEqual(migratePersistedState(raw).characters, {}, `migrate ${label} → 空`);
+}
 
 /* ---------- migrate：variant 校驗 ---------- */
 
@@ -579,4 +500,4 @@ if (
   );
 }
 
-console.log(process.exitCode ? "\n有失敗項目" : "\n全部通過");
+console.log("\n全部通過");

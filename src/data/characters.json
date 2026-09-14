@@ -51,15 +51,17 @@
       }
     ],
     "defaultVariant": "315601",
-    "stage": "pending-names",
+    "stage": "live",
     "isReleased": false,
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B5%AB%E5%A4%9A%E6%B6%85"
     },
     "names": {
       "zh-CN": "赫多涅",
+      "zh-TW": "赫多涅",
       "en-US": "Hedone"
-    }
+    },
+    "rarity": 6
   },
   {
     "id": "314901",
@@ -117,8 +119,8 @@
       "zh-CN": "无名者",
       "zh-TW": "無名者",
       "en-US": "Ms. Stranger",
-      "ko-KR": "미스 스트레인저",
-      "ja-JP": "ストレンジャー"
+      "ja-JP": "ストレンジャー",
+      "ko-KR": "미스 스트레인저"
     },
     "skins": [
       {
@@ -196,8 +198,8 @@
       "zh-CN": "回声谣",
       "zh-TW": "回聲謠",
       "en-US": "Everecho",
-      "ja-JP": "エバーエコー",
-      "ko-KR": "에버에코"
+      "ko-KR": "에버에코",
+      "ja-JP": "エバーエコー"
     },
     "skins": [
       {
@@ -389,8 +391,8 @@
       "zh-CN": "奠基石",
       "zh-TW": "奠基石",
       "en-US": "Cornerstone",
-      "ja-JP": "コーナーストーン",
-      "ko-KR": "코너스톤"
+      "ko-KR": "코너스톤",
+      "ja-JP": "コーナーストーン"
     },
     "skins": [
       {

@@ -25,6 +25,7 @@
 ```bash
 npm install
 npm run dev       # 啟動開發伺服器
+npm test          # 執行腳本測試套件
 npm run build     # 生產建置
 ```
 

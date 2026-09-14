@@ -30,6 +30,7 @@ users who want the latest CN-first characters.
 ```bash
 npm install
 npm run dev       # Start dev server
+npm test          # Run script test suite
 npm run build     # Production build
 ```
 

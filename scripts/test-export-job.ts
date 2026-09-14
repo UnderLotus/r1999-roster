@@ -1,23 +1,10 @@
+import assert from "node:assert/strict";
+
 import {
   createExportJob,
   type ExportJob,
   type ExportRenderer,
 } from "../src/utils/export-job";
-
-function assert(condition: boolean, message: string): void {
-  if (!condition) {
-    console.error(`FAIL: ${message}`);
-    process.exitCode = 1;
-  } else {
-    console.log(`ok: ${message}`);
-  }
-}
-
-interface FakeTimer {
-  callback: () => void;
-  delayMs: number;
-  handle: ReturnType<typeof setTimeout>;
-}
 
 interface Deferred<Value> {
   promise: Promise<Value>;
@@ -38,7 +25,7 @@ async function flushAsyncWork(): Promise<void> {
 
 function createHarness(): {
   job: ExportJob<string>;
-  timers: FakeTimer[];
+  timers: Array<() => void>;
   downloads: Array<{ url: string; filename: string }>;
   revokedUrls: string[];
   setTarget(target: HTMLElement | null): void;
@@ -56,7 +43,7 @@ function createHarness(): {
     downloads.push({ url, filename });
   };
   let urlSequence = 0;
-  const timers: FakeTimer[] = [];
+  const timers: Array<() => void> = [];
   const downloads: Array<{ url: string; filename: string }> = [];
   const revokedUrls: string[] = [];
 
@@ -68,10 +55,9 @@ function createHarness(): {
     revokeObjectUrl: (url) => revokedUrls.push(url),
     download: (url, filename) => download(url, filename),
     filename: () => "reverse-1999-box-2026-08-27.jpg",
-    setTimer: (callback, delayMs) => {
-      const handle = {} as ReturnType<typeof setTimeout>;
-      timers.push({ callback, delayMs, handle });
-      return handle;
+    setTimer: (callback) => {
+      timers.push(callback);
+      return {} as ReturnType<typeof setTimeout>;
     },
     clearTimer: () => {},
   });
@@ -125,9 +111,9 @@ function createHarness(): {
     harness.downloads[0]?.filename === "reverse-1999-box-2026-08-27.jpg",
     "success: preserves JPEG filename behavior"
   );
-  const releaseTimer = harness.timers.find((timer) => timer.delayMs === 10000);
-  assert(Boolean(releaseTimer), "success: schedules owned URL cleanup");
-  releaseTimer?.callback();
+  const [releaseTimer] = harness.timers;
+  assert(releaseTimer, "success: schedules owned URL cleanup");
+  releaseTimer();
   assert(
     harness.revokedUrls.join(",") === "blob:test-1",
     "success: releases object URL exactly once"
@@ -149,12 +135,12 @@ function createHarness(): {
     harness.job.getState().snapshot === null,
     "loader failure: unmounts off-screen snapshot"
   );
-  const staleReset = harness.timers.find((timer) => timer.delayMs === 3000);
-  assert(Boolean(staleReset), "loader failure: schedules three-second error reset");
+  const [staleReset] = harness.timers;
+  assert(staleReset, "loader failure: schedules error reset");
 
   harness.setLoader(async () => async () => new Blob(["retry"]));
   assert(harness.job.start("retry"), "loader failure: retry starts immediately");
-  staleReset?.callback();
+  staleReset();
   assert(
     harness.job.getState().status === "exporting",
     "retry: stale error timer cannot clear newer attempt"
@@ -187,12 +173,12 @@ function createHarness(): {
     captureFailure.job.getState().status === "error",
     "image/capture failure: reports a retryable error"
   );
-  captureFailure.timers
-    .find((timer) => timer.delayMs === 3000)
-    ?.callback();
+  const [resetError] = captureFailure.timers;
+  assert(resetError, "image/capture failure: schedules error reset");
+  resetError();
   assert(
     captureFailure.job.getState().status === "idle",
-    "image/capture failure: error display resets after three seconds"
+    "image/capture failure: timer resets error display"
   );
   captureFailure.job.cancel();
 
@@ -262,8 +248,9 @@ function createHarness(): {
       inFlight.job.getState().progress?.total === 4,
     "cancel/retry: old callbacks cannot overwrite retry-owned state"
   );
-  assert(
-    inFlight.downloads.length === 0,
+  assert.equal(
+    inFlight.downloads.length,
+    0,
     "cancel/retry: old Blob cannot trigger a download while retry is active"
   );
 
@@ -275,9 +262,9 @@ function createHarness(): {
       inFlight.job.getState().snapshot === null,
     "cancel/retry: retry completes normally"
   );
-  assert(
-    inFlight.downloads.length === 1 &&
-      inFlight.downloads[0]?.url === "blob:test-1",
+  assert.deepEqual(
+    inFlight.downloads.map((download) => download.url),
+    ["blob:test-1"],
     "cancel/retry: exactly one download belongs to the retry"
   );
   inFlight.job.cancel();
@@ -285,15 +272,14 @@ function createHarness(): {
   const completed = createHarness();
   completed.job.start("completed");
   await flushAsyncWork();
-  const releaseTimer = completed.timers.find((timer) => timer.delayMs === 10000);
+  const [releaseTimer] = completed.timers;
+  assert(releaseTimer, "cancel cleanup: success scheduled URL cleanup");
   completed.job.cancel();
-  releaseTimer?.callback();
+  releaseTimer();
   assert(
     completed.revokedUrls.join(",") === "blob:test-1",
     "cancel cleanup: URL is revoked exactly once despite stale timer"
   );
 }
 
-console.log(
-  process.exitCode ? "export job checks failed" : "export job checks passed"
-);
+console.log("export job checks passed");

@@ -56,13 +56,16 @@ const envelope = { state: persistedState, version: 9 };
 const canonical = JSON.stringify(envelope);
 const legacy = JSON.stringify(canonical);
 
-{
+function createComposedStorage(value?: string) {
   const raw = new FakeRawStorage();
-  raw.values.set(key, legacy);
-  const composed = createJSONStorage<typeof persistedState>(() =>
-    createSafeStorage(raw)
-  );
+  if (value !== undefined) raw.values.set(key, value);
+  const composed = createJSONStorage<typeof persistedState>(() => createSafeStorage(raw));
   assert.ok(composed);
+  return { raw, composed };
+}
+
+{
+  const { raw, composed } = createComposedStorage(legacy);
   const hydrated = await composed.getItem(key);
   assert.deepEqual(hydrated, envelope, "legacy wire hydrates through createJSONStorage");
   assert.deepEqual(
@@ -70,29 +73,18 @@ const legacy = JSON.stringify(canonical);
     migratePersisted(envelope.state, envelope.version),
     "legacy wire hydrates the same Box/preferences as canonical input"
   );
-  assert.deepEqual(raw.writes, [{ key, value: canonical }]);
-  assert.equal(raw.values.get(key), canonical, "legacy bytes rewrite canonically on first read");
+  assert.deepEqual(raw.writes, [{ key, value: canonical }], "legacy bytes rewrite once on first read");
 }
 
 {
-  const raw = new FakeRawStorage();
-  raw.values.set(key, canonical);
-  const composed = createJSONStorage<typeof persistedState>(() =>
-    createSafeStorage(raw)
-  );
-  assert.ok(composed);
+  const { raw, composed } = createComposedStorage(canonical);
   assert.deepEqual(await composed.getItem(key), envelope);
   assert.deepEqual(raw.writes, [], "canonical hydration does not rewrite storage");
 }
 
 {
-  const raw = new FakeRawStorage();
-  const composed = createJSONStorage<typeof persistedState>(() =>
-    createSafeStorage(raw)
-  );
-  assert.ok(composed);
+  const { raw, composed } = createComposedStorage();
   await composed.setItem(key, envelope);
-  assert.equal(raw.values.get(key), canonical);
   assert.deepEqual(
     raw.writes,
     [{ key, value: canonical }],
