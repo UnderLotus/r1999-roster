@@ -10,12 +10,8 @@ import { characters } from "../src/data/characters";
 import type { CharacterState, PortrayLevel } from "../src/types/character";
 
 function assert(cond: boolean, msg: string) {
-  if (!cond) {
-    console.error(`FAIL: ${msg}`);
-    process.exitCode = 1;
-  } else {
-    console.log(`ok: ${msg}`);
-  }
+  if (!cond) throw new Error(`FAIL: ${msg}`);
+  console.log(`ok: ${msg}`);
 }
 
 const A = characters[0]; // 任一已知角色

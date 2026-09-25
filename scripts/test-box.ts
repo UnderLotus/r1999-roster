@@ -3,12 +3,8 @@ import { reconcileBox } from "../src/domain/box";
 import type { Character, PortrayLevel } from "../src/types/character";
 
 function assert(condition: boolean, message: string): void {
-  if (!condition) {
-    console.error(`FAIL: ${message}`);
-    process.exitCode = 1;
-  } else {
-    console.log(`ok: ${message}`);
-  }
+  if (!condition) throw new Error(`FAIL: ${message}`);
+  console.log(`ok: ${message}`);
 }
 
 const catalog: Character[] = [

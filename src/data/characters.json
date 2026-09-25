@@ -20,15 +20,17 @@
       }
     ],
     "defaultVariant": "315701",
-    "stage": "pending-names",
+    "stage": "live",
     "isReleased": false,
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%B3%E8%A5%BF%E7%B4%A2%E6%96%AF"
     },
     "names": {
       "zh-CN": "纳西索斯",
+      "zh-TW": "納西索斯",
       "en-US": "Narcissus"
-    }
+    },
+    "rarity": 6
   },
   {
     "id": "315601",
@@ -222,7 +224,7 @@
     },
     "stage": "live",
     "rarity": 6,
-    "isReleased": false
+    "isReleased": true
   },
   {
     "id": "314401",

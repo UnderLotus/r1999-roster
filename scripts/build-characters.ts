@@ -166,9 +166,8 @@ function main(): void {
 
   writeFileSync(DATA_FILE, JSON.stringify(ordered, null, 2) + "\n", "utf-8");
 
-  if (pending.length > 0) {
-    writeFileSync(PENDING_FILE, JSON.stringify(pending, null, 2) + "\n", "utf-8");
-  }
+  // 每次成功更新都寫完整 pending snapshot（含空清單），避免殘留 stale entries。
+  writeFileSync(PENDING_FILE, JSON.stringify(pending, null, 2) + "\n", "utf-8");
 
   console.log(`=== 摘要 ===`);
   console.log(`現有角色: ${existingBaseIds.size} 名`);

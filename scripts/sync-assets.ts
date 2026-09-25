@@ -374,12 +374,14 @@ async function main(): Promise<void> {
     console.log(`Avatars: ${staged.reused} reused, ${staged.converted} converted`);
     console.log(`Auto-added: ${autoAdded} new characters`);
     console.log(`Pending: ${newEntries.pending.length}`);
+    // 每次成功更新都寫完整 pending snapshot（含空清單），
+    // 避免上一輪的 pending 條目在角色全部 ready 後殘留。
+    writeFileSync(
+      PENDING_FILE,
+      JSON.stringify(newEntries.pending, null, 2) + "\n",
+      "utf-8"
+    );
     if (newEntries.pending.length > 0) {
-      writeFileSync(
-        PENDING_FILE,
-        JSON.stringify(newEntries.pending, null, 2) + "\n",
-        "utf-8"
-      );
       console.log(`  Pending list written: ${PENDING_FILE}`);
     }
     if (autoAdded === 0 && newEntries.pending.length === 0) {

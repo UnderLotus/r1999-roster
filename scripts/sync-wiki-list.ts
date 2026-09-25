@@ -21,7 +21,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import type { Character } from "./types";
 import { recalculateReleaseOrder } from "./recalculate-order";
@@ -32,10 +32,54 @@ const DATA_FILE = path.join(ROOT, "src/data/characters.json");
 const PYTHON = path.join(ROOT, ".venv", "bin", "python");
 const HELPER = path.join(__dirname, "fetch-huiji-list.py");
 
-interface WikiCard {
+export interface WikiCard {
   id: number; // variant ID（headicon 檔名，例 314901）
   name: string;
   href: string;
+}
+
+export interface WikiMappingResult {
+  indexed: number;
+  pageUrlUpdated: number;
+  pageUrlKept: number;
+  notInWiki: string[];
+}
+
+/**
+ * 將灰機列表套用到 characters：更新 source.pageUrl 並標記臨時 _wikiIndex。
+ * 直接修改傳入的 characters（與 name policy 相同的 caller-mutation 慣例）。
+ */
+export function applyWikiMapping(
+  characters: Character[],
+  cards: WikiCard[]
+): WikiMappingResult {
+  const indexByBaseId = new Map<number, number>();
+  for (let i = 0; i < cards.length; i++) {
+    indexByBaseId.set(Math.floor(cards[i].id / 100), i);
+  }
+  let indexed = 0;
+  let pageUrlUpdated = 0;
+  let pageUrlKept = 0;
+  const notInWiki: string[] = [];
+  for (const ch of characters) {
+    const idx = indexByBaseId.get(ch.baseId);
+    if (idx === undefined) {
+      notInWiki.push(ch.id);
+      continue;
+    }
+    const href = cards[idx].href;
+    ch._wikiIndex = idx;
+    indexed++;
+    if (ch.source?.pageUrl !== href) {
+      // 既有 source 欄位（imageUrl 等）需保留；新 pageUrl 必須最後寫入，
+      // 否則會被 spread 展開的舊 pageUrl 蓋掉（更新静默失敗）。
+      ch.source = { ...ch.source, pageUrl: href };
+      pageUrlUpdated++;
+    } else {
+      pageUrlKept++;
+    }
+  }
+  return { indexed, pageUrlUpdated, pageUrlKept, notInWiki };
 }
 
 function loadJSON<T>(file: string): T {
@@ -91,35 +135,12 @@ async function main(): Promise<void> {
   }
   console.log(`  列表共 ${cards.length} 名角色`);
 
-  // baseId → 列表順序 / 卡片
-  const indexByBaseId = new Map<number, number>();
-  for (let i = 0; i < cards.length; i++) {
-    indexByBaseId.set(Math.floor(cards[i].id / 100), i);
-  }
-
   // 2. 對應 characters.json（寫 pageUrl + 標記 _wikiIndex）
   const characters = loadJSON<Character[]>(DATA_FILE);
-  let indexed = 0;
-  let pageUrlUpdated = 0;
-  let pageUrlKept = 0;
-  const notInWiki: string[] = [];
-
-  for (const ch of characters) {
-    const idx = indexByBaseId.get(ch.baseId);
-    if (idx === undefined) {
-      notInWiki.push(ch.id);
-      continue;
-    }
-    const href = cards[idx].href;
-    ch._wikiIndex = idx;
-    indexed++;
-    if (ch.source?.pageUrl !== href) {
-      ch.source = { pageUrl: href, ...ch.source };
-      pageUrlUpdated++;
-    } else {
-      pageUrlKept++;
-    }
-  }
+  const { indexed, pageUrlUpdated, pageUrlKept, notInWiki } = applyWikiMapping(
+    characters,
+    cards
+  );
   if (notInWiki.length > 0) {
     console.warn(
       `⚠ ${notInWiki.length} 名不在灰機列表中` +
@@ -149,7 +170,12 @@ async function main(): Promise<void> {
   console.log(`排序變動: ${moved} 名（以灰機即時列表序為準）`);
 }
 
-main().catch((err) => {
-  console.error("sync:wiki failed:", err);
-  process.exit(1);
-});
+const isEntrypoint =
+  process.argv[1] !== undefined &&
+  import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isEntrypoint) {
+  main().catch((err) => {
+    console.error("sync:wiki failed:", err);
+    process.exit(1);
+  });
+}

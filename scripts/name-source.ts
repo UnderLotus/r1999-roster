@@ -78,6 +78,35 @@ const MIN_GLOBAL_LOCALIZATIONS = 10_000;
 const MIN_GLOBAL_NORMALIZED_NAMES = 100;
 const MIN_WIKIRU_NAMES = 30;
 const MIN_FANDOM_NAMES = 30;
+
+/**
+ * Kornblume cross-source coverage guard（raw parse 與 cached validate 共用）。
+ * metadata 對照 en-US slug，languages 對照全語系共用 slug；
+ * 任一低於 production minimum 即分類為 validation failure。
+ */
+function assertKornblumeCrossSourceCoverage(
+  namesByLang: Record<NameLang, Record<string, string>>,
+  arcanistNames: readonly string[],
+  source: string,
+  failurePrefix: string
+): void {
+  const metadataMatches = arcanistNames.filter(
+    (name) => namesByLang["en-US"][slugifyName(name)] === name
+  ).length;
+  const sharedLanguageSlugs = Object.keys(namesByLang["zh-CN"]).filter((slug) =>
+    NAME_LANGS.every((lang) => Boolean(namesByLang[lang][slug]))
+  ).length;
+  if (
+    metadataMatches < MIN_KORNBLUME_CROSS_SOURCE_MATCHES ||
+    sharedLanguageSlugs < MIN_KORNBLUME_CROSS_SOURCE_MATCHES
+  ) {
+    throw new NameSourceError(
+      "validation",
+      source,
+      `${failurePrefix}: metadata=${metadataMatches}, languages=${sharedLanguageSlugs}`
+    );
+  }
+}
 /** Druvis III is a launch character and a stable package-generation sentinel. */
 const GLOBAL_SENTINEL_ID = 3003;
 
@@ -194,22 +223,12 @@ export function parseKornblumeSource(
     return { id, name, rarity: Number(entry.Rarity) };
   });
 
-  const metadataMatches = arcanists.filter(
-    (entry) => namesByLang["en-US"][slugifyName(entry.name)] === entry.name
-  ).length;
-  const sharedLanguageSlugs = Object.keys(namesByLang["zh-CN"]).filter((slug) =>
-    NAME_LANGS.every((lang) => Boolean(namesByLang[lang][slug]))
-  ).length;
-  if (
-    metadataMatches < MIN_KORNBLUME_CROSS_SOURCE_MATCHES ||
-    sharedLanguageSlugs < MIN_KORNBLUME_CROSS_SOURCE_MATCHES
-  ) {
-    throw new NameSourceError(
-      "validation",
-      "Kornblume",
-      `cross-source coverage failed: metadata=${metadataMatches}, languages=${sharedLanguageSlugs}`
-    );
-  }
+  assertKornblumeCrossSourceCoverage(
+    namesByLang,
+    arcanists.map((entry) => entry.name),
+    "Kornblume",
+    "cross-source coverage failed"
+  );
 
   return { namesByLang, arcanists };
 }
@@ -424,6 +443,7 @@ export function validateNameSourceSnapshot(
   const cachedArcanists = value.kornblume.arcanists;
   const arcanistIds = new Set<number>();
   const cachedArcanistSlugs = new Set<string>();
+  const cachedArcanistNames: string[] = [];
   for (const entry of cachedArcanists) {
     if (
       !isRecord(entry) ||
@@ -449,28 +469,14 @@ export function validateNameSourceSnapshot(
       );
     }
     cachedArcanistSlugs.add(slug);
+    cachedArcanistNames.push(entry.name);
   }
-  const cachedMetadataMatches = cachedArcanists.filter(
-    (entry) =>
-      isRecord(entry) &&
-      typeof entry.name === "string" &&
-      cachedNamesByLang["en-US"][slugifyName(entry.name)] === entry.name
-  ).length;
-  const cachedSharedLanguageSlugs = Object.keys(
-    cachedNamesByLang["zh-CN"]
-  ).filter((slug) =>
-    NAME_LANGS.every((lang) => Boolean(cachedNamesByLang[lang][slug]))
-  ).length;
-  if (
-    cachedMetadataMatches < MIN_KORNBLUME_CROSS_SOURCE_MATCHES ||
-    cachedSharedLanguageSlugs < MIN_KORNBLUME_CROSS_SOURCE_MATCHES
-  ) {
-    throw new NameSourceError(
-      "validation",
-      "name source cache",
-      "cached Kornblume cross-source coverage failed"
-    );
-  }
+  assertKornblumeCrossSourceCoverage(
+    cachedNamesByLang,
+    cachedArcanistNames,
+    "name source cache",
+    "cached Kornblume cross-source coverage failed"
+  );
 
   assertNonEmptyNameRecord("cached WikiRu Japanese", value.wikiRuJa, MIN_WIKIRU_NAMES);
   assertNonEmptyNameRecord("cached Fandom Korean", value.fandomKr, MIN_FANDOM_NAMES);

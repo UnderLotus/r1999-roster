@@ -1,5 +1,11 @@
 {
-  "characters": [],
+  "characters": [
+    {
+      "baseId": 3140,
+      "isReleased": false,
+      "note": "Current version second-half banner; not released yet"
+    }
+  ],
   "skins": [
     {
       "variantId": "313903",
