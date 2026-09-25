@@ -8,21 +8,6 @@
   ],
   "skins": [
     {
-      "variantId": "313903",
-      "isReleased": false,
-      "note": "Migration hold: present in GL but current release status needs schedule verification"
-    },
-    {
-      "variantId": "311604",
-      "isReleased": false,
-      "note": "Migration hold: present in GL but current release status needs schedule verification"
-    },
-    {
-      "variantId": "309203",
-      "isReleased": false,
-      "note": "Migration hold: present in GL but current release status needs schedule verification"
-    },
-    {
       "variantId": "302306",
       "isReleased": false,
       "note": "Migration hold: present in GL but current release status needs schedule verification"
