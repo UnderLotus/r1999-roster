@@ -1,3 +1,4 @@
+import { createVariantIdentityCatalog } from "../domain/variant-identity";
 import type { Character } from "../types/character";
 
 import charactersJson from "./characters.json";
@@ -21,12 +22,12 @@ export const characters: Character[] = (charactersJson as Character[])
   .filter((c) => validateCharacter(c) && c.enabled)
   .sort((a, b) => a.releaseOrder - b.releaseOrder);
 
-const byId = new Map(characters.map((c) => [c.id, c]));
-
-if (byId.size !== characters.length) {
-  throw new Error("characters.json 有重複的 id");
-}
+export const characterCatalog = createVariantIdentityCatalog(characters);
 
 export function getCharacterById(id: string): Character | undefined {
-  return byId.get(id);
+  return characterCatalog.getCharacterById(id);
+}
+
+export function getCharacterByBaseId(baseId: number): Character | undefined {
+  return characterCatalog.getCharacterByBaseId(baseId);
 }

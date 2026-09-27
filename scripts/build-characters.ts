@@ -1,23 +1,28 @@
 /**
  * build-characters — 增量維護 characters.json。
  *
- * v0.6：動態增量模式：
- * 1. 既有角色 skins[] 每次以 ArcanistMap 權威覆寫（含 type/name）
- * 2. 偵測 ArcanistMap 中尚未在 characters.json 的新角色
- * 3. 新角色有 headicon 圖片 → 加入 JSON（stage: "pending-names"）
- * 4. 新角色無圖片 → 寫入 pending-characters.json
- * 5. 重算全部角色的 releaseOrder（依 §4.7.3 規則）
+ * The CN decision surface is shared with sync-assets through the pure
+ * cn-ingestion plan. This adapter owns only local inventory, ordering, and
+ * writes; its historical readiness contract checks the mapped default local
+ * avatar rather than requiring every mapped source PNG.
  *
  * 執行：npm run build:characters
  */
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-import type { Character, PendingCharacter } from "./types";
+import type { Character } from "./types";
+import {
+  cloneCharacterRecord,
+  mapCnCharacterMetadata,
+  planCnIngestion,
+  type CnDeprecatedEntry,
+  type CnIngestionPlan,
+  type ArcanistEntryFull,
+} from "./cn-ingestion";
 import { recalculateReleaseOrder } from "./recalculate-order";
-import { buildSkins, type ArcanistEntryFull } from "./skin-utils";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -30,25 +35,69 @@ function loadJSON<T>(file: string): T {
   return JSON.parse(readFileSync(file, "utf-8")) as T;
 }
 
-/** Fingerprint skins for change detection (variantId + type + names) */
+/** Fingerprint skins for change detection (variantId + type + names). */
 function skinFingerprint(skins: Character["skins"]): string {
   return JSON.stringify(
-    skins.map((s) => ({ id: s.variantId, type: s.type, name: s.skinName, eng: s.skinNameEng }))
+    skins.map((skin) => ({
+      id: skin.variantId,
+      type: skin.type,
+      name: skin.skinName,
+      eng: skin.skinNameEng,
+    }))
   );
 }
 
-function hasAvatarImage(variantId: string): boolean {
-  return existsSync(path.join(AVATARS_DIR, `${variantId}.webp`));
-}
-
-function readDeprecatedBaseIds(): Set<number> {
-  const file = path.join(__dirname, "data", "deprecated-characters.json");
-  if (!existsSync(file)) return new Set();
+function collectLocalImageIds(): Set<string> {
+  if (!existsSync(AVATARS_DIR)) return new Set();
   return new Set(
-    (JSON.parse(readFileSync(file, "utf-8")) as { baseId: number }[]).map(
-      (entry) => entry.baseId
-    )
+    readdirSync(AVATARS_DIR)
+      .filter((file) => file.endsWith(".webp"))
+      .map((file) => file.slice(0, -".webp".length))
   );
+}
+
+function readDeprecatedEntries(): CnDeprecatedEntry[] {
+  const file = path.join(__dirname, "data", "deprecated-characters.json");
+  if (!existsSync(file)) return [];
+  return JSON.parse(readFileSync(file, "utf-8")) as CnDeprecatedEntry[];
+}
+
+/** Apply only build:characters' existing/new roster reconciliation projection. */
+export function applyBuildPlan(
+  characters: Character[],
+  plan: CnIngestionPlan
+): void {
+  const reconciliations = new Map(
+    plan.existingCharacterReconciliations.map((reconciliation) => [
+      reconciliation.baseId,
+      reconciliation.after,
+    ])
+  );
+  for (let index = 0; index < characters.length; index++) {
+    const reconciled = reconciliations.get(characters[index].baseId);
+    if (reconciled) characters[index] = cloneCharacterRecord(reconciled);
+  }
+  for (const character of plan.build.readyNewCharacters) {
+    characters.push(cloneCharacterRecord(character));
+  }
+}
+
+/** Apply build reconciliation, ordering, and temporary-field cleanup exactly as the CLI does. */
+export function finalizeBuildPlan(
+  characters: Character[],
+  plan: CnIngestionPlan
+): Character[] {
+  applyBuildPlan(characters, plan);
+
+  for (const character of characters) {
+    if (character.rarity !== undefined && !character.source?.pageUrl) {
+      character._kbId = character._kbId ?? character.baseId;
+    }
+  }
+
+  const ordered = recalculateReleaseOrder(characters);
+  for (const character of ordered) delete character._kbId;
+  return ordered;
 }
 
 function main(): void {
@@ -64,125 +113,82 @@ function main(): void {
   }
 
   const arcanists = loadJSON<ArcanistEntryFull[]>(ARCANIST_MAP);
-  const arcanistByBase = new Map<number, ArcanistEntryFull>();
-  for (const a of arcanists) arcanistByBase.set(a.id, a);
-
+  const mappedCharacters = arcanists.map(mapCnCharacterMetadata);
   const characters = loadJSON<Character[]>(DATA_FILE);
-  const existingBaseIds = new Set(characters.map((c) => c.baseId));
+  const existingCharacterCount = characters.length;
+  const existingBaseIds = new Set(characters.map((character) => character.baseId));
+  const plan = planCnIngestion({
+    currentCharacters: characters,
+    mappedCharacters,
+    // build:characters intentionally does not use source-PNG readiness. The
+    // pure plan still receives the explicit inventory required by its shared
+    // interface, while build reads only local WebP availability below.
+    sourceImageIds: new Set(),
+    localImageIds: collectLocalImageIds(),
+    deprecatedEntries: readDeprecatedEntries(),
+  });
 
-  let skinsUpdated = 0;
-  let skinsTotal = 0;
-
-  // 1. Update existing: always overwrite skins[] from ArcanistMap (authority)
-  //    but preserve the previous release marker until sync:release refreshes it.
-  for (const character of characters) {
-    const entry = arcanistByBase.get(character.baseId);
-    if (!entry) continue;
-
-    const newSkins = buildSkins(entry);
-    skinsTotal += newSkins.length;
-
-    const oldPrint = skinFingerprint(character.skins);
-    const newPrint = skinFingerprint(newSkins);
-    if (oldPrint !== newPrint) {
-      // 保留舊 isReleased（variantId 對應）
-      const oldReleased = new Map<string, boolean>();
-      for (const s of character.skins) {
-        if (s.isReleased !== undefined) oldReleased.set(s.variantId, s.isReleased);
-      }
-      for (const s of newSkins) {
-        if (oldReleased.has(s.variantId)) s.isReleased = oldReleased.get(s.variantId);
-        else if (s.type === "skin") s.isReleased = false; // safe until sync:release
-      }
-      character.skins = newSkins;
-      skinsUpdated++;
-    }
-  }
-
-  // 2. Detect new characters from ArcanistMap
-  const deprecatedBaseIds = readDeprecatedBaseIds();
-  const deprecatedSkipped = arcanists.filter(
-    (entry) => deprecatedBaseIds.has(entry.id) && !existingBaseIds.has(entry.id)
+  const skinsUpdated = plan.existingCharacterReconciliations.filter(
+    (reconciliation) =>
+      skinFingerprint(reconciliation.before.skins) !==
+      skinFingerprint(reconciliation.after.skins)
+  ).length;
+  const skinsTotal = plan.existingCharacterReconciliations.reduce(
+    (total, reconciliation) => total + reconciliation.mapped.skins.length,
+    0
   );
-  if (deprecatedSkipped.length > 0) {
+
+  if (plan.deprecatedSkips.length > 0) {
     console.log(
-      `略過廢棄角色: ${deprecatedSkipped.map((entry) => entry.nameEng).join(", ")}`
+      `略過廢棄角色: ${plan.deprecatedSkips
+        .map((mapped) => mapped.nameEng)
+        .join(", ")}`
     );
   }
 
-  const pending: PendingCharacter[] = [];
-  let added = 0;
+  const ordered = finalizeBuildPlan(characters, plan);
 
-  for (const entry of arcanists) {
-    if (existingBaseIds.has(entry.id) || deprecatedBaseIds.has(entry.id)) continue;
-
-    const defaultVariantId = `${entry.id}01`;
-    const defaultVariant = defaultVariantId;
-
-    if (hasAvatarImage(defaultVariantId)) {
-      const newChar: Character = {
-        id: defaultVariantId,
-        name: entry.name,
-        baseId: entry.id,
-        releaseOrder: 0,
-        enabled: true,
-        skins: buildSkins(entry),
-        defaultVariant,
-        stage: "pending-names",
-        isReleased: false,
-      };
-      characters.push(newChar);
-      added++;
-    } else {
-      pending.push({
-        baseId: entry.id,
-        variantId: defaultVariantId,
-        name: entry.name,
-        nameEng: entry.nameEng,
-        reason: "headicon not yet in CN asset repo",
-      });
-    }
-  }
-
-  // 3. Restore _kbId for Kornblume-group characters
-  for (const character of characters) {
-    if (character.rarity !== undefined && !character.source?.pageUrl) {
-      character._kbId = character._kbId ?? character.baseId;
-    }
-  }
-
-  // 4. Recalculate releaseOrder (multi-source rules)
-  const ordered = recalculateReleaseOrder(characters);
-
-  // 5. Count groups
-  const wikiCount = ordered.filter((c) => c.source?.pageUrl).length;
+  // Count groups.
+  const wikiCount = ordered.filter((character) => character.source?.pageUrl).length;
   const kbCount = ordered.filter(
-    (c) => !c.source?.pageUrl && c.rarity !== undefined
+    (character) => !character.source?.pageUrl && character.rarity !== undefined
   ).length;
   const assetCount = ordered.length - wikiCount - kbCount;
 
-  // 6. Clean temporary fields + write
-  for (const c of ordered) delete c._kbId;
-
+  // Write the finalized roster.
   writeFileSync(DATA_FILE, JSON.stringify(ordered, null, 2) + "\n", "utf-8");
-
-  // 每次成功更新都寫完整 pending snapshot（含空清單），避免殘留 stale entries。
-  writeFileSync(PENDING_FILE, JSON.stringify(pending, null, 2) + "\n", "utf-8");
+  writeFileSync(
+    PENDING_FILE,
+    JSON.stringify(plan.build.pendingNewCharacters, null, 2) + "\n",
+    "utf-8"
+  );
 
   console.log(`=== 摘要 ===`);
   console.log(`現有角色: ${existingBaseIds.size} 名`);
-  console.log(`Skins 更新: ${skinsUpdated}/${existingBaseIds.size} 名`);
+  console.log(`Skins 更新: ${skinsUpdated}/${existingCharacterCount} 名`);
   console.log(`Skin 總數: ${skinsTotal}`);
-  console.log(`新增角色: ${added} 名`);
-  console.log(`待定角色: ${pending.length} 名（見 pending-characters.json）`);
+  console.log(`新增角色: ${plan.build.readyNewCharacters.length} 名`);
+  console.log(
+    `待定角色: ${plan.build.pendingNewCharacters.length} 名（見 pending-characters.json）`
+  );
+  console.log(`略過廢棄角色: ${plan.deprecatedSkips.length} 名`);
   console.log(`排序分配: Wiki ${wikiCount} / Kornblume ${kbCount} / CN Asset ${assetCount}`);
-  if (pending.length > 0) {
-    console.log(`\n⚠ ${pending.length} characters pending — headicon not yet available`);
-    for (const p of pending) {
-      console.log(`  ${p.variantId} ${p.name} (${p.nameEng})`);
+  if (plan.build.pendingNewCharacters.length > 0) {
+    console.log(
+      `\n⚠ ${plan.build.pendingNewCharacters.length} characters pending — headicon not yet available`
+    );
+    for (const pending of plan.build.pendingNewCharacters) {
+      console.log(
+        `  ${pending.variantId} ${pending.name} (${pending.nameEng})`
+      );
     }
   }
   console.log(`\n✓ Written: ${DATA_FILE}`);
 }
 
-main();
+function isMainModule(): boolean {
+  const entry = process.argv[1];
+  return Boolean(entry) && import.meta.url === pathToFileURL(path.resolve(entry)).href;
+}
+
+if (isMainModule()) main();

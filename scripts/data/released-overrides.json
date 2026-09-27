@@ -16,6 +16,26 @@
       "variantId": "304504",
       "isReleased": false,
       "note": "Migration hold: present in GL but current release status needs schedule verification"
+    },
+    {
+      "variantId": "314503",
+      "isReleased": false,
+      "note": "CN 4.0 skin; not released yet"
+    },
+    {
+      "variantId": "314003",
+      "isReleased": false,
+      "note": "CN 4.0 skin; not released yet"
+    },
+    {
+      "variantId": "30880001",
+      "isReleased": false,
+      "note": "CN 4.0 skin; not released yet"
+    },
+    {
+      "variantId": "30660001",
+      "isReleased": false,
+      "note": "CN 4.0 skin; not released yet"
     }
   ]
 }

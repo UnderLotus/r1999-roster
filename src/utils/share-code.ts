@@ -1,44 +1,45 @@
-import { characters } from "../data/characters";
+import { characterCatalog } from "../data/characters";
 import type { BoxState, SkinMode } from "../domain/box";
+import type { VariantIdentityCatalog } from "../domain/variant-identity";
 import type { CharacterState, PortrayLevel } from "../types/character";
 
 /**
- * URL 分享 token v1（spec §25）
+ * URL share token format.
  *
- * 概念：把 Box 狀態壓縮成一段可逆編碼，放進網址 fragment（#b=<token>）。
- * 對方開啟網址時前端自動解碼還原，純靜態站即可運作，不需要後端。
+ * v2 keeps the existing header and owned-character entries, but stores every
+ * custom Variant as its complete canonical numeric Variant ID. Ownership is
+ * always resolved through the Character catalog.
  *
- * 格式（位元打包 → base64url，零轉義）：
- *
- *   [4]  version = 1
- *   [1]  skinMode    0=初始, 1=洞悉
- *   [1]  futureSight 0=off, 1=on
- *   [1]  hasSkins
- *   [8]  charCount N
- *   N × [14 baseId][3 portray 0-5]           只列持有的角色（稀疏）
- *   [8]  skinCount M（hasSkins=1 時）
- *   M × [14 baseId][7 variantSuffix 1-99]     手動切換過的 skin
- *
- * 錨點規則（ID 錨點）：
- * - 只使用官方 base ID（6 位 variant ID 的前 4 位，如 314901 → 3149）。
- *   角色列表增減／排序重算都不影響舊 token；解碼時未知角色直接跳過。
- * - 解碼全程消毒：版本檢查、未知 baseId 跳過、塑造 clamp 0-5、
- *   variant 對照 VALID_VARIANTS、位元不足即拒絕。
+ * v1 decoding is deliberately isolated in the legacy adapter below. Its
+ * suffix reconstruction exists only to preserve historical URLs.
  */
-
 export type SharePayload = BoxState;
 
-const VERSION = 1;
+export interface ShareEncodeInput {
+  characters: Record<string, CharacterState>;
+  activeVariant: Record<string, string>;
+  customVariants: Record<string, true>;
+  defaultSkinMode: SkinMode;
+  showFutureSight: boolean;
+}
 
-/** 已知角色 id（{baseId}01）集合（解碼消毒用） */
-const KNOWN_CHAR_IDS = new Set(characters.map((c) => c.id));
+export interface RawSharePayload {
+  charEntries: Array<[number, number]>;
+  skinEntries: Array<[number, string]>;
+  defaultSkinMode: SkinMode;
+  showFutureSight: boolean;
+}
 
-/** 每角色的合法 variantId 集合（解碼消毒用） */
-const VALID_VARIANTS = new Map(
-  characters.map((c) => [c.id, new Set(c.skins.map((s) => s.variantId))])
-);
+const V1_VERSION = 1;
+const V2_VERSION = 2;
+const BASE_ID_BITS = 14;
+const VARIANT_ID_BITS = 27;
+const COUNT_BITS = 8;
+const MAX_BASE_ID = 2 ** BASE_ID_BITS - 1;
+const MAX_VARIANT_ID = 2 ** VARIANT_ID_BITS - 1;
+const MAX_COUNT = 2 ** COUNT_BITS - 1;
 
-/* ---------- base64url（RFC 4648 §5，無 padding） ---------- */
+/* ---------- base64url (RFC 4648 §5, without padding) ---------- */
 
 const B64_ALPHABET =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
@@ -80,92 +81,135 @@ function fromBase64Url(token: string): Uint8Array | null {
   return new Uint8Array(bytes);
 }
 
-/* ---------- 位元讀取 ---------- */
+/* ---------- bit reader ---------- */
 
 class BitReader {
   private pos = 0;
+
   constructor(private readonly bits: boolean[]) {}
 
   get position(): number {
     return this.pos;
   }
 
-  /** 讀取 n bits；不足回傳 null（結構錯誤 → 整個拒絕） */
+  /** Read n bits; structural shortage rejects the complete token. */
   get(n: number): number | null {
     if (this.pos + n > this.bits.length) return null;
     let value = 0;
     for (let i = 0; i < n; i++) {
-      value = (value << 1) | (this.bits[this.pos++] ? 1 : 0);
+      value = value * 2 + (this.bits[this.pos++] ? 1 : 0);
     }
     return value;
   }
 }
 
-/* ---------- ID 輔助 ---------- */
-
-function parseBaseId(id: string): number | null {
-  if (!/^\d{6}$/.test(id)) return null;
-  return parseInt(id.slice(0, 4), 10);
+function bitsFromBytes(data: Uint8Array): boolean[] {
+  const bits: boolean[] = [];
+  for (const byte of data) {
+    for (let i = 7; i >= 0; i--) bits.push(((byte >> i) & 1) === 1);
+  }
+  return bits;
 }
 
-const pad4 = (n: number): string => String(n).padStart(4, "0");
-const pad2 = (n: number): string => String(n).padStart(2, "0");
+function hasOnlyZeroPadding(reader: BitReader, bits: boolean[]): boolean {
+  if (bits.length % 8 !== 0) return false;
+  if (Math.ceil(reader.position / 8) !== bits.length / 8) return false;
+  for (let i = reader.position; i < bits.length; i++) {
+    if (bits[i]) return false;
+  }
+  return true;
+}
 
-/* ---------- 編碼 ---------- */
+/* ---------- catalog and wire validation ---------- */
 
-export function encodeShareCode(input: {
-  characters: Record<string, CharacterState>;
-  activeVariant: Record<string, string>;
-  customVariants: Record<string, true>;
-  defaultSkinMode: SkinMode;
-  showFutureSight: boolean;
-}): string {
-  // 持有角色：稀疏列出，0 塑仍是持有狀態，必須保留。
+function requireWireInteger(
+  value: number,
+  max: number,
+  label: string
+): void {
+  if (!Number.isSafeInteger(value) || value < 0 || value > max) {
+    throw new RangeError(`${label} ${value} cannot be represented in the share token`);
+  }
+}
+
+function canonicalWireVariantId(variantId: string): number | null {
+  if (!/^(?:0|[1-9]\d*)$/.test(variantId)) return null;
+  const numeric = Number(variantId);
+  if (!Number.isSafeInteger(numeric) || numeric > MAX_VARIANT_ID) return null;
+  if (String(numeric) !== variantId) return null;
+  return numeric;
+}
+
+function normalizePortray(value: number): PortrayLevel {
+  if (!Number.isFinite(value) || !Number.isInteger(value)) return 0;
+  return Math.min(5, Math.max(0, value)) as PortrayLevel;
+}
+
+/* ---------- v2 encoding ---------- */
+
+export function encodeShareCode(
+  input: ShareEncodeInput,
+  identity: VariantIdentityCatalog = characterCatalog
+): string {
   const owned: Array<[number, number]> = [];
   const ownedIds = new Set<string>();
+
   for (const [id, state] of Object.entries(input.characters)) {
     if (!state?.owned) continue;
-    const baseId = parseBaseId(id);
-    if (baseId === null || !KNOWN_CHAR_IDS.has(id)) continue;
-    owned.push([baseId, state.portray]);
+    const character = identity.getCharacterById(id);
+    if (!character) continue;
+    requireWireInteger(character.baseId, MAX_BASE_ID, `Character ${id} baseId`);
+    owned.push([character.baseId, normalizePortray(state.portray)]);
     ownedIds.add(id);
+  }
+  if (owned.length > MAX_COUNT) {
+    throw new RangeError(`Character count ${owned.length} cannot be represented in the share token`);
   }
   owned.sort((a, b) => a[0] - b[0]);
 
-  // 手動切換過的 skin（僅限已持有角色，且 variant 必須合法）
   const skins: Array<[number, number]> = [];
   for (const id of Object.keys(input.customVariants)) {
+    const character = identity.getCharacterById(id);
     const variantId = input.activeVariant[id];
-    const baseId = parseBaseId(id);
-    if (!ownedIds.has(id) || !variantId || baseId === null) continue;
-    if (!VALID_VARIANTS.get(id)?.has(variantId)) continue;
-    const suffix = parseInt(variantId.slice(-2), 10);
-    if (!Number.isInteger(suffix) || suffix < 1 || suffix > 99) continue;
-    skins.push([baseId, suffix]);
+    if (!character || !ownedIds.has(id) || !variantId) continue;
+    if (!identity.ownsVariant(id, variantId)) continue;
+
+    requireWireInteger(character.baseId, MAX_BASE_ID, `Character ${id} baseId`);
+    const variantNumber = canonicalWireVariantId(variantId);
+    if (variantNumber === null) {
+      throw new RangeError(
+        `Variant ${variantId} cannot be represented as a canonical ${VARIANT_ID_BITS}-bit numeric identity`
+      );
+    }
+    skins.push([character.baseId, variantNumber]);
   }
-  skins.sort((a, b) => a[0] - b[0]);
+  if (skins.length > MAX_COUNT) {
+    throw new RangeError(`Skin count ${skins.length} cannot be represented in the share token`);
+  }
+  skins.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
 
   const bits: boolean[] = [];
-  const put = (value: number, n: number): void => {
-    for (let i = n - 1; i >= 0; i--) {
-      bits.push(((value >> i) & 1) === 1);
+  const put = (value: number, width: number): void => {
+    requireWireInteger(value, 2 ** width - 1, `Value ${value}`);
+    for (let i = width - 1; i >= 0; i--) {
+      bits.push(Math.floor(value / 2 ** i) % 2 === 1);
     }
   };
 
-  put(VERSION, 4);
+  put(V2_VERSION, 4);
   put(input.defaultSkinMode === "insight" ? 1 : 0, 1);
   put(input.showFutureSight ? 1 : 0, 1);
   put(skins.length > 0 ? 1 : 0, 1);
-  put(owned.length, 8);
+  put(owned.length, COUNT_BITS);
   for (const [baseId, portray] of owned) {
-    put(baseId, 14);
+    put(baseId, BASE_ID_BITS);
     put(portray, 3);
   }
   if (skins.length > 0) {
-    put(skins.length, 8);
-    for (const [baseId, variantSuffix] of skins) {
-      put(baseId, 14);
-      put(variantSuffix, 7);
+    put(skins.length, COUNT_BITS);
+    for (const [baseId, variantNumber] of skins) {
+      put(baseId, BASE_ID_BITS);
+      put(variantNumber, VARIANT_ID_BITS);
     }
   }
 
@@ -176,105 +220,197 @@ export function encodeShareCode(input: {
   return toBase64Url(bytes);
 }
 
-/* ---------- 解碼與消毒 ---------- */
-
-interface RawSharePayload {
-  charEntries: Array<[number, number]>;
-  skinEntries: Array<[number, number]>;
-  defaultSkinMode: SkinMode;
-  showFutureSight: boolean;
-}
+/* ---------- shared sanitization ---------- */
 
 /**
- * 消毒：URL 是不可信輸入。未知角色/非法 variant 跳過、塑造 clamp。
- * 分離出來是為了讓測試可以直接覆蓋各種骯髒輸入。
+ * Sanitize already-decoded v2 entries against the explicit Character catalog.
+ * Unknown Characters and wrong-owner Variants are discarded independently.
  */
-export function sanitizeSharePayload(raw: RawSharePayload): SharePayload {
+export function sanitizeSharePayload(
+  raw: RawSharePayload,
+  identity: VariantIdentityCatalog = characterCatalog
+): SharePayload {
   const characters: Record<string, CharacterState> = {};
-  const seen = new Set<string>();
+  const seenCharacters = new Set<string>();
   for (const [baseId, portray] of raw.charEntries) {
-    const id = `${pad4(baseId)}01`;
-    if (!KNOWN_CHAR_IDS.has(id)) continue; // 未知角色：跳過（ID 錨點）
-    if (seen.has(id)) continue; // 重複：跳過
-    seen.add(id);
-    characters[id] = {
+    const character = identity.getCharacterByBaseId(baseId);
+    if (!character || seenCharacters.has(character.id)) continue;
+    seenCharacters.add(character.id);
+    characters[character.id] = {
       owned: true,
-      portray: Math.min(5, Math.max(0, portray)) as PortrayLevel,
+      portray: normalizePortray(portray),
     };
   }
 
   const activeVariant: Record<string, string> = {};
   const customVariants: Record<string, true> = {};
-  for (const [baseId, variantNum] of raw.skinEntries) {
-    const id = `${pad4(baseId)}01`;
-    const variantId = `${pad4(baseId)}${pad2(variantNum)}`;
-    if (!characters[id]) continue; // 非持有角色的 skin：跳過
-    if (!VALID_VARIANTS.get(id)?.has(variantId)) continue; // 非法 variant：跳過
-    activeVariant[id] = variantId;
-    customVariants[id] = true;
+  for (const [baseId, variantId] of raw.skinEntries) {
+    if (typeof variantId !== "string") continue;
+    const character = identity.getCharacterByBaseId(baseId);
+    if (!character || !characters[character.id]) continue;
+    if (!identity.ownsVariant(character.id, variantId)) continue;
+    if (activeVariant[character.id] !== undefined) continue;
+    activeVariant[character.id] = variantId;
+    customVariants[character.id] = true;
   }
 
   return {
     characters,
     activeVariant,
     customVariants,
-    defaultSkinMode: raw.defaultSkinMode,
-    showFutureSight: raw.showFutureSight,
+    defaultSkinMode: raw.defaultSkinMode === "insight" ? "insight" : "initial",
+    showFutureSight: raw.showFutureSight === true,
   };
 }
 
-export function decodeShareCode(token: string): SharePayload | null {
-  const raw = fromBase64Url(token);
-  if (!raw || toBase64Url(raw) !== token) return null;
+/* ---------- legacy v1 decoder adapter ---------- */
 
-  const bits: boolean[] = [];
-  for (const byte of raw) {
-    for (let i = 7; i >= 0; i--) bits.push(((byte >> i) & 1) === 1);
+/**
+ * Reconstruct the historical six-digit ID only while decoding a v1 suffix.
+ * In particular, suffix 01 resolves to {base}01 and never to an eight-digit
+ * Variant that happens to end in 01.
+ */
+function legacyVariantIdFromSuffix(
+  identity: VariantIdentityCatalog,
+  baseId: number,
+  suffix: number
+): string | null {
+  if (
+    !Number.isSafeInteger(baseId) ||
+    baseId < 0 ||
+    baseId > 9999 ||
+    !Number.isSafeInteger(suffix) ||
+    suffix < 1 ||
+    suffix > 99
+  ) {
+    return null;
   }
+  const character = identity.getCharacterByBaseId(baseId);
+  if (!character) return null;
+  const historicalVariantId = `${String(baseId).padStart(4, "0")}${String(suffix).padStart(2, "0")}`;
+  return identity.ownsVariant(character.id, historicalVariantId)
+    ? historicalVariantId
+    : null;
+}
 
-  const reader = new BitReader(bits);
-  if (reader.get(4) !== VERSION) return null;
+interface DecodedHeader {
+  skinModeBit: number;
+  futureBit: number;
+  hasSkins: number;
+  charCount: number;
+}
 
+function readHeader(reader: BitReader): DecodedHeader | null {
   const skinModeBit = reader.get(1);
   const futureBit = reader.get(1);
   const hasSkins = reader.get(1);
-  if (skinModeBit === null || futureBit === null || hasSkins === null) {
+  const charCount = reader.get(COUNT_BITS);
+  if (
+    skinModeBit === null ||
+    futureBit === null ||
+    hasSkins === null ||
+    charCount === null
+  ) {
     return null;
   }
+  return { skinModeBit, futureBit, hasSkins, charCount };
+}
 
-  const charCount = reader.get(8);
-  if (charCount === null) return null;
-
-  const charEntries: Array<[number, number]> = [];
+function readCharacterEntries(
+  reader: BitReader,
+  charCount: number
+): Array<[number, number]> | null {
+  const entries: Array<[number, number]> = [];
   for (let i = 0; i < charCount; i++) {
-    const baseId = reader.get(14);
+    const baseId = reader.get(BASE_ID_BITS);
     const portray = reader.get(3);
     if (baseId === null || portray === null) return null;
-    charEntries.push([baseId, portray]);
+    entries.push([baseId, portray]);
   }
+  return entries;
+}
 
-  const skinEntries: Array<[number, number]> = [];
-  if (hasSkins === 1) {
-    const skinCount = reader.get(8);
+function decodeV1(
+  reader: BitReader,
+  bits: boolean[],
+  identity: VariantIdentityCatalog
+): SharePayload | null {
+  const header = readHeader(reader);
+  if (!header) return null;
+  const charEntries = readCharacterEntries(reader, header.charCount);
+  if (!charEntries) return null;
+
+  const skinEntries: Array<[number, string]> = [];
+  if (header.hasSkins === 1) {
+    const skinCount = reader.get(COUNT_BITS);
     if (skinCount === null) return null;
     for (let i = 0; i < skinCount; i++) {
-      const baseId = reader.get(14);
-      const variantSuffix = reader.get(7);
-      if (baseId === null || variantSuffix === null) return null;
-      skinEntries.push([baseId, variantSuffix]);
+      const baseId = reader.get(BASE_ID_BITS);
+      const suffix = reader.get(7);
+      if (baseId === null || suffix === null) return null;
+      const variantId = legacyVariantIdFromSuffix(identity, baseId, suffix);
+      if (variantId !== null) skinEntries.push([baseId, variantId]);
     }
   }
 
-  // 只允許最後一個 byte 的補零；拒絕附加資料與非零 padding。
-  if (raw.length !== Math.ceil(reader.position / 8)) return null;
-  for (let i = reader.position; i < bits.length; i++) {
-    if (bits[i]) return null;
+  if (!hasOnlyZeroPadding(reader, bits)) return null;
+  return sanitizeSharePayload(
+    {
+      charEntries,
+      skinEntries,
+      defaultSkinMode: header.skinModeBit === 1 ? "insight" : "initial",
+      showFutureSight: header.futureBit === 1,
+    },
+    identity
+  );
+}
+
+function decodeV2(
+  reader: BitReader,
+  bits: boolean[],
+  identity: VariantIdentityCatalog
+): SharePayload | null {
+  const header = readHeader(reader);
+  if (!header) return null;
+  const charEntries = readCharacterEntries(reader, header.charCount);
+  if (!charEntries) return null;
+
+  const skinEntries: Array<[number, string]> = [];
+  if (header.hasSkins === 1) {
+    const skinCount = reader.get(COUNT_BITS);
+    if (skinCount === null) return null;
+    for (let i = 0; i < skinCount; i++) {
+      const baseId = reader.get(BASE_ID_BITS);
+      const variantNumber = reader.get(VARIANT_ID_BITS);
+      if (baseId === null || variantNumber === null) return null;
+      skinEntries.push([baseId, String(variantNumber)]);
+    }
   }
 
-  return sanitizeSharePayload({
-    charEntries,
-    skinEntries,
-    defaultSkinMode: skinModeBit === 1 ? "insight" : "initial",
-    showFutureSight: futureBit === 1,
-  });
+  if (!hasOnlyZeroPadding(reader, bits)) return null;
+  return sanitizeSharePayload(
+    {
+      charEntries,
+      skinEntries,
+      defaultSkinMode: header.skinModeBit === 1 ? "insight" : "initial",
+      showFutureSight: header.futureBit === 1,
+    },
+    identity
+  );
+}
+
+/** Decode historical v1 or current v2; malformed tokens return null. */
+export function decodeShareCode(
+  token: string,
+  identity: VariantIdentityCatalog = characterCatalog
+): SharePayload | null {
+  const raw = fromBase64Url(token);
+  if (!raw || toBase64Url(raw) !== token) return null;
+
+  const bits = bitsFromBytes(raw);
+  const reader = new BitReader(bits);
+  const version = reader.get(4);
+  if (version === V1_VERSION) return decodeV1(reader, bits, identity);
+  if (version === V2_VERSION) return decodeV2(reader, bits, identity);
+  return null;
 }

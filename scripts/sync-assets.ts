@@ -21,11 +21,19 @@ import {
   writeFileSync,
 } from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-import type { Character, PendingCharacter } from "./types";
+import type { Character } from "./types";
+import {
+  cloneCharacterRecord,
+  mapCnCharacterMetadata,
+  planCnIngestion,
+  type CnDiagnosticCandidate,
+  type CnDeprecatedEntry,
+  type CnIngestionPlan,
+  type ArcanistEntryFull,
+} from "./cn-ingestion";
 import { recalculateReleaseOrder } from "./recalculate-order";
-import { buildSkins, type ArcanistEntryFull } from "./skin-utils";
 import { convertPngToLosslessWebp } from "./webp-converter";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -55,43 +63,6 @@ function run(cmd: string, args: string[], cwd?: string): string {
     maxBuffer: 32 * 1024 * 1024,
     stdio: ["pipe", "pipe", "pipe"],
   });
-}
-
-function collectVariantIds(characters: readonly Character[]): Set<string> {
-  const variants = new Set<string>();
-  for (const character of characters) {
-    for (const skin of character.skins) variants.add(skin.variantId);
-  }
-  return variants;
-}
-
-function collectNewEntries(
-  arcanists: readonly ArcanistEntryFull[],
-  existingBaseIds: ReadonlySet<number>
-): { ready: ArcanistEntryFull[]; pending: PendingCharacter[] } {
-  const ready: ArcanistEntryFull[] = [];
-  const pending: PendingCharacter[] = [];
-
-  for (const entry of arcanists) {
-    if (existingBaseIds.has(entry.id)) continue;
-    const defaultVariantId = `${entry.id}01`;
-    const missing = buildSkins(entry)
-      .map((skin) => skin.variantId)
-      .filter((variantId) => !existsSync(path.join(SOURCE_DIR, `${variantId}.png`)));
-    if (missing.length === 0) {
-      ready.push(entry);
-    } else {
-      pending.push({
-        baseId: entry.id,
-        variantId: defaultVariantId,
-        name: entry.name,
-        nameEng: entry.nameEng,
-        reason: `headicon missing in CN asset repo: ${missing.join(", ")}`,
-      });
-    }
-  }
-
-  return { ready, pending };
 }
 
 interface AvatarHashEntry {
@@ -223,14 +194,64 @@ async function replaceStagedAssets(
   if (existsSync(VERTIN_PNG)) await rm(VERTIN_PNG, { force: true });
 }
 
-function readDeprecatedBaseIds(): Set<number> {
+function readDeprecatedEntries(): CnDeprecatedEntry[] {
   const file = path.join(__dirname, "data", "deprecated-characters.json");
-  if (!existsSync(file)) return new Set();
+  if (!existsSync(file)) return [];
+  return JSON.parse(readFileSync(file, "utf-8")) as CnDeprecatedEntry[];
+}
+
+function collectImageIds(directory: string, extension: string): Set<string> {
+  if (!existsSync(directory)) return new Set();
   return new Set(
-    (JSON.parse(readFileSync(file, "utf-8")) as { baseId: number }[]).map(
-      (entry) => entry.baseId
-    )
+    readdirSync(directory)
+      .filter((file) => file.endsWith(extension))
+      .map((file) => file.slice(0, -extension.length))
   );
+}
+
+/**
+ * Warning-only adapter heuristic. It never assigns ownership or adds a
+ * Character; it only identifies numeric player-like filenames that the fresh
+ * mapping did not explain. NPC inventories use other numeric ranges and stay
+ * silent without a hardcoded snapshot allowlist.
+ */
+export function collectMappingLagCandidates(
+  sourceImageIds: ReadonlySet<string>,
+  mappedVariantIds: ReadonlySet<string>,
+  deprecatedVariantIds: ReadonlySet<string> = new Set()
+): CnDiagnosticCandidate[] {
+  return [...sourceImageIds]
+    .filter(
+      (variantId) =>
+        !mappedVariantIds.has(variantId) &&
+        !deprecatedVariantIds.has(variantId) &&
+        /^3\d{5,7}$/.test(variantId)
+    )
+    .sort((a, b) => a.localeCompare(b))
+    .map((variantId) => ({
+      variantId,
+      code: "unmapped-player-like-headicon" as const,
+      message: `headicon ${variantId} looks player-like but is absent from ArcanistMap; skipped`,
+    }));
+}
+
+export function reportSyncDiagnostics(
+  diagnostics: CnIngestionPlan["diagnostics"],
+  warn: (message: string) => void = console.warn
+): void {
+  for (const diagnostic of diagnostics) {
+    warn(`⚠ ${diagnostic.message} (nonblocking)`);
+  }
+}
+
+/** Apply only sync's current roster/pending projection; existing reconciliation belongs to build. */
+export function applySyncPlan(
+  characters: Character[],
+  plan: CnIngestionPlan
+): void {
+  for (const character of plan.sync.readyNewCharacters) {
+    characters.push(cloneCharacterRecord(character));
+  }
 }
 
 const SPARSE_DIRS = ["singlebg/headicon_middle", "mappings"] as const;
@@ -271,10 +292,12 @@ async function main(): Promise<void> {
   }
 
   const characters = loadJSON<Character[]>(DATA_FILE);
-  const existingBaseIds = new Set(characters.map((character) => character.baseId));
-
   console.log(`Characters: ${characters.length}`);
-  console.log(`Current variant images: ${collectVariantIds(characters).size}`);
+  console.log(
+    `Current variant images: ${new Set(
+      characters.flatMap((character) => character.skins.map((skin) => skin.variantId))
+    ).size}`
+  );
 
   let stagingRoot: string | undefined;
   try {
@@ -293,28 +316,56 @@ async function main(): Promise<void> {
     writeFileSync(ARCANIST_MAP, JSON.stringify(arcanists, null, 2) + "\n", "utf-8");
     console.log(`→ Refreshed ArcanistMap.json (${arcanists.length} entries)`);
 
-    const deprecatedBaseIds = readDeprecatedBaseIds();
-
-    const variantIds = collectVariantIds(characters);
+    const deprecatedEntries = readDeprecatedEntries();
+    const sourceImageIds = collectImageIds(SOURCE_DIR, ".png");
+    const localImageIds = collectImageIds(AVATARS_DIR, ".webp");
+    const mappedCharacters = arcanists.map(mapCnCharacterMetadata);
+    const mappedVariantIds = new Set(
+      mappedCharacters.flatMap((mapped) => mapped.skins.map((skin) => skin.variantId))
+    );
+    const deprecatedVariantIds = new Set(
+      deprecatedEntries.flatMap((entry) =>
+        entry.variantId === undefined ? [] : [entry.variantId]
+      )
+    );
+    const plan = planCnIngestion({
+      currentCharacters: characters,
+      mappedCharacters,
+      sourceImageIds,
+      localImageIds,
+      deprecatedEntries,
+      diagnosticCandidates: collectMappingLagCandidates(
+        sourceImageIds,
+        mappedVariantIds,
+        deprecatedVariantIds
+      ),
+    });
+    reportSyncDiagnostics(plan.diagnostics);
+    console.log(
+      `→ CN plan: ${plan.summary.mappedCharacterCount} mapped, ${plan.summary.diagnosticCount} nonblocking warning(s)`
+    );
 
     stagingRoot = await mkdtemp(path.join(OLD_ASSETS_DIR, ".webp-sync-"));
     const stagedAvatars = path.join(stagingRoot, "avatars");
     await mkdir(stagedAvatars);
 
-    const newEntries = collectNewEntries(
-      arcanists.filter((entry) => !deprecatedBaseIds.has(entry.id)),
-      existingBaseIds
-    );
     const newVariantIds = new Set(
-      newEntries.ready.flatMap((entry) =>
-        buildSkins(entry).map((skin) => skin.variantId)
+      plan.sync.readyNewCharacters.flatMap((character) =>
+        character.skins.map((skin) => skin.variantId)
       )
     );
-    const allVariantIds = new Set([...variantIds, ...newVariantIds]);
+    // Stage fresh-map variants for existing characters before build:characters
+    // reconciles the mapping into characters.json. Pending new Characters stay
+    // out of this set so sync keeps its historical partial-progress behavior.
+    const stagedVariantIds = new Set(plan.stagedVariantIds);
 
-    const staged = await stageVariantImages(allVariantIds, stagedAvatars, loadHashCache());
+    const staged = await stageVariantImages(
+      stagedVariantIds,
+      stagedAvatars,
+      loadHashCache()
+    );
     console.log(
-      `→ Staged ${allVariantIds.size} avatars: ${staged.reused} reused, ${staged.converted} converted (${newVariantIds.size} from new characters)`
+      `→ Staged ${stagedVariantIds.size} avatars: ${staged.reused} reused, ${staged.converted} converted (${newVariantIds.size} from new characters)`
     );
 
     let hasStagedVertin = false;
@@ -335,22 +386,8 @@ async function main(): Promise<void> {
       JSON.stringify(staged.cache, null, 2) + "\n",
       "utf-8"
     );
-    let autoAdded = 0;
-    for (const entry of newEntries.ready) {
-      const defaultVariant = `${entry.id}01`;
-      characters.push({
-        id: defaultVariant,
-        name: entry.name,
-        baseId: entry.id,
-        releaseOrder: 0,
-        enabled: true,
-        skins: buildSkins(entry),
-        defaultVariant,
-        stage: "pending-names",
-        isReleased: false,
-      });
-      autoAdded++;
-    }
+    applySyncPlan(characters, plan);
+    const autoAdded = plan.sync.readyNewCharacters.length;
 
     const ordered = recalculateReleaseOrder(characters);
     for (const character of ordered) delete character._kbId;
@@ -373,18 +410,19 @@ async function main(): Promise<void> {
     console.log(`Wiped: ${wiped} old directories`);
     console.log(`Avatars: ${staged.reused} reused, ${staged.converted} converted`);
     console.log(`Auto-added: ${autoAdded} new characters`);
-    console.log(`Pending: ${newEntries.pending.length}`);
+    console.log(`Pending: ${plan.sync.pendingNewCharacters.length}`);
+    console.log(`Deprecated skips: ${plan.deprecatedSkips.length}`);
     // 每次成功更新都寫完整 pending snapshot（含空清單），
     // 避免上一輪的 pending 條目在角色全部 ready 後殘留。
     writeFileSync(
       PENDING_FILE,
-      JSON.stringify(newEntries.pending, null, 2) + "\n",
+      JSON.stringify(plan.sync.pendingNewCharacters, null, 2) + "\n",
       "utf-8"
     );
-    if (newEntries.pending.length > 0) {
+    if (plan.sync.pendingNewCharacters.length > 0) {
       console.log(`  Pending list written: ${PENDING_FILE}`);
     }
-    if (autoAdded === 0 && newEntries.pending.length === 0) {
+    if (autoAdded === 0 && plan.sync.pendingNewCharacters.length === 0) {
       console.log("  No new characters detected");
     }
 
@@ -397,7 +435,14 @@ async function main(): Promise<void> {
   }
 }
 
-void main().catch((error) => {
-  console.error("sync-assets failed:", error);
-  process.exitCode = 1;
-});
+function isMainModule(): boolean {
+  const entry = process.argv[1];
+  return Boolean(entry) && import.meta.url === pathToFileURL(path.resolve(entry)).href;
+}
+
+if (isMainModule()) {
+  void main().catch((error) => {
+    console.error("sync-assets failed:", error);
+    process.exitCode = 1;
+  });
+}

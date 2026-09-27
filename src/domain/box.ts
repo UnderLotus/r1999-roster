@@ -1,5 +1,5 @@
 import type { Character, CharacterState, PortrayLevel } from "../types/character";
-import { resolveModeVariant } from "../utils/skins";
+import { createVariantIdentityCatalog } from "./variant-identity";
 
 export type SkinMode = "initial" | "insight";
 
@@ -27,16 +27,19 @@ interface BoxVariantResolution {
   preserved: boolean;
 }
 
-/** Resolve a requested skin or the legal mode fallback under Future Sight policy. */
+/** Resolve a requested variant or the legal explicit mode fallback. */
 function reconcileBoxVariant(
-  character: Character,
+  characterId: string,
+  identity: ReturnType<typeof createVariantIdentityCatalog>,
   requestedVariant: string | undefined,
   mode: SkinMode,
   showFutureSight: boolean
 ): BoxVariantResolution {
   const allowed = (variantId: string | undefined): variantId is string => {
-    if (!variantId) return false;
-    const skin = character.skins.find((entry) => entry.variantId === variantId);
+    if (!variantId || !identity.ownsVariant(characterId, variantId)) return false;
+    const skin = identity.getSkins(characterId).find(
+      (entry) => entry.variantId === variantId
+    );
     return Boolean(skin && (showFutureSight || skin.isReleased !== false));
   };
 
@@ -44,18 +47,18 @@ function reconcileBoxVariant(
     return { variantId: requestedVariant, preserved: true };
   }
 
-  const preferred = resolveModeVariant(character, mode);
+  const preferred = identity.resolveModeVariant(characterId, mode);
   if (allowed(preferred)) return { variantId: preferred, preserved: false };
 
-  const initial = `${character.baseId}01`;
+  const initial = identity.getDefaultVariant(characterId);
   if (allowed(initial)) return { variantId: initial, preserved: false };
 
-  const fallback = character.skins.find(
+  const fallback = identity.getSkins(characterId).find(
     (skin) => showFutureSight || skin.isReleased !== false
   );
   if (fallback) return { variantId: fallback.variantId, preserved: false };
 
-  throw new Error(`Character ${character.id} has no allowed skin fallback`);
+  throw new Error(`Character ${characterId} has no allowed skin fallback`);
 }
 
 /**
@@ -66,7 +69,7 @@ export function reconcileBox(
   candidate: BoxState,
   catalog: readonly Character[]
 ): BoxState {
-  const catalogById = new Map(catalog.map((character) => [character.id, character]));
+  const identity = createVariantIdentityCatalog(catalog);
   const next: BoxState = {
     characters: {},
     activeVariant: {},
@@ -76,7 +79,7 @@ export function reconcileBox(
   };
 
   for (const [id, state] of Object.entries(candidate.characters)) {
-    const character = catalogById.get(id);
+    const character = identity.getCharacterById(id);
     if (!character || !state?.owned) continue;
     if (!candidate.showFutureSight && !character.isReleased) continue;
 
@@ -86,7 +89,8 @@ export function reconcileBox(
     };
 
     const variant = reconcileBoxVariant(
-      character,
+      id,
+      identity,
       candidate.activeVariant[id],
       candidate.defaultSkinMode,
       candidate.showFutureSight
