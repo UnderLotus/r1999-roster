@@ -6,7 +6,8 @@
     {
       "id": 314901,                  // variant ID（headicon 檔名，例 314901）
       "name": "双生舞伶",           // 頁面 title（中文名）
-      "href": "https://res1999.huijiwiki.com/wiki/%E5%8F%8C%E7%94%9F%E8%88%9E%E4%BC%B6"  // 官方 wiki 頁網址
+      "href": "https://res1999.huijiwiki.com/wiki/%E5%8F%8C%E7%94%9F%E8%88%9E%E4%BC%B6", // 官方 wiki 頁網址
+      "rarity": 6                    // data-rare + 1（2～6 星）
     },
     ...
   ]
@@ -22,8 +23,11 @@ Cloudflare：res1999.huijiwiki.com 對 api.php 與一般瀏覽器 UA 回 403 cha
 """
 
 import json
-import re
 import sys
+
+sys.dont_write_bytecode = True
+
+from huiji_list_parser import parse_cards
 
 try:
     from curl_cffi import requests as creq
@@ -46,30 +50,6 @@ def fetch_html() -> str:
         except Exception as exc:  # noqa: BLE001
             last_err = exc
     raise RuntimeError(f"所有 impersonation 均失敗：{last_err}")
-
-
-def parse_cards(html: str) -> list[dict]:
-    # 卡片結構：<a href="/wiki/頁面" title="中文名"><img alt="Headicon large-{id}.png" ...>
-    pattern = re.compile(
-        r'<a href="(/wiki/[^"]+)" title="([^"]*)">\s*<img[^>]*alt="Headicon[^"]*large-(\d+)\.png"',
-        re.S,
-    )
-    cards: list[dict] = []
-    # keep-LAST dedupe：若未來頁面上方出現重複/預覽區塊，主列表在後，
-    # 保留最後一次出現才不會讓索引被預覽卡蓋掉
-    entries: dict[int, tuple[int, dict]] = {}
-    for seq, (href, name, id_str) in enumerate(pattern.findall(html)):
-        cid = int(id_str)
-        entries[cid] = (
-            seq,
-            {
-                "id": cid,
-                "name": name,
-                "href": "https://res1999.huijiwiki.com" + href,
-            },
-        )
-    cards = [card for _, card in sorted(entries.values(), key=lambda kv: kv[0])]
-    return cards
 
 
 def main() -> None:

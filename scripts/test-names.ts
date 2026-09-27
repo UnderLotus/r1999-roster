@@ -177,6 +177,19 @@ assert.equal(
 assert.deepEqual(result.unmatchedLocalizedOverrides, ["Unknown Override"]);
 console.log("ok: pure name policy preserves precedence, mutations, diagnostics, and ordering");
 
+// A Wiki rarity must survive when ArcanistMap knows the character but Kornblume does not.
+const noKornblumeResult = applyNamePolicy({
+  characters: [character("wiki-only", 900, { rarity: 3 })],
+  arcanists: [{ id: 900, name: "No Kornblume", nameEng: "No Kornblume" }],
+  snapshot: fixtureSnapshot,
+  localizedOverrides: [],
+});
+assert.equal(
+  noKornblumeResult.characters[0]?.rarity,
+  3,
+  "mapped characters retain Wiki rarity without a Kornblume match"
+);
+
 const fallbackResult = applyNamePolicy({
   characters: [
     character("existing-only", 998, {

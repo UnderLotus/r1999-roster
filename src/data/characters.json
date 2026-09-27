@@ -28,7 +28,8 @@
     "names": {
       "zh-CN": "德雷克",
       "en-US": "Drake"
-    }
+    },
+    "rarity": 6
   },
   {
     "id": "315701",
@@ -132,7 +133,8 @@
     "names": {
       "zh-CN": "狩勋女巫红弩箭",
       "en-US": "Huntsworn Lilya"
-    }
+    },
+    "rarity": 6
   },
   {
     "id": "314901",
@@ -4562,7 +4564,8 @@
     "names": {
       "zh-CN": "格林杜尔",
       "en-US": "Glyndŵr"
-    }
+    },
+    "rarity": 4
   },
   {
     "id": "315101",

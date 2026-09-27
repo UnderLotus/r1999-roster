@@ -23,9 +23,20 @@ function character(
 }
 
 const cards: WikiCard[] = [
-  { id: 100101, name: "Alpha", href: "https://wiki.test/Alpha" },
-  { id: 200201, name: "Beta", href: "https://wiki.test/Beta-new" },
+  { id: 100101, name: "Alpha", href: "https://wiki.test/Alpha", rarity: 6 },
+  { id: 200201, name: "Beta", href: "https://wiki.test/Beta-new", rarity: 5 },
 ];
+
+// 灰機 rarity 是 Kornblume 尚未收錄新角色時的 fallback；只補缺值。
+{
+  const missing = character("100101", 1001);
+  const existing = { ...character("200201", 2002), rarity: 4 };
+  const result = applyWikiMapping([missing, existing], cards);
+  assert.equal(missing.rarity, 6, "缺少 rarity 的角色由 Wiki 補齊");
+  assert.equal(existing.rarity, 4, "既有 rarity 不被 Wiki 覆蓋");
+  assert.equal(result.rarityUpdated, 1, "摘要回報補齊一筆 rarity");
+  console.log("ok: Wiki rarity fills only missing character metadata");
+}
 
 // Bug regression：舊 pageUrl 不得蓋掉本次更新（spread 順序），
 // 且既有 source 欄位（imageUrl）必須保留。

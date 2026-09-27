@@ -36,12 +36,14 @@ export interface WikiCard {
   id: number; // variant ID（headicon 檔名，例 314901）
   name: string;
   href: string;
+  rarity: number; // Huiji data-rare + 1（2～6）
 }
 
 export interface WikiMappingResult {
   indexed: number;
   pageUrlUpdated: number;
   pageUrlKept: number;
+  rarityUpdated: number;
   notInWiki: string[];
 }
 
@@ -53,33 +55,42 @@ export function applyWikiMapping(
   characters: Character[],
   cards: WikiCard[]
 ): WikiMappingResult {
-  const indexByBaseId = new Map<number, number>();
-  for (let i = 0; i < cards.length; i++) {
-    indexByBaseId.set(Math.floor(cards[i].id / 100), i);
+  const cardByBaseId = new Map<number, { card: WikiCard; index: number }>();
+  for (let index = 0; index < cards.length; index++) {
+    const card = cards[index];
+    if (!Number.isInteger(card.rarity) || card.rarity < 2 || card.rarity > 6) {
+      throw new Error(`invalid Wiki rarity ${String(card.rarity)} for variant ${card.id}`);
+    }
+    cardByBaseId.set(Math.floor(card.id / 100), { card, index });
   }
   let indexed = 0;
   let pageUrlUpdated = 0;
   let pageUrlKept = 0;
+  let rarityUpdated = 0;
   const notInWiki: string[] = [];
   for (const ch of characters) {
-    const idx = indexByBaseId.get(ch.baseId);
-    if (idx === undefined) {
+    const match = cardByBaseId.get(ch.baseId);
+    if (!match) {
       notInWiki.push(ch.id);
       continue;
     }
-    const href = cards[idx].href;
-    ch._wikiIndex = idx;
+    const { card, index } = match;
+    ch._wikiIndex = index;
     indexed++;
-    if (ch.source?.pageUrl !== href) {
+    if (ch.source?.pageUrl !== card.href) {
       // 既有 source 欄位（imageUrl 等）需保留；新 pageUrl 必須最後寫入，
       // 否則會被 spread 展開的舊 pageUrl 蓋掉（更新静默失敗）。
-      ch.source = { ...ch.source, pageUrl: href };
+      ch.source = { ...ch.source, pageUrl: card.href };
       pageUrlUpdated++;
     } else {
       pageUrlKept++;
     }
+    if (ch.rarity === undefined) {
+      ch.rarity = card.rarity;
+      rarityUpdated++;
+    }
   }
-  return { indexed, pageUrlUpdated, pageUrlKept, notInWiki };
+  return { indexed, pageUrlUpdated, pageUrlKept, rarityUpdated, notInWiki };
 }
 
 function loadJSON<T>(file: string): T {
@@ -137,10 +148,8 @@ async function main(): Promise<void> {
 
   // 2. 對應 characters.json（寫 pageUrl + 標記 _wikiIndex）
   const characters = loadJSON<Character[]>(DATA_FILE);
-  const { indexed, pageUrlUpdated, pageUrlKept, notInWiki } = applyWikiMapping(
-    characters,
-    cards
-  );
+  const { indexed, pageUrlUpdated, pageUrlKept, rarityUpdated, notInWiki } =
+    applyWikiMapping(characters, cards);
   if (notInWiki.length > 0) {
     console.warn(
       `⚠ ${notInWiki.length} 名不在灰機列表中` +
@@ -167,6 +176,7 @@ async function main(): Promise<void> {
   console.log(`\n=== 摘要 ===`);
   console.log(`已索引: ${indexed}/${characters.length}`);
   console.log(`pageUrl 更新: ${pageUrlUpdated}，維持不變: ${pageUrlKept}`);
+  console.log(`rarity 補齊: ${rarityUpdated}`);
   console.log(`排序變動: ${moved} 名（以灰機即時列表序為準）`);
 }
 

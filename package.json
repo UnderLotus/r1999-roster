@@ -1,7 +1,7 @@
 {
   "name": "r1999-roster",
   "private": true,
-  "version": "1.9.0",
+  "version": "1.9.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,7 @@
     "test:storage": "tsx scripts/test-storage.ts",
     "test:lock": "tsx scripts/test-sync-lock.ts",
     "test:share": "tsx scripts/test-share-code.ts",
-    "test:wiki": "tsx scripts/test-wiki-list.ts",
+    "test:wiki": "python3 scripts/test-huiji-list-parser.py && tsx scripts/test-wiki-list.ts",
     "test:names": "tsx scripts/test-names.ts",
     "test:name-sources": "tsx scripts/test-name-sources.ts",
     "test:release": "tsx scripts/test-release.ts",
