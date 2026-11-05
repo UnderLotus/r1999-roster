@@ -1,6 +1,42 @@
 {
-  "characters": [],
+  "characters": [
+    {
+      "baseId": 3158,
+      "isReleased": false,
+      "note": "Manual schedule correction: not released yet"
+    },
+    {
+      "baseId": 3155,
+      "isReleased": false,
+      "note": "Manual schedule correction: not released yet"
+    },
+    {
+      "baseId": 3156,
+      "isReleased": true,
+      "note": "Manual schedule correction: released"
+    }
+  ],
   "skins": [
+    {
+      "variantId": "313503",
+      "isReleased": true,
+      "note": "Manual schedule correction: released"
+    },
+    {
+      "variantId": "314303",
+      "isReleased": true,
+      "note": "Manual schedule correction: released"
+    },
+    {
+      "variantId": "314704",
+      "isReleased": true,
+      "note": "Manual schedule correction: released"
+    },
+    {
+      "variantId": "312104",
+      "isReleased": true,
+      "note": "Manual schedule correction: released"
+    },
     {
       "variantId": "302306",
       "isReleased": false,

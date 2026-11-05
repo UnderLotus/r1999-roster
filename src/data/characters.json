@@ -20,13 +20,14 @@
       }
     ],
     "defaultVariant": "315801",
-    "stage": "pending-names",
+    "stage": "live",
     "isReleased": false,
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E5%BE%B7%E9%9B%B7%E5%85%8B"
     },
     "names": {
       "zh-CN": "德雷克",
+      "zh-TW": "德雷克",
       "en-US": "Drake"
     },
     "rarity": 6
@@ -60,7 +61,8 @@
     "names": {
       "zh-CN": "纳西索斯",
       "zh-TW": "納西索斯",
-      "en-US": "Narcissus"
+      "en-US": "Narcissus",
+      "ko-KR": "나르키소스"
     },
     "rarity": 6
   },
@@ -86,14 +88,15 @@
     ],
     "defaultVariant": "315601",
     "stage": "live",
-    "isReleased": false,
+    "isReleased": true,
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E8%B5%AB%E5%A4%9A%E6%B6%85"
     },
     "names": {
       "zh-CN": "赫多涅",
       "zh-TW": "赫多涅",
-      "en-US": "Hedone"
+      "en-US": "Hedone",
+      "ko-KR": "헤도네"
     },
     "rarity": 6
   },
@@ -125,13 +128,14 @@
       }
     ],
     "defaultVariant": "315501",
-    "stage": "pending-names",
+    "stage": "live",
     "isReleased": false,
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%8B%A9%E5%8B%8B%E5%A5%B3%E5%B7%AB%E7%BA%A2%E5%BC%A9%E7%AE%AD"
     },
     "names": {
       "zh-CN": "狩勋女巫红弩箭",
+      "zh-TW": "狩勛女巫紅弩箭",
       "en-US": "Huntsworn Lilya"
     },
     "rarity": 6
@@ -212,8 +216,7 @@
         "variantId": "314704",
         "type": "skin",
         "skinName": "沉影探戈",
-        "skinNameEng": "Waltz of the Depths",
-        "isReleased": false
+        "skinNameEng": "Waltz of the Depths"
       }
     ],
     "defaultVariant": "314701",
@@ -375,8 +378,7 @@
         "variantId": "314303",
         "type": "skin",
         "skinName": "泅与问",
-        "skinNameEng": "To Fathom the Depths",
-        "isReleased": false
+        "skinNameEng": "To Fathom the Depths"
       }
     ],
     "defaultVariant": "314301",
@@ -610,8 +612,7 @@
         "variantId": "313503",
         "type": "skin",
         "skinName": "海盐急速",
-        "skinNameEng": "Full Quack Ahead",
-        "isReleased": false
+        "skinNameEng": "Full Quack Ahead"
       }
     ],
     "defaultVariant": "313501",
@@ -990,8 +991,7 @@
         "variantId": "312104",
         "type": "skin",
         "skinName": "玫瑰午睡时",
-        "skinNameEng": "Repose Amidst the Roses",
-        "isReleased": false
+        "skinNameEng": "Repose Amidst the Roses"
       }
     ],
     "defaultVariant": "312101",
