@@ -42,6 +42,8 @@ const TSX_CLI = path.join(ROOT, "node_modules/tsx/dist/cli.mjs");
 const CLI_SOURCE_FILES = [
   "build-characters.ts",
   "cn-ingestion.ts",
+  "global-localization.ts",
+  "name-source.ts",
   "recalculate-order.ts",
   "skin-utils.ts",
   "sync-assets.ts",

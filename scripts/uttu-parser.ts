@@ -1,26 +1,17 @@
 import * as ts from "typescript";
 
+import type { NameLang } from "./name-source";
 import type { CharacterSkin } from "./types";
 
 export const UTTU_PROFILES_URL = "https://uttu.merui.net/profiles/";
 export const UTTU_GARMENTS_URL = "https://uttu.merui.net/garments/";
 export const UTTU_ASSET_BASE_URL = "https://assets.merui.net/headicon_middle/";
 
-export const UTTU_NAME_LANGS = [
-  "zh-CN",
-  "zh-TW",
-  "en-US",
-  "ja-JP",
-  "ko-KR",
-] as const;
-
-export type UttuNameLang = (typeof UTTU_NAME_LANGS)[number];
-
 export interface UttuProfile {
   readonly baseId: number;
   readonly name: string;
   readonly nameEng: string;
-  readonly names: Partial<Record<UttuNameLang, string>>;
+  readonly names: Partial<Record<NameLang, string>>;
   readonly rarity: number;
 }
 
@@ -244,11 +235,11 @@ function normalizeProfiles(rows: readonly unknown[]): {
       continue;
     }
 
-    const names: Partial<Record<UttuNameLang, string>> = {
+    const names: Partial<Record<NameLang, string>> = {
       "zh-CN": zh,
       "en-US": en,
     };
-    const localeMap: Array<[string, UttuNameLang]> = [
+    const localeMap: Array<[string, NameLang]> = [
       ["tw", "zh-TW"],
       ["jp", "ja-JP"],
       ["kr", "ko-KR"],
@@ -360,19 +351,32 @@ function normalizeGarments(
   return { garments, diagnostics, incompleteBaseIds, owners };
 }
 
+export interface UttuProfileCatalog {
+  readonly profiles: readonly UttuProfile[];
+  readonly diagnostics: readonly string[];
+}
+
+/** Profiles-only slice for name fallback; garments and images stay out of it. */
+export function parseUttuProfiles(profilesHtml: string): UttuProfileCatalog {
+  const rows = chooseArray(extractLiteralArrays(profilesHtml), isProfileRow, "profile");
+  const { profiles, diagnostics } = normalizeProfiles(rows);
+  if (profiles.length === 0) {
+    throw new UttuParseError("UTTU profiles extracted no valid records");
+  }
+  return { profiles, diagnostics };
+}
+
 /**
  * Parse the public Astro pages' inline literal arrays. Arrays are recognized by
  * their record shape, not by script order or minified variable names.
  */
 export function parseUttuCatalog(profilesHtml: string, garmentsHtml: string): UttuCatalog {
-  const profileArrays = extractLiteralArrays(profilesHtml);
-  const garmentArrays = extractLiteralArrays(garmentsHtml);
-  const profileRows = chooseArray(profileArrays, isProfileRow, "profile");
-  const garmentRows = chooseArray(garmentArrays, isGarmentRow, "garment");
-  const { profiles, diagnostics: profileDiagnostics } = normalizeProfiles(profileRows);
-  if (profiles.length === 0) {
-    throw new UttuParseError("UTTU profiles extracted no valid records");
-  }
+  const { profiles, diagnostics: profileDiagnostics } = parseUttuProfiles(profilesHtml);
+  const garmentRows = chooseArray(
+    extractLiteralArrays(garmentsHtml),
+    isGarmentRow,
+    "garment"
+  );
   const normalizedGarments = normalizeGarments(garmentRows, profiles);
   if (normalizedGarments.garments.length === 0) {
     throw new UttuParseError("UTTU garments extracted no valid records");

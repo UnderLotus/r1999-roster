@@ -24,7 +24,11 @@ import {
   UttuCatchUpConflictError,
   type UttuSupplement,
 } from "./uttu-supplement";
-import { parseUttuCatalog, type UttuCatalog } from "./uttu-parser";
+import {
+  parseUttuCatalog,
+  parseUttuProfiles,
+  type UttuCatalog,
+} from "./uttu-parser";
 import { createVariantIdentityCatalog } from "../src/domain/variant-identity";
 import type { Character } from "./types";
 
@@ -35,33 +39,30 @@ function htmlWithArray(scriptBody: string): string {
 </body></html>`;
 }
 
-function catalogFixture(): UttuCatalog {
-  const profiles = htmlWithArray(`
-    const renamedProfileData = [
-      {ID:9160,Name:"Evelyn",Rarity:6,LocaleName:{en:"Evelyn",zh:"伊芙琳",tw:"N/A",jp:"N/A",kr:"N/A"}},
-      {ID:9159,Name:"Perchta",Rarity:6,LocaleName:{en:"Perchta",zh:"佩施塔",tw:"N/A",jp:"N/A",kr:"N/A"}},
-      {ID:7400,Name:"Existing",Rarity:5,LocaleName:{en:"Existing",zh:"角色 7400",tw:"角色 7400"}}
-    ];
-  `);
-  const garments = htmlWithArray(`
-    const renamedGarmentData = [
-      {profile:{ID:9160},garment:{id:916001,name:{en:"Default",zh:"Default"},category:"default",global:!0},garmentIndex:0},
-      {profile:{ID:9160},garment:{id:916002,name:{en:"Mad as a Riddle",zh:"疯谜题",tw:"N/A"},category:"insight",global:!0},garmentIndex:1},
-      {profile:{ID:9160},garment:{id:916003,name:{en:"A New Skin",zh:"新时装"},category:"advanced",global:!0},garmentIndex:2},
-      {profile:{ID:9159},garment:{id:915901,name:{en:"Default",zh:"Default"},category:"default",global:!1},garmentIndex:0},
-      {profile:{ID:9159},garment:{id:915902,name:{en:"Once Upon a Runaway",zh:"童话出逃日"},category:"insight",global:!0},garmentIndex:1},
-      {profile:{ID:7400},garment:{id:740001,name:{en:"Default",zh:"Default"},category:"default",global:!0},garmentIndex:0},
-      {profile:{ID:7400},garment:{id:740002,name:{en:"Existing Insight",zh:"既有洞悉"},category:"insight",global:!0},garmentIndex:1},
-      {profile:{ID:7400},garment:{id:740099,name:{en:"Supplement Skin",zh:"补给它"},category:"free",global:!1},garmentIndex:2},
-      {profile:{ID:7400},garment:{id:740098,name:{en:"Supplement Skin Two",zh:"补给它二"},category:"advanced",global:!1},garmentIndex:3},
-      {profile:{ID:7400},garment:{id:740004,name:{en:"Unseen Default",zh:"未收錄初始"},category:"default",global:!1},garmentIndex:4},
-      {profile:{ID:7400},garment:{id:740005,name:{en:"Unseen Insight",zh:"未收錄洞悉"},category:"insight",global:!1},garmentIndex:5}
-    ];
-  `);
-  return parseUttuCatalog(profiles, garments);
-}
+const profilesHtml = htmlWithArray(`
+  const renamedProfileData = [
+    {ID:9160,Name:"Evelyn",Rarity:6,LocaleName:{en:"Evelyn",zh:"伊芙琳",tw:"N/A",jp:"N/A",kr:"N/A"}},
+    {ID:9159,Name:"Perchta",Rarity:6,LocaleName:{en:"Perchta",zh:"佩施塔",tw:"N/A",jp:"N/A",kr:"N/A"}},
+    {ID:7400,Name:"Existing",Rarity:5,LocaleName:{en:"Existing",zh:"角色 7400",tw:"角色 7400"}}
+  ];
+`);
+const garmentsHtml = htmlWithArray(`
+  const renamedGarmentData = [
+    {profile:{ID:9160},garment:{id:916001,name:{en:"Default",zh:"Default"},category:"default",global:!0},garmentIndex:0},
+    {profile:{ID:9160},garment:{id:916002,name:{en:"Mad as a Riddle",zh:"疯谜题",tw:"N/A"},category:"insight",global:!0},garmentIndex:1},
+    {profile:{ID:9160},garment:{id:916003,name:{en:"A New Skin",zh:"新时装"},category:"advanced",global:!0},garmentIndex:2},
+    {profile:{ID:9159},garment:{id:915901,name:{en:"Default",zh:"Default"},category:"default",global:!1},garmentIndex:0},
+    {profile:{ID:9159},garment:{id:915902,name:{en:"Once Upon a Runaway",zh:"童话出逃日"},category:"insight",global:!0},garmentIndex:1},
+    {profile:{ID:7400},garment:{id:740001,name:{en:"Default",zh:"Default"},category:"default",global:!0},garmentIndex:0},
+    {profile:{ID:7400},garment:{id:740002,name:{en:"Existing Insight",zh:"既有洞悉"},category:"insight",global:!0},garmentIndex:1},
+    {profile:{ID:7400},garment:{id:740099,name:{en:"Supplement Skin",zh:"补给它"},category:"free",global:!1},garmentIndex:2},
+    {profile:{ID:7400},garment:{id:740098,name:{en:"Supplement Skin Two",zh:"补给它二"},category:"advanced",global:!1},garmentIndex:3},
+    {profile:{ID:7400},garment:{id:740004,name:{en:"Unseen Default",zh:"未收錄初始"},category:"default",global:!1},garmentIndex:4},
+    {profile:{ID:7400},garment:{id:740005,name:{en:"Unseen Insight",zh:"未收錄洞悉"},category:"insight",global:!1},garmentIndex:5}
+  ];
+`);
 
-const parsedCatalog = catalogFixture();
+const parsedCatalog: UttuCatalog = parseUttuCatalog(profilesHtml, garmentsHtml);
 assert.deepEqual(
   parsedCatalog.profiles.map((profile) => profile.baseId),
   [7400, 9159, 9160],
@@ -72,11 +73,32 @@ assert.deepEqual(
     .filter((garment) => garment.baseId === 9160)
     .map((garment) => [garment.variantId, garment.type]),
   [["916001", "default"], ["916002", "insight"], ["916003", "skin"]],
-  "!0/!1 literals are read and non-default categories map to skin"
+  "garment categories map to default, insight, and skin Variant types"
 );
 assert.equal(parsedCatalog.garments.find((garment) => garment.variantId === "916001")?.skinName, null);
 assert.equal(parsedCatalog.profiles.find((profile) => profile.baseId === 9160)?.names["zh-TW"], undefined);
 assert.equal(parsedCatalog.incompleteBaseIds.size, 0);
+
+const profilesOnly = parseUttuProfiles(profilesHtml);
+assert.deepEqual(
+  profilesOnly.profiles,
+  parsedCatalog.profiles,
+  "profiles-only acquisition needs no garments and reuses catalog normalization"
+);
+assert.throws(
+  () =>
+    parseUttuProfiles(
+      htmlWithArray(`
+        const duplicatedProfiles = [
+          {ID:9160,Name:"Evelyn",Rarity:6,LocaleName:{en:"Evelyn",zh:"伊芙琳"}},
+          {ID:9160,Name:"Evelyn Two",Rarity:6,LocaleName:{en:"Evelyn Two",zh:"伊芙琳二"}}
+        ];
+      `)
+    ),
+  /Duplicate UTTU profile ID: 9160/,
+  "profiles-only parsing keeps the duplicate-ID guard"
+);
+console.log("ok: UTTU profiles parse standalone without garment data");
 
 const numericProfiles = htmlWithArray(`
   const numericProfileData = [

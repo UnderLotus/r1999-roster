@@ -228,16 +228,75 @@ assert.equal(
   "an admitted supplement character is not reported as an unknown ArcanistMap character"
 );
 
+// Incomplete-source fixture: a language missing upstream must not erase the persisted value.
+const partialKornblumeSnapshot: NameSourceSnapshot = {
+  ...fixtureSnapshot,
+  kornblume: {
+    namesByLang: {
+      ...fixtureSnapshot.kornblume.namesByLang,
+      "zh-CN": {
+        ...fixtureSnapshot.kornblume.namesByLang["zh-CN"],
+        "partial-eta": "己",
+      },
+      "en-US": {
+        ...fixtureSnapshot.kornblume.namesByLang["en-US"],
+        "partial-eta": "Partial Eta",
+      },
+    },
+    arcanists: [
+      ...fixtureSnapshot.kornblume.arcanists,
+      { id: 40, name: "Partial Eta", rarity: 5 },
+    ],
+  },
+};
+const etaArcanists: ArcanistMapEntry[] = [{ id: 9, name: "己", nameEng: "Eta CN" }];
+const liveUttuResult = applyNamePolicy({
+  characters: [
+    character("eta", 9, {
+      names: {
+        "zh-CN": "既有己",
+        "en-US": "Existing Eta",
+        "ja-JP": "既存のエータ",
+      },
+    }),
+  ],
+  arcanists: etaArcanists,
+  snapshot: partialKornblumeSnapshot,
+  localizedOverrides: [],
+  uttuNames: [{ baseId: 9, names: { "ja-JP": "UTTU エータ", "ko-KR": "UTTU 한국" } }],
+});
+const eta = liveUttuResult.characters[0];
+assert.equal(eta?.names?.["zh-CN"], "己", "Kornblume still overrides an existing CN name");
+assert.equal(eta?.names?.["en-US"], "Partial Eta");
+assert.equal(eta?.names?.["ja-JP"], "既存のエータ", "persisted Japanese outranks live UTTU");
+assert.equal(eta?.names?.["ko-KR"], "UTTU 한국", "live UTTU fills only an empty Korean name");
+
+const offlineSecondPass = applyNamePolicy({
+  characters: liveUttuResult.characters,
+  arcanists: etaArcanists,
+  snapshot: partialKornblumeSnapshot,
+  localizedOverrides: [],
+});
+assert.equal(
+  offlineSecondPass.characters[0]?.names?.["ko-KR"],
+  "UTTU 한국",
+  "a UTTU-filled name survives a later run where live profiles are unavailable"
+);
+assert.equal(offlineSecondPass.characters[0]?.names?.["ja-JP"], "既存のエータ");
+console.log("ok: live UTTU names fill only empty locales and persist across runs");
+
 const fallbackResult = applyNamePolicy({
   characters: [
     character("existing-only", 998, {
       names: { "en-US": "  Existing Only  " },
     }),
     character("unnamed", 997),
+    character("uttu-only", 996),
   ],
   arcanists: [],
   snapshot: fixtureSnapshot,
   localizedOverrides: [],
+  uttuNames: [{ baseId: 996, names: { "en-US": "UTTU Only" } }],
 });
 assert.equal(
   fallbackResult.characters.find((entry) => entry.id === "existing-only")
@@ -245,8 +304,19 @@ assert.equal(
   "Existing Only",
   "existing English is preserved when normalized sources have no match"
 );
-assert.equal(fallbackResult.summary.englishFallback, 1);
+assert.equal(
+  fallbackResult.characters.find((entry) => entry.id === "uttu-only")
+    ?.names?.["en-US"],
+  "UTTU Only",
+  "live UTTU English counts as a fallback"
+);
+assert.equal(fallbackResult.summary.englishFallback, 2);
 assert.equal(fallbackResult.summary.englishMissing, 1);
+assert.equal(
+  fallbackResult.summary.missingByLang["en-US"],
+  fallbackResult.summary.englishMissing,
+  "English coverage counters describe the final output"
+);
 
 assert.throws(
   () =>
@@ -313,3 +383,84 @@ await assert.rejects(
 assert.equal(configurationCacheRead, false, "local config failure cannot read LKG");
 assert.equal(configurationWriteCalled, false, "local config failure aborts before output write");
 console.log("ok: local configuration failure is non-recoverable even when LKG exists");
+
+let uttuWiredWrite: Character[] | undefined;
+const uttuWiredWarnings: string[] = [];
+const uttuWiredResult = await runNameSync({
+  refreshSources: async () => fixtureSnapshot,
+  loadCachedSources: async () => fixtureSnapshot,
+  cacheExists: () => false,
+  refreshUttuNames: async () => ({
+    names: [{ baseId: 9, names: { "ko-KR": "UTTU 한국" } }],
+    diagnostics: ["UTTU profile 3155 has no usable zh name; skipped"],
+  }),
+  loadCharacters: () => [
+    character("eta", 9, { names: { "zh-CN": "既有己", "en-US": "Existing Eta" } }),
+  ],
+  loadArcanists: () => etaArcanists,
+  loadLocalizedOverrides: () => [],
+  writeCharacters: (characters) => {
+    uttuWiredWrite = characters;
+  },
+  warn: (message) => uttuWiredWarnings.push(message),
+});
+assert.equal(uttuWiredResult.sourceMode, "refreshed");
+assert.equal(uttuWiredWrite?.[0]?.names?.["ko-KR"], "UTTU 한국");
+assert.deepEqual(
+  uttuWiredWarnings,
+  ["UTTU profile 3155 has no usable zh name; skipped"],
+  "UTTU parser diagnostics are forwarded through the existing warning channel"
+);
+console.log("ok: orchestration passes live UTTU names into the pure policy");
+
+let uttuFailureWrite: Character[] | undefined;
+const uttuFailureWarnings: string[] = [];
+const uttuFailureResult = await runNameSync({
+  refreshSources: async () => fixtureSnapshot,
+  loadCachedSources: async () => fixtureSnapshot,
+  cacheExists: () => false,
+  refreshUttuNames: async () => {
+    throw new NameSourceError("transport", "UTTU profiles", "offline");
+  },
+  loadCharacters: () => [
+    character("beta", 2, { names: { "en-US": "Existing Beta" } }),
+  ],
+  loadArcanists: () => [{ id: 2, name: "乙", nameEng: "Beta CN" }],
+  loadLocalizedOverrides: () => [],
+  writeCharacters: (characters) => {
+    uttuFailureWrite = characters;
+  },
+  warn: (message) => uttuFailureWarnings.push(message),
+});
+assert.equal(
+  uttuFailureResult.sourceMode,
+  "refreshed",
+  "a UTTU failure never forces the primary sources into LKG"
+);
+assert.equal(uttuFailureWrite?.[0]?.names?.["en-US"], "Fallback Beta");
+assert.match(uttuFailureWarnings[0] ?? "", /UTTU name fallback unavailable/);
+console.log("ok: UTTU acquisition failure warns and still writes primary-source names");
+
+let unexpectedWrite = false;
+await assert.rejects(
+  () =>
+    runNameSync({
+      refreshSources: async () => fixtureSnapshot,
+      loadCachedSources: async () => fixtureSnapshot,
+      cacheExists: () => false,
+      refreshUttuNames: async () => {
+        throw new Error("unexpected UTTU bug");
+      },
+      loadCharacters: () => [],
+      loadArcanists: () => [],
+      loadLocalizedOverrides: () => [],
+      writeCharacters: () => {
+        unexpectedWrite = true;
+      },
+      warn: () => {},
+    }),
+  /unexpected UTTU bug/,
+  "unexpected UTTU errors are not swallowed"
+);
+assert.equal(unexpectedWrite, false);
+console.log("ok: unexpected UTTU errors abort instead of reading as an empty catalog");

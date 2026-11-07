@@ -17,6 +17,12 @@ import {
   type NameLang,
   type NameSourceSnapshot,
 } from "./name-source";
+import {
+  parseUttuProfiles,
+  UTTU_PROFILES_URL,
+  UttuParseError,
+  type UttuProfileCatalog,
+} from "./uttu-parser";
 
 const KORNBLUME_BASE =
   "https://raw.githubusercontent.com/windbow27/kornblume/main";
@@ -34,12 +40,19 @@ const GLOBAL_LANGUAGE_FILES: Record<NameLang, string> = {
 const WIKIRU_JP_URL =
   "https://r.jina.ai/https://reverse1999.wikiru.jp/?%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E4%B8%80%E8%A6%A7%28%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E7%89%88%29";
 
-function fetchText(url: string, maxBuffer = 16 * 1024 * 1024): string {
+function fetchText(
+  url: string,
+  options: { maxBuffer?: number; timeoutSeconds?: number } = {}
+): string {
   try {
-    return execFileSync("curl", ["-fsSL", "-m", "180", "--retry", "2", url], {
-      encoding: "utf8",
-      maxBuffer,
-    });
+    return execFileSync(
+      "curl",
+      ["-fsSL", "-m", String(options.timeoutSeconds ?? 180), "--retry", "2", url],
+      {
+        encoding: "utf8",
+        maxBuffer: options.maxBuffer ?? 16 * 1024 * 1024,
+      }
+    );
   } catch (error) {
     throw new NameSourceError("transport", url, `failed to fetch ${url}`, {
       cause: error,
@@ -145,6 +158,40 @@ export async function loadJapaneseNameOverrides(
   return parseJapaneseNameOverrides(raw, file);
 }
 
+export interface UttuProfileNameMetadata {
+  baseId: number;
+  names: Partial<Record<NameLang, string>>;
+}
+
+export interface UttuProfileNameRefresh {
+  names: UttuProfileNameMetadata[];
+  diagnostics: string[];
+}
+
+/** Acquire names independently of image admission; the caller may skip classified source failures. */
+export async function fetchUttuProfileNames(): Promise<UttuProfileNameRefresh> {
+  const html = fetchText(UTTU_PROFILES_URL, { timeoutSeconds: 60 });
+  let parsed: UttuProfileCatalog;
+  try {
+    parsed = parseUttuProfiles(html);
+  } catch (error) {
+    if (!(error instanceof UttuParseError)) throw error;
+    throw new NameSourceError(
+      "parse",
+      UTTU_PROFILES_URL,
+      `UTTU profiles parse failed: ${error.message}`,
+      { cause: error }
+    );
+  }
+  return {
+    names: parsed.profiles.map((profile) => ({
+      baseId: profile.baseId,
+      names: { ...profile.names },
+    })),
+    diagnostics: [...parsed.diagnostics],
+  };
+}
+
 /** Fetch, normalize and atomically install one complete source generation. */
 export async function refreshNameSourceCache(options: {
   japaneseOverridesFile: string;
@@ -187,7 +234,7 @@ export async function refreshNameSourceCache(options: {
   for (const lang of NAME_LANGS) {
     rawGlobalLanguages[lang] = fetchText(
       `${GLOBAL_LANGUAGE_BASE}/${GLOBAL_LANGUAGE_FILES[lang]}`,
-      40 * 1024 * 1024
+      { maxBuffer: 40 * 1024 * 1024 }
     );
   }
   const globalNamesByLang = parseGlobalSource(

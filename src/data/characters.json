@@ -126,7 +126,8 @@
       "zh-CN": "纳西索斯",
       "zh-TW": "納西索斯",
       "en-US": "Narcissus",
-      "ko-KR": "나르키소스"
+      "ko-KR": "나르키소스",
+      "ja-JP": "ナルキッソス"
     },
     "rarity": 6
   },
@@ -160,7 +161,8 @@
       "zh-CN": "赫多涅",
       "zh-TW": "赫多涅",
       "en-US": "Hedone",
-      "ko-KR": "헤도네"
+      "ko-KR": "헤도네",
+      "ja-JP": "ヘドネ"
     },
     "rarity": 6
   },
@@ -4660,7 +4662,10 @@
     },
     "names": {
       "zh-CN": "格林杜尔",
-      "en-US": "Glyndŵr"
+      "en-US": "Glyndŵr",
+      "zh-TW": "格林杜爾",
+      "ja-JP": "グリンドゥル",
+      "ko-KR": "글린두르"
     },
     "rarity": 4
   },

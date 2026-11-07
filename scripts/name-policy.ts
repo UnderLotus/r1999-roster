@@ -24,6 +24,9 @@ export interface SupplementNameMetadata {
   rarity?: number;
 }
 
+/** Live UTTU profile names: name-only fallback, never admission or rarity. */
+export type UttuNameFallback = Pick<SupplementNameMetadata, "baseId" | "names">;
+
 export interface NamePolicyDiagnostic {
   characterId: string;
   kind: "missing-arcanist" | "missing-kornblume-name" | "missing-kornblume-metadata";
@@ -116,6 +119,7 @@ export function applyNamePolicy(input: {
   snapshot: NameSourceSnapshot;
   localizedOverrides: readonly LocalizedNameOverride[];
   supplementMetadata?: readonly SupplementNameMetadata[];
+  uttuNames?: readonly UttuNameFallback[];
 }): NamePolicyResult {
   assertUniquePolicyInputs(input.arcanists, input.localizedOverrides);
   const characters = cloneCharacters(input.characters);
@@ -180,15 +184,16 @@ export function applyNamePolicy(input: {
       continue;
     }
 
-    const names: Partial<Record<NameLang, string>> = {};
+    // Seed with persisted names so a language this generation lacks is not erased.
+    const names: Partial<Record<NameLang, string>> = { ...character.names };
+    let kornblumeNamesApplied = false;
     for (const lang of NAME_LANGS) {
       const name = namesByLang[lang][slug];
-      if (name) names[lang] = name;
+      if (!name) continue;
+      names[lang] = name;
+      kornblumeNamesApplied = true;
     }
-    if (!names["en-US"] && character.names?.["en-US"]) {
-      names["en-US"] = character.names["en-US"];
-    }
-    if (Object.keys(names).length > 0) {
+    if (kornblumeNamesApplied) {
       character.names = names;
       namesApplied++;
     }
@@ -243,8 +248,6 @@ export function applyNamePolicy(input: {
     ])
   );
   let globalEnglishApplied = 0;
-  let englishFallback = 0;
-  let englishMissing = 0;
   for (const character of characters) {
     const globalName = globalEnglishNames.get(character.baseId)?.trim() || undefined;
     const fallbackName = character.names?.["en-US"]?.trim() || undefined;
@@ -255,21 +258,26 @@ export function applyNamePolicy(input: {
       character.names["en-US"] = englishName;
     }
     if (globalName) globalEnglishApplied++;
-    else if (fallbackName || existingName) englishFallback++;
-    else englishMissing++;
   }
 
   // UTTU is always the last name fallback: it fills only languages that remain
-  // empty after GL, Kornblume, manual overrides and existing local data.
+  // empty after GL, Kornblume, manual overrides and existing local data. Live
+  // profiles cover every existing Character; admitted supplements cover the rest.
+  const liveUttuByBase = new Map(
+    (input.uttuNames ?? []).map((entry) => [entry.baseId, entry])
+  );
   for (const character of characters) {
+    const live = liveUttuByBase.get(character.baseId);
     const supplement = supplementByBase.get(character.baseId);
-    if (!supplement) continue;
-    character.names ??= {};
-    for (const lang of NAME_LANGS) {
-      const fallback = supplement.names[lang];
-      if (!character.names[lang] && fallback) character.names[lang] = fallback;
+    if (live || supplement) {
+      character.names ??= {};
+      for (const lang of NAME_LANGS) {
+        if (character.names[lang]) continue;
+        const fallback = live?.names[lang] ?? supplement?.names[lang];
+        if (fallback) character.names[lang] = fallback;
+      }
     }
-    if (character.rarity === undefined && supplement.rarity !== undefined) {
+    if (character.rarity === undefined && supplement?.rarity !== undefined) {
       character.rarity = supplement.rarity;
     }
   }
@@ -282,6 +290,8 @@ export function applyNamePolicy(input: {
       ordered.filter((character) => !character.names?.[lang]).length,
     ])
   ) as Record<NameLang, number>;
+  const englishMissing = missingByLang["en-US"];
+  const englishFallback = ordered.length - globalEnglishApplied - englishMissing;
 
   return {
     characters: ordered,

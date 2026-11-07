@@ -7,17 +7,15 @@ import type {
   CnDeprecatedEntry,
   CnMappedCharacterMetadata,
 } from "./cn-ingestion";
+import { NAME_LANGS, type NameLang } from "./name-source";
 import {
   normalizeUttuName,
   UTTU_ASSET_BASE_URL,
   UTTU_GARMENTS_URL,
-  UTTU_NAME_LANGS,
   UTTU_PROFILES_URL,
   type UttuCatalog,
   type UttuGarment,
-  type UttuNameLang,
 } from "./uttu-parser";
-import type { NameLang } from "./name-source";
 import type { Character, CharacterSkin, PendingCharacter } from "./types";
 
 export const UTTU_SUPPLEMENT_SCHEMA_VERSION = 1;
@@ -103,14 +101,14 @@ function readNames(value: unknown, label: string): Partial<Record<NameLang, stri
   }
   const names: Partial<Record<NameLang, string>> = {};
   for (const key of Object.keys(value)) {
-    if (!(UTTU_NAME_LANGS as readonly string[]).includes(key)) {
+    if (!(NAME_LANGS as readonly string[]).includes(key)) {
       throw new UttuSupplementError(`${label} has unsupported name language: ${key}`);
     }
     const name = normalizeUttuName(value[key]);
     if (!name) {
       throw new UttuSupplementError(`${label} has an empty or N/A name for ${key}`);
     }
-    names[key as UttuNameLang] = name;
+    names[key as NameLang] = name;
   }
   if (!names["zh-CN"] || !names["en-US"]) {
     throw new UttuSupplementError(`${label} names require zh-CN and en-US`);

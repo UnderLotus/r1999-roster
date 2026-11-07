@@ -8,7 +8,11 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { refreshNameSourceCache } from "./fetch-name-sources";
+import {
+  fetchUttuProfileNames,
+  refreshNameSourceCache,
+  type UttuProfileNameRefresh,
+} from "./fetch-name-sources";
 import {
   loadNameSourceCache,
   NAME_SOURCE_CACHE_FILE,
@@ -50,6 +54,8 @@ export interface NameSyncDependencies {
   loadArcanists(): ArcanistMapEntry[];
   loadLocalizedOverrides(): LocalizedNameOverride[];
   loadSupplementMetadata?(): SupplementNameMetadata[];
+  /** Optional so offline tests stay deterministic; live UTTU never gates the primary sources. */
+  refreshUttuNames?(): Promise<UttuProfileNameRefresh>;
   writeCharacters(characters: Character[]): void;
   warn(message: string): void;
 }
@@ -81,12 +87,34 @@ export async function runNameSync(
     sourceMode = "last-known-good";
   }
 
+  let uttuNames: UttuProfileNameRefresh["names"] = [];
+  if (dependencies.refreshUttuNames) {
+    try {
+      const uttu = await dependencies.refreshUttuNames();
+      uttuNames = uttu.names;
+      for (const diagnostic of uttu.diagnostics.slice(0, 10)) {
+        dependencies.warn(diagnostic);
+      }
+      if (uttu.diagnostics.length > 10) {
+        dependencies.warn(
+          `... +${uttu.diagnostics.length - 10} more UTTU profile diagnostics`
+        );
+      }
+    } catch (error) {
+      if (!(error instanceof NameSourceError)) throw error;
+      dependencies.warn(
+        `UTTU name fallback unavailable; continuing without it: ${error.message}`
+      );
+    }
+  }
+
   const result = applyNamePolicy({
     characters: dependencies.loadCharacters(),
     arcanists: dependencies.loadArcanists(),
     snapshot,
     localizedOverrides: dependencies.loadLocalizedOverrides(),
     supplementMetadata: dependencies.loadSupplementMetadata?.(),
+    uttuNames,
   });
   dependencies.writeCharacters(result.characters);
   return { ...result, sourceMode };
@@ -136,6 +164,7 @@ async function main(): Promise<void> {
     loadLocalizedOverrides: () =>
       loadJson<LocalizedNameOverride[]>(localizedOverridesFile),
     loadSupplementMetadata: () => supplementMetadata,
+    refreshUttuNames: fetchUttuProfileNames,
     writeCharacters: (characters) =>
       writeFileSync(
         charactersFile,
