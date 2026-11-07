@@ -23,6 +23,12 @@ export interface CnMappedCharacterMetadata {
   readonly skins: readonly CharacterSkin[];
   readonly defaultVariant: string;
   readonly insightVariant?: string;
+  /** Validated UTTU fallback names, never used to replace primary metadata. */
+  readonly names?: Record<string, string>;
+  /** Validated UTTU rarity for a supplement character before primary catches up. */
+  readonly rarity?: number;
+  /** True only for a fully admitted UTTU character absent from the CN mapping. */
+  readonly supplementary?: boolean;
 }
 
 export interface CnDeprecatedEntry {
@@ -151,6 +157,8 @@ function createNewCharacter(mapped: CnMappedCharacterMetadata): Character {
     defaultVariant: mapped.defaultVariant,
     stage: "pending-names",
     isReleased: false,
+    ...(mapped.names ? { names: { ...mapped.names } } : {}),
+    ...(mapped.rarity === undefined ? {} : { rarity: mapped.rarity }),
   };
 }
 
@@ -269,10 +277,10 @@ function validateMappedCharacters(
 
 /**
  * Build the complete deterministic CN decision plan without touching input
- * records. Source completeness and local-default completeness intentionally
- * remain separate projections: sync requires every mapped source PNG, while
- * standalone build:characters historically admits a new Character when only
- * its mapped default local avatar exists.
+ * records. Primary Characters keep separate sync/build readiness projections:
+ * sync requires every mapped source PNG, while standalone build:characters
+ * historically admits one when only its mapped default local avatar exists.
+ * Supplement Characters require every mapped local avatar in both projections.
  */
 export function planCnIngestion(input: CnIngestionInput): CnIngestionPlan {
   const currentByBaseId = validateUniqueBaseIds(input.currentCharacters, "current Character");
@@ -296,14 +304,19 @@ export function planCnIngestion(input: CnIngestionInput): CnIngestionPlan {
   const syncReady: Character[] = [];
   const syncPending: PendingCharacter[] = [];
   for (const mapped of eligibleNew) {
-    const missing = missingVariantIds(mapped, input.sourceImageIds, true);
+    const available = mapped.supplementary
+      ? input.localImageIds
+      : input.sourceImageIds;
+    const missing = missingVariantIds(mapped, available, true);
     if (missing.length === 0) {
       syncReady.push(createNewCharacter(mapped));
     } else {
       syncPending.push(
         pendingCharacter(
           mapped,
-          `headicon missing in CN asset repo: ${missing.join(", ")}`
+          mapped.supplementary
+            ? `supplemental headicon missing: ${missing.join(", ")}`
+            : `headicon missing in CN asset repo: ${missing.join(", ")}`
         )
       );
     }
@@ -312,12 +325,21 @@ export function planCnIngestion(input: CnIngestionInput): CnIngestionPlan {
   const buildReady: Character[] = [];
   const buildPending: PendingCharacter[] = [];
   for (const mapped of eligibleNew) {
-    const missing = missingVariantIds(mapped, input.localImageIds, false);
+    const missing = missingVariantIds(
+      mapped,
+      input.localImageIds,
+      mapped.supplementary === true
+    );
     if (missing.length === 0) {
       buildReady.push(createNewCharacter(mapped));
     } else {
       buildPending.push(
-        pendingCharacter(mapped, "headicon not yet in CN asset repo")
+        pendingCharacter(
+          mapped,
+          mapped.supplementary
+            ? `supplemental headicon missing: ${missing.join(", ")}`
+            : "headicon not yet in CN asset repo"
+        )
       );
     }
   }

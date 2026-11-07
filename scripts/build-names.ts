@@ -13,19 +13,26 @@ import {
   loadNameSourceCache,
   NAME_SOURCE_CACHE_FILE,
 } from "./name-source-cache";
+import { mapCnCharacterMetadata, type ArcanistEntryFull } from "./cn-ingestion";
 import {
   applyNamePolicy,
   type ArcanistMapEntry,
   type LocalizedNameOverride,
   type NamePolicyResult,
+  type SupplementNameMetadata,
 } from "./name-policy";
 import { NameSourceError, type NameSourceSnapshot } from "./name-source";
 import type { Character } from "./types";
+import {
+  loadUttuSupplement,
+  mergeUttuSupplement,
+} from "./uttu-supplement";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, "..");
 const charactersFile = path.join(root, "src/data/characters.json");
 const arcanistMapFile = path.join(scriptDirectory, "data/ArcanistMap.json");
+const uttuSupplementFile = path.join(scriptDirectory, "data/uttu-supplement.json");
 const japaneseOverridesFile = path.join(
   scriptDirectory,
   "data/jp-name-overrides.json"
@@ -42,6 +49,7 @@ export interface NameSyncDependencies {
   loadCharacters(): Character[];
   loadArcanists(): ArcanistMapEntry[];
   loadLocalizedOverrides(): LocalizedNameOverride[];
+  loadSupplementMetadata?(): SupplementNameMetadata[];
   writeCharacters(characters: Character[]): void;
   warn(message: string): void;
 }
@@ -78,6 +86,7 @@ export async function runNameSync(
     arcanists: dependencies.loadArcanists(),
     snapshot,
     localizedOverrides: dependencies.loadLocalizedOverrides(),
+    supplementMetadata: dependencies.loadSupplementMetadata?.(),
   });
   dependencies.writeCharacters(result.characters);
   return { ...result, sourceMode };
@@ -89,6 +98,31 @@ function loadJson<Value>(file: string): Value {
 
 async function main(): Promise<void> {
   console.log("build:names — normalized sources → deterministic name policy\n");
+  const primaryArcanists = loadJson<ArcanistEntryFull[]>(arcanistMapFile);
+  const effectiveCatalog = mergeUttuSupplement(
+    primaryArcanists.map(mapCnCharacterMetadata),
+    loadUttuSupplement(uttuSupplementFile)
+  );
+  for (const diagnostic of effectiveCatalog.diagnostics) {
+    console.warn(`⚠ ${diagnostic}`);
+  }
+  if (effectiveCatalog.returnedToPrimary.length > 0) {
+    console.log(
+      `UTTU returned to primary: ${effectiveCatalog.returnedToPrimary.join(", ")}`
+    );
+  }
+  const effectiveArcanists: ArcanistMapEntry[] =
+    effectiveCatalog.mappedCharacters.map((mapped) => ({
+      id: mapped.baseId,
+      name: mapped.name,
+      nameEng: mapped.nameEng,
+    }));
+  const supplementMetadata: SupplementNameMetadata[] =
+    effectiveCatalog.supplement.characters.map((character) => ({
+      baseId: character.baseId,
+      names: { ...character.names },
+      rarity: character.rarity,
+    }));
   const result = await runNameSync({
     refreshSources: () =>
       refreshNameSourceCache({
@@ -98,9 +132,10 @@ async function main(): Promise<void> {
     loadCachedSources: () => loadNameSourceCache(NAME_SOURCE_CACHE_FILE),
     cacheExists: () => existsSync(NAME_SOURCE_CACHE_FILE),
     loadCharacters: () => loadJson<Character[]>(charactersFile),
-    loadArcanists: () => loadJson<ArcanistMapEntry[]>(arcanistMapFile),
+    loadArcanists: () => effectiveArcanists,
     loadLocalizedOverrides: () =>
       loadJson<LocalizedNameOverride[]>(localizedOverridesFile),
+    loadSupplementMetadata: () => supplementMetadata,
     writeCharacters: (characters) =>
       writeFileSync(
         charactersFile,
@@ -121,6 +156,9 @@ async function main(): Promise<void> {
   console.log(
     `en-US: global ${summary.globalEnglishApplied}/${result.characters.length}; ` +
       `fallback/existing ${summary.englishFallback}; missing ${summary.englishMissing}`
+  );
+  console.log(
+    `UTTU fallback metadata: ${supplementMetadata.length} characters`
   );
   console.log("releaseOrder recalculated");
   console.log("\n=== summary ===");

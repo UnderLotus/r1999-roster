@@ -190,6 +190,44 @@ assert.equal(
   "mapped characters retain Wiki rarity without a Kornblume match"
 );
 
+const supplementResult = applyNamePolicy({
+  characters: [
+    character("uttu-new", 123, {
+      names: {
+        "zh-CN": "既有中文",
+        "en-US": "Existing English",
+        "ja-JP": "Manual Japanese",
+      },
+    }),
+  ],
+  arcanists: [],
+  snapshot: fixtureSnapshot,
+  localizedOverrides: [],
+  supplementMetadata: [
+    {
+      baseId: 123,
+      names: {
+        "zh-CN": "UTTU 中文",
+        "zh-TW": "UTTU 繁體",
+        "en-US": "UTTU English",
+        "ja-JP": "UTTU Japanese",
+      },
+      rarity: 4,
+    },
+  ],
+});
+const supplementCharacter = supplementResult.characters[0];
+assert.equal(supplementCharacter?.names?.["zh-CN"], "既有中文", "supplement does not overwrite an existing CN name");
+assert.equal(supplementCharacter?.names?.["en-US"], "Existing English", "supplement does not overwrite an existing English name");
+assert.equal(supplementCharacter?.names?.["ja-JP"], "Manual Japanese", "an existing Japanese name is preserved over the UTTU fallback");
+assert.equal(supplementCharacter?.names?.["zh-TW"], "UTTU 繁體", "UTTU fills only still-empty languages");
+assert.equal(supplementCharacter?.rarity, 4, "supplement seeds rarity without a Kornblume match");
+assert.equal(
+  supplementResult.diagnostics.some((entry) => entry.characterId === "uttu-new"),
+  false,
+  "an admitted supplement character is not reported as an unknown ArcanistMap character"
+);
+
 const fallbackResult = applyNamePolicy({
   characters: [
     character("existing-only", 998, {

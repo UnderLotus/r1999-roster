@@ -17,6 +17,13 @@ export type LocalizedNameOverride = { nameEng: string } & Partial<
   Record<NameLang, string>
 >;
 
+/** Validated UTTU fallback names for a character absent from the CN mapping. */
+export interface SupplementNameMetadata {
+  baseId: number;
+  names: Partial<Record<NameLang, string>>;
+  rarity?: number;
+}
+
 export interface NamePolicyDiagnostic {
   characterId: string;
   kind: "missing-arcanist" | "missing-kornblume-name" | "missing-kornblume-metadata";
@@ -108,6 +115,7 @@ export function applyNamePolicy(input: {
   arcanists: readonly ArcanistMapEntry[];
   snapshot: NameSourceSnapshot;
   localizedOverrides: readonly LocalizedNameOverride[];
+  supplementMetadata?: readonly SupplementNameMetadata[];
 }): NamePolicyResult {
   assertUniquePolicyInputs(input.arcanists, input.localizedOverrides);
   const characters = cloneCharacters(input.characters);
@@ -122,18 +130,33 @@ export function applyNamePolicy(input: {
     Object.entries(namesByLang["zh-CN"]).map(([slug, name]) => [name, slug])
   );
   const arcanistByBase = new Map(input.arcanists.map((entry) => [entry.id, entry]));
+  const supplementByBase = new Map(
+    (input.supplementMetadata ?? []).map((entry) => [entry.baseId, entry])
+  );
   const diagnostics: NamePolicyDiagnostic[] = [];
   let namesApplied = 0;
   let rarityApplied = 0;
 
   for (const character of characters) {
     const mapEntry = arcanistByBase.get(character.baseId);
+    const supplement = supplementByBase.get(character.baseId);
     if (!mapEntry) {
-      diagnostics.push({
-        characterId: character.id,
-        kind: "missing-arcanist",
-        detail: `baseId ${character.baseId} not in ArcanistMap`,
-      });
+      if (!supplement) {
+        diagnostics.push({
+          characterId: character.id,
+          kind: "missing-arcanist",
+          detail: `baseId ${character.baseId} not in ArcanistMap`,
+        });
+        continue;
+      }
+      character.names ??= {};
+      const zhName = supplement.names["zh-CN"];
+      const enName = supplement.names["en-US"];
+      if (!character.names["zh-CN"] && zhName) character.names["zh-CN"] = zhName;
+      if (!character.names["en-US"] && enName) character.names["en-US"] = enName;
+      if (character.rarity === undefined && supplement.rarity !== undefined) {
+        character.rarity = supplement.rarity;
+      }
       continue;
     }
     const slug = chineseToSlug.get(mapEntry.name);
@@ -234,6 +257,21 @@ export function applyNamePolicy(input: {
     if (globalName) globalEnglishApplied++;
     else if (fallbackName || existingName) englishFallback++;
     else englishMissing++;
+  }
+
+  // UTTU is always the last name fallback: it fills only languages that remain
+  // empty after GL, Kornblume, manual overrides and existing local data.
+  for (const character of characters) {
+    const supplement = supplementByBase.get(character.baseId);
+    if (!supplement) continue;
+    character.names ??= {};
+    for (const lang of NAME_LANGS) {
+      const fallback = supplement.names[lang];
+      if (!character.names[lang] && fallback) character.names[lang] = fallback;
+    }
+    if (character.rarity === undefined && supplement.rarity !== undefined) {
+      character.rarity = supplement.rarity;
+    }
   }
 
   const ordered = recalculateReleaseOrder(characters);

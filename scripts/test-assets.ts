@@ -10,6 +10,7 @@ import {
   convertPngToLosslessWebp,
   validateImageParity,
 } from "./webp-converter";
+import { validateSupplementWebp } from "./uttu-supplement";
 
 const width = 3;
 const height = 2;
@@ -55,8 +56,8 @@ async function testRepositoryAssets(): Promise<void> {
     assert.equal(metadata.format, "webp", `${file} is WebP`);
     assert.equal(metadata.height, 524, `${file} has expected height`);
     assert.ok(
-      metadata.width === 224 || metadata.width === 228,
-      `${file} has expected width`
+      Number.isInteger(metadata.width) && (metadata.width ?? 0) > 0,
+      `${file} has valid decoded width`
     );
     const decoded = await sharp(filePath)
       .ensureAlpha()
@@ -107,6 +108,42 @@ try {
 
   const filesAfterSuccess = await readdir(directory);
   assert.deepEqual(filesAfterSuccess.sort(), ["fixture.png", "fixture.webp"]);
+
+  assert.deepEqual(
+    await validateSupplementWebp(outputPath),
+    { width, height },
+    "lossless supplemental WebP passes decoded dimension/alpha validation"
+  );
+
+  const lossyPath = path.join(directory, "lossy.webp");
+  await sharp(pixels, { raw: { width, height, channels: 4 } })
+    .webp({ lossless: false, quality: 80 })
+    .toFile(lossyPath);
+  await assert.rejects(
+    () => validateSupplementWebp(lossyPath),
+    /not a lossless WebP/,
+    "lossy WebP cannot enter the supplemental asset inventory"
+  );
+
+  const disguisedPngPath = path.join(directory, "disguised.webp");
+  await writePng(disguisedPngPath, pixels);
+  await assert.rejects(
+    () => validateSupplementWebp(disguisedPngPath),
+    /not a lossless WebP/,
+    "a PNG renamed as WebP is rejected"
+  );
+
+  const noAlphaPath = path.join(directory, "no-alpha.webp");
+  await sharp(Buffer.from([255, 0, 0, 0, 255, 0, 0, 0, 255]), {
+    raw: { width: 1, height: 1, channels: 3 },
+  })
+    .webp({ lossless: true, effort: 6 })
+    .toFile(noAlphaPath);
+  await assert.rejects(
+    () => validateSupplementWebp(noAlphaPath),
+    /no alpha channel/,
+    "supplemental images must retain an alpha channel"
+  );
 
   const mismatchedPixels = Buffer.from(pixels);
   mismatchedPixels[0] = 254;

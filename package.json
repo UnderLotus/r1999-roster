@@ -1,13 +1,13 @@
 {
   "name": "r1999-roster",
   "private": true,
-  "version": "1.9.5",
+  "version": "1.10.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b --pretty false",
-    "test": "npm run test:assets && npm run test:cn-ingestion && npm run test:cn-pipeline && npm run test:names && npm run test:name-sources && npm run test:release && npm run test:box && npm run test:variant-identity && npm run test:export && npm run test:store && npm run test:storage && npm run test:lock && npm run test:share && npm run test:wiki",
+    "test": "npm run test:assets && npm run test:cn-ingestion && npm run test:cn-pipeline && npm run test:uttu-supplement && npm run test:names && npm run test:name-sources && npm run test:release && npm run test:box && npm run test:variant-identity && npm run test:export && npm run test:store && npm run test:storage && npm run test:lock && npm run test:share && npm run test:wiki",
     "test:box": "tsx scripts/test-box.ts",
     "test:variant-identity": "tsx scripts/test-variant-identity.ts",
     "test:export": "tsx scripts/test-export-job.ts",
@@ -22,6 +22,7 @@
     "test:assets": "tsx scripts/test-assets.ts",
     "test:cn-ingestion": "tsx scripts/test-cn-ingestion.ts",
     "test:cn-pipeline": "tsx scripts/test-cn-pipeline.ts",
+    "test:uttu-supplement": "tsx scripts/test-uttu-supplement.ts",
     "build:names": "tsx scripts/locked-stage.ts scripts/build-names.ts",
     "build:id-map": "tsx scripts/build-id-map.ts",
     "build:characters": "tsx scripts/locked-stage.ts scripts/build-characters.ts",

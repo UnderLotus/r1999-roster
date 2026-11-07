@@ -23,12 +23,19 @@ import {
   type ArcanistEntryFull,
 } from "./cn-ingestion";
 import { recalculateReleaseOrder } from "./recalculate-order";
+import {
+  findMissingSupplementImages,
+  loadUttuSupplement,
+  mergeUttuSupplement,
+  saveUttuSupplement,
+} from "./uttu-supplement";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const DATA_FILE = path.join(ROOT, "src/data/characters.json");
 const ARCANIST_MAP = path.join(__dirname, "data/ArcanistMap.json");
 const PENDING_FILE = path.join(__dirname, "data/pending-characters.json");
+const UTTU_SUPPLEMENT_FILE = path.join(__dirname, "data/uttu-supplement.json");
 const AVATARS_DIR = path.join(ROOT, "public/assets/characters/avatars");
 
 function loadJSON<T>(file: string): T {
@@ -113,8 +120,30 @@ function main(): void {
   }
 
   const arcanists = loadJSON<ArcanistEntryFull[]>(ARCANIST_MAP);
-  const mappedCharacters = arcanists.map(mapCnCharacterMetadata);
+  const primaryMapped = arcanists.map(mapCnCharacterMetadata);
+  const effectiveCatalog = mergeUttuSupplement(
+    primaryMapped,
+    loadUttuSupplement(UTTU_SUPPLEMENT_FILE)
+  );
+  for (const diagnostic of effectiveCatalog.diagnostics) {
+    console.warn(`⚠ ${diagnostic}`);
+  }
+  if (effectiveCatalog.returnedToPrimary.length > 0) {
+    console.log(
+      `UTTU returned to primary: ${effectiveCatalog.returnedToPrimary.join(", ")}`
+    );
+  }
+  const mappedCharacters = effectiveCatalog.mappedCharacters;
   const characters = loadJSON<Character[]>(DATA_FILE);
+  const missingSupplementImages = findMissingSupplementImages(
+    effectiveCatalog.supplement,
+    collectLocalImageIds()
+  );
+  if (missingSupplementImages.length > 0) {
+    throw new Error(
+      `Admitted UTTU variants are missing production images: ${missingSupplementImages.join(", ")}`
+    );
+  }
   const existingCharacterCount = characters.length;
   const existingBaseIds = new Set(characters.map((character) => character.baseId));
   const plan = planCnIngestion({
@@ -162,6 +191,13 @@ function main(): void {
     JSON.stringify(plan.build.pendingNewCharacters, null, 2) + "\n",
     "utf-8"
   );
+  if (
+    existsSync(UTTU_SUPPLEMENT_FILE) ||
+    effectiveCatalog.supplement.characters.length > 0 ||
+    effectiveCatalog.supplement.skins.length > 0
+  ) {
+    saveUttuSupplement(UTTU_SUPPLEMENT_FILE, effectiveCatalog.supplement);
+  }
 
   console.log(`=== 摘要 ===`);
   console.log(`現有角色: ${existingBaseIds.size} 名`);
@@ -172,6 +208,10 @@ function main(): void {
     `待定角色: ${plan.build.pendingNewCharacters.length} 名（見 pending-characters.json）`
   );
   console.log(`略過廢棄角色: ${plan.deprecatedSkips.length} 名`);
+  console.log(
+    `UTTU supplementary: ${effectiveCatalog.supplement.characters.length} characters, ` +
+      `${effectiveCatalog.supplement.skins.length} skins`
+  );
   console.log(`排序分配: Wiki ${wikiCount} / Kornblume ${kbCount} / CN Asset ${assetCount}`);
   if (plan.build.pendingNewCharacters.length > 0) {
     console.log(

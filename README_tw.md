@@ -39,6 +39,7 @@ React + TypeScript + Vite + Zustand。資料同步腳本說明請見
 角色資料、名稱與圖片來源：
 
 - [CN 客戶端素材 (myssal/Reverse-1999-CN-Asset)](https://github.com/myssal/Reverse-1999-CN-Asset) — 角色 ID、Skin 變體與來源圖片
+- [UTTU](https://uttu.merui.net/) — 增量補充角色與 Skin 的 ID、名稱及圖片
 - [Global 客戶端解包資料 (St-Pavlov-Foundation/re1999-data-global)](https://github.com/St-Pavlov-Foundation/re1999-data-global) — 官方英文顯示名稱
 - [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
 - [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)

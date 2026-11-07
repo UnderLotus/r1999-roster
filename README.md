@@ -44,6 +44,7 @@ React + TypeScript + Vite + Zustand. See
 Character data, names, and images are sourced from:
 
 - [CN Client Assets (myssal/Reverse-1999-CN-Asset)](https://github.com/myssal/Reverse-1999-CN-Asset) — character IDs, skin variants, and source images
+- [UTTU](https://uttu.merui.net/) — supplemental character and skin IDs, names, and images
 - [Global Client Unpack Data (St-Pavlov-Foundation/re1999-data-global)](https://github.com/St-Pavlov-Foundation/re1999-data-global) — official English display names
 - [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
 - [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)

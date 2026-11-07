@@ -5,6 +5,7 @@ import {
   mkdtemp,
   mkdir,
   readFile,
+  readdir,
   rm,
   symlink,
   writeFile,
@@ -33,6 +34,7 @@ import {
   reportSyncDiagnostics,
 } from "./sync-assets";
 import type { Character } from "./types";
+import { validateImageParity } from "./webp-converter";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const execFileAsync = promisify(execFile);
@@ -44,6 +46,8 @@ const CLI_SOURCE_FILES = [
   "skin-utils.ts",
   "sync-assets.ts",
   "types.ts",
+  "uttu-parser.ts",
+  "uttu-supplement.ts",
   "webp-converter.ts",
 ] as const;
 
@@ -174,6 +178,9 @@ async function runSyncCli(): Promise<Character[]> {
     await mkdir(path.join(assetRepo, ".git"), { recursive: true });
     await mkdir(path.join(assetRepo, "mappings"), { recursive: true });
     await writeFile(path.join(fakeBin, "git"), "#!/bin/sh\nexit 0\n", { mode: 0o755 });
+    // The CLI fixture must not touch the live UTTU site; its outage path keeps
+    // the already-admitted (empty) supplement and continues the CN stages.
+    await writeFile(path.join(fakeBin, "curl"), "#!/bin/sh\nexit 22\n", { mode: 0o755 });
     await writeFile(
       path.join(assetRepo, "mappings", "ArcanistMap.json"),
       JSON.stringify([mappedEntry], null, 2) + "\n"
@@ -194,6 +201,291 @@ async function runSyncCli(): Promise<Character[]> {
     return JSON.parse(
       await readFile(path.join(fixtureRoot, "src", "data", "characters.json"), "utf8")
     ) as Character[];
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+    await rm(fakeBin, { recursive: true, force: true });
+  }
+}
+
+async function readFixturePersistentState(
+  fixtureRoot: string
+): Promise<Record<string, string>> {
+  const state: Record<string, string> = {};
+  for (const file of [
+    "src/data/characters.json",
+    "scripts/data/uttu-supplement.json",
+    "scripts/data/ArcanistMap.json",
+    "scripts/data/pending-characters.json",
+    "scripts/data/avatar-hash-cache.json",
+  ]) {
+    state[file] = await readFile(path.join(fixtureRoot, file), "base64");
+  }
+  const avatarDirectory = path.join(
+    fixtureRoot,
+    "public",
+    "assets",
+    "characters",
+    "avatars"
+  );
+  for (const file of (await readdir(avatarDirectory)).sort()) {
+    state[`avatars/${file}`] = await readFile(
+      path.join(avatarDirectory, file),
+      "base64"
+    );
+  }
+  return state;
+}
+
+async function runUttuPrimaryPngSyncCli(): Promise<void> {
+  const fixtureRoot = await createCliFixture();
+  const assetRepo = path.join(fixtureRoot, "asset-sync");
+  const sourceDir = path.join(assetRepo, "singlebg", "headicon_middle");
+  const fakeBin = await mkdtemp(path.join(os.tmpdir(), "r1999-cn-fake-curl-"));
+  try {
+    const mappedEntry = entry(7400, [{ id: 740001, des: "初始立绘" }]);
+    const existing = character(7400, [
+      { variantId: "740001", type: "default", skinName: null, skinNameEng: null },
+    ], { id: "existing-uttu-id" });
+    await mkdir(sourceDir, { recursive: true });
+    await mkdir(path.join(assetRepo, ".git"), { recursive: true });
+    await mkdir(path.join(assetRepo, "mappings"), { recursive: true });
+    await writeFile(path.join(fakeBin, "git"), "#!/bin/sh\nexit 0\n", { mode: 0o755 });
+
+    const profilesFile = path.join(fixtureRoot, "uttu-profiles.html");
+    const garmentsFile = path.join(fixtureRoot, "uttu-garments.html");
+    await writeFile(
+      profilesFile,
+      `<script>const profiles=[{ID:7400,Name:"Existing",Rarity:5,LocaleName:{en:"Existing",zh:"角色 7400",tw:"角色 7400"}}]</script>\n`
+    );
+    await writeFile(
+      garmentsFile,
+      `<script>const garments=[
+        {profile:{ID:7400},garment:{id:740001,name:{en:"Default",zh:"Default"},category:"default",global:!0}},
+        {profile:{ID:7400},garment:{id:740003,name:{en:"Primary PNG Skin",zh:"主來源圖時裝"},category:"advanced",global:!1}}
+      ]</script>\n`
+    );
+    await writeFile(
+      path.join(fakeBin, "curl"),
+      `#!/bin/sh
+for last; do :; done
+case "$last" in
+  */profiles/) cat ${JSON.stringify(profilesFile)}; exit 0;;
+  */garments/) cat ${JSON.stringify(garmentsFile)}; exit 0;;
+  *) exit 22;;
+esac
+`,
+      { mode: 0o755 }
+    );
+
+    await writeFile(
+      path.join(assetRepo, "mappings", "ArcanistMap.json"),
+      JSON.stringify([mappedEntry], null, 2) + "\n"
+    );
+    await writeFile(
+      path.join(fixtureRoot, "src", "data", "characters.json"),
+      JSON.stringify([existing], null, 2) + "\n"
+    );
+    await writeFile(path.join(fixtureRoot, "scripts", "data", "ArcanistMap.json"), "[]\n");
+    await writeFixturePng(path.join(sourceDir, "740001.png"));
+    await writeFixturePng(path.join(sourceDir, "740003.png"));
+
+    const sourcePath = path.join(fixtureRoot, "scripts", "sync-assets.ts");
+    const source = await readFile(sourcePath, "utf8");
+    const isolatedSource = source.replace(
+      'const TEMP_DIR = path.join("/", "tmp", "r1999-asset-sync");',
+      'const TEMP_DIR = path.join(ROOT, "asset-sync");'
+    );
+    assert.notEqual(isolatedSource, source, "UTTU fixture isolates the asset repository path");
+    await writeFile(sourcePath, isolatedSource);
+    await executeCli(fixtureRoot, "sync-assets.ts", fakeBin);
+
+    const supplement = JSON.parse(
+      await readFile(path.join(fixtureRoot, "scripts", "data", "uttu-supplement.json"), "utf8")
+    ) as { skins: Array<{ variantId: string }> };
+    assert.equal(
+      supplement.skins.some((skin) => skin.variantId === "740003"),
+      true,
+      "primary PNG readiness admits the candidate even when its UTTU image URL is unavailable"
+    );
+    const converted = path.join(
+      fixtureRoot,
+      "public",
+      "assets",
+      "characters",
+      "avatars",
+      "740003.webp"
+    );
+    await validateImageParity(path.join(sourceDir, "740003.png"), converted);
+    const hashCache = JSON.parse(
+      await readFile(path.join(fixtureRoot, "scripts", "data", "avatar-hash-cache.json"), "utf8")
+    ) as Record<string, { png?: string; uttu?: unknown }>;
+    assert.equal(typeof hashCache["740003"]?.png, "string");
+    assert.equal(hashCache["740003"]?.uttu, undefined);
+
+    await writeFile(
+      profilesFile,
+      `<script>const profiles=[
+        {ID:7400,Name:"Existing",Rarity:5,LocaleName:{en:"Existing",zh:"角色 7400",tw:"角色 7400"}},
+        {ID:9900,Name:"Broken",Rarity:6,LocaleName:{en:"Broken",zh:"损坏",tw:"N/A",jp:"N/A",kr:"N/A"}}
+      ]</script>\n`
+    );
+    await writeFile(
+      garmentsFile,
+      `<script>const garments=[
+        {profile:{ID:7400},garment:{id:740001,name:{en:"Default",zh:"Default"},category:"default",global:!0}},
+        {profile:{ID:7400},garment:{id:740003,name:{en:"Primary PNG Skin",zh:"主來源圖時裝"},category:"advanced",global:!1}},
+        {profile:{ID:9900},garment:{id:990001,name:{en:"Default",zh:"Default"},category:"default",global:!0}},
+        {profile:{ID:9900},garment:{id:990002,name:{en:"Insight One",zh:"洞悉一"},category:"insight",global:!0}},
+        {profile:{ID:9900},garment:{id:990003,name:{en:"Insight Two",zh:"洞悉二"},category:"insight",global:!0}}
+      ]</script>\n`
+    );
+    for (const variantId of ["990001", "990002", "990003"]) {
+      await writeFixturePng(path.join(sourceDir, `${variantId}.png`));
+    }
+    await executeCli(fixtureRoot, "sync-assets.ts", fakeBin);
+    const supplementAfterMalformed = JSON.parse(
+      await readFile(path.join(fixtureRoot, "scripts", "data", "uttu-supplement.json"), "utf8")
+    ) as { characters: unknown[]; skins: Array<{ variantId: string }> };
+    assert.deepEqual(
+      supplementAfterMalformed,
+      supplement,
+      "malformed UTTU metadata preserves the previously admitted supplement"
+    );
+    const rosterAfterMalformed = JSON.parse(
+      await readFile(path.join(fixtureRoot, "src", "data", "characters.json"), "utf8")
+    ) as Character[];
+    assert.equal(
+      rosterAfterMalformed.some((candidate) => candidate.baseId === 9900),
+      false,
+      "malformed UTTU metadata does not abort or mutate primary roster output"
+    );
+
+    const conflictSkins: Character["skins"] = [
+      {
+        variantId: "770001",
+        type: "default",
+        skinName: null,
+        skinNameEng: null,
+      },
+      {
+        variantId: "770002",
+        type: "insight",
+        skinName: "Supplement Insight",
+        skinNameEng: "Supplement Insight",
+      },
+    ];
+    const conflictRosterCharacter: Character = {
+      id: "770001",
+      name: "测试角色",
+      baseId: 7700,
+      releaseOrder: 1,
+      enabled: true,
+      stage: "pending-names",
+      isReleased: false,
+      skins: conflictSkins,
+      defaultVariant: "770001",
+      names: { "zh-CN": "测试角色", "en-US": "Test Character" },
+    };
+    const rosterBeforeConflict = JSON.parse(
+      await readFile(path.join(fixtureRoot, "src", "data", "characters.json"), "utf8")
+    ) as Character[];
+    await writeFile(
+      path.join(fixtureRoot, "src", "data", "characters.json"),
+      JSON.stringify([...rosterBeforeConflict, conflictRosterCharacter], null, 2) + "\n"
+    );
+
+    const supplementBeforeConflict = JSON.parse(
+      await readFile(
+        path.join(fixtureRoot, "scripts", "data", "uttu-supplement.json"),
+        "utf8"
+      )
+    ) as {
+      characters: Array<Record<string, unknown>>;
+      skins: Array<Record<string, unknown>>;
+    } & Record<string, unknown>;
+    const directConflictSupplement = {
+      ...supplementBeforeConflict,
+      characters: [
+        ...supplementBeforeConflict.characters,
+        {
+          baseId: 7700,
+          name: "测试角色",
+          nameEng: "Test Character",
+          names: { "zh-CN": "测试角色", "en-US": "Test Character" },
+          rarity: 5,
+          defaultVariant: "770001",
+          skins: conflictSkins,
+        },
+      ],
+    };
+    const sequentialConflictSupplement = {
+      ...supplementBeforeConflict,
+      skins: [
+        ...supplementBeforeConflict.skins,
+        {
+          baseId: 7700,
+          variantId: "770002",
+          type: "insight",
+          skinName: "Supplement Insight",
+          skinNameEng: "Supplement Insight",
+        },
+      ],
+    };
+    const upstreamMapBeforeConflict = JSON.parse(
+      await readFile(path.join(assetRepo, "mappings", "ArcanistMap.json"), "utf8")
+    ) as ArcanistEntryFull[];
+    await writeFile(
+      path.join(assetRepo, "mappings", "ArcanistMap.json"),
+      JSON.stringify(
+        [
+          ...upstreamMapBeforeConflict,
+          entry(7700, [
+            { id: 770001, des: "初始立绘" },
+            { id: 770009, des: "进阶立绘", name: "Primary Insight" },
+          ]),
+        ],
+        null,
+        2
+      ) + "\n"
+    );
+
+    const expectPublishSafeConflict = async (label: string): Promise<void> => {
+      const before = await readFixturePersistentState(fixtureRoot);
+      await assert.rejects(
+        () => executeCli(fixtureRoot, "sync-assets.ts", fakeBin),
+        (error: unknown) => {
+          const details = error as { code?: number | string; stderr?: string };
+          assert.notEqual(Number(details.code), 0, label);
+          const message = `${String(error)}\n${details.stderr ?? ""}`;
+          assert.match(message, /baseId 7700/, label);
+          assert.match(message, /admitted insight 770002/, label);
+          assert.match(message, /primary 770009/, label);
+          assert.match(message, /Resolve the upstream mapping/, label);
+          return true;
+        },
+        label
+      );
+      assert.deepEqual(
+        await readFixturePersistentState(fixtureRoot),
+        before,
+        label
+      );
+    };
+
+    await writeFile(
+      path.join(fixtureRoot, "scripts", "data", "uttu-supplement.json"),
+      JSON.stringify(directConflictSupplement, null, 2) + "\n"
+    );
+    await expectPublishSafeConflict(
+      "direct supplemental-character catch-up conflict publishes no persistent output"
+    );
+    await writeFile(
+      path.join(fixtureRoot, "scripts", "data", "uttu-supplement.json"),
+      JSON.stringify(sequentialConflictSupplement, null, 2) + "\n"
+    );
+    await expectPublishSafeConflict(
+      "sequential migrated-standalone catch-up conflict publishes no persistent output"
+    );
   } finally {
     await rm(fixtureRoot, { recursive: true, force: true });
     await rm(fakeBin, { recursive: true, force: true });
@@ -426,6 +718,7 @@ assert.ok(
   syncCliRoster.some((candidate) => candidate.baseId === 7100),
   "sync CLI applies the sync plan to the written roster"
 );
+await runUttuPrimaryPngSyncCli();
 const buildCliRoster = await runBuildCli();
 const buildCliCharacter = buildCliRoster.find((candidate) => candidate.baseId === 7400);
 assert.ok(buildCliCharacter);
