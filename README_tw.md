@@ -11,9 +11,9 @@
 角色卡右上方的衣服 Icon ，用來切換角色 Skin（初始、洞悉、時裝）。
 
 搜尋欄位支援全語系角色名稱搜尋，若該語系資料庫未有角色名稱、會優先顯示英文名稱。
-輸入ID可以自由輸入任何文字，會顯示在輸出圖片的中間最上方。
+輸入ID最多 20 個字元，會顯示在輸出圖片的中間最上方。
 星數過濾器右邊為切換預設立繪的按鈕，點擊後可以切換預設為初始或洞悉立繪。
-「分享網址」可直接複製目前 Box 狀態，不需上傳資料或建立帳號。
+「分享網址」可直接複製目前 Box 狀態，不需上傳資料或建立帳號；開啟分享網址時會先確認才覆蓋目前 Box。
 
 最後，由於各國伺服器不同進度問題，預設顯示海外伺服器進度內容。
 中間最上方為未來視按鈕，提供給需要最新進度資料的使用者。
@@ -40,7 +40,7 @@ React + TypeScript + Vite + Zustand。資料同步腳本說明請見
 
 - [CN 客戶端素材 (myssal/Reverse-1999-CN-Asset)](https://github.com/myssal/Reverse-1999-CN-Asset) — 角色 ID、Skin 變體與來源圖片
 - [UTTU](https://uttu.merui.net/) — 增量補充角色與 Skin 的 ID、名稱及圖片
-- [Global 客戶端解包資料 (St-Pavlov-Foundation/re1999-data-global)](https://github.com/St-Pavlov-Foundation/re1999-data-global) — 官方英文顯示名稱
+- [Global 客戶端解包資料 (St-Pavlov-Foundation/re1999-data-global)](https://github.com/St-Pavlov-Foundation/re1999-data-global) — 官方五語系名稱與實裝狀態
 - [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
 - [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)
 - [wikiru (reverse1999.wikiru.jp)](https://reverse1999.wikiru.jp)

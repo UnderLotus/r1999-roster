@@ -15,6 +15,12 @@ export interface UttuProfile {
   readonly rarity: number;
 }
 
+/** Name-only profile projection: admission metadata is deliberately absent. */
+export interface UttuProfileName {
+  readonly baseId: number;
+  readonly names: Partial<Record<NameLang, string>>;
+}
+
 export interface UttuGarment {
   readonly baseId: number;
   readonly variantId: string;
@@ -55,6 +61,14 @@ export function normalizeUttuName(value: unknown): string | null {
   return name;
 }
 
+const UTTU_NAME_LOCALES: ReadonlyArray<[string, NameLang]> = [
+  ["zh", "zh-CN"],
+  ["tw", "zh-TW"],
+  ["en", "en-US"],
+  ["jp", "ja-JP"],
+  ["kr", "ko-KR"],
+];
+
 function localeNames(value: unknown): Record<string, string> {
   if (!isRecord(value)) return {};
   const names: Record<string, string> = {};
@@ -64,6 +78,17 @@ function localeNames(value: unknown): Record<string, string> {
     }
     const name = normalizeUttuName(rawName);
     if (name) names[key] = name;
+  }
+  return names;
+}
+
+/** Project only genuinely supplied UTTU locale keys; never cross-fill languages. */
+function languageNames(value: unknown): Partial<Record<NameLang, string>> {
+  const locales = localeNames(value);
+  const names: Partial<Record<NameLang, string>> = {};
+  for (const [sourceKey, lang] of UTTU_NAME_LOCALES) {
+    const name = locales[sourceKey];
+    if (name) names[lang] = name;
   }
   return names;
 }
@@ -160,13 +185,19 @@ function extractLiteralArrays(html: string): unknown[][] {
   return arrays;
 }
 
-function isProfileRow(value: unknown): value is Record<string, unknown> {
+function isProfileNameRow(value: unknown): value is Record<string, unknown> {
   return (
     isRecord(value) &&
     Number.isSafeInteger(value.ID) &&
     (value.ID as number) > 0 &&
-    (typeof value.Name === "string" || typeof value.Name === "number") &&
     isRecord(value.LocaleName)
+  );
+}
+
+function isProfileRow(value: unknown): value is Record<string, unknown> {
+  return (
+    isProfileNameRow(value) &&
+    (typeof value.Name === "string" || typeof value.Name === "number")
   );
 }
 
@@ -227,9 +258,9 @@ function normalizeProfiles(rows: readonly unknown[]): {
       continue;
     }
 
-    const locales = localeNames(raw.LocaleName);
-    const zh = normalizeUttuName(locales.zh);
-    const en = normalizeUttuName(locales.en) ?? name;
+    const localized = languageNames(raw.LocaleName);
+    const zh = localized["zh-CN"];
+    const en = localized["en-US"] ?? name;
     if (!zh) {
       diagnostics.push(`UTTU profile ${baseId} has no usable zh name; skipped`);
       continue;
@@ -238,16 +269,8 @@ function normalizeProfiles(rows: readonly unknown[]): {
     const names: Partial<Record<NameLang, string>> = {
       "zh-CN": zh,
       "en-US": en,
+      ...localized,
     };
-    const localeMap: Array<[string, NameLang]> = [
-      ["tw", "zh-TW"],
-      ["jp", "ja-JP"],
-      ["kr", "ko-KR"],
-    ];
-    for (const [sourceKey, lang] of localeMap) {
-      const localizedName = normalizeUttuName(locales[sourceKey]);
-      if (localizedName) names[lang] = localizedName;
-    }
 
     profiles.push({
       baseId,
@@ -356,7 +379,12 @@ export interface UttuProfileCatalog {
   readonly diagnostics: readonly string[];
 }
 
-/** Profiles-only slice for name fallback; garments and images stay out of it. */
+export interface UttuProfileNameCatalog {
+  readonly names: readonly UttuProfileName[];
+  readonly diagnostics: readonly string[];
+}
+
+/** Full profile metadata for catalog admission; garments are parsed separately. */
 export function parseUttuProfiles(profilesHtml: string): UttuProfileCatalog {
   const rows = chooseArray(extractLiteralArrays(profilesHtml), isProfileRow, "profile");
   const { profiles, diagnostics } = normalizeProfiles(rows);
@@ -364,6 +392,39 @@ export function parseUttuProfiles(profilesHtml: string): UttuProfileCatalog {
     throw new UttuParseError("UTTU profiles extracted no valid records");
   }
   return { profiles, diagnostics };
+}
+
+/**
+ * Project name-only rows. Recognition needs an exact positive Base ID and a
+ * LocaleName object; Name, Rarity, and CN metadata belong to admission parsing.
+ */
+export function parseUttuProfileNames(profilesHtml: string): UttuProfileNameCatalog {
+  const rows = chooseArray(extractLiteralArrays(profilesHtml), isProfileNameRow, "profile");
+  const names: UttuProfileName[] = [];
+  const diagnostics: string[] = [];
+  const seen = new Set<number>();
+
+  for (const raw of rows) {
+    if (!isProfileNameRow(raw)) continue;
+    const baseId = raw.ID as number;
+    if (seen.has(baseId)) {
+      throw new UttuParseError(`Duplicate UTTU profile ID: ${baseId}`);
+    }
+    seen.add(baseId);
+
+    const localized = languageNames(raw.LocaleName);
+    if (Object.keys(localized).length === 0) {
+      diagnostics.push(`UTTU profile ${baseId} has no usable name; skipped`);
+      continue;
+    }
+    names.push({ baseId, names: localized });
+  }
+
+  if (names.length === 0) {
+    throw new UttuParseError("UTTU profiles extracted no usable names");
+  }
+  names.sort((a, b) => a.baseId - b.baseId);
+  return { names, diagnostics };
 }
 
 /**

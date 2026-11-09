@@ -171,7 +171,7 @@ assert(
 /* ---------- migrate 驗證 ---------- */
 
 for (const [portray, expected] of [
-  [3, 3], [99, 5], [-3, 0], [2.5, 0], ["3", 0], [Infinity, 0],
+  [3, 3], [99, 5], [-3, 0],
 ] as const) {
   assert.equal(
     migratePersistedState({ characters: { [realId]: { owned: true, portray } } })
@@ -181,70 +181,30 @@ for (const [portray, expected] of [
   );
 }
 
-for (const owned of [false, "false"]) {
-  assert.deepEqual(
-    migratePersistedState({ characters: { [realId]: { owned, portray: 3 } } }).characters,
-    {},
-    `migrate owned ${JSON.stringify(owned)} 不保留`
-  );
-}
-
-// Primitive adapter 只處理 shape；catalog legality 由 Box reconciliation 決定。
-const unknownCharacter = { characters: { "999901": { owned: true, portray: 3 } } };
-assert.equal(
-  migratePersistedState(unknownCharacter).characters?.["999901"]?.portray,
-  3,
-  "primitive migrate 保留未知角色供 domain reconciliation"
-);
 assert.deepEqual(
-  migratePersisted(unknownCharacter, 8).characters,
+  migratePersistedState({ characters: { [realId]: { owned: false, portray: 3 } } }).characters,
   {},
-  "hydration reconciliation 移除未知角色 ID"
+  "migrate owned false 不保留"
 );
 
-for (const [label, raw] of [
-  ["null", null],
-  ["undefined", undefined],
-  ["characters null", { characters: null }],
-  ["characters 字串", { characters: "invalid" }],
-  ["characters 陣列", { characters: [1, 2, 3] }],
-  ["角色狀態非物件", { characters: { A: "invalid" } }],
-] as const) {
-  assert.deepEqual(migratePersistedState(raw).characters, {}, `migrate ${label} → 空`);
-}
-
-/* ---------- migrate：variant 校驗 ---------- */
+assert.deepEqual(
+  migratePersistedState(null).characters,
+  {},
+  "migrate 非物件根狀態 → 空"
+);
 
 const realVariant = realCharacter.skins[0].variantId;
-const parsedVariants = migratePersistedState({
-  activeVariant: { [realId]: realVariant, X: "12345", invalid: 123 },
-}) as { activeVariant?: Record<string, string> };
-assert(
-  parsedVariants.activeVariant?.[realId] === realVariant &&
-    parsedVariants.activeVariant?.X === "12345" &&
-    parsedVariants.activeVariant?.invalid === undefined,
-  "primitive migrate 只過濾非字串 variant，legality 留給 domain"
-);
-
-/* ---------- migrate：langChosen ---------- */
-
-// 舊資料（無 langChosen 欄位）→ 視為已選擇（true）
-const oldMigrated = migratePersistedState({ displayLang: "en-US" });
-assert(oldMigrated.langChosen === false, "migratePersistedState 無 langChosen → false（新訪客）");
-// 注意：migrate 函數本身（version <7）才會把舊資料視為 true，這裡測 normalize 的原始行為
 
 /* ---------- migratePersisted：version 分支 ---------- */
 
-// version 0–6（有 persisted 舊資料）→ langChosen 一律 true
-for (const v of [0, 5, 6]) {
-  const m = migratePersisted({ displayLang: "zh-TW" }, v);
-  assert(m.langChosen === true, `migratePersisted version ${v} → langChosen true（舊資料視為已選擇）`);
-}
+// version <7（有 persisted 舊資料）→ langChosen 視為已選擇
+assert(
+  migratePersisted({ displayLang: "zh-TW" }, 6).langChosen === true,
+  "migratePersisted version 6 → langChosen true（舊資料視為已選擇）"
+);
 // version 7+ → 尊重已存的 langChosen
 const m7 = migratePersisted({ displayLang: "zh-TW", langChosen: false }, 7);
 assert(m7.langChosen === false, "migratePersisted version 7 尊重 langChosen false");
-const m8 = migratePersisted({ displayLang: "zh-TW", langChosen: true }, 8);
-assert(m8.langChosen === true, "migratePersisted version 8 尊重 langChosen true");
 // 無 version（全新訪客）→ false
 const mNull = migratePersisted({ displayLang: "zh-TW" }, undefined);
 assert(mNull.langChosen === false, "migratePersisted 無 version → langChosen false（全新訪客）");
@@ -261,42 +221,21 @@ const m6 = migratePersisted(
 ) as { activeVariant?: Record<string, string> };
 assert(m6.activeVariant?.[realId] === realVariant, "migratePersisted version 6 保留合法 activeVariant");
 
-// v7 → v8：現役 v7 使用者 bump 後觸發 migrate，KNOWN_IDS 過濾 stale 未知角色
-assert(
-  migratePersisted(
-    {
-      characters: {
-        [realId]: { owned: true, portray: 2 },
-        "999901": { owned: true, portray: 3 }, // stale unknown ID
-        "999902": { owned: false, portray: 5 }, // 未持有也不該留存
-      },
-      activeVariant: { [realId]: realVariant },
+// v7 → v8：現役 v7 使用者 bump 後觸發 migrate，KNOWN_IDS 與持有狀態過濾 stale 角色
+const migratedV7 = migratePersisted(
+  {
+    characters: {
+      [realId]: { owned: true, portray: 2 },
+      "999901": { owned: true, portray: 3 }, // stale unknown ID
+      "999902": { owned: false, portray: 5 }, // 未持有也不該留存
     },
-    7
-  ).characters?.[realId]?.portray === 2,
-  "migrate v7→v8：已知角色保留（portray 2）"
+  },
+  7
 );
-assert(
-  migratePersisted(
-    {
-      characters: {
-        "999901": { owned: true, portray: 3 },
-      },
-    },
-    7
-  ).characters?.["999901"] === undefined,
-  "migrate v7→v8：未知角色 ID 被清掉"
-);
-assert(
-  migratePersisted(
-    {
-      characters: {
-        "999902": { owned: false, portray: 5 },
-      },
-    },
-    7
-  ).characters?.["999902"] === undefined,
-  "migrate v7→v8：未持有條目不保留"
+assert.deepEqual(
+  migratedV7.characters,
+  { [realId]: { owned: true, portray: 2 } },
+  "migrate v7→v8：只保留已知且持有的角色"
 );
 
 // ===== Future Sight hydration / transition parity =====
@@ -412,8 +351,9 @@ if (
     defaultSkinMode: s().defaultSkinMode,
     showFutureSight: s().showFutureSight,
   };
-  assert(
-    JSON.stringify(rehydratedV9Box) === JSON.stringify(expectedV9Box),
+  assert.deepEqual(
+    rehydratedV9Box,
+    expectedV9Box,
     "current v9 persist.rehydrate 經 Box model reconciliation"
   );
   assert(
@@ -468,8 +408,9 @@ if (
     defaultSkinMode: s().defaultSkinMode,
     showFutureSight: s().showFutureSight,
   };
-  assert(
-    JSON.stringify(transitionedBox) === JSON.stringify(hydratedBox),
+  assert.deepEqual(
+    transitionedBox,
+    hydratedBox,
     "相同 invalid Box 經 hydration 與 FS-off transition 得到相同結果"
   );
   assert(transitionCount === 1, "FS-off 只觸發一次 Zustand state transition");

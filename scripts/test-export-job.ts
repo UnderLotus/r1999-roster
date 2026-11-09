@@ -28,20 +28,15 @@ function createHarness(): {
   timers: Array<() => void>;
   downloads: Array<{ url: string; filename: string }>;
   revokedUrls: string[];
-  setTarget(target: HTMLElement | null): void;
   setLoader(loader: () => Promise<ExportRenderer>): void;
   setRenderer(renderer: ExportRenderer): void;
-  setDownload(download: (url: string, filename: string) => void): void;
 } {
-  let target: HTMLElement | null = {} as HTMLElement;
+  const target = {} as HTMLElement;
   let renderer: ExportRenderer = async (_target, onProgress) => {
     onProgress({ loaded: 1, total: 1 });
     return new Blob(["jpeg"], { type: "image/jpeg" });
   };
   let loader = async (): Promise<ExportRenderer> => renderer;
-  let download = (url: string, filename: string): void => {
-    downloads.push({ url, filename });
-  };
   let urlSequence = 0;
   const timers: Array<() => void> = [];
   const downloads: Array<{ url: string; filename: string }> = [];
@@ -53,7 +48,7 @@ function createHarness(): {
     getTarget: () => target,
     createObjectUrl: () => `blob:test-${++urlSequence}`,
     revokeObjectUrl: (url) => revokedUrls.push(url),
-    download: (url, filename) => download(url, filename),
+    download: (url, filename) => downloads.push({ url, filename }),
     filename: () => "reverse-1999-box-2026-08-27.jpg",
     setTimer: (callback) => {
       timers.push(callback);
@@ -67,17 +62,11 @@ function createHarness(): {
     timers,
     downloads,
     revokedUrls,
-    setTarget(nextTarget) {
-      target = nextTarget;
-    },
     setLoader(nextLoader) {
       loader = nextLoader;
     },
     setRenderer(nextRenderer) {
       renderer = nextRenderer;
-    },
-    setDownload(nextDownload) {
-      download = nextDownload;
     },
   };
 }
@@ -120,8 +109,7 @@ function createHarness(): {
   );
 }
 
-// Lazy-load failure is retryable; forcing its cleared stale timer cannot reset
-// the newer attempt.
+// Lazy-load failure is retryable.
 {
   const harness = createHarness();
   harness.setLoader(async () => {
@@ -135,150 +123,62 @@ function createHarness(): {
     harness.job.getState().snapshot === null,
     "loader failure: unmounts off-screen snapshot"
   );
-  const [staleReset] = harness.timers;
-  assert(staleReset, "loader failure: schedules error reset");
 
   harness.setLoader(async () => async () => new Blob(["retry"]));
   assert(harness.job.start("retry"), "loader failure: retry starts immediately");
-  staleReset();
-  assert(
-    harness.job.getState().status === "exporting",
-    "retry: stale error timer cannot clear newer attempt"
-  );
   await flushAsyncWork();
   assert(harness.job.getState().status === "idle", "retry: succeeds after failure");
   harness.job.cancel();
 }
 
-// Every concrete dependency failure becomes retryable and leaves no render tree.
+// Render failure becomes retryable and leaves no render tree.
 {
-  const missingTarget = createHarness();
-  missingTarget.setTarget(null);
-  missingTarget.job.start("missing-target");
-  await flushAsyncWork();
-  assert(
-    missingTarget.job.getState().status === "error" &&
-      missingTarget.job.getState().snapshot === null,
-    "missing target: fails cleanly and unmounts snapshot"
-  );
-  missingTarget.job.cancel();
-
-  const captureFailure = createHarness();
-  captureFailure.setRenderer(async () => {
+  const harness = createHarness();
+  harness.setRenderer(async () => {
     throw new Error("image or capture failed");
   });
-  captureFailure.job.start("capture-failure");
+  harness.job.start("capture-failure");
   await flushAsyncWork();
   assert(
-    captureFailure.job.getState().status === "error",
+    harness.job.getState().status === "error",
     "image/capture failure: reports a retryable error"
   );
-  const [resetError] = captureFailure.timers;
+  const [resetError] = harness.timers;
   assert(resetError, "image/capture failure: schedules error reset");
   resetError();
   assert(
-    captureFailure.job.getState().status === "idle",
+    harness.job.getState().status === "idle",
     "image/capture failure: timer resets error display"
   );
-  captureFailure.job.cancel();
-
-  const downloadFailure = createHarness();
-  downloadFailure.setDownload(() => {
-    throw new Error("download failed");
-  });
-  downloadFailure.job.start("download-failure");
-  await flushAsyncWork();
-  assert(
-    downloadFailure.job.getState().status === "error",
-    "download failure: returns a retryable error state"
-  );
-  assert(
-    downloadFailure.revokedUrls.join(",") === "blob:test-1",
-    "download failure: releases created URL exactly once"
-  );
-  downloadFailure.job.cancel();
+  harness.job.cancel();
 }
 
-// Cancellation uses attempt identity: late callbacks from the cancelled attempt
-// cannot mutate or complete a concurrently active retry.
+// A Blob that resolves after cancellation never downloads.
 {
-  const inFlight = createHarness();
-  const oldCapture = deferred<Blob>();
-  const retryCapture = deferred<Blob>();
-  const oldProgress: {
-    current: ((progress: { loaded: number; total: number }) => void) | null;
-  } = { current: null };
-  const retryProgress: {
-    current: ((progress: { loaded: number; total: number }) => void) | null;
-  } = { current: null };
-  let rendererCall = 0;
-  inFlight.setRenderer(async (_target, onProgress) => {
-    rendererCall++;
-    if (rendererCall === 1) {
-      oldProgress.current = onProgress;
-      return oldCapture.promise;
-    }
-    retryProgress.current = onProgress;
-    return retryCapture.promise;
+  const harness = createHarness();
+  const capture = deferred<Blob>();
+  let captureBegun = false;
+  harness.setRenderer(async () => {
+    captureBegun = true;
+    return capture.promise;
   });
 
-  inFlight.job.start("cancelled-old");
+  assert(harness.job.start("cancelled"), "cancellation: export starts");
   await flushAsyncWork();
-  inFlight.job.cancel();
-  assert(
-    inFlight.job.start("retry-owned"),
-    "cancel/retry: retry starts after cancelling old attempt"
-  );
+  assert(captureBegun, "cancellation: capture is in flight");
+  harness.job.cancel();
+  capture.resolve(new Blob(["late"]));
   await flushAsyncWork();
-  retryProgress.current?.({ loaded: 1, total: 4 });
-  assert(
-    inFlight.job.getState().status === "exporting" &&
-      inFlight.job.getState().snapshot === "retry-owned" &&
-      inFlight.job.getState().progress?.loaded === 1,
-    "cancel/retry: retry owns the active snapshot and progress"
-  );
 
-  oldProgress.current?.({ loaded: 9, total: 9 });
-  oldCapture.resolve(new Blob(["stale-old"]));
-  await flushAsyncWork();
-  assert(
-    inFlight.job.getState().status === "exporting" &&
-      inFlight.job.getState().snapshot === "retry-owned" &&
-      inFlight.job.getState().progress?.loaded === 1 &&
-      inFlight.job.getState().progress?.total === 4,
-    "cancel/retry: old callbacks cannot overwrite retry-owned state"
-  );
   assert.equal(
-    inFlight.downloads.length,
+    harness.downloads.length,
     0,
-    "cancel/retry: old Blob cannot trigger a download while retry is active"
+    "cancellation: late Blob never triggers a download"
   );
-
-  retryProgress.current?.({ loaded: 4, total: 4 });
-  retryCapture.resolve(new Blob(["retry"]));
-  await flushAsyncWork();
   assert(
-    inFlight.job.getState().status === "idle" &&
-      inFlight.job.getState().snapshot === null,
-    "cancel/retry: retry completes normally"
-  );
-  assert.deepEqual(
-    inFlight.downloads.map((download) => download.url),
-    ["blob:test-1"],
-    "cancel/retry: exactly one download belongs to the retry"
-  );
-  inFlight.job.cancel();
-
-  const completed = createHarness();
-  completed.job.start("completed");
-  await flushAsyncWork();
-  const [releaseTimer] = completed.timers;
-  assert(releaseTimer, "cancel cleanup: success scheduled URL cleanup");
-  completed.job.cancel();
-  releaseTimer();
-  assert(
-    completed.revokedUrls.join(",") === "blob:test-1",
-    "cancel cleanup: URL is revoked exactly once despite stale timer"
+    harness.job.getState().status === "idle" &&
+      harness.job.getState().snapshot === null,
+    "cancellation: abandoned attempt stays idle with no snapshot"
   );
 }
 

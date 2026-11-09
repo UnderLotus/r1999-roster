@@ -21,7 +21,6 @@ import { mapCnCharacterMetadata, type ArcanistEntryFull } from "./cn-ingestion";
 import {
   applyNamePolicy,
   type ArcanistMapEntry,
-  type LocalizedNameOverride,
   type NamePolicyResult,
   type SupplementNameMetadata,
 } from "./name-policy";
@@ -52,7 +51,7 @@ export interface NameSyncDependencies {
   cacheExists(): boolean;
   loadCharacters(): Character[];
   loadArcanists(): ArcanistMapEntry[];
-  loadLocalizedOverrides(): LocalizedNameOverride[];
+  loadLocalizedOverrides(): unknown;
   loadSupplementMetadata?(): SupplementNameMetadata[];
   /** Optional so offline tests stay deterministic; live UTTU never gates the primary sources. */
   refreshUttuNames?(): Promise<UttuProfileNameRefresh>;
@@ -161,8 +160,7 @@ async function main(): Promise<void> {
     cacheExists: () => existsSync(NAME_SOURCE_CACHE_FILE),
     loadCharacters: () => loadJson<Character[]>(charactersFile),
     loadArcanists: () => effectiveArcanists,
-    loadLocalizedOverrides: () =>
-      loadJson<LocalizedNameOverride[]>(localizedOverridesFile),
+    loadLocalizedOverrides: () => loadJson<unknown>(localizedOverridesFile),
     loadSupplementMetadata: () => supplementMetadata,
     refreshUttuNames: fetchUttuProfileNames,
     writeCharacters: (characters) =>
@@ -201,13 +199,6 @@ async function main(): Promise<void> {
     if (result.diagnostics.length > 10) {
       console.warn(`  ... +${result.diagnostics.length - 10}`);
     }
-  }
-  if (result.unmatchedLocalizedOverrides.length > 0) {
-    console.warn(
-      `⚠ unmatched localized overrides: ${result.unmatchedLocalizedOverrides.join(
-        ", "
-      )}`
-    );
   }
   console.log("missing names:", JSON.stringify(summary.missingByLang));
 }

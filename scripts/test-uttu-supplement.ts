@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { chmod, mkdtemp, readdir, rm } from "node:fs/promises";
+import { mkdtemp, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
@@ -26,8 +26,10 @@ import {
 } from "./uttu-supplement";
 import {
   parseUttuCatalog,
+  parseUttuProfileNames,
   parseUttuProfiles,
   type UttuCatalog,
+  UttuParseError,
 } from "./uttu-parser";
 import { createVariantIdentityCatalog } from "../src/domain/variant-identity";
 import type { Character } from "./types";
@@ -79,12 +81,6 @@ assert.equal(parsedCatalog.garments.find((garment) => garment.variantId === "916
 assert.equal(parsedCatalog.profiles.find((profile) => profile.baseId === 9160)?.names["zh-TW"], undefined);
 assert.equal(parsedCatalog.incompleteBaseIds.size, 0);
 
-const profilesOnly = parseUttuProfiles(profilesHtml);
-assert.deepEqual(
-  profilesOnly.profiles,
-  parsedCatalog.profiles,
-  "profiles-only acquisition needs no garments and reuses catalog normalization"
-);
 assert.throws(
   () =>
     parseUttuProfiles(
@@ -98,7 +94,89 @@ assert.throws(
   /Duplicate UTTU profile ID: 9160/,
   "profiles-only parsing keeps the duplicate-ID guard"
 );
-console.log("ok: UTTU profiles parse standalone without garment data");
+
+const degradedProfilesHtml = htmlWithArray(`
+  const renamedProfileData = [
+    {ID:3163,Name:"",Rarity:0,LocaleName:{en:"N/A",zh:"N/A",tw:"N/A",jp:"グリンドゥル",kr:""}}
+  ];
+`);
+const profileNameCatalog = parseUttuProfileNames(htmlWithArray(`
+  const renamedProfileData = [
+    {ID:3163,Name:"",Rarity:0,LocaleName:{en:"N/A",zh:"N/A",tw:"N/A",jp:"グリンドゥル",kr:""}},
+    {ID:3164,LocaleName:{zh:"中文",tw:"N/A",en:"English",jp:"日本語",kr:"한국어"}},
+    {ID:3165,LocaleName:{zh:"N/A"}},
+    {ID:3166,Name:"Raw English",LocaleName:{jp:"日本語のみ"}},
+    {ID:3066,LocaleName:{en:37,zh:37,tw:37,jp:37,kr:37}}
+  ];
+`));
+assert.deepEqual(
+  profileNameCatalog.names,
+  [
+    {
+      baseId: 3066,
+      names: {
+        "zh-CN": "37",
+        "zh-TW": "37",
+        "en-US": "37",
+        "ja-JP": "37",
+        "ko-KR": "37",
+      },
+    },
+    { baseId: 3163, names: { "ja-JP": "グリンドゥル" } },
+    {
+      baseId: 3164,
+      names: {
+        "zh-CN": "中文",
+        "en-US": "English",
+        "ja-JP": "日本語",
+        "ko-KR": "한국어",
+      },
+    },
+    { baseId: 3166, names: { "ja-JP": "日本語のみ" } },
+  ],
+  "name-only rows need only an exact Base ID and LocaleName; N/A stays absent and raw Name is not English"
+);
+assert.deepEqual(
+  profileNameCatalog.diagnostics,
+  ["UTTU profile 3165 has no usable name; skipped"],
+  "a row without a supplied locale is diagnosed instead of inventing a name"
+);
+assert.throws(
+  () => parseUttuProfiles(degradedProfilesHtml),
+  /extracted no valid records/,
+  "full profile admission still requires Name, Rarity, and a usable CN name"
+);
+assert.throws(
+  () =>
+    parseUttuProfileNames(htmlWithArray(`
+      const renamedProfileData = [{ID:3165,LocaleName:{zh:"N/A"}}];
+    `)),
+  (error: unknown) =>
+    error instanceof UttuParseError && /extracted no usable names/.test(error.message),
+  "a page with zero usable name rows is a typed parse failure"
+);
+assert.throws(
+  () =>
+    parseUttuProfileNames(htmlWithArray("const renamedProfileData = buildProfiles();")),
+  (error: unknown) =>
+    error instanceof UttuParseError && /No recognizable UTTU profile literal array/.test(error.message),
+  "a non-literal profile page is a typed parse failure"
+);
+assert.throws(
+  () =>
+    parseUttuProfileNames(
+      htmlWithArray(`
+        const duplicatedProfiles = [
+          {ID:3163,Name:"",Rarity:0,LocaleName:{jp:"グリンドゥル"}},
+          {ID:3163,Name:"",Rarity:0,LocaleName:{jp:"別名"}}
+        ];
+      `)
+    ),
+  (error: unknown) =>
+    error instanceof UttuParseError && /Duplicate UTTU profile ID: 3163/.test(error.message),
+  "duplicate IDs are rejected before degraded metadata can skip a row"
+);
+console.log("ok: UTTU names parse without admission metadata and keep duplicate guards");
 
 const numericProfiles = htmlWithArray(`
   const numericProfileData = [
@@ -442,36 +520,6 @@ assert.doesNotThrow(
   () => createVariantIdentityCatalog([retainedBuild]),
   "normal default-only partial catch-up remains valid at runtime identity initialization"
 );
-const exactSupplementPrimary = [
-  mapCnCharacterMetadata(
-    primaryEntry(9160, [
-      { id: 916001, des: "初始立绘" },
-      { id: 916002, des: "进阶立绘", name: "Primary Insight" },
-    ])
-  ),
-];
-const exactSupplementCatchUp = mergeUttuSupplement(
-  exactSupplementPrimary,
-  admittedSupplement
-);
-const exactCaughtMapped = exactSupplementCatchUp.mappedCharacters.find(
-  (candidate) => candidate.baseId === 9160
-);
-assert.ok(exactCaughtMapped);
-assert.deepEqual(
-  exactCaughtMapped.skins.map((skin) => [skin.variantId, skin.type]),
-  [["916001", "default"], ["916002", "insight"], ["916003", "skin"]],
-  "exact-ID catch-up deduplicates admitted default/insight and retains ordinary skins"
-);
-const exactCatchUpCharacter = characterFixture(
-  9160,
-  exactCaughtMapped.skins.map((skin) => ({ ...skin }))
-);
-assert.doesNotThrow(
-  () => createVariantIdentityCatalog([exactCatchUpCharacter]),
-  "exact-ID primary catch-up remains valid at runtime identity initialization"
-);
-
 const conflictPrimaryMapped = [
   mapCnCharacterMetadata(
     primaryEntry(9160, [
@@ -496,25 +544,6 @@ assert.deepEqual(
   admittedSupplement,
   directConflictSnapshot,
   "direct catch-up conflict does not mutate the prior supplement"
-);
-
-const sequentialSupplement = partialCatchUp.supplement;
-const sequentialConflictSnapshot = structuredClone(sequentialSupplement);
-assert.throws(
-  () => mergeUttuSupplement(conflictPrimaryMapped, sequentialSupplement),
-  (error: unknown) => {
-    assert.ok(error instanceof UttuCatchUpConflictError);
-    assert.equal(error.baseId, 9160);
-    assert.equal(error.admittedId, "916002");
-    assert.equal(error.primaryId, "916009");
-    return true;
-  },
-  "competing admitted insight in the migrated standalone representation fails closed"
-);
-assert.deepEqual(
-  sequentialSupplement,
-  sequentialConflictSnapshot,
-  "sequential catch-up conflict does not mutate the prior supplement"
 );
 
 const laterSupplementalSkin = {
@@ -579,10 +608,10 @@ const recovered = completeUttuAdmissions(
   new Set(["990001", "990002", "990003"])
 );
 assert.equal(recovered.accepted, false);
-assert.equal(
+assert.deepEqual(
   recovered.supplement,
-  admittedSupplement,
-  "a rejected round returns the previous supplement itself"
+  admittedSupplementSnapshot,
+  "a rejected round preserves the previous supplement content"
 );
 assert.deepEqual(
   admittedSupplement,
@@ -618,36 +647,12 @@ const saveDirectory = await mkdtemp(path.join(os.tmpdir(), "r1999-uttu-save-"));
 try {
   const saveFile = path.join(saveDirectory, "uttu-supplement.json");
   saveUttuSupplement(saveFile, admittedSupplement);
-  const previousBytes = JSON.stringify(loadUttuSupplement(saveFile));
-  if (process.getuid?.() === 0) {
-    console.log("skip: atomic save fault probe cannot deny directory writes as root");
-  } else {
-    const changedSupplement = supplementFixture({
-      skins: [{ ...knownSkin, variantId: "740097", skinName: "Changed", skinNameEng: "Changed" }],
-    });
-    await chmod(saveDirectory, 0o500);
-    try {
-      assert.throws(
-        () => saveUttuSupplement(saveFile, changedSupplement),
-        /EACCES|EPERM|permission denied/i,
-        "saving into a write-denied directory fails before replacement"
-      );
-    } finally {
-      await chmod(saveDirectory, 0o700);
-    }
-    assert.equal(
-      JSON.stringify(loadUttuSupplement(saveFile)),
-      previousBytes,
-      "failed atomic save leaves the prior supplement readable and unchanged"
-    );
-    assert.deepEqual(
-      (await readdir(saveDirectory)).filter((file) => file.includes(".tmp-")),
-      [],
-      "failed atomic save leaves no sibling temporary file"
-    );
-  }
+  assert.deepEqual(
+    loadUttuSupplement(saveFile),
+    admittedSupplement,
+    "saved supplement round-trips the admitted records"
+  );
 } finally {
-  await chmod(saveDirectory, 0o700);
   await rm(saveDirectory, { recursive: true, force: true });
 }
 

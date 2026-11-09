@@ -18,10 +18,10 @@ import {
   type NameSourceSnapshot,
 } from "./name-source";
 import {
-  parseUttuProfiles,
+  parseUttuProfileNames,
   UTTU_PROFILES_URL,
   UttuParseError,
-  type UttuProfileCatalog,
+  type UttuProfileNameCatalog,
 } from "./uttu-parser";
 
 const KORNBLUME_BASE =
@@ -158,22 +158,13 @@ export async function loadJapaneseNameOverrides(
   return parseJapaneseNameOverrides(raw, file);
 }
 
-export interface UttuProfileNameMetadata {
-  baseId: number;
-  names: Partial<Record<NameLang, string>>;
-}
-
-export interface UttuProfileNameRefresh {
-  names: UttuProfileNameMetadata[];
-  diagnostics: string[];
-}
+export type UttuProfileNameRefresh = UttuProfileNameCatalog;
 
 /** Acquire names independently of image admission; the caller may skip classified source failures. */
 export async function fetchUttuProfileNames(): Promise<UttuProfileNameRefresh> {
   const html = fetchText(UTTU_PROFILES_URL, { timeoutSeconds: 60 });
-  let parsed: UttuProfileCatalog;
   try {
-    parsed = parseUttuProfiles(html);
+    return parseUttuProfileNames(html);
   } catch (error) {
     if (!(error instanceof UttuParseError)) throw error;
     throw new NameSourceError(
@@ -183,13 +174,6 @@ export async function fetchUttuProfileNames(): Promise<UttuProfileNameRefresh> {
       { cause: error }
     );
   }
-  return {
-    names: parsed.profiles.map((profile) => ({
-      baseId: profile.baseId,
-      names: { ...profile.names },
-    })),
-    diagnostics: [...parsed.diagnostics],
-  };
 }
 
 /** Fetch, normalize and atomically install one complete source generation. */

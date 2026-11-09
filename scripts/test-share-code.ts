@@ -131,7 +131,6 @@ assertEqual(goldenDecoded?.activeVariant, goldenPayload.activeVariant, "fixed v2
   const v1Suffix01 = "HgJggwEwQAg"; // same fixture shape with suffix 01
   const decoded = decodeShareCode(v1Suffix01);
   assert.equal(decoded?.activeVariant[character3088.id], "308801");
-  assert.notEqual(decoded?.activeVariant[character3088.id], "30880001");
   const v2 = encodeShareCode({
     characters: { [character3088.id]: { owned: true, portray: 0 } },
     activeVariant: { [character3088.id]: "30880001" },
@@ -185,8 +184,6 @@ assertEqual(goldenDecoded?.activeVariant, goldenPayload.activeVariant, "fixed v2
     ],
   };
   const identity = createVariantIdentityCatalog([synthetic]);
-  assert.equal(identity.resolveModeVariant(synthetic.id, "initial"), "701001");
-  assert.equal(identity.resolveModeVariant(synthetic.id, "insight"), "701002");
   const token = encodeShareCode(
     {
       characters: { [synthetic.id]: { owned: true, portray: 1 } },

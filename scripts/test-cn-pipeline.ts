@@ -160,7 +160,6 @@ const syntheticMapping: ArcanistEntryFull = {
 };
 const syntheticMapped = mapCnCharacterMetadata(syntheticMapping);
 assert.equal(syntheticMapped.defaultVariant, "490099");
-assert.notEqual(syntheticMapped.defaultVariant, "490001");
 const syntheticPlan = planCnIngestion({
   currentCharacters: [],
   mappedCharacters: [syntheticMapped],

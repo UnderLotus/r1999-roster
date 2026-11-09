@@ -1,69 +1,69 @@
 [
   {
-    "nameEng": "Ms. Stranger",
+    "baseId": 3147,
     "ja-JP": "ストレンジャー"
   },
   {
-    "nameEng": "Everecho",
+    "baseId": 3145,
     "ja-JP": "エヴァーエコー",
     "ko-KR": "에버에코"
   },
   {
-    "nameEng": "Coppélia",
+    "baseId": 3144,
     "ja-JP": "コッペリア"
   },
   {
-    "nameEng": "Enigma",
+    "baseId": 3143,
     "ko-KR": "이니그마"
   },
   {
-    "nameEng": "Paper Heron",
+    "baseId": 3141,
     "ko-KR": "노사전"
   },
   {
-    "nameEng": "Cornerstone",
+    "baseId": 3140,
     "ja-JP": "コーナーストーン",
     "ko-KR": "코너스톤"
   },
   {
-    "nameEng": "Cheng Heguang",
+    "baseId": 3137,
     "ko-KR": "정화광"
   },
   {
-    "nameEng": "Rubuska",
+    "baseId": 3125,
     "ko-KR": "루부스카"
   },
   {
-    "nameEng": "Kassandra",
+    "baseId": 3124,
     "ko-KR": "카산드라"
   },
   {
-    "nameEng": "Ezio Auditore",
+    "baseId": 3123,
     "ko-KR": "에지오 아디토레"
   },
   {
-    "nameEng": "Ulrich",
+    "baseId": 3107,
     "ko-KR": "울리히"
   },
   {
-    "nameEng": "Silverwing Eagle",
+    "baseId": 3154,
     "ja-JP": "イーグル",
     "ko-KR": "이글"
   },
   {
-    "nameEng": "Alexios",
+    "baseId": 3122,
     "ko-KR": "알렉시오스"
   },
   {
-    "nameEng": "NORA",
+    "baseId": 3151,
     "ko-KR": "노라"
   },
   {
-    "nameEng": "Reed",
+    "baseId": 3138,
     "ko-KR": "노초결"
   },
   {
-    "nameEng": "Lady by the Lake",
+    "baseId": 3136,
     "ja-JP": "『湖畔の女性』",
     "ko-KR": "호숫가의 여인"
   }

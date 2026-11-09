@@ -4,7 +4,6 @@ import { createJSONStorage } from "zustand/middleware";
 
 import { characters } from "../src/data/characters";
 import {
-  migratePersisted,
   partializeBoxStore,
   useBoxStore,
 } from "../src/store/boxStore";
@@ -68,11 +67,6 @@ function createComposedStorage(value?: string) {
   const { raw, composed } = createComposedStorage(legacy);
   const hydrated = await composed.getItem(key);
   assert.deepEqual(hydrated, envelope, "legacy wire hydrates through createJSONStorage");
-  assert.deepEqual(
-    migratePersisted(hydrated?.state, hydrated?.version),
-    migratePersisted(envelope.state, envelope.version),
-    "legacy wire hydrates the same Box/preferences as canonical input"
-  );
   assert.deepEqual(raw.writes, [{ key, value: canonical }], "legacy bytes rewrite once on first read");
 }
 

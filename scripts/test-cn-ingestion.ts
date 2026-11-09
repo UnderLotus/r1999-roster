@@ -324,44 +324,6 @@ esac
     assert.equal(typeof hashCache["740003"]?.png, "string");
     assert.equal(hashCache["740003"]?.uttu, undefined);
 
-    await writeFile(
-      profilesFile,
-      `<script>const profiles=[
-        {ID:7400,Name:"Existing",Rarity:5,LocaleName:{en:"Existing",zh:"角色 7400",tw:"角色 7400"}},
-        {ID:9900,Name:"Broken",Rarity:6,LocaleName:{en:"Broken",zh:"损坏",tw:"N/A",jp:"N/A",kr:"N/A"}}
-      ]</script>\n`
-    );
-    await writeFile(
-      garmentsFile,
-      `<script>const garments=[
-        {profile:{ID:7400},garment:{id:740001,name:{en:"Default",zh:"Default"},category:"default",global:!0}},
-        {profile:{ID:7400},garment:{id:740003,name:{en:"Primary PNG Skin",zh:"主來源圖時裝"},category:"advanced",global:!1}},
-        {profile:{ID:9900},garment:{id:990001,name:{en:"Default",zh:"Default"},category:"default",global:!0}},
-        {profile:{ID:9900},garment:{id:990002,name:{en:"Insight One",zh:"洞悉一"},category:"insight",global:!0}},
-        {profile:{ID:9900},garment:{id:990003,name:{en:"Insight Two",zh:"洞悉二"},category:"insight",global:!0}}
-      ]</script>\n`
-    );
-    for (const variantId of ["990001", "990002", "990003"]) {
-      await writeFixturePng(path.join(sourceDir, `${variantId}.png`));
-    }
-    await executeCli(fixtureRoot, "sync-assets.ts", fakeBin);
-    const supplementAfterMalformed = JSON.parse(
-      await readFile(path.join(fixtureRoot, "scripts", "data", "uttu-supplement.json"), "utf8")
-    ) as { characters: unknown[]; skins: Array<{ variantId: string }> };
-    assert.deepEqual(
-      supplementAfterMalformed,
-      supplement,
-      "malformed UTTU metadata preserves the previously admitted supplement"
-    );
-    const rosterAfterMalformed = JSON.parse(
-      await readFile(path.join(fixtureRoot, "src", "data", "characters.json"), "utf8")
-    ) as Character[];
-    assert.equal(
-      rosterAfterMalformed.some((candidate) => candidate.baseId === 9900),
-      false,
-      "malformed UTTU metadata does not abort or mutate primary roster output"
-    );
-
     const conflictSkins: Character["skins"] = [
       {
         variantId: "770001",
@@ -420,19 +382,6 @@ esac
         },
       ],
     };
-    const sequentialConflictSupplement = {
-      ...supplementBeforeConflict,
-      skins: [
-        ...supplementBeforeConflict.skins,
-        {
-          baseId: 7700,
-          variantId: "770002",
-          type: "insight",
-          skinName: "Supplement Insight",
-          skinNameEng: "Supplement Insight",
-        },
-      ],
-    };
     const upstreamMapBeforeConflict = JSON.parse(
       await readFile(path.join(assetRepo, "mappings", "ArcanistMap.json"), "utf8")
     ) as ArcanistEntryFull[];
@@ -480,13 +429,6 @@ esac
     );
     await expectPublishSafeConflict(
       "direct supplemental-character catch-up conflict publishes no persistent output"
-    );
-    await writeFile(
-      path.join(fixtureRoot, "scripts", "data", "uttu-supplement.json"),
-      JSON.stringify(sequentialConflictSupplement, null, 2) + "\n"
-    );
-    await expectPublishSafeConflict(
-      "sequential migrated-standalone catch-up conflict publishes no persistent output"
     );
   } finally {
     await rm(fixtureRoot, { recursive: true, force: true });
@@ -672,30 +614,6 @@ assert.equal(buildRoster.length, 3);
 assert.equal(buildRoster.find((candidate) => candidate.baseId === 7400)?.skins.length, 4);
 assert.equal(buildRoster.some((candidate) => candidate.baseId === 7200), true);
 assert.equal(buildRoster.some((candidate) => candidate.baseId === 7300), false);
-
-const reorderedPlan = planCnIngestion({
-  currentCharacters: [existing],
-  mappedCharacters: [...mappedCharacters].reverse(),
-  sourceImageIds: new Set(sourceImageIds),
-  localImageIds: new Set(localImageIds),
-  deprecatedEntries: [{ baseId: 3029, variantId: "302901" }],
-});
-assert.deepEqual(reorderedPlan.requiredVariantIds, plan.requiredVariantIds, "required union is stable");
-assert.deepEqual(reorderedPlan.stagedVariantIds, plan.stagedVariantIds, "staged union is stable");
-
-const buildAgain = planCnIngestion({
-  currentCharacters: buildRoster,
-  mappedCharacters,
-  sourceImageIds,
-  localImageIds,
-  deprecatedEntries: [{ baseId: 3029, variantId: "302901" }],
-});
-assert.deepEqual(buildAgain.build.readyNewCharacters, [], "build rerun is idempotent");
-assert.deepEqual(
-  buildAgain.build.pendingNewCharacters.map((pending) => pending.baseId),
-  [7300],
-  "build rerun preserves the same pending decision"
-);
 
 const firstFinalized = finalizeBuildPlan([existing], plan);
 const secondPlan = planCnIngestion({

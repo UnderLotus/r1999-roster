@@ -13,7 +13,7 @@ export interface ArcanistMapEntry {
   nameEng: string;
 }
 
-export type LocalizedNameOverride = { nameEng: string } & Partial<
+export type LocalizedNameOverride = { baseId: number } & Partial<
   Record<NameLang, string>
 >;
 
@@ -48,7 +48,6 @@ export interface NamePolicySummary {
 export interface NamePolicyResult {
   characters: Character[];
   diagnostics: NamePolicyDiagnostic[];
-  unmatchedLocalizedOverrides: string[];
   summary: NamePolicySummary;
 }
 
@@ -68,9 +67,64 @@ function cloneCharacters(characters: readonly Character[]): Character[] {
   }));
 }
 
-function assertUniquePolicyInputs(
-  arcanists: readonly ArcanistMapEntry[],
-  overrides: readonly LocalizedNameOverride[]
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Validate the raw JSON trust seam once, before any name is written. */
+function parseLocalizedOverrides(
+  raw: unknown,
+  characters: readonly Character[]
+): Map<number, LocalizedNameOverride> {
+  if (!Array.isArray(raw)) {
+    throw new NamePolicyError("localized overrides must be an array");
+  }
+  const knownBaseIds = new Set(characters.map((character) => character.baseId));
+  const overrides = new Map<number, LocalizedNameOverride>();
+
+  for (const [index, entry] of raw.entries()) {
+    if (!isRecord(entry)) {
+      throw new NamePolicyError(`invalid localized override at index ${index}`);
+    }
+    const baseId = entry.baseId;
+    if (!Number.isSafeInteger(baseId) || (baseId as number) <= 0) {
+      throw new NamePolicyError(`invalid localized override Base ID at index ${index}`);
+    }
+    const id = baseId as number;
+    if (!knownBaseIds.has(id)) {
+      throw new NamePolicyError(`localized override Base ID ${id} not found in characters`);
+    }
+    if (overrides.has(id)) {
+      throw new NamePolicyError(`duplicate localized override Base ID ${id}`);
+    }
+
+    const override: LocalizedNameOverride = { baseId: id };
+    let localeFields = 0;
+    for (const [field, name] of Object.entries(entry)) {
+      if (field === "baseId") continue;
+      if (!NAME_LANGS.includes(field as NameLang)) {
+        throw new NamePolicyError(
+          `unsupported localized override field ${JSON.stringify(field)} for Base ID ${id}`
+        );
+      }
+      if (typeof name !== "string" || !name.trim()) {
+        throw new NamePolicyError(
+          `localized override ${field} for Base ID ${id} must be a nonempty string`
+        );
+      }
+      override[field as NameLang] = name;
+      localeFields++;
+    }
+    if (localeFields === 0) {
+      throw new NamePolicyError(`localized override Base ID ${id} has no locale names`);
+    }
+    overrides.set(id, override);
+  }
+  return overrides;
+}
+
+function assertUniqueArcanistBaseIds(
+  arcanists: readonly ArcanistMapEntry[]
 ): void {
   const baseIds = new Set<number>();
   for (const entry of arcanists) {
@@ -78,13 +132,6 @@ function assertUniquePolicyInputs(
       throw new NamePolicyError(`duplicate ArcanistMap base ID ${entry.id}`);
     }
     baseIds.add(entry.id);
-  }
-  const overrideNames = new Set<string>();
-  for (const override of overrides) {
-    if (overrideNames.has(override.nameEng)) {
-      throw new NamePolicyError(`duplicate localized override ${override.nameEng}`);
-    }
-    overrideNames.add(override.nameEng);
   }
 }
 
@@ -117,11 +164,15 @@ export function applyNamePolicy(input: {
   characters: readonly Character[];
   arcanists: readonly ArcanistMapEntry[];
   snapshot: NameSourceSnapshot;
-  localizedOverrides: readonly LocalizedNameOverride[];
+  localizedOverrides: unknown;
   supplementMetadata?: readonly SupplementNameMetadata[];
   uttuNames?: readonly UttuNameFallback[];
 }): NamePolicyResult {
-  assertUniquePolicyInputs(input.arcanists, input.localizedOverrides);
+  const localizedOverrides = parseLocalizedOverrides(
+    input.localizedOverrides,
+    input.characters
+  );
+  assertUniqueArcanistBaseIds(input.arcanists);
   const characters = cloneCharacters(input.characters);
   const existingEnglishNames = new Map(
     characters.map((character) => [character.id, character.names?.["en-US"]])
@@ -205,17 +256,10 @@ export function applyNamePolicy(input: {
     if (character.stage === "pending-names") character.stage = "live";
   }
 
-  const characterByEnglishName = new Map(
-    characters.map((character) => [character.names?.["en-US"] ?? character.name, character])
-  );
   let localizedOverrideFieldsApplied = 0;
-  const unmatchedLocalizedOverrides: string[] = [];
-  for (const override of input.localizedOverrides) {
-    const character = characterByEnglishName.get(override.nameEng);
-    if (!character) {
-      unmatchedLocalizedOverrides.push(override.nameEng);
-      continue;
-    }
+  for (const character of characters) {
+    const override = localizedOverrides.get(character.baseId);
+    if (!override) continue;
     character.names ??= {};
     for (const lang of NAME_LANGS) {
       const name = override[lang];
@@ -296,7 +340,6 @@ export function applyNamePolicy(input: {
   return {
     characters: ordered,
     diagnostics,
-    unmatchedLocalizedOverrides,
     summary: {
       namesApplied,
       rarityApplied,

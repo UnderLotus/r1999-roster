@@ -14,10 +14,12 @@ top-right to switch skins (Default, Insight, Costumes).
 
 Search works across all supported languages. If a character's name is missing
 in the current language, the English name is shown as fallback.
-The ID field accepts any free-form text, shown at the top-center of the
+The ID field accepts up to 20 characters, shown at the top-center of the
 exported image. Next to the rarity filter is the default-portrait toggle,
 switching the default skin between Initial and Insight. Use **Share URL** to
-copy the current Box state without uploading data or requiring an account.
+copy the current Box state without uploading data or requiring an account;
+opening a shared link asks for confirmation before it replaces your current
+Box.
 
 Different servers are on different progressions, so the list defaults to the
 global progress. The Future Sight button, at the top of the page, is for
@@ -45,7 +47,7 @@ Character data, names, and images are sourced from:
 
 - [CN Client Assets (myssal/Reverse-1999-CN-Asset)](https://github.com/myssal/Reverse-1999-CN-Asset) — character IDs, skin variants, and source images
 - [UTTU](https://uttu.merui.net/) — supplemental character and skin IDs, names, and images
-- [Global Client Unpack Data (St-Pavlov-Foundation/re1999-data-global)](https://github.com/St-Pavlov-Foundation/re1999-data-global) — official English display names
+- [Global Client Unpack Data (St-Pavlov-Foundation/re1999-data-global)](https://github.com/St-Pavlov-Foundation/re1999-data-global) — official names in all five languages and release status
 - [灰機 Wiki (res1999.huijiwiki.com)](https://res1999.huijiwiki.com)
 - [Kornblume (windbow27/kornblume)](https://github.com/windbow27/kornblume)
 - [wikiru (reverse1999.wikiru.jp)](https://reverse1999.wikiru.jp)

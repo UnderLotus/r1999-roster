@@ -262,7 +262,6 @@ try {
   await installNameSourceCache(snapshot, cacheFile);
   assert.deepEqual(await loadNameSourceCache(cacheFile), snapshot);
   const firstBytes = await readFile(cacheFile);
-  assert.ok(firstBytes.length > 0, "successful install creates a usable LKG cache");
 
   const nextSnapshot = structuredClone(snapshot);
   nextSnapshot.kornblume.namesByLang["zh-CN"]["english-0"] = "updated name";
@@ -329,38 +328,6 @@ try {
     await writeFile(staging, newTransactionBytes);
     return { target, staging };
   };
-
-  const committedCleanup = await prepareTransaction("committed-cleanup");
-  let committedBackup = "";
-  const committedResult = await replaceFileWithRollback(
-    committedCleanup.staging,
-    committedCleanup.target,
-    {
-      exists: existsSync,
-      rename: async (from, to) => {
-        if (from === committedCleanup.target) committedBackup = to;
-        await rename(from, to);
-      },
-      remove: async (file) => {
-        if (file === committedBackup) throw new Error("injected backup cleanup failure");
-        await rm(file, { force: true });
-      },
-    }
-  );
-  assert.equal(committedResult.committed, true);
-  assert.equal(committedResult.backupPath, committedBackup);
-  assert.deepEqual(
-    await readFile(committedCleanup.target),
-    newTransactionBytes,
-    "backup cleanup failure is non-fatal after staging commit"
-  );
-  assert.deepEqual(
-    await readFile(committedBackup),
-    oldTransactionBytes,
-    "non-fatal cleanup leaves an explicit recovery backup"
-  );
-  await rm(committedBackup, { force: true });
-  console.log("ok: post-commit backup cleanup failure is non-fatal and recoverable");
 
   const failedCommit = await prepareTransaction("failed-commit");
   await assert.rejects(

@@ -137,9 +137,8 @@ const result = applyNamePolicy({
   arcanists,
   snapshot: fixtureSnapshot,
   localizedOverrides: [
-    { nameEng: "Fallback Alpha", "ja-JP": "Manual Alpha" },
-    { nameEng: "Fallback Beta", "ja-JP": "Manual Beta" },
-    { nameEng: "Unknown Override", "ko-KR": "없음" },
+    { baseId: 1, "ja-JP": "Manual Alpha" },
+    { baseId: 2, "ja-JP": "Manual Beta" },
   ],
 });
 assert.deepEqual(characters, originalCharacters, "policy does not mutate caller fixtures");
@@ -174,8 +173,103 @@ assert.equal(
   true,
   "missing character is a policy diagnostic"
 );
-assert.deepEqual(result.unmatchedLocalizedOverrides, ["Unknown Override"]);
 console.log("ok: pure name policy preserves precedence, mutations, diagnostics, and ordering");
+
+const renamedEnglishSnapshot: NameSourceSnapshot = {
+  ...fixtureSnapshot,
+  globalNamesByLang: {
+    ...fixtureSnapshot.globalNamesByLang,
+    "ja-JP": { ...fixtureSnapshot.globalNamesByLang["ja-JP"], "7": "GL 改名 JA" },
+  },
+};
+const renamedEnglishResult = applyNamePolicy({
+  characters: [character("renamed", 7, { names: { "en-US": "Renamed English" } })],
+  arcanists: [{ id: 7, name: "庚", nameEng: "Old English" }],
+  snapshot: renamedEnglishSnapshot,
+  localizedOverrides: [
+    { baseId: 7, "ja-JP": "Manual 改名 JA", "ko-KR": "Manual 改名 KO" },
+  ],
+});
+const renamedEnglish = renamedEnglishResult.characters[0];
+assert.equal(
+  renamedEnglishResult.summary.localizedOverrideFieldsApplied,
+  2,
+  "both manual locale fields are applied by Base ID before GL"
+);
+assert.equal(
+  renamedEnglish?.names?.["en-US"],
+  "Renamed English",
+  "existing English is preserved when no upstream English exists"
+);
+assert.equal(
+  renamedEnglish?.names?.["ja-JP"],
+  "GL 改名 JA",
+  "GL still wins over a Base ID manual override"
+);
+assert.equal(
+  renamedEnglish?.names?.["ko-KR"],
+  "Manual 改名 KO",
+  "Base ID manual override still applies after the English display name changes"
+);
+
+const invalidOverrideCases: Array<[string, unknown, RegExp]> = [
+  ["array shape", { baseId: 1 }, /localized overrides must be an array/],
+  ["row shape", [null], /invalid localized override at index 0/],
+  [
+    "legacy English key",
+    [{ nameEng: "Fallback Alpha", "ja-JP": "なし" }],
+    /invalid localized override Base ID at index 0/,
+  ],
+  [
+    "non-numeric Base ID",
+    [{ baseId: "1", "ja-JP": "なし" }],
+    /invalid localized override Base ID at index 0/,
+  ],
+  [
+    "non-positive Base ID",
+    [{ baseId: 0, "ja-JP": "なし" }],
+    /invalid localized override Base ID at index 0/,
+  ],
+  [
+    "unknown Base ID",
+    [{ baseId: 999, "ja-JP": "なし" }],
+    /localized override Base ID 999 not found in characters/,
+  ],
+  [
+    "duplicate Base ID",
+    [
+      { baseId: 1, "ja-JP": "一" },
+      { baseId: 1, "ja-JP": "二" },
+    ],
+    /duplicate localized override Base ID 1/,
+  ],
+  [
+    "unsupported locale",
+    [{ baseId: 1, en: "Alpha" }],
+    /unsupported localized override field "en"/,
+  ],
+  [
+    "empty locale",
+    [{ baseId: 1, "ja-JP": "  " }],
+    /localized override ja-JP for Base ID 1 must be a nonempty string/,
+  ],
+  ["no locale fields", [{ baseId: 1 }], /localized override Base ID 1 has no locale names/],
+];
+for (const [label, localizedOverrides, pattern] of invalidOverrideCases) {
+  assert.throws(
+    () =>
+      applyNamePolicy({
+        characters: [character("alpha", 1)],
+        arcanists: [{ id: 1, name: "甲", nameEng: "Alpha CN" }],
+        snapshot: fixtureSnapshot,
+        localizedOverrides,
+      }),
+    (error: unknown) =>
+      error instanceof NamePolicyError && pattern.test(error.message),
+    label
+  );
+}
+console.log("ok: manual localized overrides validate Base ID and locales at the policy seam");
 
 // A Wiki rarity must survive when ArcanistMap knows the character but Kornblume does not.
 const noKornblumeResult = applyNamePolicy({
@@ -383,6 +477,31 @@ await assert.rejects(
 assert.equal(configurationCacheRead, false, "local config failure cannot read LKG");
 assert.equal(configurationWriteCalled, false, "local config failure aborts before output write");
 console.log("ok: local configuration failure is non-recoverable even when LKG exists");
+
+let invalidOverrideWrite = false;
+await assert.rejects(
+  () =>
+    runNameSync({
+      refreshSources: async () => {
+        throw new NameSourceError("transport", "fixture", "offline");
+      },
+      loadCachedSources: async () => fixtureSnapshot,
+      cacheExists: () => true,
+      loadCharacters: () => [character("alpha", 1)],
+      loadArcanists: () => [{ id: 1, name: "甲", nameEng: "Alpha CN" }],
+      loadLocalizedOverrides: () => [{ baseId: 999, "ja-JP": "なし" }],
+      writeCharacters: () => {
+        invalidOverrideWrite = true;
+      },
+      warn: () => {},
+    }),
+  (error) =>
+    error instanceof NamePolicyError &&
+    /localized override Base ID 999 not found in characters/.test(error.message),
+  "an invalid manual Base ID aborts after LKG selection instead of being written or ignored"
+);
+assert.equal(invalidOverrideWrite, false, "invalid manual config never writes characters");
+console.log("ok: invalid manual config cannot be hidden by last-known-good sources");
 
 let uttuWiredWrite: Character[] | undefined;
 const uttuWiredWarnings: string[] = [];
