@@ -20,11 +20,12 @@
       }
     ],
     "defaultVariant": "316001",
-    "stage": "pending-names",
+    "stage": "live",
     "isReleased": false,
     "names": {
       "zh-CN": "伊芙琳",
-      "en-US": "Evelyn"
+      "en-US": "Evelyn",
+      "zh-TW": "伊芙琳"
     },
     "rarity": 6,
     "source": {
@@ -52,11 +53,12 @@
       }
     ],
     "defaultVariant": "315901",
-    "stage": "pending-names",
+    "stage": "live",
     "isReleased": false,
     "names": {
       "zh-CN": "佩施塔",
-      "en-US": "Perchta"
+      "en-US": "Perchta",
+      "zh-TW": "佩施塔"
     },
     "rarity": 6,
     "source": {
@@ -118,13 +120,13 @@
     ],
     "defaultVariant": "315701",
     "stage": "live",
-    "isReleased": false,
+    "isReleased": true,
     "source": {
       "pageUrl": "https://res1999.huijiwiki.com/wiki/%E7%BA%B3%E8%A5%BF%E7%B4%A2%E6%96%AF"
     },
     "names": {
       "zh-CN": "纳西索斯",
-      "zh-TW": "納西索斯",
+      "zh-TW": "納西瑟斯",
       "en-US": "Narcissus",
       "ko-KR": "나르키소스",
       "ja-JP": "ナルキッソス"
@@ -5557,8 +5559,7 @@
         "variantId": "305403",
         "type": "skin",
         "skinName": "体育快讯",
-        "skinNameEng": "Front Page Exclusive",
-        "isReleased": false
+        "skinNameEng": "Front Page Exclusive"
       }
     ],
     "defaultVariant": "305401",

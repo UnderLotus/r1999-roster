@@ -652,13 +652,8 @@
     "webp": "d31bd4b52b616f869b98fd11ddcf19fcc07359eaa9c46460fc70571c8d299dc4"
   },
   "305903": {
-    "webp": "380d1750a5a7e39d95e1031dde226c929e230cef363aaa7c8977f7c178af8b04",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/305903.webp",
-      "sourceSha256": "380d1750a5a7e39d95e1031dde226c929e230cef363aaa7c8977f7c178af8b04",
-      "width": 228,
-      "height": 524
-    }
+    "png": "a2b1e3fac7446f924770442b74c0ead258fdd744345f9e8efb4a697fad1e5179",
+    "webp": "aae044aa6f275a254bdbd9d63b3919f2aa61eef02d98a9015a9f3b842cae7205"
   },
   "306001": {
     "png": "82658c359dbd1b892ed14b3cef4f8ae9003d0e71f62adbb8589fac1bfe00f3b3",
@@ -1281,13 +1276,8 @@
     "webp": "1fcba59c57968a3c5176790825d22394d5f0dbb983693b923a8b97ad8144d96b"
   },
   "311304": {
-    "webp": "898bb5aa07176f14d78ef0d4c7d07a96f9cc41a559d1b13e06729895508daaba",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/311304.webp",
-      "sourceSha256": "898bb5aa07176f14d78ef0d4c7d07a96f9cc41a559d1b13e06729895508daaba",
-      "width": 228,
-      "height": 524
-    }
+    "png": "da7de641c075bf6bcfe6a73b5d1da32c456960a6b232c372e22f7faf082cc015",
+    "webp": "0f39da4a939118780cc1e5bbf1d9df08a2cb86bf904b3e0beb58146665d6770d"
   },
   "311401": {
     "png": "4171bfcd4bf4a99ff0bc4ed030e098c0b18c684a5a26bff39ecb78acfcf2dca4",
@@ -1454,13 +1444,8 @@
     "webp": "084a1859cbd99de1abc0e202833bbf3db221c7bc60c1c7ff8a7e4b76de23ee98"
   },
   "312704": {
-    "webp": "40a79aaad97a1252760a7a15039cb61820db652e4f3ad62292d2cf88d624a3df",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/312704.webp",
-      "sourceSha256": "40a79aaad97a1252760a7a15039cb61820db652e4f3ad62292d2cf88d624a3df",
-      "width": 228,
-      "height": 524
-    }
+    "png": "e7014cf8bac48b4aba6a9086385b50ef2b66454011886c4ef96474e1c9290e7f",
+    "webp": "5ce4dda425bd98f495cdd5db56d9416bbe239b2bf9c3962195df794be2b49bc0"
   },
   "312801": {
     "png": "755ed5e73b6877776c9167570d5d1b6ccf35f87a6c1e2dcab44cd880712ebf70",
@@ -1527,13 +1512,8 @@
     "webp": "b13600bd5a33157f80324a98cd809f561701f68115ff645d25fc97fec69f6791"
   },
   "313703": {
-    "webp": "df45e2f1fd4705bf233197720ca14a1001780910be7acf086dc43db17eb5c6de",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/313703.webp",
-      "sourceSha256": "df45e2f1fd4705bf233197720ca14a1001780910be7acf086dc43db17eb5c6de",
-      "width": 228,
-      "height": 524
-    }
+    "png": "adfb814a00a78b3bf39695ee40dfe416ee3eca056d4c28913f767a9d91f710ff",
+    "webp": "dc23c71a5c6f7c7b203ae0ed7df57e7272af3637bcd81fb4959ea695448c9540"
   },
   "313801": {
     "png": "1f7391e649e58c378c42b5fab79bc27f706a7fe5bc12226873c45782009a3f00",
@@ -1556,13 +1536,8 @@
     "webp": "eb9438ee76032ec5437c017ba54a96f318e8c36bf2bd5cac86d62efd64124345"
   },
   "313904": {
-    "webp": "da43576fe78e9de8902ab259bf33fd76468c1f5c7775bf2afac318063e4e09e8",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/313904.webp",
-      "sourceSha256": "da43576fe78e9de8902ab259bf33fd76468c1f5c7775bf2afac318063e4e09e8",
-      "width": 228,
-      "height": 524
-    }
+    "png": "bc6f74bdbdc9e42522b326364acdaf1f272e8563e92c6163e5f399a58ab0d6b2",
+    "webp": "81c8bcad217d321c8530e569de6f6ca1eb86fd8903381f0f690d9bc8e7ffd832"
   },
   "314001": {
     "png": "b2ee37c8dd1fa2e632bedef22b52c3cf996cd756906a3dcafe074cf83b7ad6f1",
@@ -1617,13 +1592,8 @@
     "webp": "428d1b3b75ff43c41419282b2b991b343ef47e833096d09260cb092551794ce6"
   },
   "314404": {
-    "webp": "bca095c05216b0a144aae77653578b2a09e344e10c10d59c49b17e085b113eb2",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/314404.webp",
-      "sourceSha256": "bca095c05216b0a144aae77653578b2a09e344e10c10d59c49b17e085b113eb2",
-      "width": 228,
-      "height": 524
-    }
+    "png": "1868b2e2e75871cdd44a3d89c7accb136635fb07aacc341490e0bf98b9ada5d0",
+    "webp": "85498061fa5ae8eac51ae473ac39f99e0f6746595fe52f04a300bb02909e5762"
   },
   "314501": {
     "png": "ef6c6d8c33fbf5ee578a382c5ac4d7fef3083d01f8ae570c4dd11bfe946f8cba",
@@ -1722,40 +1692,20 @@
     "webp": "8f71179a8d7d9ee3f7a1063159d072d49c4cf4da2c14bb3b77b337badefab91f"
   },
   "315901": {
-    "webp": "d6f16d23de450c0bce8cbc53b44a10c57800df75eeebb5db3547d9c236382c24",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/315901.webp",
-      "sourceSha256": "d6f16d23de450c0bce8cbc53b44a10c57800df75eeebb5db3547d9c236382c24",
-      "width": 228,
-      "height": 524
-    }
+    "png": "632d56bdcff414432891debf61bdb3c9698197d1e6ca47b3b2122cacbe6d181c",
+    "webp": "113ffad0f11c9700a9ddb4d4c1946b5934a1085eb31a35c2fa05cef79f0be28f"
   },
   "315902": {
-    "webp": "cc4ada860ca127214ea1c4dbe1e8e73e3f56444cf86b6dfb0ffa558773cb75c2",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/315902.webp",
-      "sourceSha256": "cc4ada860ca127214ea1c4dbe1e8e73e3f56444cf86b6dfb0ffa558773cb75c2",
-      "width": 228,
-      "height": 524
-    }
+    "png": "27092f6ddbae85a6b82e9e2488dd70bad55b790df0b67ac7304a7ff3d310ec7b",
+    "webp": "b6bc5efa6dc49957be581203e4ceab28f17094b056eda3ee426b9952c01063ae"
   },
   "316001": {
-    "webp": "00f730169295ea44dfd3d929d24f207414af01f1c2944db7f8bab7238b2ffbce",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/316001.webp",
-      "sourceSha256": "00f730169295ea44dfd3d929d24f207414af01f1c2944db7f8bab7238b2ffbce",
-      "width": 228,
-      "height": 524
-    }
+    "png": "b25883fb40ef0bad308c372edb4c8bb7568c7ea93795c43efdcd675e2ddec454",
+    "webp": "ede5a2b5c62befa9be7667badf8a0707323dbacd626ae4531842d2758dbed43b"
   },
   "316002": {
-    "webp": "c5b66a6705080215fda9059514ada79b1c8c8dec46a77a7e6fb80334113e734d",
-    "uttu": {
-      "sourceUrl": "https://assets.merui.net/headicon_middle/316002.webp",
-      "sourceSha256": "c5b66a6705080215fda9059514ada79b1c8c8dec46a77a7e6fb80334113e734d",
-      "width": 228,
-      "height": 524
-    }
+    "png": "75eac58c33376c8c416d2ba6160c25528119a2c260604cdd43c6f490e85b2ef2",
+    "webp": "7f4bab72baa3fbfd6c8cd9d0672729d0ab7a9e088a5d451c0cdb56ac7aa3e91a"
   },
   "316301": {
     "png": "4ad739988fab9f39665e6b7c59c21a2b9fb9b7864fc1b52e0cf544a24a8ca748",

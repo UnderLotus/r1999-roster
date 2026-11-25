@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "baseId": 3999,
+    "variantId": "399901",
+    "name": "残留影像",
+    "nameEng": "APPLe",
+    "reason": "headicon not yet in CN asset repo"
+  }
+]

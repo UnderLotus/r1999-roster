@@ -51,6 +51,11 @@
       "variantId": "30660001",
       "isReleased": false,
       "note": "CN 4.0 skin; not released yet"
+    },
+    {
+      "variantId": "308005",
+      "isReleased": false,
+      "note": "CN-only KFC collaboration; not released overseas"
     }
   ]
 }
