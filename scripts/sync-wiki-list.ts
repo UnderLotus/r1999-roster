@@ -23,6 +23,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { createVariantIdentityCatalog } from "../src/domain/variant-identity";
 import type { Character } from "./types";
 import { recalculateReleaseOrder } from "./recalculate-order";
 
@@ -55,13 +56,16 @@ export function applyWikiMapping(
   characters: Character[],
   cards: WikiCard[]
 ): WikiMappingResult {
+  const identity = createVariantIdentityCatalog(characters);
   const cardByBaseId = new Map<number, { card: WikiCard; index: number }>();
   for (let index = 0; index < cards.length; index++) {
     const card = cards[index];
     if (!Number.isInteger(card.rarity) || card.rarity < 2 || card.rarity > 6) {
       throw new Error(`invalid Wiki rarity ${String(card.rarity)} for variant ${card.id}`);
     }
-    cardByBaseId.set(Math.floor(card.id / 100), { card, index });
+    const owner = identity.getCharacterByVariantId(String(card.id));
+    if (!owner) continue;
+    cardByBaseId.set(owner.baseId, { card, index });
   }
   let indexed = 0;
   let pageUrlUpdated = 0;

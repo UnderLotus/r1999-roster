@@ -1,12 +1,8 @@
+// Pure storage adapter tests (no boxStore import, no global localStorage needed).
 import assert from "node:assert/strict";
 
 import { createJSONStorage } from "zustand/middleware";
 
-import { characters } from "../src/data/characters";
-import {
-  partializeBoxStore,
-  useBoxStore,
-} from "../src/store/boxStore";
 import {
   consumeStorageError,
   createSafeStorage,
@@ -38,14 +34,26 @@ class FakeRawStorage {
   }
 }
 
+async function captureWarnings(action: () => unknown | Promise<unknown>): Promise<string[]> {
+  const warnings: string[] = [];
+  const originalWarn = console.warn;
+  console.warn = (...args: unknown[]) => {
+    warnings.push(args.map(String).join(" "));
+  };
+  try {
+    await action();
+  } finally {
+    console.warn = originalWarn;
+  }
+  return warnings;
+}
+
 const key = "reverse1999-box-state";
-const character = characters.find((entry) => entry.isReleased !== false);
-assert.ok(character, "fixture has a released character");
 const persistedState = {
-  characters: { [character.id]: { owned: true as const, portray: 3 as const } },
+  characters: { "300301": { owned: true as const, portray: 3 as const } },
   displayLang: "zh-TW" as const,
-  activeVariant: { [character.id]: character.defaultVariant },
-  customVariants: { [character.id]: true as const },
+  activeVariant: { "300301": "300301" },
+  customVariants: { "300301": true as const },
   userId: "storage-user",
   langChosen: true,
   showFutureSight: false,
@@ -63,6 +71,7 @@ function createComposedStorage(value?: string) {
   return { raw, composed };
 }
 
+// Legacy double-encoded JSON hydrates and rewrites once to canonical format.
 {
   const { raw, composed } = createComposedStorage(legacy);
   const hydrated = await composed.getItem(key);
@@ -70,22 +79,21 @@ function createComposedStorage(value?: string) {
   assert.deepEqual(raw.writes, [{ key, value: canonical }], "legacy bytes rewrite once on first read");
 }
 
+// Canonical format hydrates without rewriting.
 {
   const { raw, composed } = createComposedStorage(canonical);
   assert.deepEqual(await composed.getItem(key), envelope);
   assert.deepEqual(raw.writes, [], "canonical hydration does not rewrite storage");
 }
 
+// Writes encode once and pass bytes unchanged.
 {
   const { raw, composed } = createComposedStorage();
   await composed.setItem(key, envelope);
-  assert.deepEqual(
-    raw.writes,
-    [{ key, value: canonical }],
-    "createJSONStorage encodes once and raw adapter passes bytes unchanged"
-  );
+  assert.deepEqual(raw.writes, [{ key, value: canonical }]);
 }
 
+// Corrupt values fail closed without deleting or rewriting stored bytes.
 const corruptValues = [
   ["corrupt outer JSON", "not-json"],
   ["corrupt legacy inner JSON", JSON.stringify("not-inner-json")],
@@ -101,6 +109,7 @@ for (const [label, corrupt] of corruptValues) {
   assert.deepEqual(raw.removals, []);
 }
 
+// Read errors fail silently without tripping write-failure warning flag.
 {
   consumeStorageError();
   const raw = new FakeRawStorage();
@@ -109,56 +118,44 @@ for (const [label, corrupt] of corruptValues) {
   assert.equal(consumeStorageError(), false, "read failures remain silent");
 }
 
+// Legacy rewrite failure still hydrates, keeps legacy bytes, logs warning, and sets error flag.
 {
   consumeStorageError();
   const raw = new FakeRawStorage();
   raw.values.set(key, legacy);
   raw.throwOnWrite = true;
-  assert.equal(
-    await createSafeStorage(raw).getItem(key),
-    canonical,
-    "legacy rewrite failure does not block hydration"
-  );
+  let hydrated: string | null = null;
+  const warnings = await captureWarnings(async () => {
+    hydrated = await createSafeStorage(raw).getItem(key);
+  });
+  assert.equal(hydrated, canonical, "legacy rewrite failure does not block hydration");
   assert.equal(raw.values.get(key), legacy, "failed rewrite preserves legacy bytes");
   assert.equal(consumeStorageError(), true, "legacy rewrite failure sets warning flag");
+  assert.match(warnings[0] ?? "", /legacy persist rewrite failed/);
 }
 
+// Write and remove failures log warnings and set the storage error flag.
 {
   consumeStorageError();
   const raw = new FakeRawStorage();
   raw.throwOnWrite = true;
-  await createSafeStorage(raw).setItem(key, canonical);
+  const warnings = await captureWarnings(() =>
+    createSafeStorage(raw).setItem(key, canonical)
+  );
   assert.equal(consumeStorageError(), true, "canonical write failure sets warning flag");
+  assert.match(warnings[0] ?? "", /persist failed/);
 }
 
 {
   consumeStorageError();
   const raw = new FakeRawStorage();
   raw.throwOnRemove = true;
-  await createSafeStorage(raw).removeItem(key);
+  const warnings = await captureWarnings(() =>
+    createSafeStorage(raw).removeItem(key)
+  );
   assert.equal(consumeStorageError(), true, "remove failure sets warning flag");
-}
-
-{
-  const projected = partializeBoxStore({
-    ...useBoxStore.getState(),
-    ...persistedState,
-    filterMode: "owned",
-    search: "transient query",
-    rarityFilter: [6],
-  });
-  assert.deepEqual(Object.keys(projected).sort(), [
-    "activeVariant",
-    "characters",
-    "customVariants",
-    "defaultSkinMode",
-    "displayLang",
-    "langChosen",
-    "showFutureSight",
-    "userId",
-  ]);
-  console.log("ok: partialize persists only the exact Box/preferences allowlist");
+  assert.match(warnings[0] ?? "", /persist remove failed/);
 }
 
 consumeStorageError();
-console.log("storage adapter checks passed");
+console.log("Storage adapter checks passed.");

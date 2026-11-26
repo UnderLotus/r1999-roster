@@ -6,11 +6,11 @@ import { fileURLToPath } from "node:url";
 
 import sharp from "sharp";
 
+import { validateSupplementWebp } from "./uttu-supplement";
 import {
   convertPngToLosslessWebp,
   validateImageParity,
 } from "./webp-converter";
-import { validateSupplementWebp } from "./uttu-supplement";
 
 const width = 3;
 const height = 2;
@@ -29,6 +29,99 @@ async function writeWebp(filePath: string, data: Buffer): Promise<void> {
   await sharp(data, { raw: { width, height, channels: 4 } })
     .webp({ lossless: true, effort: 6 })
     .toFile(filePath);
+}
+
+async function testConverterAndSupplementGate(): Promise<void> {
+  const directory = await mkdtemp(path.join(os.tmpdir(), "r1999-webp-test-"));
+  try {
+    const sourcePath = path.join(directory, "fixture.png");
+    const outputPath = path.join(directory, "fixture.webp");
+    await writePng(sourcePath, pixels);
+
+    await convertPngToLosslessWebp(sourcePath, outputPath);
+    assert.deepEqual((await readdir(directory)).sort(), ["fixture.png", "fixture.webp"]);
+
+    // Supplement WebP gate: lossless + alpha passes; lossy, disguised PNG, and no-alpha reject.
+    assert.deepEqual(
+      await validateSupplementWebp(outputPath),
+      { width, height },
+      "lossless supplemental WebP passes decoded dimension/alpha validation"
+    );
+
+    const lossyPath = path.join(directory, "lossy.webp");
+    await sharp(pixels, { raw: { width, height, channels: 4 } })
+      .webp({ lossless: false, quality: 80 })
+      .toFile(lossyPath);
+    await assert.rejects(() => validateSupplementWebp(lossyPath), /not a lossless WebP/);
+
+    const disguisedPngPath = path.join(directory, "disguised.webp");
+    await writePng(disguisedPngPath, pixels);
+    await assert.rejects(() => validateSupplementWebp(disguisedPngPath), /not a lossless WebP/);
+
+    const noAlphaPath = path.join(directory, "no-alpha.webp");
+    await sharp(Buffer.from([255, 0, 0]), {
+      raw: { width: 1, height: 1, channels: 3 },
+    })
+      .webp({ lossless: true, effort: 6 })
+      .toFile(noAlphaPath);
+    await assert.rejects(() => validateSupplementWebp(noAlphaPath), /no alpha channel/);
+
+    // Parity validation: visible RGB diff, alpha diff, and size diff reject;
+    // RGB differences in fully transparent (alpha === 0) pixels are ignored.
+    const rgbDiffPixels = Buffer.from(pixels);
+    rgbDiffPixels[0] = 254;
+    const rgbDiffPath = path.join(directory, "rgb-diff.webp");
+    await writeWebp(rgbDiffPath, rgbDiffPixels);
+    await assert.rejects(() => validateImageParity(sourcePath, rgbDiffPath), /Image RGB differs/);
+
+    const alphaDiffPixels = Buffer.from(pixels);
+    alphaDiffPixels[7] = 127;
+    const alphaDiffPath = path.join(directory, "alpha-diff.webp");
+    await writeWebp(alphaDiffPath, alphaDiffPixels);
+    await assert.rejects(
+      () => validateImageParity(sourcePath, alphaDiffPath),
+      /Image alpha differs/
+    );
+
+    const transparentRgbDiff = Buffer.from(pixels);
+    transparentRgbDiff[8] = 1; // pixel 2 has alpha === 0
+    transparentRgbDiff[9] = 2;
+    transparentRgbDiff[10] = 3;
+    const transparentDiffPath = path.join(directory, "transparent-rgb-diff.webp");
+    await writeWebp(transparentDiffPath, transparentRgbDiff);
+    await validateImageParity(sourcePath, transparentDiffPath);
+
+    const wrongSizePath = path.join(directory, "wrong-size.webp");
+    await sharp(Buffer.from([1, 2, 3, 255]), {
+      raw: { width: 1, height: 1, channels: 4 },
+    })
+      .webp({ lossless: true, effort: 6 })
+      .toFile(wrongSizePath);
+    await assert.rejects(
+      () => validateImageParity(sourcePath, wrongSizePath),
+      /Image dimensions differ/
+    );
+
+    // Failed conversion preserves existing output bytes and leaves no .tmp- staging files.
+    const invalidSourcePath = path.join(directory, "invalid.png");
+    const preservedOutputPath = path.join(directory, "preserved.webp");
+    const preservedBytes = Buffer.from("existing output");
+    await writeFile(invalidSourcePath, "not an image");
+    await writeFile(preservedOutputPath, preservedBytes);
+    await assert.rejects(() =>
+      convertPngToLosslessWebp(invalidSourcePath, preservedOutputPath)
+    );
+    assert.deepEqual(await readFile(preservedOutputPath), preservedBytes);
+    assert.equal(
+      (await readdir(directory)).some((file) => file.includes(".tmp-")),
+      false,
+      "staging files are removed after failure"
+    );
+
+    console.log("Lossless WebP converter and supplement gate checks passed.");
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
 }
 
 async function testRepositoryAssets(): Promise<void> {
@@ -50,12 +143,18 @@ async function testRepositoryAssets(): Promise<void> {
   );
 
   let totalBytes = 0;
-  for (const file of avatarFiles) {
-    const filePath = path.join(avatarsDir, file);
-    const metadata = await sharp(filePath).metadata();
-    assert.equal(metadata.format, "webp", `${file} is WebP`);
-    await sharp(filePath).raw().toBuffer();
-    totalBytes += (await stat(filePath)).size;
+  const BATCH_SIZE = 16;
+  for (let offset = 0; offset < avatarFiles.length; offset += BATCH_SIZE) {
+    const sizes = await Promise.all(
+      avatarFiles.slice(offset, offset + BATCH_SIZE).map(async (file) => {
+        const filePath = path.join(avatarsDir, file);
+        const metadata = await sharp(filePath).metadata();
+        assert.equal(metadata.format, "webp", `${file} is WebP`);
+        await sharp(filePath).raw().toBuffer();
+        return (await stat(filePath)).size;
+      })
+    );
+    for (const size of sizes) totalBytes += size;
   }
 
   const vertin = await sharp(path.join(root, "public/assets/vertin_question.webp")).metadata();
@@ -72,93 +171,5 @@ async function testRepositoryAssets(): Promise<void> {
   );
 }
 
-const directory = await mkdtemp(path.join(os.tmpdir(), "r1999-webp-test-"));
-try {
-  const sourcePath = path.join(directory, "fixture.png");
-  const outputPath = path.join(directory, "fixture.webp");
-  await writePng(sourcePath, pixels);
-
-  await convertPngToLosslessWebp(sourcePath, outputPath);
-
-  const filesAfterSuccess = await readdir(directory);
-  assert.deepEqual(filesAfterSuccess.sort(), ["fixture.png", "fixture.webp"]);
-
-  assert.deepEqual(
-    await validateSupplementWebp(outputPath),
-    { width, height },
-    "lossless supplemental WebP passes decoded dimension/alpha validation"
-  );
-
-  const lossyPath = path.join(directory, "lossy.webp");
-  await sharp(pixels, { raw: { width, height, channels: 4 } })
-    .webp({ lossless: false, quality: 80 })
-    .toFile(lossyPath);
-  await assert.rejects(
-    () => validateSupplementWebp(lossyPath),
-    /not a lossless WebP/,
-    "lossy WebP cannot enter the supplemental asset inventory"
-  );
-
-  const disguisedPngPath = path.join(directory, "disguised.webp");
-  await writePng(disguisedPngPath, pixels);
-  await assert.rejects(
-    () => validateSupplementWebp(disguisedPngPath),
-    /not a lossless WebP/,
-    "a PNG renamed as WebP is rejected"
-  );
-
-  const noAlphaPath = path.join(directory, "no-alpha.webp");
-  await sharp(Buffer.from([255, 0, 0, 0, 255, 0, 0, 0, 255]), {
-    raw: { width: 1, height: 1, channels: 3 },
-  })
-    .webp({ lossless: true, effort: 6 })
-    .toFile(noAlphaPath);
-  await assert.rejects(
-    () => validateSupplementWebp(noAlphaPath),
-    /no alpha channel/,
-    "supplemental images must retain an alpha channel"
-  );
-
-  const mismatchedPixels = Buffer.from(pixels);
-  mismatchedPixels[0] = 254;
-  const mismatchedPath = path.join(directory, "mismatched.webp");
-  await writeWebp(mismatchedPath, mismatchedPixels);
-  await assert.rejects(
-    () => validateImageParity(sourcePath, mismatchedPath),
-    /Image RGB differs/
-  );
-
-  const wrongSizePath = path.join(directory, "wrong-size.webp");
-  await sharp(Buffer.from([1, 2, 3, 255]), {
-    raw: { width: 1, height: 1, channels: 4 },
-  })
-    .webp({ lossless: true, effort: 6 })
-    .toFile(wrongSizePath);
-  await assert.rejects(
-    () => validateImageParity(sourcePath, wrongSizePath),
-    /Image dimensions differ/
-  );
-
-  const invalidSourcePath = path.join(directory, "invalid.png");
-  const preservedOutputPath = path.join(directory, "preserved.webp");
-  const preservedBytes = Buffer.from("existing output");
-  await writeFile(invalidSourcePath, "not an image");
-  await writeFile(preservedOutputPath, preservedBytes);
-  await assert.rejects(() =>
-    convertPngToLosslessWebp(invalidSourcePath, preservedOutputPath)
-  );
-  assert.deepEqual(await readFile(preservedOutputPath), preservedBytes);
-
-  const filesAfterFailure = await readdir(directory);
-  assert.equal(
-    filesAfterFailure.some((file) => file.includes(".tmp-")),
-    false,
-    "staging files are removed after failure"
-  );
-
-  console.log("All lossless WebP converter tests passed.");
-} finally {
-  await rm(directory, { recursive: true, force: true });
-}
-
+await testConverterAndSupplementGate();
 await testRepositoryAssets();

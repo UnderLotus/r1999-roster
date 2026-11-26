@@ -150,8 +150,7 @@ export default function App() {
       }
       if (
         rarityFilter.length > 0 &&
-        c.rarity !== undefined &&
-        !rarityFilter.includes(c.rarity)
+        (c.rarity === undefined || !rarityFilter.includes(c.rarity))
       ) {
         return false;
       }

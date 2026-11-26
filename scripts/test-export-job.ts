@@ -71,8 +71,7 @@ function createHarness(): {
   };
 }
 
-// Success publishes progress, enforces single-flight, downloads once, and
-// releases the URL on the owned cleanup timer.
+// Success: publishes progress, enforces single-flight, downloads once, and releases URL on timer.
 {
   const harness = createHarness();
   const observedProgress: string[] = [];
@@ -81,35 +80,24 @@ function createHarness(): {
     if (progress) observedProgress.push(`${progress.loaded}/${progress.total}`);
   });
 
-  assert(harness.job.start("snapshot-a"), "success: first export starts");
-  assert(
-    !harness.job.start("snapshot-b"),
-    "single-flight: overlapping export is rejected"
-  );
-  assert(
-    harness.job.getState().snapshot === "snapshot-a",
-    "single-flight: active snapshot stays stable"
-  );
+  assert.equal(harness.job.start("snapshot-a"), true);
+  assert.equal(harness.job.start("snapshot-b"), false, "overlapping export is rejected");
+  assert.equal(harness.job.getState().snapshot, "snapshot-a");
   await flushAsyncWork();
 
-  assert(harness.job.getState().status === "idle", "success: returns to idle");
-  assert(harness.job.getState().snapshot === null, "success: unmounts snapshot");
-  assert(observedProgress.includes("1/1"), "success: publishes image progress");
-  assert(harness.downloads.length === 1, "success: downloads exactly once");
-  assert(
-    harness.downloads[0]?.filename === "reverse-1999-box-2026-08-27.jpg",
-    "success: preserves JPEG filename behavior"
-  );
+  assert.equal(harness.job.getState().status, "idle");
+  assert.equal(harness.job.getState().snapshot, null);
+  assert.deepEqual(observedProgress, ["1/1"]);
+  assert.deepEqual(harness.downloads, [
+    { url: "blob:test-1", filename: "reverse-1999-box-2026-08-27.jpg" },
+  ]);
   const [releaseTimer] = harness.timers;
-  assert(releaseTimer, "success: schedules owned URL cleanup");
+  assert.ok(releaseTimer, "schedules owned URL cleanup");
   releaseTimer();
-  assert(
-    harness.revokedUrls.join(",") === "blob:test-1",
-    "success: releases object URL exactly once"
-  );
+  assert.deepEqual(harness.revokedUrls, ["blob:test-1"]);
 }
 
-// Lazy-load failure is retryable.
+// Lazy-load failure reports error, unmounts snapshot, and is immediately retryable.
 {
   const harness = createHarness();
   harness.setLoader(async () => {
@@ -118,20 +106,17 @@ function createHarness(): {
   harness.job.start("failed-import");
   await flushAsyncWork();
 
-  assert(harness.job.getState().status === "error", "loader failure: reports error");
-  assert(
-    harness.job.getState().snapshot === null,
-    "loader failure: unmounts off-screen snapshot"
-  );
+  assert.equal(harness.job.getState().status, "error");
+  assert.equal(harness.job.getState().snapshot, null);
 
   harness.setLoader(async () => async () => new Blob(["retry"]));
-  assert(harness.job.start("retry"), "loader failure: retry starts immediately");
+  assert.equal(harness.job.start("retry"), true);
   await flushAsyncWork();
-  assert(harness.job.getState().status === "idle", "retry: succeeds after failure");
+  assert.equal(harness.job.getState().status, "idle");
   harness.job.cancel();
 }
 
-// Render failure becomes retryable and leaves no render tree.
+// Render failure transitions to error and resets via timer.
 {
   const harness = createHarness();
   harness.setRenderer(async () => {
@@ -139,17 +124,11 @@ function createHarness(): {
   });
   harness.job.start("capture-failure");
   await flushAsyncWork();
-  assert(
-    harness.job.getState().status === "error",
-    "image/capture failure: reports a retryable error"
-  );
+  assert.equal(harness.job.getState().status, "error");
   const [resetError] = harness.timers;
-  assert(resetError, "image/capture failure: schedules error reset");
+  assert.ok(resetError, "schedules error reset timer");
   resetError();
-  assert(
-    harness.job.getState().status === "idle",
-    "image/capture failure: timer resets error display"
-  );
+  assert.equal(harness.job.getState().status, "idle");
   harness.job.cancel();
 }
 
@@ -163,23 +142,16 @@ function createHarness(): {
     return capture.promise;
   });
 
-  assert(harness.job.start("cancelled"), "cancellation: export starts");
+  assert.equal(harness.job.start("cancelled"), true);
   await flushAsyncWork();
-  assert(captureBegun, "cancellation: capture is in flight");
+  assert.equal(captureBegun, true);
   harness.job.cancel();
   capture.resolve(new Blob(["late"]));
   await flushAsyncWork();
 
-  assert.equal(
-    harness.downloads.length,
-    0,
-    "cancellation: late Blob never triggers a download"
-  );
-  assert(
-    harness.job.getState().status === "idle" &&
-      harness.job.getState().snapshot === null,
-    "cancellation: abandoned attempt stays idle with no snapshot"
-  );
+  assert.equal(harness.downloads.length, 0, "late Blob never triggers a download");
+  assert.equal(harness.job.getState().status, "idle");
+  assert.equal(harness.job.getState().snapshot, null);
 }
 
-console.log("export job checks passed");
+console.log("Export job checks passed.");
